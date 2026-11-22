@@ -13,13 +13,13 @@
 
 ## Resumo
 
-`[██████░░░░]` 64% — 7 de 11 tarefas escritas.
+`[███████░░░]` 73% — 8 de 11 tarefas escritas.
 
 | Plano | Progresso | Tarefas | Estado |
 | --- | --- | --- | --- |
 | 01 — html-deck | `[██████████]` | 3/3 | Concluído 2026-11-22 |
 | 02 — word | `[██████████]` | 4/4 | Concluído 2026-11-22 |
-| 03 — latex | `[░░░░░░░░░░]` | 0/4 | Escrito. Próximo |
+| 03 — latex | `[███░░░░░░░]` | 1/4 | Em execução |
 | 04 — conferencia-e-release | `[░░░░░░░░░░]` | — | Não escrito. Escrito quando 03 terminar |
 | 05 — site | `[░░░░░░░░░░]` | — | Não escrito. Escrito quando 04 terminar |
 
@@ -48,11 +48,11 @@ Branch `main`, base `7a35f7e`. API do `docx` 9.16: tem `fonts`, `hyphenation`, S
 
 ## Plano 03 — latex
 
-`[░░░░░░░░░░]` 0% — 0 de 4 tarefas.
+`[███░░░░░░░]` 25% — 1 de 4 tarefas.
 
 Branch `main`, base `543fe22`. TeX Live 2026 *basic* local: sem `tcolorbox`, `lastpage`, `svg`, `needspace`, `textpos`.
 
-- [ ] **Task 1** — Classe base, `latex.sh`, check e Relatório
+- [x] **Task 1** — Classe base, `latex.sh`, check e Relatório — `b472cb5`, check_latex ok (3 páginas A4, só Outfit/JetBrainsMono, 0 Overfull, compila em pasta vazia); revisão: 1 Important + 5 correções em `2b85ec8`
 - [ ] **Task 2** — Artigo
 - [ ] **Task 3** — POP
 - [ ] **Task 4** — Conferência e passagem para o 04
@@ -70,6 +70,7 @@ Branch `main`, base `543fe22`. TeX Live 2026 *basic* local: sem `tcolorbox`, `la
 
 ## Changelog
 
+- 2026-11-22 — Task 1 (classe LaTeX e Relatório) concluída, `b472cb5`, correção `2b85ec8`.
 - 2026-11-22 — Plano 03 (latex) escrito.
 - 2026-11-22 — Task 4 concluída, `4fd708d`; correção da revisão da Task 3. Plano 02 concluído.
 - 2026-11-22 — Task 3 (POP) concluída, `87d4d7f`; inclui Minors da revisão da Task 2.
