@@ -1,10 +1,9 @@
 #!/bin/sh
-# Empacota a release de marca (tag marca-vX.Y.Z). Roda na máquina local: o GitHub Actions não tem o VectorCraft.
+# Empacota a release de marca (tag marca-vX.Y.Z). Logos institucionais: downloads/institucionais.sh. Roda na máquina local: o GitHub Actions não tem o VectorCraft.
 #
 # Antes, no VectorCraft (ver assets/logos/CHANGELOG.md, "Como gerar"):
 #   downloads/LINA-Marca.vectorcraft   uma prancheta por forma + construção, paleta como amostras globais
 #   downloads/LINA-Cores.ase           paleta (Window > Swatches > Save Swatch Library, grupos LINA)
-#   downloads/institucionais/*.vectorcraft   logos institucionais abertos dos .ai originais
 #
 # Uso: sh downloads/marca.sh            gera os .zip em downloads/
 #      sh downloads/marca.sh --publicar também cria a tag e a release no GitHub
@@ -39,19 +38,14 @@ EOF
 rm -f downloads/LINA-Logos.zip
 (cd "$T/logos" && zip -qr - .) > downloads/LINA-Logos.zip
 
-# Institucionais: VectorCraft (editável), PNG e SVG brancos.
-mkdir -p "$T/inst"
-cp downloads/institucionais/*.vectorcraft assets/logos-institutions/*.png assets/logos-institutions/*.svg "$T/inst/"
-rm -f downloads/Logos-Institucionais.zip
-(cd "$T/inst" && zip -qr - .) > downloads/Logos-Institucionais.zip
 rm -rf "$T"
 
-ls -l downloads/LINA-Marca.vectorcraft downloads/LINA-Cores.ase downloads/LINA-Logos.zip downloads/Logos-Institucionais.zip
+ls -l downloads/LINA-Marca.vectorcraft downloads/LINA-Cores.ase downloads/LINA-Logos.zip
 
 if [ "$1" = "--publicar" ]; then
   git tag "marca-v$V" && git push origin "marca-v$V"
   sed -n "/^## $V/,/^## /p" assets/logos/CHANGELOG.md | sed '1d;$d' > downloads/notas.md
   gh release create "marca-v$V" --title "Marca $V" --notes-file downloads/notas.md \
-    downloads/LINA-Marca.vectorcraft downloads/LINA-Cores.ase downloads/LINA-Logos.zip downloads/Logos-Institucionais.zip
+    downloads/LINA-Marca.vectorcraft downloads/LINA-Cores.ase downloads/LINA-Logos.zip
   rm downloads/notas.md
 fi
