@@ -43,8 +43,8 @@ const MODELOS = {
     cabSecao: 1, // índice da seção onde entram cabeçalho e rodapé (a 0 é a capa, sem eles)
     // antes: empurra o bloco do título ao terço inferior da capa. No HTML o título começa a ~57 % da página
     // (≈ 516 px abaixo da linha do logo); a conta cheia dava 560 px e estourou no Word/LibreOffice
-    // (altura de linha maior). 500 px deixa folga; ajustar olhando o render.
-    rotulo: { px: 16, fio: true, antes: px(500) },
+    // (altura de linha maior). 530 px: 540 estoura no LibreOffice; 10 px de folga para o Word.
+    rotulo: { px: 16, fio: true, antes: px(530) },
     titulo: { font: F.xbold, bold: false, px: 56, lh: 1.02, track: -0.02 },
     secao: { px: 26, lh: 1.15, track: -0.01 },
   },
@@ -133,6 +133,8 @@ const estilosP = (t) => [
   P('LINAEquipe', 'LINA Equipe', { paragraph: { spacing: { before: px(14), line: lh(13, 1.45), lineRule: EXACT } }, run: { size: hp(13) } }),
   // before/after de 24 px: respiro do colofão entre o fio e o texto e até a margem inferior
   P('LINAColofao', 'LINA Colofão', { paragraph: { spacing: { before: px(24), after: px(24), line: lh(12, 1.55), lineRule: EXACT } }, run: { size: hp(12) } }),
+  // logo do colofão: entrelinha automática, senão a linha exata corta a imagem e ela sobe até o fio
+  P('LINAColofaoLogo', 'LINA Colofão Logo', { basedOn: 'LINAColofao', paragraph: { spacing: { line: 240, lineRule: LineRuleType.AUTO } } }),
   P('LINAAutores', 'LINA Autores', { paragraph: { spacing: { before: px(18) } }, run: { size: hp(15) } }),
   P('LINAAfiliacao', 'LINA Afiliação', { paragraph: { spacing: { before: px(4) } }, run: { size: hp(12), color: mix(C.umbro, 0.75) } }),
   P('LINAResumo', 'LINA Resumo', { paragraph: { alignment: AlignmentType.BOTH, spacing: { line: lh(14, 1.55), lineRule: EXACT } }, run: { size: hp(14) } }),
@@ -326,7 +328,7 @@ function relatorio(a) {
       quebra(),
       // colofão: tabela flutuante ancorada na margem inferior (nunca caixa de texto)
       grade('LINAMetadadosFio', [110, 234], 32, [[
-        [new Paragraph({ style: 'LINAColofao', children: [a.logo(110)] })],
+        [new Paragraph({ style: 'LINAColofaoLogo', children: [a.logo(110)] })],
         [new Paragraph({ style: 'LINAColofao', children: [
           r('Laboratório de Modelagem da Informação', 'LINADestaque'),
           ...['Departamento de Arquitetura, Urbanismo e Design', 'Universidade Federal do Ceará', 'Av. da Universidade, Fortaleza – CE'].map((t) => r(t, null, 1)),
