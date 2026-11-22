@@ -34,7 +34,7 @@ Data: 2026-11-22. Commits do plano 02: `786a546` (base e Relatório), `b230c54` 
 - **Marcador dos critérios** do POP é □ (U+25A1): JetBrains Mono não tem ☐ (U+2610).
 - **Mono parece mais pesado** no render do LibreOffice que no HTML (esta máquina tem também a JetBrains Mono variável instalada). Conferir no Word.
 - **Números de página** reais (Relatório 2 e 3; Artigo 1, 2, 3); o HTML mostra números ilustrativos (24; 9, 18).
-- **Logo:** o asset `assets/logos/sand/lina-horizontal-ferro.svg` tem o "A" em umbro; o `build.js` recolore o "A" para ferro-fundo, como no HTML. Decisão a confirmar com o usuário.
+- **Logo:** "A" em umbro, como no asset `assets/logos/sand/lina-horizontal-ferro.svg` (decidido pelo usuário em 2026-11-22; HTML e `build.js` ajustados).
 - **Mono no texto do POP** usa `LINA Mono Texto` (10 pt), não `LINA Mono` (11,5 pt) como dizia o plano: o HTML usa 13 px. O cabeçalho usa `LINA Mono` e herda 12 px de `LINA Cabeçalho`.
 - **`tblLook` explícito:** `LINA Metadados Fios` (respiro no fim, lastRow) e `LINA Atenção` (fundo, firstRow) dependem dele. Tabela nova criada no Word pelo estilo usa o `tblLook` padrão 04A0, sem lastRow, e perde o respiro de 20 px no fim.
 - **Pequenas diferenças de espaçamento no POP:** espaço antes de seção fixo em 32 px (HTML varia de 28 a 36); registro de execução em 10,5 pt (HTML 13 px); metadados com 18 px antes (HTML 22).

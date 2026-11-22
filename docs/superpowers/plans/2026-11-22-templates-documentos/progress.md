@@ -13,13 +13,13 @@
 
 ## Resumo
 
-`[██████████]` 100% — 7 de 7 tarefas escritas.
+`[██████░░░░]` 64% — 7 de 11 tarefas escritas.
 
 | Plano | Progresso | Tarefas | Estado |
 | --- | --- | --- | --- |
 | 01 — html-deck | `[██████████]` | 3/3 | Concluído 2026-11-22 |
 | 02 — word | `[██████████]` | 4/4 | Concluído 2026-11-22 |
-| 03 — latex | `[░░░░░░░░░░]` | — | Não escrito. Próximo |
+| 03 — latex | `[░░░░░░░░░░]` | 0/4 | Escrito. Próximo |
 | 04 — conferencia-e-release | `[░░░░░░░░░░]` | — | Não escrito. Escrito quando 03 terminar |
 | 05 — site | `[░░░░░░░░░░]` | — | Não escrito. Escrito quando 04 terminar |
 
@@ -46,6 +46,17 @@ Branch `main`, base `7a35f7e`. API do `docx` 9.16: tem `fonts`, `hyphenation`, S
 - [x] **Task 3** — POP — `87d4d7f`, check_word ok (6 arquivos), validate ok, render 3 páginas com "1 / 3"…"3 / 3", Relatório e Artigo sem regressão; revisão: 1 Important (cabeçalho a 13 px) corrigido em `4fd708d`
 - [x] **Task 4** — Conferência e passagem para o 03 — `4fd708d`, folhas HTML × Word conferidas nos 3 modelos, handoff em [`records/02-word-handoff.md`](records/02-word-handoff.md)
 
+## Plano 03 — latex
+
+`[░░░░░░░░░░]` 0% — 0 de 4 tarefas.
+
+Branch `main`, base `543fe22`. TeX Live 2026 *basic* local: sem `tcolorbox`, `lastpage`, `svg`, `needspace`, `textpos`.
+
+- [ ] **Task 1** — Classe base, `latex.sh`, check e Relatório
+- [ ] **Task 2** — Artigo
+- [ ] **Task 3** — POP
+- [ ] **Task 4** — Conferência e passagem para o 04
+
 ## Estado herdado
 
 - `DocumentoA4.dc.html` com 9 páginas soltas (sem deck), cartão "Como usar" e rótulos entre páginas.
@@ -59,6 +70,7 @@ Branch `main`, base `7a35f7e`. API do `docx` 9.16: tem `fonts`, `hyphenation`, S
 
 ## Changelog
 
+- 2026-11-22 — Plano 03 (latex) escrito.
 - 2026-11-22 — Task 4 concluída, `4fd708d`; correção da revisão da Task 3. Plano 02 concluído.
 - 2026-11-22 — Task 3 (POP) concluída, `87d4d7f`; inclui Minors da revisão da Task 2.
 - 2026-11-22 — Task 2 (Artigo) concluída, `b230c54`; inclui correções da revisão da Task 1.
