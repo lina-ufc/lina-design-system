@@ -13,13 +13,13 @@
 
 ## Resumo
 
-`[█████████░]` 86% — 6 de 7 tarefas escritas.
+`[██████████]` 100% — 7 de 7 tarefas escritas.
 
 | Plano | Progresso | Tarefas | Estado |
 | --- | --- | --- | --- |
 | 01 — html-deck | `[██████████]` | 3/3 | Concluído 2026-11-22 |
-| 02 — word | `[████████░░]` | 3/4 | Em execução |
-| 03 — latex | `[░░░░░░░░░░]` | — | Não escrito. Escrito quando 02 terminar |
+| 02 — word | `[██████████]` | 4/4 | Concluído 2026-11-22 |
+| 03 — latex | `[░░░░░░░░░░]` | — | Não escrito. Próximo |
 | 04 — conferencia-e-release | `[░░░░░░░░░░]` | — | Não escrito. Escrito quando 03 terminar |
 | 05 — site | `[░░░░░░░░░░]` | — | Não escrito. Escrito quando 04 terminar |
 
@@ -37,14 +37,14 @@ Checagens que rodaram: `check_html.py` (Tasks 1 e 2); `sistema.py` e navegador d
 
 ## Plano 02 — word
 
-`[████████░░]` 75% — 3 de 4 tarefas.
+`[██████████]` 100% — 4 de 4 tarefas.
 
 Branch `main`, base `7a35f7e`. API do `docx` 9.16: tem `fonts`, `hyphenation`, SVG com `fallback`, tabela `float`, `TOTAL_PAGES`, `language`, colunas e `titlePage`; estilos de tabela injetados no `styles.xml` (pós-processamento com `fflate`).
 
 - [x] **Task 1** — Base e Relatório — `786a546`, check_word ok, validate ok, distorcidas 0, render 3 páginas; revisão: 2 Important corrigidos em `b230c54`
 - [x] **Task 2** — Artigo — `b230c54`, check_word ok (4 arquivos), validate ok, render 3 páginas, Relatório sem regressão; revisão limpa (0 Important), Minors levados à Task 3
-- [x] **Task 3** — POP — `87d4d7f`, check_word ok (6 arquivos), validate ok, render 3 páginas com "1 / 3"…"3 / 3", Relatório e Artigo sem regressão; revisão pendente
-- [ ] **Task 4** — Conferência e passagem para o 03
+- [x] **Task 3** — POP — `87d4d7f`, check_word ok (6 arquivos), validate ok, render 3 páginas com "1 / 3"…"3 / 3", Relatório e Artigo sem regressão; revisão: 1 Important (cabeçalho a 13 px) corrigido em `4fd708d`
+- [x] **Task 4** — Conferência e passagem para o 03 — `4fd708d`, folhas HTML × Word conferidas nos 3 modelos, handoff em [`records/02-word-handoff.md`](records/02-word-handoff.md)
 
 ## Estado herdado
 
@@ -59,6 +59,7 @@ Branch `main`, base `7a35f7e`. API do `docx` 9.16: tem `fonts`, `hyphenation`, S
 
 ## Changelog
 
+- 2026-11-22 — Task 4 concluída, `4fd708d`; correção da revisão da Task 3. Plano 02 concluído.
 - 2026-11-22 — Task 3 (POP) concluída, `87d4d7f`; inclui Minors da revisão da Task 2.
 - 2026-11-22 — Task 2 (Artigo) concluída, `b230c54`; inclui correções da revisão da Task 1.
 - 2026-11-22 — Task 1 (base e Relatório) concluída, `786a546`.
