@@ -13,7 +13,7 @@
 
 ## Resumo
 
-`[████████░░]` 83% — 15 de 18 tarefas escritas.
+`[█████████░]` 94% — 17 de 18 tarefas.
 
 | Plano | Progresso | Tarefas | Estado |
 | --- | --- | --- | --- |
@@ -21,7 +21,7 @@
 | 02 — word | `[██████████]` | 4/4 | Concluído 2026-11-22 |
 | 03 — latex | `[██████████]` | 4/4 | Concluído 2026-11-22; folhas aprovadas pelo usuário |
 | 04 — conferencia-e-release | `[██████████]` | 4/4 | Concluído 2026-11-23; release `documentos-v1.0.0` |
-| 05 — site | `[███████░░░]` | 2/3 | Escrito 2026-11-23; Task 1 feita |
+| 05 — site | `[███████░░░]` | 2/3 | Escrito 2026-11-23; Tasks 1–2 feitas |
 
 ## Plano 01 — html-deck
 
@@ -70,7 +70,7 @@ Branch `main`. PDFs de exemplo da release vêm do LaTeX; TeX Live do Ubuntu no r
 
 ## Plano 05 — site
 
-`[░░░░░░░░░░]` 0% — 0 de 3 tarefas.
+`[███████░░░]` 67% — 2 de 3 tarefas.
 
 Branch `main`. Só o Baixar da 8.2 é gerado (`_gerar.py`); `site.yml` baixa a release `documentos-v*`.
 
