@@ -100,9 +100,16 @@
   {
    "cap": "1",
    "nome": "1.7 Variações",
-   "sub": "Horizontal, vertical e símbolo, em positivo, negativo e sobre cinzas",
+   "sub": "Horizontal, vertical e símbolo em ferro; formas derivadas",
    "estado": "rascunho",
    "secao": "capitulos/1-logotipo/7-variacoes.html"
+  },
+  {
+   "cap": "1",
+   "nome": "1.8 Combinações de cores",
+   "sub": "Pares recomendados e não recomendáveis, com o símbolo sobre a placa",
+   "estado": "rascunho",
+   "secao": "capitulos/1-logotipo/8-combinacoes-de-cores.html"
   },
   {
    "cap": "2",

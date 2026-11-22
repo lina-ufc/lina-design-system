@@ -18,6 +18,7 @@ T=..
 cp out/LINA-Apresentacao.potx $T/LINA-Apresentacao.potx
 cp out/LINA-Apresentacao.pptx $T/LINA-Apresentacao-exemplo.pptx
 rm -rf $T/img && cp -R out/html/img $T/img && cp out/html/Apresentacao.dc.html $T/
+cp ../../../assets/lina-geometry.js ../../../assets/lina-dither-field.js $T/  # fonte única em assets/
 python3 embed-deck-stage.py $T/Apresentacao.dc.html $T/deck-stage.js
 soffice --headless --convert-to pdf --outdir out $T/LINA-Apresentacao-exemplo.pptx >/dev/null && cp out/LINA-Apresentacao-exemplo.pdf $T/
 python3 ../../../downloads/empacotar.py

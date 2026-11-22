@@ -1,0 +1,51 @@
+Licenças do Sistema de Design LINA
+
+Este repositório reúne materiais com licenças diferentes.
+
+1. Código — licença MIT
+
+   Scripts e geradores: sistema.py, assets/lina-*.js, templates/apresentacao/potx/
+   (build.js, html.js, post.py, aspect.py, embed-deck-stage.py, make.sh),
+   capitulos/*/_gerar.py, downloads/empacotar.py, site.css, styles.css e tokens/.
+
+   Copyright (c) 2026 LINA — Laboratório de Design da Informação, IAUD/UFC
+
+   Permission is hereby granted, free of charge, to any person obtaining a copy
+   of this software and associated documentation files (the "Software"), to deal
+   in the Software without restriction, including without limitation the rights
+   to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+   copies of the Software, and to permit persons to whom the Software is
+   furnished to do so, subject to the following conditions:
+
+   The above copyright notice and this permission notice shall be included in all
+   copies or substantial portions of the Software.
+
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+   FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+   AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+   SOFTWARE.
+
+2. Marca LINA — todos os direitos reservados
+
+   Logotipos, assinaturas, símbolo, texturas e padrões (assets/logos/,
+   assets/textures/), a regra de construção do logotipo e os templates
+   (templates/) são da identidade visual do LINA.
+   Copyright (c) 2026 LINA — Laboratório de Design da Informação, IAUD/UFC.
+   Todos os direitos reservados. O uso é restrito a membros e parceiros do LINA,
+   em peças do laboratório. Outros usos dependem de autorização do laboratório.
+
+3. Logos institucionais
+
+   assets/logos-institutions/ traz as marcas da UFC, do IAUD e do PPGAUD apenas
+   para uso em peças do LINA, segundo as regras de cada instituição. Os direitos
+   pertencem às respectivas instituições.
+
+4. Terceiros (cada um com a licença original, na própria pasta)
+
+   - Fontes Outfit e JetBrains Mono: SIL Open Font License 1.1 (assets/fonts/).
+   - Ícones Phosphor: MIT (assets/icons/phosphor/LICENSE).
+   - Scripts de validação Office: ver templates/apresentacao/potx/vendor/LICENSE.txt.
+   - React (templates/apresentacao/vendor/): MIT.

@@ -5,7 +5,7 @@
 <div class="fig"><p class="k" style="margin:0">½ célula</p><p class="cap">A grade. Blocos ligados ficam a um número inteiro de meias células entre si; dentro de uma forma, o vão mínimo é ½.</p></div>
 <div class="fig"><p class="k" style="margin:0">¼ de célula</p><p class="cap">O raio e a folga. Todo canto recebe um arco de ¼; formas distintas — as letras — ficam a ¼ uma da outra.</p></div>
 </div></div>
-<script src="assets/lina-geometry.js"></script><script src="guidelines/lina-draw.js"></script><script>{
+<script src="assets/lina-geometry.js"></script><script src="assets/lina-draw.js"></script><script>{
 const {G,hdim,svg,mount}=LD,s=44;let o='',x=6;const base=96;
 [['1',2],['½',1],['¼',.5]].forEach(([l,u])=>{const w=u*s;o+='<rect x="'+x+'" y="'+(base-w)+'" width="'+w+'" height="'+w+'" fill="'+G.dark+'"/>'+hdim(x,x+w,base+14,l,G.dark,true);x+=w+44;});
 mount('tres-medidas-d',svg(x-38,base+40,o));

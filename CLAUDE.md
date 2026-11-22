@@ -3,6 +3,8 @@
 Diretrizes para toda sessão do Claude Code nesta pasta. Base: CLAUDE.md de Karpathy
 (forrestchang/andrej-karpathy-skills), adaptado ao projeto.
 
+Estas regras favorecem cautela. Em tarefa trivial, usar bom senso.
+
 ## 0. Idioma e estilo
 
 - **Português em tudo**: respostas, perguntas, comentários de código, arquivos de memória.
@@ -21,7 +23,7 @@ Diretrizes para toda sessão do Claude Code nesta pasta. Base: CLAUDE.md de Karp
    `node_modules/`. Build: `sh templates/apresentacao/potx/make.sh`. Versões: `CHANGELOG.md`
    de cada template e tag `apresentacao-vX.Y.Z` (release e site pelo GitHub Actions).
 2. Ler `memoria/README.md` (índice) e abrir só as memórias relevantes à tarefa.
-3. Marca e regras visuais: `SKILL.md` e `readme.md`. Template de apresentação:
+3. Marca e regras visuais: `SKILL.md` e `README.md`. Template de apresentação:
    `templates/apresentacao/README.md`. Não repetir essas regras aqui.
 4. Tarefa nova sem critério claro: perguntar antes de começar (ver §2).
 
@@ -41,6 +43,7 @@ Diretrizes para toda sessão do Claude Code nesta pasta. Base: CLAUDE.md de Karp
 **Mínimo que resolve. Nada especulativo.** (Ponytail ultra detalha a escada.)
 
 - Nada além do pedido. Sem abstração para uso único. Sem configuração não pedida.
+- Sem tratamento de erro para caso impossível.
 - Reusar o que já existe: `assets/lina-geometry.js` para formas, ícones só Phosphor e
   `assets/icons/`, gerador `potx/build.js` para slides. Não redesenhar à mão.
 - 200 linhas que caberiam em 50: reescrever.
@@ -50,6 +53,7 @@ Diretrizes para toda sessão do Claude Code nesta pasta. Base: CLAUDE.md de Karp
 **Tocar só o necessário. Limpar só a própria bagunça.**
 
 - Não "melhorar" código, texto ou layout vizinho. Seguir o estilo existente.
+- Não refatorar o que funciona.
 - Código morto alheio: mencionar, não apagar.
 - Remover só o que a própria mudança deixou órfão.
 - Cada linha alterada deve remeter ao pedido.
@@ -68,9 +72,16 @@ Transformar tarefa em meta verificável:
 2. [Passo] — verificar: [checagem]
 ```
 
+Exemplos:
+- "Mudar cor X" — trocar o token, regerar, renderizar a página e conferir o contraste.
+- "Novo layout" — gerar, `validate.py`, `aspect.py`, renderizar e mostrar o PNG.
+- "Corrigir página do site" — `sistema.py` sem link quebrado; abrir no navegador e no celular.
+
+Critério forte permite seguir sozinho; critério fraco ("fazer funcionar") exige perguntar o tempo todo.
+
 Checagens padrão deste projeto:
 - `aspect.py` deve imprimir `distorcidas: 0` (nunca distorcer imagem).
-- `validate.py` passa.
+- `templates/apresentacao/potx/vendor/office/validate.py` passa.
 - Renderizar páginas (`pdftoppm`) e olhar antes de dizer que está pronto.
 
 ## 6. Memória do projeto
@@ -84,6 +95,22 @@ Checagens padrão deste projeto:
 - Atualizar arquivo existente em vez de duplicar. Apagar memória que ficou errada.
 - Datas absolutas (AAAA-MM-DD).
 - Usar esta pasta, não a memória pessoal do Claude, para o que vale para todos.
+
+## 7. Skills de design
+
+Usar sempre que a tarefa for de design, se a skill estiver instalada. As regras do LINA
+(`SKILL.md`, `README.md`) vencem: a skill orienta método e revisão, não estilo. Não usar
+skills que impõem estética própria (`design-taste-frontend`, `taste-design`).
+
+| Tarefa | Skill |
+|---|---|
+| Página do site ou interface | `frontend-design` ou `ui-ux-pro-max` |
+| Revisar peça ou página antes de dizer que está pronta | `design:design-critique` e `design:accessibility-review` |
+| Novo token, componente ou entrada no sistema | `design:design-system` |
+| Textos de botão, downloads, instruções de uso | `design:ux-copy` |
+| Gráfico ou dado | `dataviz` |
+| Pôster ou peça estática | `canvas-design` |
+| Texto longo em documento ou no site | `humanizer` |
 
 ---
 

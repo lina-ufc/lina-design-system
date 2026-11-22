@@ -8,5 +8,5 @@ O documento do sistema deixou de ser uma grade de cartões (iframes de 900px). C
 - Conteúdo novo: escrever fragmento (sem `<html>`/`<head>`), registrar em `sistema.json` com `secao`.
 - Quadro (`arquivo` + `vista`) só para documento inteiro: decks, A4.
 - Fragmentos convertidos dos cartões usam ids prefixados pelo nome da seção e `<script>{…}</script>` em bloco, porque dividem a página.
-- Cartões antigos (`guidelines/*.html`, `card.css`) foram para a Lixeira em 2026-11-22; `guidelines/lina-draw.js` continua em uso.
-- Home = Preâmbulo (`index.html`) + mapa dos capítulos 1–9 (2026-11-22). Estrutura de wiki: link comum entre seções (`href="2-cores.html#s-paleta-auxiliar"`); `sistema.py` falha em link quebrado e gera "Citado em" no pé da seção alvo.
+- Cartões antigos (`guidelines/*.html`, `card.css`) foram para a Lixeira em 2026-11-22; `lina-draw.js` continua em uso, movido para `assets/` em 2026-11-22.
+- Home = Preâmbulo (`index.html`) + mapa dos capítulos 1–8 (2026-11-22). Estrutura de wiki: link comum entre seções (`href="2-cores.html#s-paleta-auxiliar"`); `sistema.py` falha em link quebrado e gera "Citado em" no pé da seção alvo.

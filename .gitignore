@@ -20,3 +20,9 @@ capitulos/8-templates/2-apresentacoes.html
 capitulos/8-templates/3-layouts.html
 templates/apresentacao/potx/npm.log
 .serena/
+.claude/.headroom_*
+templates/apresentacao/lina-geometry.js
+templates/apresentacao/lina-dither-field.js
+downloads/*.vectorcraft
+downloads/*.ase
+downloads/institucionais/

@@ -1,7 +1,7 @@
 <h2>Quatro letras, dezoito blocos</h2>
 <p class="p">Cada letra cabe numa altura de três células. O tracejado marca os blocos; os círculos, os pescoços.</p>
 <div id="construcao-das-letras-d" style="display:flex;gap:44px;flex-wrap:wrap;align-items:flex-start;margin-top:18px"></div>
-<script src="assets/lina-geometry.js"></script><script src="guidelines/lina-draw.js"></script><script>{
+<script src="assets/lina-geometry.js"></script><script src="assets/lina-draw.js"></script><script>{
 const {G,letter,blocksOf,grid,rects,path,hdim,svg}=LD,s=24,L=LinaGeometry.LETTERS;
 const ring=(x,y)=>'<circle cx="'+x+'" cy="'+y+'" r="9" fill="none" stroke="'+G.ink+'" stroke-width="1.2"/>';
 const T={L:['Duas células em coluna e uma terceira ligada pelo canto: o pé do L é um pescoço.',o=>ring(o.x+2*s,o.y+4*s)],

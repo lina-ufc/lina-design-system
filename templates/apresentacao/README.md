@@ -1,6 +1,6 @@
 # Apresentação LINA — template de slides
 
-Estado aprovado em 12/11/2026. Um só gerador produz o template PowerPoint e o deck HTML, que mostram o mesmo conteúdo.
+Versão atual e histórico em `CHANGELOG.md`. Um só gerador produz o template PowerPoint e o deck HTML, que mostram o mesmo conteúdo.
 
 ## Arquivos
 

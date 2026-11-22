@@ -1,18 +1,15 @@
-<h2>Três arranjos, quatro fundos</h2>
-<p class="p">O horizontal é o logotipo principal. O vertical — LI sobre nA, a ¼ de célula — serve a colunas estreitas. O símbolo, o L sozinho, entra onde não há espaço para a palavra. Sempre em uma tinta só.</p>
-<div id="variacoes-d" style="display:grid;grid-template-columns:110px repeat(4,minmax(0,1fr));gap:6px;margin-top:16px;align-items:stretch"></div>
-<script src="assets/lina-geometry.js"></script><script src="guidelines/lina-draw.js"></script><script>{
+<h2>Três arranjos</h2>
+<p class="p">O horizontal é o logotipo principal. O vertical — LI sobre nA, a ¼ de célula — serve a colunas estreitas. O símbolo, o L sozinho, entra onde não há espaço para a palavra. Sempre em uma tinta só; as cores possíveis estão em <a href="1-logotipo.html#s-combinacoes-de-cores">1.8</a>.</p>
+<div id="variacoes-d" style="display:grid;grid-template-columns:2.2fr 1.3fr 1fr;gap:14px;margin-top:16px;align-items:end"></div>
+<script src="assets/lina-geometry.js"></script><script src="assets/lina-draw.js"></script><script>{
 const {wordmark,vertical,letter}=LD;
-const BG=[['Positivo','#ffffff','#161616',1],['Negativo','#161616','#ffffff',0],['Cinza claro','#d9d9d9','#161616',0],['Cinza escuro','#6b6b6b','#ffffff',0]];
-const R=[['Horizontal',wordmark(1),'0 0 17.5 6',40],['Vertical',vertical(1),'0 0 10.5 12.5',96],['Símbolo',letter('L',1),'0 0 4 6',58]];
-const el=document.getElementById('variacoes-d');let h='<div></div>';BG.forEach(b=>h+='<p class="k" style="margin:0 0 2px">'+b[0]+'</p>');
-R.forEach(r=>{h+='<p class="k" style="margin:0;align-self:center">'+r[0]+'</p>';BG.forEach(b=>{h+='<div style="border-radius:var(--radius-cell);background:'+b[1]+';height:'+(r[0]==='Vertical'?140:96)+'px;display:flex;align-items:center;justify-content:center'+(b[3]?';box-shadow:inset 0 0 0 1px #dcdcdc':'')+'"><svg viewBox="'+r[2]+'" style="height:'+r[3]+'px;width:auto;display:block"><path d="'+r[1]+'" fill="'+b[2]+'" fill-rule="evenodd"/></svg></div>';});});
-el.innerHTML=h;
+const R=[['Horizontal',wordmark(1),'0 0 17.5 6',72],['Vertical',vertical(1),'0 0 10.5 12.5',150],['Símbolo',letter('L',1),'0 0 4 6',72]];
+document.getElementById('variacoes-d').innerHTML=R.map(r=>'<div class="fig"><svg viewBox="'+r[2]+'" style="height:'+r[3]+'px;width:auto;max-width:100%;display:block"><path d="'+r[1]+'" fill="var(--ferro)" fill-rule="evenodd"/></svg><p class="cap"><b>'+r[0]+'</b></p></div>').join('');
 }</script>
 <h2 class="h" style="font-size:18px;margin:26px 0 6px">Formas derivadas</h2>
-<p class="p">Vazados: o arranjo recortado de uma placa de cantos arredondados. Avatar: o L numa placa quadrada, para perfis. Selo experimental: células recortadas por um círculo. Assinatura: horizontal com o nome do laboratório, em português e inglês, em duas versões. Arquivos em <span class="dado">assets/logos/sand/</span>; mostrados em umbro.</p>
-<div id="variacoes-f" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px 6px"></div>
+<p class="p">Cada forma derivada traz a própria geometria de fundo. Vazados: o arranjo recortado de uma placa de cantos arredondados. Selo experimental: células recortadas por um círculo. Assinaturas: o horizontal com o nome do laboratório em Outfit Black e a linha Arte · Arquitetura · Ambiente em JetBrains Mono, em bloco (nome abaixo) ou lateral (nome ao lado), em português e inglês. Arquivos em <span class="dado">assets/logos/sand/</span>.</p>
+<div id="variacoes-f" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px 14px;margin-top:16px"></div>
 <script>{
-const F=[['Horizontal vazado','horizontal-vazado-umbro'],['Vertical vazado','vertical-vazado-umbro'],['Símbolo vazado','marca-vazada-umbro'],['Avatar','avatar-creme-sobre-umbro'],['Selo experimental','selo-experimental-umbro'],['Assinatura','assinatura-pt-umbro'],['Assinatura em bloco · PT','assinatura-pt-bloco-umbro'],['Assinatura em bloco · EN','assinatura-en-bloco-umbro']];
-document.getElementById('variacoes-f').innerHTML=F.map(f=>'<div class="fig"><div style="border-radius:var(--radius-cell);background:#fff;box-shadow:inset 0 0 0 1px #dcdcdc;height:110px;display:flex;align-items:center;justify-content:center"><img src="assets/logos/sand/lina-'+f[1]+'.svg" alt="'+f[0]+'" style="max-height:78px;max-width:85%;display:block"></div><p class="cap"><b>'+f[0]+'</b><br><span class="dado">lina-'+f[1].replace(/-umbro$|-creme-sobre-umbro$/,'')+'-*</span></p></div>').join('');
+const F=[['Horizontal vazado','horizontal-vazado-ferro'],['Vertical vazado','vertical-vazado-ferro'],['Símbolo vazado','marca-vazada-ferro'],['Selo experimental','selo-experimental-ferro'],['Assinatura em bloco · PT','assinatura-pt-bloco-ferro'],['Assinatura em bloco · EN','assinatura-en-bloco-ferro'],['Assinatura lateral · PT','assinatura-pt-lateral-ferro'],['Assinatura lateral · EN','assinatura-en-lateral-ferro']];
+document.getElementById('variacoes-f').innerHTML=F.map(f=>'<div class="fig"><div style="height:96px;display:flex;align-items:center;justify-content:center"><img src="assets/logos/sand/lina-'+f[1]+'.svg" alt="'+f[0]+'" style="max-height:88px;max-width:90%;display:block"></div><p class="cap"><b>'+f[0]+'</b><br><span class="dado">lina-'+f[1].replace(/-ferro$/,'')+'-*</span></p></div>').join('');
 }</script>

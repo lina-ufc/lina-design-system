@@ -1,6 +1,6 @@
 ---
 name: lina-design
-description: Use esta habilidade para gerar peças e interfaces do LINA (Laboratório de Design da Informação — Arte · Arquitetura · Ambiente, IAUD/UFC). Contém logotipo, cores, padrões, animação e tipografia. Use this skill to generate well-branded assets for LINA.
+description: Use esta habilidade para gerar peças e interfaces do LINA (Laboratório de Design da Informação — Arte · Arquitetura · Ambiente, IAUD/UFC). Contém logotipo, cores, padrões, animação, tipografia, ícones e templates. Use this skill to generate well-branded assets for LINA.
 user-invocable: true
 ---
 
@@ -13,7 +13,7 @@ que está aprovado; rascunho e revisar ainda podem mudar. Elemento novo: crie o 
 
 A identidade do LINA é uma regra de construção: toda forma é uma união de células com cantos de ¼ de célula, e
 `assets/lina-geometry.js` é o traçador que a executa. Use-o em vez de desenhar formas à mão. Logotipos prontos
-(horizontal, vertical, símbolo, vazados, avatar, selo, assinatura PT/EN) em `assets/logos/sand/`, tabela no
+(horizontal, vertical, símbolo, vazados, selo, assinatura em bloco PT/EN) em `assets/logos/sand/`, tabela no
 README §1; logos institucionais em `assets/logos-institutions/`. Ícones: só Phosphor
 (`assets/icons/phosphor/`, seis pesos, duotone com segunda cor da paleta; regras no README de lá). Nenhum emoji.
 

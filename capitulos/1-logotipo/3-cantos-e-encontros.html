@@ -1,7 +1,7 @@
 <h2>Cinco situações, um só raio</h2>
 <p class="p">O contorno é traçado uma vez sobre a união. O tracejado mostra a união antes do arredondamento.</p>
 <div id="cantos-e-encontros-d" style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:20px;align-items:start;margin-top:16px"></div>
-<script src="assets/lina-geometry.js"></script><script src="guidelines/lina-draw.js"></script><script>{
+<script src="assets/lina-geometry.js"></script><script src="assets/lina-draw.js"></script><script>{
 const {G,shape,grid,path,outline,hdim,svg}=LD,s=22;
 const F=[{b:[[0,0,2]],w:2,h:2,t:'<b>Canto livre</b> — arco convexo de ¼ de célula.'},
 {b:[[0,0,2],[0,2,2],[2,2,2]],w:4,h:4,t:'<b>Encontro</b> — o canto interno arredonda para dentro, com o mesmo raio.'},

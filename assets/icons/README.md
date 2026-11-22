@@ -26,7 +26,4 @@ pasta `assets/<peso>/`) para `phosphor/<peso>/<nome>.svg`, sem alterar o desenho
 damasco), duotone (ferro e damasco sobre creme) e simples (ferro). O ladrilho é um quadrado de cantos de ¼ do
 lado, a regra do logotipo. No PowerPoint: Inserir › Imagens › SVG, converter em forma para pintar o plano do duotone.
 
-**Legado.** `lucide/`, `lina-24/` e `pictogramas-48/` ainda são usados pelo template de apresentação
-(`templates/apresentacao/potx/`) até a migração para o Phosphor. Não usar em peças novas.
-
 Nenhum emoji, nenhum outro conjunto de ícones.
