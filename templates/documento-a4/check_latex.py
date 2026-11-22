@@ -9,7 +9,7 @@ OUT = os.path.join(L, 'out')
 PACOTES = {'fontspec', 'polyglossia', 'geometry', 'xcolor', 'graphicx', 'fancyhdr', 'titlesec', 'multicol', 'tabularx',
            'array', 'booktabs', 'enumitem', 'caption', 'ragged2e', 'setspace', 'microtype', 'etoolbox', 'xparse',
            'tikz', 'eso-pic', 'hyperref', 'url'}
-PROIBIDOS = r'\\(vspace|hspace|fontsize|color|newpage|setlength)\b'  # o que a classe faz, o exemplo não repete
+PROIBIDOS = r'\\(vspace|hspace|fontsize|color|newpage|setlength|setcounter)\b'  # o que a classe faz, o exemplo não repete
 # Texto que deve estar em cada página (mesmas quebras do HTML). Estender nas Tasks 2 e 3.
 QUEBRAS = {'Relatorio': [['Relatório institucional', 'Relatório anual de atividades 2026'],
                          ['1 · Apresentação', 'Indicadores do ano'],
@@ -52,6 +52,8 @@ for p in tex + ([cls] if os.path.exists(cls) else []):
         if 'width' in m.group(1) and 'height' in m.group(1):
             erros.append(f'{nome}: \\includegraphics com width e height juntos (distorce)')
     if p != cls:
+        if re.search(r'\\begin\{tabela\}\[', t):
+            erros.append(f'{nome}: \\begin{{tabela}} com espaço numérico (a classe sabe o espaço)')
         for m in re.finditer(PROIBIDOS, t):
             erros.append(f'{nome}: comando proibido no exemplo: {m.group(0)}')
 

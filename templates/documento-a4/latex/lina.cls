@@ -18,6 +18,9 @@
   \def\lina@secpt{19.5}\def\lina@seclh{29.9}\def\lina@secls{-1}\def\lina@secantes{0}\def\lina@secdepois{18}%
   \def\lina@fio@rotulo{{\color{ferro}\hrule height\px{2}}\vskip\px{28}}%
   \def\lina@cabecalho{\lina@referencia\ · \lina@titulocurto}}
+% Margem superior: o plano previa 106 px (Artigo) e 102 px (POP), contando o "antes" da 1ª seção/rótulo. No LaTeX um espaço
+% no topo da página é descartado, então a margem já é a distância final até o texto: Artigo 134 px (seção) e rótulo
+% 8 px mais baixo (\lina@rotantes, 44 px no HTML contra 36 da seção); POP 141 px (HTML: 44 px sob o cabeçalho + 7 px medidos).
 \DeclareOption{artigo}{%
   \def\lina@top{134}%
   \def\lina@rotpt{10}\def\lina@rotantes{8}%   % o resto dos 44 px do HTML vem da margem superior
@@ -32,7 +35,7 @@
   \def\lina@secpt{13.5}\def\lina@seclh{21.6}\def\lina@secls{0}\def\lina@secantes{18}\def\lina@secdepois{-2}%   % 28 e 8 px menos o \parskip de 10 px que o \section solto leva%
   \def\lina@fontetitulo{Outfit-Bold}\def\lina@fio@rotulo{}%
   \def\lina@cabecalho{\lina@titulocurto}%
-  \AtEndOfClass{\renewcommand\lina@tcs{10}\renewcommand\lina@metafio{}\renewcommand\lina@metaantes{6.4}}%   % metadados do POP: sem fio, gap 20 px
+  \AtEndOfClass{\renewcommand\lina@tcs{10}\renewcommand\lina@metafio{}\renewcommand\lina@metaantes{6.4}\renewcommand\lina@metapad{0}}%   % metadados do POP: sem fio, gap 20 px
   \def\lina@total{\ /\ \pageref{lina@ultima}}\AtEndDocument{\label{lina@ultima}}}  % "n / total" no rodapé
 \def\lina@total{}
 \ExecuteOptions{relatorio}
@@ -101,7 +104,7 @@
 
 % ---------- estilos de caractere ----------
 \newcommand\destaque[1]{\textbf{#1}}
-\newcommand\mono[1]{{\ttfamily #1}}
+\newcommand\mono[1]{{\ttfamily\fontsize{10pt}{\f@baselineskip}\selectfont #1}}   % LINA Mono Texto: 13 px = 10 pt
 \newcommand\fonte[1]{{\ttfamily\fontsize{8.5pt}{\f@baselineskip}\selectfont\color{umbro!75!white}#1}}
 \newcommand\rotulometa[1]{{\color{umbro!70!white}#1}}
 \newcommand\doi[1]{{\ttfamily\fontsize{8.25pt}{\f@baselineskip}\selectfont #1}}
@@ -172,7 +175,8 @@
 \newcommand\lina@metabegin[2]{\par\vskip\dimexpr\px{\lina@metaantes}-\parskip\relax\begingroup\linatam{10}{19.5}\def\lina@pad{#1}%
   \setlength\tabcolsep{\px{\lina@tcs}}\def\arraybackslash{\let\\\lina@metanl}%
   \tabularx{\linewidth}{@{}#2@{}}\lina@metafio\noalign{\vskip\px{#1}}}
-\newenvironment{metadados}[2][12]{\def\lina@metagap{14}\lina@metabegin{#1}{#2}}{\endtabularx\endgroup\par}
+\newcommand\lina@metapad{12}
+\newenvironment{metadados}[2][\lina@metapad]{\def\lina@metagap{14}\lina@metabegin{#1}{#2}}{\endtabularx\endgroup\par}
 \newenvironment{metadados*}[2][20]{\def\lina@metagap{18}\lina@metabegin{#1}{#2}}%
   {\endtabularx\par\vskip\px{\lina@pad}{\color{fio-forte}\hrule height\px{1}}\endgroup\par}
 % resumo do Artigo: metadados* de duas colunas (rótulo de 110 px, texto justificado), 28 px abaixo da afiliação.
@@ -182,14 +186,14 @@
   \lina@metabegin{20}{>{\linatam{10.5}{21.7}\bfseries\RaggedRight\arraybackslash}p{\px{110}}>{\linatam{10.5}{21.7}\justifying\arraybackslash}X}\destaque{Resumo} &}%
   {\endtabularx\par\vskip\px{\lina@pad}{\color{fio-forte}\hrule height\px{1}}\endgroup\par\vskip\px{15}}  % 15: acerto contra o HTML (colunas desconta um \parskip que aqui não há)
 \newcommand\palavraschave[1]{\\ \destaque{Palavras-chave} & #1}
-% \begin{tabela}[px extras acima]{colunas}: fio umbro acima, fio fio-forte sob cada linha (terminar toda linha com \\);
+% \begin{tabela}{colunas}: fio umbro acima, fio fio-forte sob cada linha (terminar toda linha com \\);
 % a 1ª linha (cabeçalho) sai em Medium
 \newcount\lina@linha \lina@linha=1
 \newcommand\lina@cab{\ifnum\lina@linha=0 \bfseries\fi}
 \newcommand\lina@tabnl{\global\advance\lina@linha by 1 \tabularnewline[\px{11.1}]\lina@fio{fio-forte}}
-\newenvironment{tabela}[2][0]{\par\vskip\dimexpr\px{#1}-\parskip\relax\begingroup\linatam{10.5}{16}%
+\newenvironment{tabela}[1]{\par\vskip-\parskip\begingroup\linatam{10.5}{16}%
   \setlength\extrarowheight{\px{9}}\setlength\tabcolsep{0pt}\def\arraybackslash{\let\\\lina@tabnl}%
-  \tabularx{\linewidth}{@{}#2@{}}\lina@fio{umbro}\noalign{\global\lina@linha=0 }}%
+  \tabularx{\linewidth}{@{}#1@{}}\lina@fio{umbro}\noalign{\global\lina@linha=0 }}%
   {\endtabularx\endgroup\par}
 
 % título da tabela acima dela, em Medium 9 pt: \titulotabela{Título.} dá "Tabela n. Título."
@@ -204,13 +208,19 @@
 \pagestyle{fancy}
 \fancyhf{}
 \fancyhead[L]{\includegraphics[width=14mm]{logos/lina-horizontal-ferro.pdf}}
-\newcommand\lina@cabdir{\ifnum\value{page}=1 \ifx\lina@cabprimeira\@empty\lina@cabecalho\else\lina@cabprimeira\fi\else\lina@cabecalho\fi}
-\fancyhead[R]{\raisebox{3pt}{\ttfamily\fontsize{9pt}{9pt}\selectfont\lina@cabdir}}
+\fancyhead[R]{\raisebox{3pt}{\ttfamily\fontsize{9pt}{9pt}\selectfont\lina@cabecalho}}
 \fancyfoot[L]{\ttfamily\fontsize{8.5pt}{10pt}\selectfont\color{umbro!70!white}\lina@siglarodape}
 \fancyfoot[R]{\ttfamily\fontsize{8.5pt}{10pt}\selectfont\color{umbro!70!white}\thepage\lina@total}
 \renewcommand\headrulewidth{0pt}
 \renewcommand\headrule{\vskip\px{12}{\color{fio-forte}\hrule width\headwidth height\px{1}}}
 \renewcommand\footrulewidth{0pt}
+% 1ª página com cabeçalho próprio (\cabecalhoprimeira): estilo de página à parte, não depende da numeração
+\fancypagestyle{lina@primeira}{\fancyhf{}%
+  \fancyhead[L]{\includegraphics[width=14mm]{logos/lina-horizontal-ferro.pdf}}%
+  \fancyhead[R]{\raisebox{3pt}{\ttfamily\fontsize{9pt}{9pt}\selectfont\lina@cabprimeira}}%
+  \fancyfoot[L]{\ttfamily\fontsize{8.5pt}{10pt}\selectfont\color{umbro!70!white}\lina@siglarodape}%
+  \fancyfoot[R]{\ttfamily\fontsize{8.5pt}{10pt}\selectfont\color{umbro!70!white}\thepage\lina@total}}
+\AtBeginDocument{\ifx\lina@cabprimeira\@empty\else\thispagestyle{lina@primeira}\fi}
 
 % ---------- páginas ----------
 \newcommand\paginademo{\clearpage}   % quebra entre as páginas de demonstração
@@ -244,15 +254,17 @@
 % ---------- POP ----------
 % seções: \section (28 px acima, 8 abaixo) e variantes (nomes dos estilos do Word). \lina@sec{antes}{depois}{texto}, em px
 \newcommand\lina@sec[3]{\lina@antes{#1}{\noindent\lina@f@secao\linatam{\lina@secpt}{\lina@seclh}\RaggedRight #3\par}\nobreak\vskip\dimexpr\px{#2}-\parskip\relax}
-% seguida de passos, lista ou tabela: 12 px (22 − \parskip; lista e tabela não levam \parskip)
-\newcommand\secaotabela[1]{\lina@sec{28}{22}{#1}}
+% seguida de passos, lista ou tabela: 12 px até a grade (28,4 − \parskip da tabela; \lina@listabegin tira os 6,4 px que a lista não precisa)
+\newcommand\secaotabela[1]{\lina@sec{28}{28.4}{#1}}
 \newcommand\secaoafastada[1]{\lina@sec{36}{8}{#1}}             % mais abaixo na página (36 px)
-\newcommand\secaoafastadatabela[1]{\lina@sec{36}{22}{#1}}
+\newcommand\secaoafastadatabela[1]{\lina@sec{36}{28.4}{#1}}
 \newcommand\secaofio[1]{\par\vskip\px{34}{\color{fio-forte}\hrule height\px{1}}\vskip\px{16}\lina@sec{0}{8}{#1}}   % fio fio-forte acima (Objetivo)
-\newcommand\continuacao[1]{{\lina@f@bold\mdseries\color{umbro!70!white}#1}}
+\newcommand\continuacao[1]{{\normalfont\color{umbro!70!white}#1}}   % Light a 70 % dentro do título da seção
+% texto curto antes de tabela (14 px, justificado) com 12 px até a grade
+\newcommand\chamadatabela[1]{\lina@antes{8}{\linatam{10.5}{21.7}#1\par}\vskip\px{12.7}}
 % passos (01, 02…, a contagem continua entre os ambientes) e critérios (□): \item sem argumento
 \newcount\lina@np \newcounter{lina@passo}
-\newcommand\lina@listabegin[2]{\par\begingroup\setlength\parskip{0pt}\setlength\leftskip{\px{#2}}\linatam{11.5}{22.5}%
+\newcommand\lina@listabegin[2]{\par\vskip-\px{6.4}\begingroup\setlength\parskip{0pt}\setlength\leftskip{\px{#2}}\linatam{11.5}{22.5}%
   \lina@np=0 \def\item{\par\ifnum\lina@np>0 \vskip\px{#1}\fi\global\advance\lina@np by 1 \lina@step
     \noindent\llap{\hbox to\px{#2}{\lina@rot\hfil}}\ignorespaces}}
 \newenvironment{passos}{\def\lina@step{\stepcounter{lina@passo}}%
