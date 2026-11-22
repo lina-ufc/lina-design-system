@@ -13,12 +13,12 @@
 
 ## Resumo
 
-`[███████░░░]` 71% — 5 de 7 tarefas escritas.
+`[█████████░]` 86% — 6 de 7 tarefas escritas.
 
 | Plano | Progresso | Tarefas | Estado |
 | --- | --- | --- | --- |
 | 01 — html-deck | `[██████████]` | 3/3 | Concluído 2026-11-22 |
-| 02 — word | `[█████░░░░░]` | 2/4 | Em execução |
+| 02 — word | `[████████░░]` | 3/4 | Em execução |
 | 03 — latex | `[░░░░░░░░░░]` | — | Não escrito. Escrito quando 02 terminar |
 | 04 — conferencia-e-release | `[░░░░░░░░░░]` | — | Não escrito. Escrito quando 03 terminar |
 | 05 — site | `[░░░░░░░░░░]` | — | Não escrito. Escrito quando 04 terminar |
@@ -37,13 +37,13 @@ Checagens que rodaram: `check_html.py` (Tasks 1 e 2); `sistema.py` e navegador d
 
 ## Plano 02 — word
 
-`[█████░░░░░]` 50% — 2 de 4 tarefas.
+`[████████░░]` 75% — 3 de 4 tarefas.
 
 Branch `main`, base `7a35f7e`. API do `docx` 9.16: tem `fonts`, `hyphenation`, SVG com `fallback`, tabela `float`, `TOTAL_PAGES`, `language`, colunas e `titlePage`; estilos de tabela injetados no `styles.xml` (pós-processamento com `fflate`).
 
 - [x] **Task 1** — Base e Relatório — `786a546`, check_word ok, validate ok, distorcidas 0, render 3 páginas; revisão: 2 Important corrigidos em `b230c54`
 - [x] **Task 2** — Artigo — `b230c54`, check_word ok (4 arquivos), validate ok, render 3 páginas, Relatório sem regressão; revisão limpa (0 Important), Minors levados à Task 3
-- [ ] **Task 3** — POP
+- [x] **Task 3** — POP — `87d4d7f`, check_word ok (6 arquivos), validate ok, render 3 páginas com "1 / 3"…"3 / 3", Relatório e Artigo sem regressão; revisão pendente
 - [ ] **Task 4** — Conferência e passagem para o 03
 
 ## Estado herdado
@@ -59,6 +59,7 @@ Branch `main`, base `7a35f7e`. API do `docx` 9.16: tem `fonts`, `hyphenation`, S
 
 ## Changelog
 
+- 2026-11-22 — Task 3 (POP) concluída, `87d4d7f`; inclui Minors da revisão da Task 2.
 - 2026-11-22 — Task 2 (Artigo) concluída, `b230c54`; inclui correções da revisão da Task 1.
 - 2026-11-22 — Task 1 (base e Relatório) concluída, `786a546`.
 - 2026-11-22 — Deck HTML dividido em três (Relatório, Artigo, POP), `7a35f7e`.
