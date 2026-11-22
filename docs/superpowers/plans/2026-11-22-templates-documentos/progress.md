@@ -1,6 +1,6 @@
 # Templates de documentos A4 — progresso
 
-**Última atualização:** 2026-11-22, branch `main`. Spec e plano em `5624fcb`; execução em `main`. Índice: [`README.md`](README.md).
+**Última atualização:** 2026-11-23, branch `main`. Spec e plano em `5624fcb`; execução em `main`. Índice: [`README.md`](README.md).
 
 ## Como atualizar este arquivo
 
@@ -13,7 +13,7 @@
 
 ## Resumo
 
-`[██████████]` 100% — 15 de 15 tarefas escritas.
+`[████████░░]` 83% — 15 de 18 tarefas escritas.
 
 | Plano | Progresso | Tarefas | Estado |
 | --- | --- | --- | --- |
@@ -21,7 +21,7 @@
 | 02 — word | `[██████████]` | 4/4 | Concluído 2026-11-22 |
 | 03 — latex | `[██████████]` | 4/4 | Concluído 2026-11-22; folhas aprovadas pelo usuário |
 | 04 — conferencia-e-release | `[██████████]` | 4/4 | Concluído 2026-11-23; release `documentos-v1.0.0` |
-| 05 — site | `[░░░░░░░░░░]` | — | Não escrito. Próximo |
+| 05 — site | `[░░░░░░░░░░]` | 0/3 | Escrito 2026-11-23. Próximo |
 
 ## Plano 01 — html-deck
 
@@ -68,6 +68,16 @@ Branch `main`. PDFs de exemplo da release vêm do LaTeX; TeX Live do Ubuntu no r
 - [x] **Task 3** — Teste de digitação no WordCraft — `5b65a21`, Relatório estável ao digitar; numeração do POP é texto literal; Artigo e POP diferem > 3 pt do LibreOffice (`tcMar` em `tblStylePr`), anotado no handoff 02
 - [x] **Task 4** — Ensaio e release `documentos-v1.0.0` — ensaio verde (run 45073521188), artifact passa `check_pacotes.py`, PDFs do runner com mesmo texto e quebras dos locais; release publicada com os 5 arquivos (run 45081090119)
 
+## Plano 05 — site
+
+`[░░░░░░░░░░]` 0% — 0 de 3 tarefas.
+
+Branch `main`. Só o Baixar da 8.2 é gerado (`_gerar.py`); `site.yml` baixa a release `documentos-v*`.
+
+- [ ] **Task 1** — Baixar gerado e `site.yml`
+- [ ] **Task 2** — Estrutura e Uso
+- [ ] **Task 3** — Revisão, publicação e memória
+
 ## Estado herdado
 
 - `DocumentoA4.dc.html` com 9 páginas soltas (sem deck), cartão "Como usar" e rótulos entre páginas.
@@ -81,6 +91,7 @@ Branch `main`. PDFs de exemplo da release vêm do LaTeX; TeX Live do Ubuntu no r
 
 ## Changelog
 
+- 2026-11-23 — Plano 05 (site) escrito.
 - 2026-11-23 — Release `documentos-v1.0.0` publicada. Plano 04 concluído. Minors adiados: trap EXIT e saída do `validate.py` no `make.sh`; checagem A4 silenciosa no `check_pacotes.py`.
 - 2026-11-22 — Task 3 (WordCraft) concluída, `5b65a21`.
 - 2026-11-22 — Task 2 (CHANGELOG e workflow) concluída, `aa2ac37`.
