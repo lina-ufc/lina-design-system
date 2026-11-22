@@ -7,6 +7,10 @@ faça o commit e crie a tag `documentos-vx.y.z` (o GitHub Actions gera os arquiv
 - **Menor** (1.1.0): modelo, estilo ou comando novo, ajuste visual que não quebra documentos existentes.
 - **Correção** (1.0.1): erro em texto, medida ou arquivo.
 
+## 1.0.1 · 2026-11-23
+
+- LaTeX: o `LEIA-ME.txt` do zip usa os nomes atuais dos menus do Overleaf (New project › Existing project, Settings › Compiler) e manda marcar o `.tex` como documento principal.
+
 ## 1.0.0 · 2026-11-22
 
 Primeira versão publicada.

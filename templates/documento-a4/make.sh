@@ -30,9 +30,9 @@ cp word/out/*.dotx word/out/*.docx "$tmp/LINA-Documentos-Word/"
 (cd latex/out && cp -R lina.cls LINA-*.tex fontes logos "$tmp/LINA-Documentos-LaTeX/")
 cat > "$tmp/LINA-Documentos-LaTeX/LEIA-ME.txt" <<'TXT'
 Modelos LaTeX do LINA: Relatório, Artigo e POP (A4).
-1. Suba este zip no Overleaf (Novo projeto > Carregar projeto).
-2. Compilador: XeLaTeX (Menu > Compilador). Não use pdfLaTeX.
-3. Abra LINA-Relatorio.tex, LINA-Artigo.tex ou LINA-POP.tex e confira a opção da classe: \documentclass[relatorio|artigo|pop]{lina}.
+1. Suba este zip no Overleaf: New project > Existing project (.zip).
+2. Compilador: XeLaTeX (Settings, engrenagem no canto inferior esquerdo > Compiler). Não use pdfLaTeX.
+3. Abra LINA-Relatorio.tex, LINA-Artigo.tex ou LINA-POP.tex, marque como Set as main document (menu ⋯ do arquivo) e confira a opção da classe: \documentclass[relatorio|artigo|pop]{lina}.
 4. As fontes Outfit e JetBrains Mono já vão na pasta fontes/, sob a licença OFL (OFL.txt e OFL-JetBrainsMono.txt).
 5. Sistema de design e outros modelos: site do LINA, https://lina-ufc.github.io/lina-design-system/
 TXT

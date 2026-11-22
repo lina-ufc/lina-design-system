@@ -91,8 +91,9 @@ Branch `main`. Só o Baixar da 8.2 é gerado (`_gerar.py`); `site.yml` baixa a r
 
 ## Changelog
 
+- 2026-11-23 — Minors adiados corrigidos: aria-label nos três "Tela cheia ↗", subtítulos Word/LaTeX como heading (role), "texto do rodapé" no Uso, LEIA-ME do zip LaTeX com menus atuais do Overleaf (release 1.0.1). "`LINA Destaque` sem uso" era falso: o exemplo usa o estilo (Relatório 3, Artigo 12; POP não tem ênfase no HTML).
 - 2026-11-23 — Push e site publicado (run 45083528209). Plano 05 e conjunto concluídos; pasta e spec em `done/`. Minors adiados: três links "Tela cheia ↗" com o mesmo texto; subtítulos Word/LaTeX do Uso não são heading.
-- 2026-11-23 — Task 2 (Estrutura e Uso) concluída, `54c10c6`. Minors adiados: LEIA-ME do zip LaTeX com menus antigos do Overleaf (1.0.1); `LINA Destaque` sem uso nos exemplos; "sigla do rodapé" imprecisa no Artigo.
+- 2026-11-23 — Task 2 (Estrutura e Uso) concluída, `54c10c6`. Minors adiados: LEIA-ME do zip LaTeX com menus antigos do Overleaf (1.0.1); "sigla do rodapé" imprecisa no Artigo.
 - 2026-11-23 — Plano 05, Task 1 (Baixar gerado e `site.yml`) concluída, `f0d4c7d`.
 - 2026-11-23 — Plano 05 (site) escrito.
 - 2026-11-23 — Release `documentos-v1.0.0` publicada. Plano 04 concluído. Minors adiados: trap EXIT e saída do `validate.py` no `make.sh`; checagem A4 silenciosa no `check_pacotes.py`.

@@ -23,21 +23,21 @@ pg('documentos-a4-p4',head+bar(20,36,52,2.5,F)+bar(20,42,150,7,U)+bar(20,52,80,7
 <h2 class="h" style="font-size:18px;margin:26px 0 6px">Exemplo</h2>
 <p class="p">Clique num documento e use as setas do teclado para passar as páginas.</p>
 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px;margin-top:12px">
-<div class="fig"><!--quadro templates/documento-a4/DocumentoA4-Relatorio.dc.html 794x1123--><p class="cap"><b>Relatório.</b> <a href="templates/documento-a4/DocumentoA4-Relatorio.dc.html" target="_blank">Tela cheia ↗</a></p></div>
-<div class="fig"><!--quadro templates/documento-a4/DocumentoA4-Artigo.dc.html 794x1123--><p class="cap"><b>Artigo.</b> <a href="templates/documento-a4/DocumentoA4-Artigo.dc.html" target="_blank">Tela cheia ↗</a></p></div>
-<div class="fig"><!--quadro templates/documento-a4/DocumentoA4-POP.dc.html 794x1123--><p class="cap"><b>POP.</b> <a href="templates/documento-a4/DocumentoA4-POP.dc.html" target="_blank">Tela cheia ↗</a></p></div>
+<div class="fig"><!--quadro templates/documento-a4/DocumentoA4-Relatorio.dc.html 794x1123--><p class="cap"><b>Relatório.</b> <a href="templates/documento-a4/DocumentoA4-Relatorio.dc.html" target="_blank" aria-label="Relatório em tela cheia (abre em nova aba)">Tela cheia ↗</a></p></div>
+<div class="fig"><!--quadro templates/documento-a4/DocumentoA4-Artigo.dc.html 794x1123--><p class="cap"><b>Artigo.</b> <a href="templates/documento-a4/DocumentoA4-Artigo.dc.html" target="_blank" aria-label="Artigo em tela cheia (abre em nova aba)">Tela cheia ↗</a></p></div>
+<div class="fig"><!--quadro templates/documento-a4/DocumentoA4-POP.dc.html 794x1123--><p class="cap"><b>POP.</b> <a href="templates/documento-a4/DocumentoA4-POP.dc.html" target="_blank" aria-label="POP em tela cheia (abre em nova aba)">Tela cheia ↗</a></p></div>
 </div>
 <h2 class="h" style="font-size:18px;margin:26px 0 6px">Uso</h2>
-<p class="p"><b>Word</b></p>
+<p class="p" role="heading" aria-level="3"><b>Word</b></p>
 <ol class="passos p">
 <li>Instale as fontes (<a href="5-tipografia.html#s-composicoes">5.5</a>) antes de abrir os arquivos.</li>
 <li>Abra o <span class="mono">.dotx</span>: o Word cria um documento novo. No LibreOffice, abra o <span class="mono">.docx</span> de exemplo e salve com outro nome.</li>
 <li>Escreva aplicando os estilos <span class="mono">LINA</span> do painel de estilos: <span class="mono">LINA Corpo</span> no texto corrido, <span class="mono">LINA Seção</span> nos títulos, <span class="mono">LINA Legenda</span> nas legendas. Para ênfase use o estilo de caractere <span class="mono">LINA Destaque</span>: a Outfit não tem itálico, então a ênfase vai por peso. Não formate à mão; se algo não está certo, troque o estilo.</li>
-<li>Troque o texto do cabeçalho e a sigla do rodapé. No Relatório, troque também a referência e a versão na capa e no fim. São texto digitado: não se atualizam sozinhos.</li>
+<li>Troque o texto do cabeçalho e do rodapé. No Relatório, troque também a referência e a versão na capa e no fim. São texto digitado: não se atualizam sozinhos.</li>
 <li>Passo novo no POP: copie a linha de um passo e digite o número, porque a numeração é texto. Confira se ficaram <span class="mono">LINA Passo</span> e <span class="mono">LINA Passo Número</span>.</li>
 <li>Ao salvar, incorpore as fontes: marque Incorporar fontes no arquivo em Arquivo › Opções › Salvar (Windows) ou Word › Preferências › Salvar (Mac).</li>
 </ol>
-<p class="p"><b>LaTeX e Overleaf</b></p>
+<p class="p" role="heading" aria-level="3"><b>LaTeX e Overleaf</b></p>
 <ol class="passos p">
 <li>No Overleaf, clique em <span class="mono">New project › Existing project (.zip)</span> e envie <span class="mono">LINA-Documentos-LaTeX.zip</span>. As fontes já vão na pasta <span class="mono">fontes/</span>.</li>
 <li>Abra <span class="mono">Settings</span> (engrenagem no canto inferior esquerdo) › <span class="mono">Compiler</span> e escolha <span class="mono">XeLaTeX</span>.</li>
@@ -47,6 +47,6 @@ pg('documentos-a4-p4',head+bar(20,36,52,2.5,F)+bar(20,42,150,7,U)+bar(20,52,80,7
 <li>Para compilar no computador, rode <span class="mono">latexmk -xelatex</span> na pasta descompactada.</li>
 </ol>
 <h2 class="h" style="font-size:18px;margin:26px 0 6px">Baixar</h2>
-<p class="p mono">Versão 1.0.0 · <a href="templates/documento-a4/CHANGELOG.md">histórico de versões</a> · <a href="https://github.com/lina-ufc/lina-design-system/releases">versões anteriores</a></p>
+<p class="p mono">Versão 1.0.1 · <a href="templates/documento-a4/CHANGELOG.md">histórico de versões</a> · <a href="https://github.com/lina-ufc/lina-design-system/releases">versões anteriores</a></p>
 <div class="dl"><a href="downloads/LINA-Documentos-Word.zip" download><b>Word · .zip</b><span class="p" style="margin:0">Modelos .dotx e exemplos .docx dos três documentos.</span><span class="mono cap">LINA-Documentos-Word.zip · 2,9 MB</span></a><a href="downloads/LINA-Documentos-LaTeX.zip" download><b>LaTeX · .zip</b><span class="p" style="margin:0">Classe lina.cls, três modelos .tex, fontes e logo. Sobe direto no Overleaf.</span><span class="mono cap">LINA-Documentos-LaTeX.zip · 472 kB</span></a><a href="templates/documento-a4/LINA-Relatorio-exemplo.pdf" download><b>Relatório · .pdf</b><span class="p" style="margin:0">Exemplo de três páginas, para consultar sem abrir um editor.</span><span class="mono cap">LINA-Relatorio-exemplo.pdf · 40 kB</span></a><a href="templates/documento-a4/LINA-Artigo-exemplo.pdf" download><b>Artigo · .pdf</b><span class="p" style="margin:0">Exemplo de três páginas, para consultar sem abrir um editor.</span><span class="mono cap">LINA-Artigo-exemplo.pdf · 40 kB</span></a><a href="templates/documento-a4/LINA-POP-exemplo.pdf" download><b>POP · .pdf</b><span class="p" style="margin:0">Exemplo de três páginas, para consultar sem abrir um editor.</span><span class="mono cap">LINA-POP-exemplo.pdf · 46 kB</span></a></div>
 <p class="p">Também: fontes (<a href="5-tipografia.html#s-composicoes">5.5</a>) e logos (<a href="1-logotipo.html#s-combinacoes-de-cores">1.8</a>).</p>
