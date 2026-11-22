@@ -13,14 +13,14 @@
 
 ## Resumo
 
-`[██████████]` 100% — 11 de 11 tarefas escritas.
+`[███████░░░]` 73% — 11 de 15 tarefas escritas.
 
 | Plano | Progresso | Tarefas | Estado |
 | --- | --- | --- | --- |
 | 01 — html-deck | `[██████████]` | 3/3 | Concluído 2026-11-22 |
 | 02 — word | `[██████████]` | 4/4 | Concluído 2026-11-22 |
-| 03 — latex | `[██████████]` | 4/4 | Concluído 2026-11-22; ok visual das folhas pendente |
-| 04 — conferencia-e-release | `[░░░░░░░░░░]` | — | Não escrito. Próximo |
+| 03 — latex | `[██████████]` | 4/4 | Concluído 2026-11-22; folhas aprovadas pelo usuário |
+| 04 — conferencia-e-release | `[░░░░░░░░░░]` | 0/4 | Escrito. Próximo |
 | 05 — site | `[░░░░░░░░░░]` | — | Não escrito. Escrito quando 04 terminar |
 
 ## Plano 01 — html-deck
@@ -57,6 +57,17 @@ Branch `main`, base `543fe22`. TeX Live 2026 *basic* local: sem `tcolorbox`, `la
 - [x] **Task 3** — POP — `bde6b1d`, check confere "1 / 3"…"3 / 3", Atenção com cantos de 11 px, mono 10 pt; revisão: correções em `cbeacd8`
 - [x] **Task 4** — Conferência e passagem para o 04 — `4d4e425`, robustez ok (parágrafos e passo extras: só a quebra muda), folhas HTML × Word × LaTeX mostradas, handoff em [`records/03-latex-handoff.md`](records/03-latex-handoff.md)
 
+## Plano 04 — conferencia-e-release
+
+`[░░░░░░░░░░]` 0% — 0 de 4 tarefas.
+
+Branch `main`. PDFs de exemplo da release vêm do LaTeX; TeX Live do Ubuntu no runner; ensaio por `workflow_dispatch` antes da tag.
+
+- [ ] **Task 1** — `make.sh`, pacotes e `check_pacotes.py`
+- [ ] **Task 2** — CHANGELOG e workflow
+- [ ] **Task 3** — Teste de digitação no WordCraft
+- [ ] **Task 4** — Ensaio e release `documentos-v1.0.0`
+
 ## Estado herdado
 
 - `DocumentoA4.dc.html` com 9 páginas soltas (sem deck), cartão "Como usar" e rótulos entre páginas.
@@ -65,11 +76,12 @@ Branch `main`, base `543fe22`. TeX Live 2026 *basic* local: sem `tcolorbox`, `la
 
 ## Pendências do usuário
 
-1. Ok nas folhas de comparação (plano 04) antes da release.
+1. ~~Ok nas folhas de comparação~~ — dado em 2026-11-22 (folhas HTML × Word × LaTeX do plano 03).
 2. Ok explícito para criar a tag `documentos-v1.0.0` e publicar.
 
 ## Changelog
 
+- 2026-11-22 — Folhas HTML × Word × LaTeX aprovadas pelo usuário. Plano 04 escrito.
 - 2026-11-22 — Task 4 concluída, `4d4e425`. Plano 03 concluído.
 - 2026-11-22 — Tasks 2 e 3 (Artigo e POP) concluídas num só despacho, `3973f4e` e `bde6b1d`, correção `cbeacd8`. Word: espaçamentos alinhados ao HTML (`b6f1aa2`, `2225370`).
 - 2026-11-22 — Task 1 (classe LaTeX e Relatório) concluída, `b472cb5`, correção `2b85ec8`.
