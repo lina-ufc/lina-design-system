@@ -13,14 +13,14 @@
 
 ## Resumo
 
-`[███████░░░]` 73% — 11 de 15 tarefas escritas.
+`[████████░░]` 80% — 12 de 15 tarefas escritas.
 
 | Plano | Progresso | Tarefas | Estado |
 | --- | --- | --- | --- |
 | 01 — html-deck | `[██████████]` | 3/3 | Concluído 2026-11-22 |
 | 02 — word | `[██████████]` | 4/4 | Concluído 2026-11-22 |
 | 03 — latex | `[██████████]` | 4/4 | Concluído 2026-11-22; folhas aprovadas pelo usuário |
-| 04 — conferencia-e-release | `[░░░░░░░░░░]` | 0/4 | Escrito. Próximo |
+| 04 — conferencia-e-release | `[███░░░░░░░]` | 1/4 | Em execução |
 | 05 — site | `[░░░░░░░░░░]` | — | Não escrito. Escrito quando 04 terminar |
 
 ## Plano 01 — html-deck
@@ -59,11 +59,11 @@ Branch `main`, base `543fe22`. TeX Live 2026 *basic* local: sem `tcolorbox`, `la
 
 ## Plano 04 — conferencia-e-release
 
-`[░░░░░░░░░░]` 0% — 0 de 4 tarefas.
+`[███░░░░░░░]` 25% — 1 de 4 tarefas.
 
 Branch `main`. PDFs de exemplo da release vêm do LaTeX; TeX Live do Ubuntu no runner; ensaio por `workflow_dispatch` antes da tag.
 
-- [ ] **Task 1** — `make.sh`, pacotes e `check_pacotes.py`
+- [x] **Task 1** — `make.sh`, pacotes e `check_pacotes.py` — `73cc037`, `make.sh` 2× com `ok: 5 arquivos`, git status limpo; revisão: 1 Important (pipe mascarava `validate.py`) corrigido em `0f4d6a8`
 - [ ] **Task 2** — CHANGELOG e workflow
 - [ ] **Task 3** — Teste de digitação no WordCraft
 - [ ] **Task 4** — Ensaio e release `documentos-v1.0.0`
@@ -81,6 +81,7 @@ Branch `main`. PDFs de exemplo da release vêm do LaTeX; TeX Live do Ubuntu no r
 
 ## Changelog
 
+- 2026-11-22 — Task 1 (make.sh e pacotes) concluída, `73cc037`, correção `0f4d6a8`.
 - 2026-11-22 — Folhas HTML × Word × LaTeX aprovadas pelo usuário. Plano 04 escrito.
 - 2026-11-22 — Task 4 concluída, `4d4e425`. Plano 03 concluído.
 - 2026-11-22 — Tasks 2 e 3 (Artigo e POP) concluídas num só despacho, `3973f4e` e `bde6b1d`, correção `cbeacd8`. Word: espaçamentos alinhados ao HTML (`b6f1aa2`, `2225370`).
