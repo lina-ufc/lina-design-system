@@ -67,6 +67,8 @@ O usuário escolheu A, com o texto corrido justificado.
 
 - Janela do site: `DocumentoA4.dc.html` passa a usar `<deck-stage width="794" height="1123">`, uma
   `<section>` por página A4 (9 páginas). No site entra por `<!--quadro templates/documento-a4/DocumentoA4.dc.html 794x1123-->`
+  (Mudou em 2026-11-22, a pedido do usuário: três decks de 3 páginas, `DocumentoA4-Relatorio`, `-Artigo` e
+  `-POP.dc.html`, lado a lado no site, um quadro cada.)
   dentro do fragmento da 8.2, sem coluna de miniaturas (`_snthumb`), igual à apresentação.
 - Word gerado em Node com a biblioteca `docx` (npm), na pasta do template, na mesma pilha do
   `potx/build.js`. `.dotx` = `.docx` com o content type de template.

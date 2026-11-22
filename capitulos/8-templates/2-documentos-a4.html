@@ -20,8 +20,12 @@ pg('documentos-a4-p3',head+bar(20,36,18,2.5,F)+bar(20,42,160,7,U)+bar(20,52,110,
 pg('documentos-a4-p4',head+bar(20,36,52,2.5,F)+bar(20,42,150,7,U)+bar(20,52,80,7,U)+lines(20,66,40,2,4)+lines(80,66,40,2,4)+lines(140,66,40,2,4)+'<line x1="20" y1="80" x2="190" y2="80" stroke="'+A+'" stroke-width=".5"/>'+bar(20,86,30,4,U)+lines(20,94,150,2,5)+[0,1,2,3].map(i=>bar(20,112+i*12,8,3,F)+lines(32,112+i*12,140,2,4.5)).join('')+'<rect x="20" y="164" width="170" height="16" rx="3" fill="'+N+'"/>'+bar(26,170,16,3,F)+'<line x1="20" y1="258" x2="190" y2="258" stroke="'+A+'" stroke-width=".5"/>'+lines(20,263,40,2,5)+lines(80,263,40,2,5)+lines(140,263,40,2,5));
 }</script>
 <h2 class="h" style="font-size:18px;margin:26px 0 6px">Exemplo</h2>
-<p class="p">Setas do teclado passam as páginas. <a href="templates/documento-a4/DocumentoA4.dc.html" target="_blank">Abrir em tela cheia ↗</a></p>
-<!--quadro templates/documento-a4/DocumentoA4.dc.html 794x1123-->
+<p class="p">Clique num documento e use as setas do teclado para passar as páginas.</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px;margin-top:12px">
+<div class="fig"><!--quadro templates/documento-a4/DocumentoA4-Relatorio.dc.html 794x1123--><p class="cap"><b>Relatório.</b> <a href="templates/documento-a4/DocumentoA4-Relatorio.dc.html" target="_blank">Tela cheia ↗</a></p></div>
+<div class="fig"><!--quadro templates/documento-a4/DocumentoA4-Artigo.dc.html 794x1123--><p class="cap"><b>Artigo.</b> <a href="templates/documento-a4/DocumentoA4-Artigo.dc.html" target="_blank">Tela cheia ↗</a></p></div>
+<div class="fig"><!--quadro templates/documento-a4/DocumentoA4-POP.dc.html 794x1123--><p class="cap"><b>POP.</b> <a href="templates/documento-a4/DocumentoA4-POP.dc.html" target="_blank">Tela cheia ↗</a></p></div>
+</div>
 <h2 class="h" style="font-size:18px;margin:26px 0 6px">Baixar</h2>
 <p class="p">Ainda sem arquivo editável. As versões em Word (<span class="mono">.dotx</span>) e LaTeX saem deste exemplo e entram aqui quando estiverem prontas.</p>
 <p class="p">Para montar à mão: fontes (<a href="5-tipografia.html#s-composicoes">5.5</a>) e logos (<a href="1-logotipo.html#s-combinacoes-de-cores">1.8</a>).</p>

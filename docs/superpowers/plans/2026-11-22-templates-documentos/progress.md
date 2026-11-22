@@ -13,12 +13,12 @@
 
 ## Resumo
 
-`[██████████]` 100% — 3 de 3 tarefas escritas.
+`[██████░░░░]` 43% — 3 de 7 tarefas escritas.
 
 | Plano | Progresso | Tarefas | Estado |
 | --- | --- | --- | --- |
 | 01 — html-deck | `[██████████]` | 3/3 | Concluído 2026-11-22 |
-| 02 — word | `[░░░░░░░░░░]` | — | Não escrito. Escrito quando 01 terminar |
+| 02 — word | `[░░░░░░░░░░]` | 0/4 | Escrito 2026-11-22, não iniciado |
 | 03 — latex | `[░░░░░░░░░░]` | — | Não escrito. Escrito quando 02 terminar |
 | 04 — conferencia-e-release | `[░░░░░░░░░░]` | — | Não escrito. Escrito quando 03 terminar |
 | 05 — site | `[░░░░░░░░░░]` | — | Não escrito. Escrito quando 04 terminar |
@@ -35,6 +35,17 @@ Branch `main`, base `5624fcb`.
 
 Checagens que rodaram: `check_html.py` (Tasks 1 e 2); `sistema.py` e navegador desktop/375 px (Task 3).
 
+## Plano 02 — word
+
+`[░░░░░░░░░░]` 0% — 0 de 4 tarefas.
+
+Branch `main`.
+
+- [ ] **Task 1** — Base e Relatório
+- [ ] **Task 2** — Artigo
+- [ ] **Task 3** — POP
+- [ ] **Task 4** — Conferência e passagem para o 03
+
 ## Estado herdado
 
 - `DocumentoA4.dc.html` com 9 páginas soltas (sem deck), cartão "Como usar" e rótulos entre páginas.
@@ -48,6 +59,8 @@ Checagens que rodaram: `check_html.py` (Tasks 1 e 2); `sistema.py` e navegador d
 
 ## Changelog
 
+- 2026-11-22 — Pedido do usuário: deck dividido em três (Relatório, Artigo, POP), lado a lado na 8.2; `check_html.py` ok, desktop e 375 px conferidos.
+- 2026-11-22 — Plano 02 (word) escrito.
 - 2026-11-22 — Task 3 (deck no site) concluída, `150e2d8`. Plano 01 concluído.
 - 2026-11-22 — Task 2 (texto justificado) concluída, `114fd70`.
 - 2026-11-22 — Task 1 (deck A4) concluída, `83a069c`.
