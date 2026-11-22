@@ -9,8 +9,8 @@
 
 % ---------- modelos: tamanhos iguais aos de MODELOS em word/build.js ----------
 % Fontes em pt (como no Word), entrelinhas em px do HTML, "antes"/"depois" em px.
-\newcommand\lina@fontetitulo{Outfit-Bold}
-\newcommand\lina@fio@rotulo{}   % relatorio: fio ferro de 2 px, 28 px de respiro, acima do rótulo
+% Cada opção define tudo o que a classe usa (nada vaza do relatorio, o padrão de \ExecuteOptions).
+% \lina@fio@rotulo: só no relatorio, fio ferro de 2 px com 28 px de respiro acima do rótulo.
 \DeclareOption{relatorio}{%
   \def\lina@top{134}%
   \def\lina@rotpt{12}\def\lina@rotantes{0}%
@@ -23,12 +23,14 @@
   \def\lina@rotpt{10}\def\lina@rotantes{36}%
   \def\lina@titpt{24}\def\lina@titlh{35.84}\def\lina@titls{-1.2}\def\lina@titantes{10}%
   \def\lina@secpt{11.5}\def\lina@seclh{23.25}\def\lina@secls{0}\def\lina@secantes{28}\def\lina@secdepois{8}%
+  \def\lina@fontetitulo{Outfit-Bold}\def\lina@fio@rotulo{}%
   \def\lina@cabecalho{\lina@titulocurto}}
 \DeclareOption{pop}{%
   \def\lina@top{102}%
   \def\lina@rotpt{10}\def\lina@rotantes{38}%
   \def\lina@titpt{24}\def\lina@titlh{35.84}\def\lina@titls{-1.2}\def\lina@titantes{10}%
   \def\lina@secpt{13.5}\def\lina@seclh{21.6}\def\lina@secls{0}\def\lina@secantes{32}\def\lina@secdepois{8}%
+  \def\lina@fontetitulo{Outfit-Bold}\def\lina@fio@rotulo{}%
   \def\lina@cabecalho{\lina@titulocurto}}
 \ExecuteOptions{relatorio}
 \ProcessOptions\relax
@@ -68,6 +70,7 @@
 \newfontfamily\lina@f@titulo{\lina@fontetitulo}[LetterSpace=\lina@titls]
 \newfontfamily\lina@f@secao{Outfit-Bold}[LetterSpace=\lina@secls]
 \newfontfamily\lina@f@bold{Outfit-Bold}
+\newfontfamily\lina@f@regular{Outfit-Regular}   % peso 400: caixa Atenção (POP)
 
 % tamanho em pt, entrelinha em px
 \newcommand\linatam[2]{\fontsize{#1pt}{\px{#2}}\selectfont}
@@ -77,7 +80,7 @@
 \setlength\parskip{\px{10}}
 \raggedbottom
 \emergencystretch=3em
-\renewcommand\normalsize{\normalfont\linatam{11.5}{23.25}}
+\renewcommand\normalsize{\normalfont\linatam{11.5}{23.2}}   % 17,4 pt
 \AtBeginDocument{\normalsize\color{umbro}}
 \setcounter{secnumdepth}{0}   % o número vai no texto do título: \section{1 · Apresentação}
 
@@ -132,21 +135,27 @@
 
 % ---------- fios, metadados, tabela ----------
 \newcommand\lina@fio[1]{\noalign{{\color{#1}\hrule height\px{1}}}}
-\newcolumntype{Y}{>{\RaggedRight\arraybackslash}X}
+\newcolumntype{Y}{>{\lina@cab\RaggedRight\arraybackslash}X}
 \newcolumntype{R}{>{\RaggedLeft\arraybackslash\ttfamily\fontsize{9pt}{\px{18}}\selectfont}X}
-\newcolumntype{N}{>{\RaggedLeft\arraybackslash}p{\px{90}}}
+\newcolumntype{N}{>{\lina@cab\RaggedLeft\arraybackslash}p{\px{90}}}
 % \begin{metadados}[respiro em px]{colunas}: fio fio-forte acima; linhas separadas por 14 px.
+% \begin{metadados*}[respiro em px]{colunas}: fio fio-forte acima e abaixo; linhas separadas por 18 px.
 % Dentro da célula, quebra de linha é \newline; \\ termina a linha da tabela (a última fica sem \\).
-\newenvironment{metadados}[2][12]{\par\vskip-\parskip\begingroup\linatam{10}{19.5}%
+\newcommand\lina@metanl{\tabularnewline[\px{\lina@metagap}]}
+\newcommand\lina@metabegin[2]{\par\vskip-\parskip\begingroup\linatam{10}{19.5}\def\lina@pad{#1}%
   \setlength\tabcolsep{\px{12}}\def\arraybackslash{\let\\\lina@metanl}%
-  \tabularx{\linewidth}{@{}#2@{}}\lina@fio{fio-forte}\noalign{\vskip\px{#1}}}%
-  {\endtabularx\endgroup\par}
-\newcommand\lina@metanl{\tabularnewline[\px{14}]}
-\newcommand\lina@tabnl{\tabularnewline[\px{9}]\lina@fio{fio-forte}}
-% \begin{tabela}{colunas}: fio umbro acima, fio fio-forte sob cada linha (terminar toda linha com \\)
+  \tabularx{\linewidth}{@{}#2@{}}\lina@fio{fio-forte}\noalign{\vskip\px{#1}}}
+\newenvironment{metadados}[2][12]{\def\lina@metagap{14}\lina@metabegin{#1}{#2}}{\endtabularx\endgroup\par}
+\newenvironment{metadados*}[2][20]{\def\lina@metagap{18}\lina@metabegin{#1}{#2}}%
+  {\endtabularx\par\vskip\px{\lina@pad}{\color{fio-forte}\hrule height\px{1}}\endgroup\par}
+% \begin{tabela}{colunas}: fio umbro acima, fio fio-forte sob cada linha (terminar toda linha com \\);
+% a 1ª linha (cabeçalho) sai em Medium
+\newcount\lina@linha \lina@linha=1
+\newcommand\lina@cab{\ifnum\lina@linha=0 \bfseries\fi}
+\newcommand\lina@tabnl{\global\advance\lina@linha by 1 \tabularnewline[\px{9}]\lina@fio{fio-forte}}
 \newenvironment{tabela}[1]{\par\vskip-\parskip\begingroup\linatam{10.5}{16}%
   \setlength\extrarowheight{\px{9}}\setlength\tabcolsep{0pt}\def\arraybackslash{\let\\\lina@tabnl}%
-  \tabularx{\linewidth}{@{}#1@{}}\lina@fio{umbro}}%
+  \tabularx{\linewidth}{@{}#1@{}}\lina@fio{umbro}\noalign{\global\lina@linha=0 }}%
   {\endtabularx\endgroup\par}
 
 % ---------- cabeçalho e rodapé ----------
@@ -179,4 +188,4 @@
 
 % ---------- referências (Artigo) ----------
 \newenvironment{referencias}{\par\linatam{9}{18}\setlength\leftskip{\px{16}}\setlength\parindent{-\px{16}}%
-  \setlength\parskip{\px{8}}\RaggedRight}{\par}
+  \setlength\parskip{\px{8}}}{\par}
