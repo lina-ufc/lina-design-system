@@ -1,0 +1,11 @@
+{
+  "name": "documento-a4-word",
+  "private": true,
+  "description": "Gera os modelos Word (.dotx e .docx) do Documento A4",
+  "type": "commonjs",
+  "dependencies": {
+    "docx": "^9.16.0",
+    "fflate": "^0.8.3",
+    "sharp": "^0.35.5"
+  }
+}
