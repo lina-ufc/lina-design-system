@@ -16,7 +16,7 @@ Diretrizes para toda sessão do Claude Code nesta pasta. Base: CLAUDE.md de Karp
 ## 1. Início de sessão
 
 1. Repositório git em `~/developer/lina-design-system` (GitHub `lina-ufc/lina-design-system`).
-   A pasta do Google Drive é só cópia de distribuição; não editar lá. O hook
+   A antiga pasta do Drive foi arquivada em `_obsoletos/` (2026-11-22); não editar lá. O hook
    `.claude/hooks/build-setup.sh` roda `npm ci` em `templates/apresentacao/potx` se faltar
    `node_modules/`. Build: `sh templates/apresentacao/potx/make.sh`. Versões: `CHANGELOG.md`
    de cada template e tag `apresentacao-vX.Y.Z` (release e site pelo GitHub Actions).
