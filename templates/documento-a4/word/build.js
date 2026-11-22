@@ -40,6 +40,7 @@ const MODELOS = {
   relatorio: {
     arq: 'Relatorio',
     ref: 'REL-2026-01 · Relatório anual de atividades',
+    top: px(134 + 6), // 6 px a mais: o título de 26 px do HTML fica mais baixo que a conta (−4,5 pt medidos)
     cabSecao: 1, // índice da seção onde entram cabeçalho e rodapé (a 0 é a capa, sem eles)
     // antes: empurra o bloco do título ao terço inferior da capa. No HTML o título começa a ~57 % da página
     // (≈ 516 px abaixo da linha do logo); a conta cheia dava 560 px e estourou no Word/LibreOffice
@@ -55,7 +56,7 @@ const MODELOS = {
     primeira: 'Cadernos LINA · v. 2 · n. 1 · 2026 · p. 1–18', // cabeçalho próprio da 1ª página
     rodape: 'DOI 10.0000/cl.2026.0001',
     // o HTML dá 36 px entre cabeçalho e texto; 28 px vêm do "antes" da seção (que também separa blocos no meio da página)
-    top: px(134 - 28),
+    top: px(134 - 28 - 2), // 2 px a menos: tira o +1,5 pt de deriva medido contra o HTML
     rotulo: { px: 13, fio: false, antes: px(36) },
     titulo: { font: F.reg, bold: true, px: 32, lh: 1.12, track: -0.012, antes: 10 },
     secao: { px: 15, lh: 1.55, track: 0, after: 8, antes: 28 },
@@ -66,10 +67,10 @@ const MODELOS = {
     cabSecao: 0,
     rodape: 'LINA · POP-04',
     total: true, // rodapé "n / total"
-    top: px(134 - 32), // 32 px vêm do "antes" do rótulo e da seção
-    rotulo: { px: 13, fio: false, antes: px(38) },
+    top: px(134 - 28 + 7), // 28 px vêm do "antes" da seção; +7 px medidos contra o HTML. A capa perde 11 px no rótulo para ficar onde estava
+    rotulo: { px: 13, fio: false, antes: px(38 - 11) },
     titulo: { font: F.reg, bold: true, px: 32, lh: 1.12, track: -0.012, antes: 10 },
-    secao: { px: 18, lh: 1.2, track: 0, after: 8, antes: 32 },
+    secao: { px: 18, lh: 1.2, track: 0, after: 8, antes: 28 },
   },
 };
 
@@ -100,6 +101,13 @@ const estilosP = (t) => [
     paragraph: { keepNext: true, outlineLevel: 0, spacing: { before: px(t.secao.antes ?? 0), after: px(t.secao.after ?? 18), line: lh(t.secao.px, t.secao.lh), lineRule: EXACT } },
     run: { font: F.reg, bold: true, size: hp(t.secao.px), characterSpacing: Math.round(px(t.secao.px) * t.secao.track) },
   }),
+  // título fora das colunas (Agradecimentos, Referências): no HTML a entrelinha é a normal da Outfit (1,26), não a do corpo (1,55)
+  P('LINASecaoSolta', 'LINA Seção Solta', { basedOn: 'LINASecao', paragraph: { spacing: { line: lh(15, 1.26), lineRule: EXACT } } }),
+  // título seguido de tabela: o HTML dá 12 px (e não 8) até a grade
+  P('LINASecaoTabela', 'LINA Seção Tabela', { basedOn: 'LINASecao', paragraph: { spacing: { after: px(12) } } }),
+  // seção mais abaixo na página: 36 px acima; a variante Tabela leva 12 px até lista ou tabela
+  P('LINASecaoAfastada', 'LINA Seção Afastada', { basedOn: 'LINASecao', paragraph: { spacing: { before: px(36) } } }),
+  P('LINASecaoAfastadaTabela', 'LINA Seção Afastada Tabela', { basedOn: 'LINASecaoAfastada', paragraph: { spacing: { after: px(12) } } }),
   P('LINASubsecao', 'LINA Subseção', {
     next: 'LINACorpo',
     paragraph: { keepNext: true, outlineLevel: 1, spacing: { before: px(36), after: px(12) } },
@@ -108,6 +116,8 @@ const estilosP = (t) => [
   P('LINACabecalho', 'LINA Cabeçalho', {
     paragraph: {
       rightTabStop: TW,
+      // linha exata da altura do logo (18,5 px): no Word o texto fica na linha de base do logo; assim sobe ≈ 3 pt, para perto do centro do HTML
+      spacing: { line: px(18.5), lineRule: EXACT },
       border: { bottom: { style: BorderStyle.SINGLE, size: bd(1), color: C.fioForte, space: pts(12) } },
     },
     run: { size: hp(12) },
@@ -131,10 +141,12 @@ const estilosP = (t) => [
     run: { font: F.mono, size: hp(12) },
   }),
   P('LINAEquipe', 'LINA Equipe', { paragraph: { spacing: { before: px(14), line: lh(13, 1.45), lineRule: EXACT } }, run: { size: hp(13) } }),
-  // before/after de 24 px: respiro do colofão entre o fio e o texto e até a margem inferior
-  P('LINAColofao', 'LINA Colofão', { paragraph: { spacing: { before: px(24), after: px(24), line: lh(12, 1.55), lineRule: EXACT } }, run: { size: hp(12) } }),
+  // before de 24 px: respiro entre o fio e o texto; after de 24 + 3 px até a margem inferior (os 3 px tiram o +2 pt que a linha exata do LibreOffice acrescenta)
+  P('LINAColofao', 'LINA Colofão', { paragraph: { spacing: { before: px(24), after: px(27), line: lh(12, 1.55), lineRule: EXACT } }, run: { size: hp(12) } }),
   // logo do colofão: entrelinha automática, senão a linha exata corta a imagem e ela sobe até o fio
   P('LINAColofaoLogo', 'LINA Colofão Logo', { basedOn: 'LINAColofao', paragraph: { spacing: { line: 240, lineRule: LineRuleType.AUTO } } }),
+  // coluna mono do colofão: no HTML o parágrafo todo é de 11 px, então a entrelinha é 11 × 1,55
+  P('LINAColofaoMono', 'LINA Colofão Mono', { basedOn: 'LINAColofao', paragraph: { spacing: { line: lh(11, 1.55), lineRule: EXACT } } }),
   P('LINAAutores', 'LINA Autores', { paragraph: { spacing: { before: px(18) } }, run: { size: hp(15) } }),
   P('LINAAfiliacao', 'LINA Afiliação', { paragraph: { spacing: { before: px(4) } }, run: { size: hp(12), color: mix(C.umbro, 0.75) } }),
   P('LINAResumo', 'LINA Resumo', { paragraph: { alignment: AlignmentType.BOTH, spacing: { line: lh(14, 1.55), lineRule: EXACT } }, run: { size: hp(14) } }),
@@ -164,12 +176,15 @@ const estilosP = (t) => [
   P('LINAMonoCel', 'LINA Mono Célula', { run: { font: F.mono, size: hp(13) } }),
   P('LINAAssinatura', 'LINA Assinatura', {
     paragraph: {
-      spacing: { before: px(44), after: px(24), line: lh(12, 1.5), lineRule: EXACT },
+      spacing: { before: px(44), after: px(24), line: lh(12, 1.26), lineRule: EXACT }, // 1,26: entrelinha normal da Outfit, como no HTML
       border: { top: { style: BorderStyle.SINGLE, size: bd(1), color: C.umbro, space: pts(8) } },
     },
     run: { size: hp(12) },
   }),
-  P('LINAQuebraGrande', 'LINA Quebra Grande', { paragraph: { spacing: { before: 0, after: 0, line: px(21), lineRule: EXACT } }, run: { size: 2 } }),
+  // margem de cima do bloco do resumo do Artigo: 28 px do HTML menos 2 px, que o LibreOffice soma na linha exata
+  P('LINAQuebraMedia', 'LINA Quebra Média', { paragraph: { spacing: { before: 0, after: 0, line: px(26), lineRule: EXACT } }, run: { size: 2 } }),
+  // 28 px: margem de cima da caixa Atenção (a tabela de passos não deixa margem embaixo)
+  P('LINAQuebraGrande', 'LINA Quebra Grande', { paragraph: { spacing: { before: 0, after: 0, line: px(28), lineRule: EXACT } }, run: { size: 2 } }),
   // parágrafo mínimo (1 pt) que fecha seção ou separa tabelas
   P('LINAQuebra', 'LINA Quebra', { paragraph: { spacing: { before: 0, after: 0, line: 20, lineRule: EXACT } }, run: { size: 2 } }),
 ];
@@ -199,6 +214,12 @@ const ESTILOS_TABELA = [
     borders: bordas(C.umbro, C.fioForte, C.fioForte), mar: marg(px(9), 0, px(9), 0),
     extra: `<w:tblStylePr w:type="firstRow"><w:rPr>${fonteMed}</w:rPr></w:tblStylePr>`,
   }),
+  // Registro do POP: 13 px; só a 1ª linha tem 9 px de margem, as linhas vazias medem 30 px + 1 px de fio, como no HTML
+  estTab('LINATabelaRegistro', 'LINA Tabela Registro', {
+    pr: `<w:pPr><w:spacing w:before="0" w:after="0"/></w:pPr><w:rPr><w:sz w:val="${hp(13)}"/><w:szCs w:val="${hp(13)}"/></w:rPr>`,
+    borders: bordas(C.umbro, C.fioForte, C.fioForte), mar: marg(0, 0, 0, 0),
+    extra: `<w:tblStylePr w:type="firstRow"><w:rPr>${fonteMed}</w:rPr><w:tcPr><w:tcMar><w:top w:w="${px(9)}" w:type="dxa"/><w:bottom w:w="${px(9)}" w:type="dxa"/></w:tcMar></w:tcPr></w:tblStylePr>`,
+  }),
   estTab('LINAMetadados', 'LINA Metadados', { borders: bordas(), mar: marg(0, 0, 0, 0) }),
   estTab('LINAMetadadosFio', 'LINA Metadados Fio', { borders: bordas(C.fioForte), mar: marg(0, 0, 0, 0) }),
   // Resumo do Artigo: fio acima e abaixo; 9 + 9 px entre linhas (gap 18 do HTML), 20 px de respiro na 1ª e na última linha
@@ -208,7 +229,12 @@ const ESTILOS_TABELA = [
       + `<w:tblStylePr w:type="lastRow"><w:tcPr><w:tcMar><w:bottom w:w="${px(20)}" w:type="dxa"/></w:tcMar></w:tcPr></w:tblStylePr>`,
   }),
   // Passos do POP: sem fio; 7 px em cima e embaixo = 14 px entre passos
-  estTab('LINAPassos', 'LINA Passos', { borders: bordas(), mar: marg(px(7), 0, px(7), 0) }),
+  estTab('LINAPassos', 'LINA Passos', {
+    borders: bordas(), mar: marg(px(7), 0, px(7), 0),
+    // 1ª e última linha sem margem externa: o 12 px até a grade vem do título e o espaço depois, do parágrafo seguinte
+    extra: `<w:tblStylePr w:type="firstRow"><w:tcPr><w:tcMar><w:top w:w="0" w:type="dxa"/></w:tcMar></w:tcPr></w:tblStylePr>`
+      + `<w:tblStylePr w:type="lastRow"><w:tcPr><w:tcMar><w:bottom w:w="0" w:type="dxa"/></w:tcMar></w:tcPr></w:tblStylePr>`,
+  }),
   estTab('LINAAtencao', 'LINA Atenção', {
     borders: bordas(), mar: marg(px(16), px(20), px(16), px(20)),
     extra: `<w:tblStylePr w:type="firstRow"><w:tcPr><w:shd w:val="clear" w:color="auto" w:fill="${C.nata}"/></w:tcPr></w:tblStylePr>`,
@@ -333,7 +359,7 @@ function relatorio(a) {
           r('Laboratório de Modelagem da Informação', 'LINADestaque'),
           ...['Departamento de Arquitetura, Urbanismo e Design', 'Universidade Federal do Ceará', 'Av. da Universidade, Fortaleza – CE'].map((t) => r(t, null, 1)),
         ] })],
-        [new Paragraph({ style: 'LINAColofao', children: [
+        [new Paragraph({ style: 'LINAColofaoMono', children: [
           r('contato@lina.ufc.br', 'LINAMonoPequeno'), r('lina.ufc.br', 'LINAMonoPequeno', 1), r('REL-2026-01 · v. 1.0 · 10/2026', 'LINAMonoPequeno', 2),
         ] })],
       ]], { float: {
@@ -362,9 +388,9 @@ function artigo(a) {
       par('LINATitulo', 'Título do artigo em até três linhas, com subtítulo após dois-pontos se necessário'),
       par('LINAAutores', r('Nome Sobrenome', 'LINADestaque'), '¹ · ', r('Nome Sobrenome', 'LINADestaque'), '¹ · ', r('Nome Sobrenome', 'LINADestaque'), '²'),
       par('LINAAfiliacao', '¹ Universidade Federal do Ceará · ² Instituição'),
-      par('LINAQuebra'),
+      par('LINAQuebraMedia'),
       grade('LINAMetadadosFios', [110], 18, [
-        [[par('LINAResumo', r('Resumo', 'LINADestaque'))], [par('LINAResumo', 'Resumo de até 250 palavras, em parágrafo único: objetivo, método, resultados e conclusão. O resumo ocupa a largura total e é separado do corpo por dois fios areia.')]],
+        [[par('LINAResumo', r('Resumo', 'LINADestaque'))], [par('LINAResumo', 'Resumo de até 250 palavras, em parágrafo único: objetivo, método, resultados e\u00A0conclusão. O resumo ocupa a largura total e é separado do corpo por dois fios areia.')]],
         [[par('LINAResumo', r('Palavras-chave', 'LINADestaque'))], [par('LINAResumo', 'três a cinco termos; separados por ponto e vírgula')]],
       ], { tableLook: { firstRow: true, lastRow: true, noHBand: true, noVBand: true } }),
       quebra(),
@@ -402,9 +428,9 @@ function artigo(a) {
       ...corpo('Retome o objetivo em uma frase, responda a ele com os resultados e indique o alcance e os limites do trabalho. Termine com os próximos passos da pesquisa.'),
     ] },
     { type: C1, children: [
-      par('LINASecao', 'Agradecimentos'),
+      par('LINASecaoSolta', 'Agradecimentos'),
       par('LINAResumo', 'Agências de fomento, número do processo e pessoas que contribuíram sem autoria.'),
-      par('LINASecao', 'Referências'),
+      par('LINASecaoSolta', 'Referências'),
       par('LINAFio'),
       quebra(),
     ] },
@@ -438,15 +464,15 @@ function pop() {
   const passo = (n, ...c) => new TableRow({ cantSplit: true, children: [
     cel(px(40), par('LINAPasso', r(n, 'LINAPassoNumero'))), cel(TW - px(40), par('LINAPasso', ...c)),
   ] });
-  const passos = (...ps) => tabela('LINAPassos', [px(40), TW - px(40)], ps.map(([n, ...c]) => passo(n, ...c)));
+  const passos = (...ps) => tabela('LINAPassos', [px(40), TW - px(40)], ps.map(([n, ...c]) => passo(n, ...c)), { tableLook: { firstRow: true, lastRow: true, noHBand: true, noVBand: true } });
   const meta = (rot, ...v) => [new Paragraph({ style: 'LINAMeta', children: [r(rot, 'LINARotuloMeta'), ...v.map((x) => (typeof x === 'string' ? r(x, null, 1) : x))] })];
-  const tab = (colunas, rows) => tabela('LINATabela', colunas, rows, { tableLook: { firstRow: true, noHBand: true, noVBand: true } });
+  const tab = (colunas, rows, estilo = 'LINATabela') => tabela(estilo, colunas, rows, { tableLook: { firstRow: true, noHBand: true, noVBand: true } });
   const mono = (t) => par('LINAMonoCel', t);
   const assina = (rot) => [new Paragraph({ style: 'LINAAssinatura', children: [r(rot, 'LINARotuloMeta'), r('Nome · data', null, 1)] })];
   const wp = [px(130 + 12), px(130)]; wp.unshift(TW - wp[0] - wp[1]);
   const wr = [px(112), 0, px(152), px(90)]; wr[1] = TW - wr[0] - wr[2] - wr[3];
   const wh = [px(82), px(122), 0]; wh[2] = TW - wh[0] - wh[1];
-  const vazia = () => new TableRow({ cantSplit: true, height: { value: px(30), rule: HeightRule.EXACT }, children: wr.map((w) => cel(w, new Paragraph({}))) });
+  const vazia = () => new TableRow({ cantSplit: true, height: { value: px(31), rule: HeightRule.EXACT }, children: wr.map((w) => cel(w, new Paragraph({}))) });
   const hist = (v, d, t) => new TableRow({ children: [cel(wh[0], par(undefined, v)), cel(wh[1], mono(d)), cel(wh[2], par(undefined, t))] });
   const esc = (nome, res, dist) => new TableRow({ children: [cel(wp[0], par(undefined, nome)), cel(wp[1], mono(res)), cel(wp[2], mono(dist))] });
   return [
@@ -460,7 +486,7 @@ function pop() {
       par('LINACorpo', 'Uma ou duas frases sobre o resultado que o procedimento garante, não sobre as tarefas.'),
       par('LINASecao', 'Material'),
       par('LINACorpo', 'Equipamento · acessório · ficha de campo · mídia de cópia'),
-      par('LINASecao', 'Procedimento'),
+      par('LINASecaoTabela', 'Procedimento'),
       passos(
         ['01', 'Cada passo começa com um verbo no imperativo e descreve uma única ação.'],
         ['02', 'Quando houver um critério de conferência, escreva-o no mesmo passo.'],
@@ -473,7 +499,7 @@ function pop() {
       quebra(),
     ] },
     { type: PROX, children: [
-      par('LINASecao', 'Procedimento ', r('(continuação)', 'LINAContinuacao')),
+      par('LINASecaoTabela', 'Procedimento ', r('(continuação)', 'LINAContinuacao')),
       passos(
         ['05', 'A numeração continua entre páginas; nunca reinicie a contagem.'],
         ['06', 'Quando um passo depender de condição, escreva a condição primeiro: “Se a prévia falhar, repita o passo 04.”'],
@@ -486,10 +512,11 @@ function pop() {
         esc('objeto', '— mm', '— m'), esc('edifício', '— mm', '— m'), esc('cidade', '— mm', '— m'),
       ]),
       par('LINANota', 'Valores de referência; ajuste conforme o manual do equipamento.'),
-      par('LINASecao', 'Critérios de aceitação'),
+      par('LINASecaoAfastadaTabela', 'Critérios de aceitação'),
       par('LINALista', 'Cada estação compartilha ao menos três alvos com a anterior.'),
       par('LINALista', 'O erro de registro não excede o valor da tabela 1.'),
       par('LINALista', 'Todos os arquivos estão no servidor com o nome padrão.'),
+      quebra(), // sem ela o LibreOffice desconta o espaço depois da lista do início da página seguinte
     ] },
     { type: PROX, children: [
       par('LINASecao', 'Registro de execução'),
@@ -497,15 +524,15 @@ function pop() {
       tab(wr, [
         new TableRow({ tableHeader: true, children: [cel(wr[0], par(undefined, 'Data')), cel(wr[1], par(undefined, 'Local / estações')), cel(wr[2], par(undefined, 'Operador')), cel(wr[3], par(undefined, 'Conferido'))] }),
         vazia(), vazia(), vazia(), vazia(), vazia(),
-      ]),
-      par('LINASecao', 'Histórico de revisões'),
+      ], 'LINATabelaRegistro'),
+      par('LINASecaoAfastadaTabela', 'Histórico de revisões'),
       tab(wh, [
         new TableRow({ tableHeader: true, children: [cel(wh[0], par(undefined, 'Versão')), cel(wh[1], par(undefined, 'Data')), cel(wh[2], par(undefined, 'Alteração'))] }),
         hist('1.0', '05/2024', 'Emissão inicial.'),
         hist('2.0', '08/2025', 'Inclusão da tabela de parâmetros por escala.'),
         hist('2.1', '03/2026', 'Ajuste do padrão de nome de arquivo.'),
       ]),
-      par('LINASecao', 'Documentos relacionados'),
+      par('LINASecaoAfastada', 'Documentos relacionados'),
       par('LINACorpo', r('POP-03', 'LINAMonoTexto'), ' Calibração do escâner · ', r('POP-07', 'LINAMonoTexto'), ' Registro de nuvens de pontos'),
       quebra(),
       // assinaturas: tabela flutuante ancorada na margem inferior (nunca caixa de texto); linha umbro = borda do parágrafo
