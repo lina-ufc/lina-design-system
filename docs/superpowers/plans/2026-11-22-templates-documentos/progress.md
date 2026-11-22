@@ -13,11 +13,11 @@
 
 ## Resumo
 
-`[███░░░░░░░]` 33% — 1 de 3 tarefas escritas.
+`[██████████]` 100% — 3 de 3 tarefas escritas.
 
 | Plano | Progresso | Tarefas | Estado |
 | --- | --- | --- | --- |
-| 01 — html-deck | `[███░░░░░░░]` | 1/3 | **Em execução 2026-11-22** em `main` |
+| 01 — html-deck | `[██████████]` | 3/3 | Concluído 2026-11-22 |
 | 02 — word | `[░░░░░░░░░░]` | — | Não escrito. Escrito quando 01 terminar |
 | 03 — latex | `[░░░░░░░░░░]` | — | Não escrito. Escrito quando 02 terminar |
 | 04 — conferencia-e-release | `[░░░░░░░░░░]` | — | Não escrito. Escrito quando 03 terminar |
@@ -25,15 +25,15 @@
 
 ## Plano 01 — html-deck
 
-`[███░░░░░░░]` 33% — 1 de 3 tarefas.
+`[██████████]` 100% — 3 de 3 tarefas.
 
 Branch `main`, base `5624fcb`.
 
 - [x] **Task 1** — Deck A4 — `83a069c`, check_html ok, 9 páginas vistas no navegador
-- [ ] **Task 2** — Texto corrido justificado
-- [ ] **Task 3** — Deck no site
+- [x] **Task 2** — Texto corrido justificado — `114fd70`, 29 blocos `.tc`, hifenização vista em #4
+- [x] **Task 3** — Deck no site — `150e2d8`, quadro 794×1123 sem miniaturas, setas ok, 375 px sem rolagem lateral
 
-Checagens que rodaram: `check_html.py` (Task 1).
+Checagens que rodaram: `check_html.py` (Tasks 1 e 2); `sistema.py` e navegador desktop/375 px (Task 3).
 
 ## Estado herdado
 
@@ -48,6 +48,8 @@ Checagens que rodaram: `check_html.py` (Task 1).
 
 ## Changelog
 
+- 2026-11-22 — Task 3 (deck no site) concluída, `150e2d8`. Plano 01 concluído.
+- 2026-11-22 — Task 2 (texto justificado) concluída, `114fd70`.
 - 2026-11-22 — Task 1 (deck A4) concluída, `83a069c`.
 - 2026-11-22 — Reorganização do site commitada (`481558d`); execução do 01 aberta.
 - 2026-11-22 — Conjunto criado; spec aprovada; plano 01 escrito.
