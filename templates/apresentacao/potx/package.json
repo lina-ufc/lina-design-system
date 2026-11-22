@@ -1,0 +1,15 @@
+{
+  "name": "potx",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lina-dither-field.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "type": "commonjs",
+  "dependencies": {
+    "pptxgenjs": "^4.0.1",
+    "sharp": "^0.35.5"
+  }
+}

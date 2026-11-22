@@ -1,0 +1,10 @@
+<!-- Grade de 48 unidades. Pictograma: contorno com traço 2, detalhe interno com stroke-width="1", folga de 2. Desenhe na camada "desenho" e apague a camada "grade". -->
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
+  <g id="grade" fill="none" stroke-width="0.05">
+    <g stroke="#E6DFA2"><path d="M1 0V48M0 1H48"/><path d="M2 0V48M0 2H48"/><path d="M3 0V48M0 3H48"/><path d="M4 0V48M0 4H48"/><path d="M5 0V48M0 5H48"/><path d="M6 0V48M0 6H48"/><path d="M7 0V48M0 7H48"/><path d="M8 0V48M0 8H48"/><path d="M9 0V48M0 9H48"/><path d="M10 0V48M0 10H48"/><path d="M11 0V48M0 11H48"/><path d="M12 0V48M0 12H48"/><path d="M13 0V48M0 13H48"/><path d="M14 0V48M0 14H48"/><path d="M15 0V48M0 15H48"/><path d="M16 0V48M0 16H48"/><path d="M17 0V48M0 17H48"/><path d="M18 0V48M0 18H48"/><path d="M19 0V48M0 19H48"/><path d="M20 0V48M0 20H48"/><path d="M21 0V48M0 21H48"/><path d="M22 0V48M0 22H48"/><path d="M23 0V48M0 23H48"/><path d="M24 0V48M0 24H48"/><path d="M25 0V48M0 25H48"/><path d="M26 0V48M0 26H48"/><path d="M27 0V48M0 27H48"/><path d="M28 0V48M0 28H48"/><path d="M29 0V48M0 29H48"/><path d="M30 0V48M0 30H48"/><path d="M31 0V48M0 31H48"/><path d="M32 0V48M0 32H48"/><path d="M33 0V48M0 33H48"/><path d="M34 0V48M0 34H48"/><path d="M35 0V48M0 35H48"/><path d="M36 0V48M0 36H48"/><path d="M37 0V48M0 37H48"/><path d="M38 0V48M0 38H48"/><path d="M39 0V48M0 39H48"/><path d="M40 0V48M0 40H48"/><path d="M41 0V48M0 41H48"/><path d="M42 0V48M0 42H48"/><path d="M43 0V48M0 43H48"/><path d="M44 0V48M0 44H48"/><path d="M45 0V48M0 45H48"/><path d="M46 0V48M0 46H48"/><path d="M47 0V48M0 47H48"/></g>
+    <rect x="2" y="2" width="44" height="44" stroke="#C9B87A" stroke-width="0.1"/>
+    <circle cx="24.0" cy="24.0" r="22.0" stroke="#C9B87A" stroke-width="0.1"/>
+  </g>
+  <g id="desenho" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  </g>
+</svg>

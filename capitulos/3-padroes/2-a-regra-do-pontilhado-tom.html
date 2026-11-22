@@ -1,0 +1,25 @@
+<h2>Um tom por célula, quatro respostas</h2>
+<p class="p">O pontilhado parte da <a href="1-logotipo.html#s-logotipo-com-a-grade">mesma retícula do logotipo</a>: uma célula por posição. Cada célula recebe um <b>tom</b> entre 0 e 1, vindo de um ruído contínuo. O tom decide o que a célula vira — um ponto, um trecho de linha, uma ponte ou um sólido. A forma nunca é escolhida à mão: é o tom passando pela regra.</p><div style="margin-top:22px;display:grid;grid-template-columns:230px minmax(0,1fr);gap:24px;align-items:start"><div><p class="k" style="margin:0 0 4px;color:var(--ferro);opacity:1">A</p><p style="margin:0 0 6px;font-weight:500">A escada de tom</p><p class="cap" style="font-size:12.5px">Da esquerda para a direita o tom sobe de 0 a 1. Abaixo de 0,62 há pontos; entre 0,62 e 0,72, linhas de uma célula; entre 0,72 e 0,90, pontes de células que se tocam pelo canto; acima de 0,90, sólido.</p></div><div id="a-regra-do-pontilhado-tom-a"></div></div><div style="margin-top:22px;display:grid;grid-template-columns:230px minmax(0,1fr);gap:24px;align-items:start"><div><p class="k" style="margin:0 0 4px;color:var(--ferro);opacity:1">B</p><p style="margin:0 0 6px;font-weight:500">O tamanho do ponto</p><p class="cap" style="font-size:12.5px">O lado do ponto cresce com o tom: 0,26 + 0,65 × tom, em células. O raio é limitado a ¼ de célula — por isso o ponto pequeno é um círculo e o grande vira um quadrado de cantos de ¼, como o logotipo.</p></div><div id="a-regra-do-pontilhado-tom-b"></div></div><div style="margin-top:22px;display:grid;grid-template-columns:230px minmax(0,1fr);gap:24px;align-items:start"><div><p class="k" style="margin:0 0 4px;color:var(--ferro);opacity:1">C</p><p style="margin:0 0 6px;font-weight:500">A matriz de presença</p><p class="cap" style="font-size:12.5px">Uma matriz 4 × 4 decide onde cada ponto aparece: o ponto existe quando 16 × tom supera o número da sua posição. Tom 0,25 acende 4 de 16 posições; tom 0,5, 8; tom 0,75, 12. É o que distribui os pontos sem aglomerar.</p></div><div id="a-regra-do-pontilhado-tom-c"></div></div>
+<script src="assets/lina-geometry.js"></script><script src="guidelines/lina-draw.js"></script><script>{
+const {G,dither,text,hdim,svg,mount,BAY,LINE,BRIDGE,SOLID}=LD,INK='#2A1A12',SOFT='#C9B87A',FAINT='#E6DFA2';
+// A
+{const nx=30,ny=8,c=20,ox=0,oy=40,tone=new Float32Array(nx*ny);for(let j=0;j<ny;j++)for(let i=0;i<nx;i++)tone[j*nx+i]=0.06+0.94*i/(nx-1);
+let o=dither(tone,nx,ny,c,INK,ox,oy);const col=v=>ox+Math.ceil((v-0.06)/0.94*(nx-1))*c;
+const Z=[[0.06,LINE,'ponto'],[LINE,BRIDGE,'linha'],[BRIDGE,SOLID,'ponte'],[SOLID,1.0001,'sólido']];
+Z.forEach(([a,b,l])=>{const x1=a===0.06?ox:col(a),x2=b>1?ox+nx*c:col(b);o+=hdim(x1,x2,24,l,INK);});
+[LINE,BRIDGE,SOLID].forEach(v=>{o+='<line x1="'+col(v)+'" y1="'+(oy-4)+'" x2="'+col(v)+'" y2="'+(oy+ny*c+4)+'" stroke="#A81F0D" stroke-dasharray="3 3"/>'+text(col(v),oy+ny*c+18,String(v).replace('.',','),{fill:'#A81F0D',size:10.5});});
+o+=text(ox,oy+ny*c+18,'0',{size:10.5,anchor:'start',fill:INK})+text(ox+nx*c,oy+ny*c+18,'1',{size:10.5,anchor:'end',fill:INK});
+mount('a-regra-do-pontilhado-tom-a',svg(nx*c,oy+ny*c+26,o));}
+// B
+{const c=56;let o='',x=0;[0.1,0.2,0.3,0.4,0.5,0.6].forEach(t=>{const s=c*(0.26+t*0.65),ins=(c-s)/2,r=Math.min(s/2,c/4);
+o+='<rect x="'+x+'" y="0" width="'+c+'" height="'+c+'" fill="none" stroke="'+SOFT+'" stroke-dasharray="3 3"/><rect x="'+(x+ins)+'" y="'+ins+'" width="'+s+'" height="'+s+'" rx="'+r+'" fill="'+INK+'"/>';
+o+=text(x+c/2,c+16,'tom '+String(t).replace('.',','),{fill:INK,size:10.5})+text(x+c/2,c+30,(s/c).toFixed(2).replace('.',',')+' cél.',{size:10});x+=c+16;});
+mount('a-regra-do-pontilhado-tom-b',svg(x-16,c+36,o));}
+// C
+{const c=17;let o='',x=0;const m=(t,ox,lab)=>{let g='';for(let j=0;j<4;j++)for(let i=0;i<4;i++){const v=BAY[j][i],on=t===null?false:t*16>v,X=ox+i*c,Y=j*c;
+g+='<rect x="'+X+'" y="'+Y+'" width="'+c+'" height="'+c+'" fill="'+(t===null?'#FDF1CF':'none')+'" stroke="'+FAINT+'"/>';
+if(t===null)g+=text(X+c/2,Y+c/2+4,v,{fill:INK,size:10});else if(on){const s=c*(0.26+t*0.65)*0.9,ins=(c-s)/2;g+='<rect x="'+(X+ins)+'" y="'+(Y+ins)+'" width="'+s+'" height="'+s+'" rx="'+Math.min(s/2,c/4)+'" fill="'+INK+'"/>';}}
+return g+text(ox+2*c,4*c+16,lab,{fill:INK,size:10.5});};
+o+=m(null,0,'matriz');o+=m(0.25,4*c+30,'tom 0,25');o+=m(0.5,8*c+60,'tom 0,5');o+=m(0.75,12*c+90,'tom 0,75');
+mount('a-regra-do-pontilhado-tom-c',svg(16*c+90,4*c+24,o));}
+}</script>

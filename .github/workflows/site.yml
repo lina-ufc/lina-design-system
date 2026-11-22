@@ -1,0 +1,50 @@
+# Site no GitHub Pages: páginas do sistema geradas a partir da última release de cada template.
+name: Site
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: true
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: sudo apt-get install -y --no-install-recommends poppler-utils
+      - name: Arquivos da release atual da apresentação
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          V=$(sed -n 's/^## \([0-9][0-9.]*\).*/\1/p' templates/apresentacao/CHANGELOG.md | head -1)
+          TAG=apresentacao-v$V
+          gh release download "$TAG" -D templates/apresentacao
+          unzip -q templates/apresentacao/LINA-Apresentacao-HTML.zip -d "$RUNNER_TEMP/h"
+          cp -R "$RUNNER_TEMP/h/LINA-Apresentacao-HTML/Apresentacao.dc.html" "$RUNNER_TEMP/h/LINA-Apresentacao-HTML/img" templates/apresentacao/
+          rm templates/apresentacao/LINA-Apresentacao-HTML.zip
+          echo "RELEASE_TAG=$TAG" >> "$GITHUB_ENV"
+          echo "RELEASE_URL=https://github.com/$GITHUB_REPOSITORY/releases/download/$TAG/" >> "$GITHUB_ENV"
+      - run: python3 downloads/empacotar.py
+      - run: python3 capitulos/8-templates/_gerar.py
+      - run: python3 sistema.py
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+  deploy:
+    needs: build
+    runs-on: ubuntu-24.04
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - id: deploy
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,16 @@
+<h2>Quatro letras, dezoito blocos</h2>
+<p class="p">Cada letra cabe numa altura de três células. O tracejado marca os blocos; os círculos, os pescoços.</p>
+<div id="construcao-das-letras-d" style="display:flex;gap:44px;flex-wrap:wrap;align-items:flex-start;margin-top:18px"></div>
+<script src="assets/lina-geometry.js"></script><script src="guidelines/lina-draw.js"></script><script>{
+const {G,letter,blocksOf,grid,rects,path,hdim,svg}=LD,s=24,L=LinaGeometry.LETTERS;
+const ring=(x,y)=>'<circle cx="'+x+'" cy="'+y+'" r="9" fill="none" stroke="'+G.ink+'" stroke-width="1.2"/>';
+const T={L:['Duas células em coluna e uma terceira ligada pelo canto: o pé do L é um pescoço.',o=>ring(o.x+2*s,o.y+4*s)],
+I:['Três células empilhadas. A letra mais simples, e a medida de altura de todas.',()=>''],
+n:['O ombro liga a perna esquerda pelo canto; entre as pernas, um vão de ½ que fecha em semicírculo.',o=>ring(o.x+2*s,o.y+3*s)+hdim(o.x+2*s,o.x+3*s,o.y+6*s+14,'½',G.dark,true)],
+A:['O topo liga a perna direita pelo canto. O contravão é uma cápsula de ½ × 1; a travessa, a única peça de meia célula.',o=>ring(o.x+3*s,o.y+2*s)+hdim(o.x+2*s,o.x+3*s,o.y+6*s+14,'½',G.dark,true)]};
+const el=document.getElementById('construcao-das-letras-d');
+['L','I','n','A'].forEach(k=>{const w=L[k].w,o={x:12,y:12};let g=grid(o.x,o.y,w*s,6*s,s/2,G.faint)+grid(o.x,o.y,w*s,6*s,s,G.line);
+g+=path(letter(k,s,o.x,o.y),G.line)+rects(blocksOf(k,s,o.x,o.y),G.ink,1,'4 3')+T[k][1](o);
+const d=document.createElement('div');d.className='fig';d.style.maxWidth=Math.max(150,w*s+24)+'px';
+d.innerHTML='<p class="k" style="margin:0">'+k+'</p>'+svg(w*s+24,6*s+44,g)+'<p class="cap">'+T[k][0]+'</p>';el.appendChild(d);});
+}</script>

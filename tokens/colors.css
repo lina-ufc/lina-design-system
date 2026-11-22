@@ -1,0 +1,60 @@
+/* CORES
+
+   Paleta principal: ferro oxidado, areia, creme, damasco e turquesa. Quatro quentes num arco de
+   matiz estreito (7°–54°) e um único contraponto frio (173°), quase complementar ao ferro.
+   Paleta auxiliar: tons da mesma família que dão ao sistema o escuro do texto, a passagem,
+   os painéis e os fios. */
+:root {
+  /* principal */
+  --ferro: #A81F0D;
+  --areia: #E1CE7A;
+  --creme: #FAF5C6;
+  --damasco: #FDD692;
+  --turquesa: #64B6AC;
+
+  /* auxiliar */
+  --umbro: #2A1A12;          /* o escuro: texto */
+  --ferro-fundo: #6E1408;    /* passagem e pressão sobre o ferro */
+  --turquesa-fundo: #2F6A62; /* turquesa como texto sobre fundo claro */
+  --turquesa-tinta: #14322E; /* texto sobre turquesa */
+  --nata: #FDF1CF;           /* painéis sobre o creme */
+  --fio: #E6DFA2;            /* fios estruturais */
+  --fio-forte: #C9B87A;      /* bordas de controle */
+
+  --iron: var(--ferro);
+  --sand: var(--areia);
+  --cream: var(--creme);
+  --apricot: var(--damasco);
+  --teal: var(--turquesa);
+  --umber: var(--umbro);
+
+  /* semântica — texto */
+  --text-body: var(--umbro);
+  --text-muted: rgba(42, 26, 18, .62);
+  --text-accent: var(--ferro);
+  --text-cool: var(--turquesa-fundo);
+  --text-on-accent: var(--creme);
+  --text-on-cool: var(--turquesa-tinta);
+  --text-on-deep: var(--areia);
+  --text-on-dark: var(--areia);
+
+  /* semântica — superfícies */
+  --surface-page: var(--creme);
+  --surface-panel: var(--nata);
+  --surface-warm: var(--damasco);
+  --surface-sand: var(--areia);
+  --surface-accent: var(--ferro);
+  --surface-cool: var(--turquesa);
+  --surface-deep: var(--umbro);
+  --surface-dark: var(--umbro);
+  --surface-stage: var(--areia);
+
+  /* semântica — fios, controles, foco */
+  --border-hairline: var(--fio);
+  --border-control: var(--fio-forte);
+  --border-emphasis: var(--umbro);
+  --focus-ring: var(--ferro);
+  --control-bg: var(--creme);
+  --control-track: var(--fio);
+  --accent-color: var(--ferro);
+}

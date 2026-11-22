@@ -1,0 +1,334 @@
+{
+ "_leia": "Fonte do documento do sistema. Cada capítulo vira uma página. Entrada com \"secao\" (fragmento HTML em capitulos/) entra no corpo; com \"arquivo\" + \"vista\", entra num quadro. Depois de editar: python3 sistema.py",
+ "capitulos": [
+  {
+   "id": "0",
+   "nome": "Preâmbulo",
+   "desc": "O conceito da marca."
+  },
+  {
+   "id": "1",
+   "nome": "Logotipo",
+   "desc": "A regra de construção e as formas do logotipo."
+  },
+  {
+   "id": "2",
+   "nome": "Cores",
+   "desc": "Paleta principal, auxiliar e contrastes."
+  },
+  {
+   "id": "3",
+   "nome": "Padrões",
+   "desc": "Pontilhado, dispersão e campo."
+  },
+  {
+   "id": "4",
+   "nome": "Animação",
+   "desc": "O pontilhado em movimento."
+  },
+  {
+   "id": "5",
+   "nome": "Tipografia",
+   "desc": "Outfit e JetBrains Mono, as duas livres (OFL)."
+  },
+  {
+   "id": "6",
+   "nome": "Ícones",
+   "desc": "Phosphor: seis pesos e o duotone nas cores do LINA."
+  },
+  {
+   "id": "7",
+   "nome": "Componentes",
+   "desc": "Peças reutilizáveis: logo, campo pontilhado, ladrilho de ¼, rodapé, layouts."
+  },
+  {
+   "id": "8",
+   "nome": "Templates",
+   "desc": "Para baixar: apresentação em PowerPoint e HTML, fontes, ícones e documento A4."
+  }
+ ],
+ "entradas": [
+  {
+   "cap": "0",
+   "nome": "0.1 Das relações, o grupo",
+   "sub": "O conceito da marca: o grupo como propriedade emergente das relações",
+   "estado": "aprovado",
+   "secao": "capitulos/0-preambulo/1-das-relacoes-o-grupo.html"
+  },
+  {
+   "cap": "1",
+   "nome": "1.1 A ideia",
+   "sub": "Uma regra que gera forma: células, grade, união, cantos",
+   "estado": "aprovado",
+   "secao": "capitulos/1-logotipo/1-a-ideia.html"
+  },
+  {
+   "cap": "1",
+   "nome": "1.2 Três medidas",
+   "sub": "Célula, meia célula e quarto de célula — e o que cada uma governa",
+   "estado": "aprovado",
+   "secao": "capitulos/1-logotipo/2-tres-medidas.html"
+  },
+  {
+   "cap": "1",
+   "nome": "1.3 Cantos e encontros",
+   "sub": "Como a união de células é traçada: convexo, côncavo, pescoço, vão, folga",
+   "estado": "aprovado",
+   "secao": "capitulos/1-logotipo/3-cantos-e-encontros.html"
+  },
+  {
+   "cap": "1",
+   "nome": "1.4 Construção das letras",
+   "sub": "L, I, n, A — cada letra como soma de células",
+   "estado": "aprovado",
+   "secao": "capitulos/1-logotipo/4-construcao-das-letras.html"
+  },
+  {
+   "cap": "1",
+   "nome": "1.5 Espaçamento e proporção",
+   "sub": "Letras a ¼ de célula; o n meia célula abaixo; 8¾ × 3 células",
+   "estado": "aprovado",
+   "secao": "capitulos/1-logotipo/5-espacamento-e-proporcao.html"
+  },
+  {
+   "cap": "1",
+   "nome": "1.6 Logotipo com a grade",
+   "sub": "O logotipo principal com a grade de construção sobreposta",
+   "estado": "aprovado",
+   "secao": "capitulos/1-logotipo/6-logotipo-com-a-grade.html"
+  },
+  {
+   "cap": "1",
+   "nome": "1.7 Variações",
+   "sub": "Horizontal, vertical e símbolo, em positivo, negativo e sobre cinzas",
+   "estado": "rascunho",
+   "secao": "capitulos/1-logotipo/7-variacoes.html"
+  },
+  {
+   "cap": "2",
+   "nome": "2.1 Paleta principal",
+   "sub": "Cinco cores: ferro, areia, creme, damasco, turquesa",
+   "estado": "aprovado",
+   "secao": "capitulos/2-cores/1-paleta-principal.html"
+  },
+  {
+   "cap": "2",
+   "nome": "2.2 Brasil e Nordeste",
+   "sub": "De onde vêm as cores: terra, duna, cal, fruta, mar",
+   "estado": "aprovado",
+   "secao": "capitulos/2-cores/2-brasil-e-nordeste.html"
+  },
+  {
+   "cap": "2",
+   "nome": "2.3 Coerência",
+   "sub": "Matiz, saturação e valor: por que as cinco cores funcionam juntas",
+   "estado": "aprovado",
+   "secao": "capitulos/2-cores/3-coerencia.html"
+  },
+  {
+   "cap": "2",
+   "nome": "2.4 Estudo de contraste",
+   "sub": "Todas as combinações de tinta e fundo, com a razão de contraste",
+   "estado": "aprovado",
+   "secao": "capitulos/2-cores/4-estudo-de-contraste.html"
+  },
+  {
+   "cap": "2",
+   "nome": "2.5 Contrastes a usar",
+   "sub": "Os pares que carregam texto com segurança",
+   "estado": "aprovado",
+   "secao": "capitulos/2-cores/5-contrastes-a-usar.html"
+  },
+  {
+   "cap": "2",
+   "nome": "2.6 Contrastes a evitar",
+   "sub": "Pares que vibram ou desaparecem",
+   "estado": "aprovado",
+   "secao": "capitulos/2-cores/6-contrastes-a-evitar.html"
+  },
+  {
+   "cap": "2",
+   "nome": "2.7 Paleta auxiliar",
+   "sub": "Sete tons da mesma família: o escuro, a passagem, os painéis, os fios",
+   "estado": "aprovado",
+   "secao": "capitulos/2-cores/7-paleta-auxiliar.html"
+  },
+  {
+   "cap": "2",
+   "nome": "2.8 Principal com auxiliar",
+   "sub": "Proporção e três composições de referência",
+   "estado": "aprovado",
+   "secao": "capitulos/2-cores/8-principal-com-auxiliar.html"
+  },
+  {
+   "cap": "3",
+   "nome": "3.1 Três padrões",
+   "sub": "O pontilhado é o padrão principal; dispersão e campo são secundários",
+   "estado": "aprovado",
+   "secao": "capitulos/3-padroes/1-tres-padroes.html"
+  },
+  {
+   "cap": "3",
+   "nome": "3.2 A regra do pontilhado — tom",
+   "sub": "Retícula, tom, limiares, tamanho do ponto e a matriz de presença",
+   "estado": "aprovado",
+   "secao": "capitulos/3-padroes/2-a-regra-do-pontilhado-tom.html"
+  },
+  {
+   "cap": "3",
+   "nome": "3.3 A regra do pontilhado — sólido",
+   "sub": "Sólidos traçados pela regra do logotipo, vizinhança e do tom ao padrão",
+   "estado": "aprovado",
+   "secao": "capitulos/3-padroes/3-a-regra-do-pontilhado-solido.html"
+  },
+  {
+   "cap": "3",
+   "nome": "3.4 Monocromáticos",
+   "sub": "Tom sobre tom: uma cor e o seu par auxiliar",
+   "estado": "aprovado",
+   "secao": "capitulos/3-padroes/4-monocromaticos.html"
+  },
+  {
+   "cap": "3",
+   "nome": "3.5 Duas cores",
+   "sub": "Uma tinta sobre um fundo de outra matiz",
+   "estado": "aprovado",
+   "secao": "capitulos/3-padroes/5-duas-cores.html"
+  },
+  {
+   "cap": "3",
+   "nome": "3.6 Três cores",
+   "sub": "Fundo, tinta principal e uma segunda tinta em regiões",
+   "estado": "aprovado",
+   "secao": "capitulos/3-padroes/6-tres-cores.html"
+  },
+  {
+   "cap": "4",
+   "nome": "4.1 O campo animado",
+   "sub": "O pontilhado em movimento contínuo, gerado a cada quadro",
+   "estado": "aprovado",
+   "secao": "capitulos/4-animacao/1-o-campo-animado.html"
+  },
+  {
+   "cap": "4",
+   "nome": "4.2 Opções de cor",
+   "sub": "O campo animado em uma, duas e três cores",
+   "estado": "aprovado",
+   "secao": "capitulos/4-animacao/2-opcoes-de-cor.html"
+  },
+  {
+   "cap": "5",
+   "nome": "5.1 Outfit",
+   "sub": "Uma família geométrica, três pesos",
+   "estado": "aprovado",
+   "secao": "capitulos/5-tipografia/1-outfit.html"
+  },
+  {
+   "cap": "5",
+   "nome": "5.2 JetBrains Mono",
+   "sub": "A fonte auxiliar: dado, coordenada, arquivo, código",
+   "estado": "aprovado",
+   "secao": "capitulos/5-tipografia/2-jetbrains-mono.html"
+  },
+  {
+   "cap": "5",
+   "nome": "5.3 Hierarquia",
+   "sub": "Outfit para o texto, JetBrains Mono para o dado",
+   "estado": "aprovado",
+   "secao": "capitulos/5-tipografia/3-hierarquia.html"
+  },
+  {
+   "cap": "5",
+   "nome": "5.4 Detalhes",
+   "sub": "Caixa, números, frações e sinais — em frase e em dado",
+   "estado": "aprovado",
+   "secao": "capitulos/5-tipografia/4-detalhes.html"
+  },
+  {
+   "cap": "5",
+   "nome": "5.5 Composições",
+   "sub": "Caixas de texto com parágrafos longos, títulos e dado",
+   "estado": "aprovado",
+   "secao": "capitulos/5-tipografia/5-composicoes.html"
+  },
+  {
+   "cap": "6",
+   "nome": "6.1 Phosphor",
+   "sub": "O sistema de ícones: MIT, grade 256, traço 1,5",
+   "estado": "rascunho",
+   "secao": "capitulos/6-icones/1-phosphor.html"
+  },
+  {
+   "cap": "6",
+   "nome": "6.2 Seis pesos",
+   "sub": "Thin a fill, um peso por peça; tamanho pede peso",
+   "estado": "rascunho",
+   "secao": "capitulos/6-icones/2-pesos.html"
+  },
+  {
+   "cap": "6",
+   "nome": "6.3 Duotone em cor",
+   "sub": "Traço e plano em pares da paleta",
+   "estado": "rascunho",
+   "secao": "capitulos/6-icones/3-duotone.html"
+  },
+  {
+   "cap": "6",
+   "nome": "6.4 Tratamentos",
+   "sub": "Sólido, claro, duotone e simples no ladrilho de ¼",
+   "estado": "rascunho",
+   "secao": "capitulos/6-icones/4-tratamentos.html"
+  },
+  {
+   "cap": "6",
+   "nome": "6.5 Arquivos e regras",
+   "sub": "Onde ficam, como trazer novos, como pintar",
+   "estado": "rascunho",
+   "secao": "capitulos/6-icones/5-arquivos.html"
+  },
+  {
+   "cap": "8",
+   "nome": "8.1 Apresentação",
+   "sub": "Downloads (.potx, .pptx, .pdf, HTML, fontes e ícones) e como usar",
+   "estado": "rascunho",
+   "secao": "capitulos/8-templates/2-apresentacoes.html"
+  },
+  {
+   "cap": "8",
+   "nome": "8.2 Layouts",
+   "sub": "32 layouts em seis famílias numeradas e as páginas de ícones",
+   "estado": "rascunho",
+   "secao": "capitulos/8-templates/3-layouts.html"
+  },
+  {
+   "cap": "8",
+   "nome": "8.3 Capa · trama",
+   "sub": "Capa com pontilhado monocromático que se desfaz antes da faixa de logos",
+   "estado": "revisar",
+   "secao": "capitulos/8-templates/4-capa-trama.html"
+  },
+  {
+   "cap": "8",
+   "nome": "8.4 Documentos A4",
+   "sub": "Margem: relatório, artigo e POP em papel branco, com a marca como assinatura",
+   "estado": "aprovado",
+   "secao": "capitulos/8-templates/1-documentos-a4.html"
+  },
+  {
+   "cap": "8",
+   "nome": "Apresentação · deck",
+   "sub": "Deck HTML gerado por potx/build.js, igual ao .potx (32 layouts)",
+   "arquivo": "templates/apresentacao/Apresentacao.dc.html",
+   "vista": "1920x1080",
+   "estado": "aprovado"
+  },
+  {
+   "cap": "8",
+   "nome": "Documento A4",
+   "sub": "Relatório, artigo e procedimento em A4",
+   "arquivo": "templates/documento-a4/DocumentoA4.dc.html",
+   "vista": "1280x900",
+   "estado": "revisar"
+  }
+ ]
+}

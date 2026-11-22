@@ -1,0 +1,36 @@
+/* ESPAÇAMENTO
+
+   Dois sistemas convivem.
+   1. Espaçamento de interface: os valores literais em px, sem grade de 4/8.
+   2. Espaçamento de célula: a própria grade do logotipo. Uma célula, meias células, quartos de
+      célula — os únicos deslocamentos legais para qualquer forma desenhada. --cell é definida por
+      contexto (44px no sítio); tudo derivado dela permanece legal.
+
+   No sítio, a retícula de meia célula (22px) aparece como fundo da página: a grade não é um
+   andaime escondido, é o chão. */
+:root {
+  --space-1: 3px;
+  --space-2: 4px;
+  --space-3: 6px;
+  --space-4: 7px;
+  --space-5: 8px;
+  --space-6: 10px;
+  --space-7: 12px;
+  --space-8: 14px;
+  --space-9: 18px;
+  --space-10: 20px;
+  --space-11: 22px;
+  --space-12: 24px;
+  --space-13: 28px;
+  --space-14: 32px;
+  --space-15: 34px;
+  --space-16: 42px;
+  --seam: 1px;                  /* a costura de 1px entre painéis */
+  --gutter-page: clamp(20px, 4vw, 66px); /* @kind spacing */
+  --section-gap: clamp(46px, 7vw, 96px);
+  --sidebar-width: 280px;
+
+  --cell: 44px;
+  --cell-half: calc(var(--cell) / 2);
+  --cell-quarter: calc(var(--cell) / 4);
+}

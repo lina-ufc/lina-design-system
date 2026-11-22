@@ -1,0 +1,12 @@
+/* PROFUNDIDADE
+
+   O LINA é plano. Não existe sistema de sombra para cartões ou painéis: superfícies se separam por
+   um fio de 1px ou por mudança de cor. O sistema inteiro tem três efeitos de profundidade. */
+:root {
+  --ring-hairline: 0 0 0 1px var(--fio-forte);  /* @kind shadow */ /* amostra de cor */
+  --ring-selected: 0 0 0 2px var(--umbro);      /* @kind shadow */ /* amostra escolhida */
+  --drop-stage: drop-shadow(0 1px 3px rgba(42, 26, 18, .18)); /* @kind shadow */ /* a arte sobre o palco, nunca a interface */
+  --scrim-status: rgba(251, 255, 185, .88);     /* leitura sobre a arte */
+  --hover-veil: rgba(251, 255, 185, .55);       /* passagem sobre painel tingido */
+  --header-veil: rgba(251, 255, 185, .92);      /* o cabeçalho fixo sobre a página */
+}

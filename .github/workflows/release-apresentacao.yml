@@ -1,0 +1,43 @@
+# Tag apresentacao-vX.Y.Z: gera o template e publica a release com os arquivos de download.
+name: Release · apresentação
+on:
+  push:
+    tags: ['apresentacao-v*']
+permissions:
+  contents: write
+  actions: write
+jobs:
+  release:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: templates/apresentacao/potx/package-lock.json
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: pip install lxml defusedxml pillow
+      - name: LibreOffice (PDF) e fontes do LINA
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends libreoffice-impress
+          mkdir -p ~/.local/share/fonts && cp assets/fonts/*.ttf ~/.local/share/fonts/ && fc-cache -f
+      - name: Tag confere com o CHANGELOG
+        run: |
+          V=$(sed -n 's/^## \([0-9][0-9.]*\).*/\1/p' templates/apresentacao/CHANGELOG.md | head -1)
+          test "apresentacao-v$V" = "$GITHUB_REF_NAME" || { echo "tag $GITHUB_REF_NAME, CHANGELOG diz $V"; exit 1; }
+      - run: sh templates/apresentacao/potx/make.sh
+      - name: Publica a release e atualiza o site
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          awk '/^## /{n++} n==1' templates/apresentacao/CHANGELOG.md | tail -n +2 > notas.md
+          gh release create "$GITHUB_REF_NAME" --title "Apresentação ${GITHUB_REF_NAME#apresentacao-}" --notes-file notas.md \
+            templates/apresentacao/LINA-Apresentacao.potx \
+            templates/apresentacao/LINA-Apresentacao-exemplo.pptx \
+            templates/apresentacao/LINA-Apresentacao-exemplo.pdf \
+            downloads/LINA-Apresentacao-HTML.zip
+          gh workflow run site.yml --ref main  # release criada pelo GITHUB_TOKEN não dispara outros workflows

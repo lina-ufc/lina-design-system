@@ -1,0 +1,16 @@
+/* RAIOS
+
+   Uma regra: todo canto é um arco de ¼ de célula. Cantos livres arredondam para fora; cantos que
+   encontram um vizinho arredondam para dentro. --radius-cell é a regra, e é o que grandes
+   superfícies de marca devem usar (11px quando a célula é 44px).
+
+   Os raios abaixo de --radius-cell são os raios literais dos controles. */
+:root {
+  --radius-cell: var(--cell-quarter);
+  --radius-xs: 3px;      /* canto do ponto no pontilhado, em tamanhos pequenos */
+  --radius-sm: 4px;      /* tecla (kbd) */
+  --radius-md: 6px;      /* etiqueta sobre arte */
+  --radius-control: 7px; /* item do segmentado */
+  --radius-lg: 8px;      /* botão, campo, aviso */
+  --radius-xl: 11px;     /* = ¼ de célula: cartões, painéis, filtros */
+}

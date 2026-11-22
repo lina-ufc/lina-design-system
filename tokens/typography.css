@@ -1,0 +1,63 @@
+/* TIPOGRAFIA
+
+   Outfit (OFL, auto-hospedada em assets/fonts/) em três pesos apenas: Light 300 no texto,
+   Medium 500 em rótulos, títulos e navegação, Extra Bold 800 na voz da marca (LINA, títulos de
+   seção). Nenhum itálico — a única exceção é <var> na notação matemática.
+   Nove pesos estão ligados em tokens/fonts.css; não passe destes três sem perguntar.
+
+   Os tamanhos abaixo são os valores literais do sistema, não uma escala geométrica. */
+:root {
+  --font-sans: "Outfit", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-body: var(--font-sans);
+  --font-display: var(--font-sans);
+  --font-mono: "JetBrains Mono", ui-monospace, Menlo, monospace; /* dado, coordenada, arquivo, código */
+
+  --weight-light: 300;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-bold: 800;
+
+  --text-9: 9px;       /* assinatura: Arte · Arquitetura · Ambiente */
+  --text-10: 10px;     /* descritor ao lado do logotipo */
+  --text-11: 11px;     /* etiquetas em caixa alta, versalete tracked */
+  --text-11-5: 11.5px; /* tecla (kbd) */
+  --text-12: 12px;     /* dica sob o controle */
+  --text-12-5: 12.5px; /* legenda de campo, notas, rodapé */
+  --text-13: 13px;     /* controles, texto de cartão */
+  --text-13-5: 13.5px; /* resumo de cartão */
+  --text-14: 14px;     /* padrão de interface */
+  --text-14-5: 14.5px; /* legenda de figura */
+  --text-15: 15px;     /* padrão do sítio */
+  --text-16: 16px;     /* abertura de seção */
+  --text-17: 17px;     /* parágrafo de destaque */
+  --text-18: 18px;     /* título de cartão */
+  --text-19: 19px;     /* título de projeto */
+  --text-21: 21px;     /* marca na barra lateral */
+  --text-26: 26px;     /* título de seção */
+  --text-title: clamp(30px, 4.6vw, 58px);  /* título de página */
+  --text-display: clamp(38px, 6.4vw, 86px); /* a frase da capa */
+  --text-formula: clamp(24px, 3vw, 38px);   /* a notação de sistema */
+  --text-figure: clamp(38px, 5vw, 64px);    /* números grandes, tabulares */
+
+  --leading-display: .98;
+  --leading-title: 1;
+  --leading-tight: 1.16;
+  --leading-snug: 1.25;
+  --leading-body: 1.45;
+  --leading-copy: 1.5;
+  --leading-lead: 1.58;
+
+  --tracking-display: -.028em;
+  --tracking-title: -.024em;
+  --tracking-tight: -.012em;
+  --tracking-label: .12em;  /* etiquetas em caixa alta */
+  --tracking-eyebrow: .16em;
+  --tracking-tagline: .13em;
+
+  --measure-tight: 30ch;
+  --measure-notes: 34ch;
+  --measure-card: 46ch;
+  --measure-lead: 62ch;
+  --measure-detail: 76ch;
+  --measure-wide: 90ch;
+}

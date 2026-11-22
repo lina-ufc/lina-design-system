@@ -1,0 +1,10 @@
+<!-- Grade de 24 unidades. Ícone LINA: traço 2, pontos com traço 3, folga de 1. Desenhe na camada "desenho" e apague a camada "grade". -->
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <g id="grade" fill="none" stroke-width="0.05">
+    <g stroke="#E6DFA2"><path d="M1 0V24M0 1H24"/><path d="M2 0V24M0 2H24"/><path d="M3 0V24M0 3H24"/><path d="M4 0V24M0 4H24"/><path d="M5 0V24M0 5H24"/><path d="M6 0V24M0 6H24"/><path d="M7 0V24M0 7H24"/><path d="M8 0V24M0 8H24"/><path d="M9 0V24M0 9H24"/><path d="M10 0V24M0 10H24"/><path d="M11 0V24M0 11H24"/><path d="M12 0V24M0 12H24"/><path d="M13 0V24M0 13H24"/><path d="M14 0V24M0 14H24"/><path d="M15 0V24M0 15H24"/><path d="M16 0V24M0 16H24"/><path d="M17 0V24M0 17H24"/><path d="M18 0V24M0 18H24"/><path d="M19 0V24M0 19H24"/><path d="M20 0V24M0 20H24"/><path d="M21 0V24M0 21H24"/><path d="M22 0V24M0 22H24"/><path d="M23 0V24M0 23H24"/></g>
+    <rect x="1" y="1" width="22" height="22" stroke="#C9B87A" stroke-width="0.1"/>
+    <circle cx="12.0" cy="12.0" r="11.0" stroke="#C9B87A" stroke-width="0.1"/>
+  </g>
+  <g id="desenho" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  </g>
+</svg>

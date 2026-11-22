@@ -1,0 +1,29 @@
+<!doctype html><html><head><meta charset="utf-8">
+<script>Object.defineProperty(window,'devicePixelRatio',{get:()=>2});</script>
+<script src="lina-geometry.js"></script><script src="lina-dither-field.js"></script>
+<style>body{margin:0}.s{position:relative;width:1324px;height:745px}</style></head><body>
+<script>
+// Escala da trama = deck HTML visto em tela de notebook (palco 1324 px). Mesma célula 12 → ~17 px no slide.
+// ferro theme: bg A81F0D, pt 8A1A0B. capa/encerramento: trama pt over bg. secao: bg pt, trama bg + outline.
+const jobs=[
+ {name:'trama-capa', bg:'#A81F0D', cor:'#8A1A0B', secao:false},
+ {name:'trama-secao', bg:'#8A1A0B', cor:'#A81F0D', secao:true},
+];
+async function go(){
+ for(const j of jobs){
+  const d=document.createElement('div');d.className='s';document.body.appendChild(d);
+  const f=document.createElement('lina-dither-field');
+  f.setAttribute('colors',j.cor+','+j.cor); f.setAttribute('background',j.bg);
+  if(j.secao){f.setAttribute('outline','1.25');}
+  f.setAttribute('density','.2'); f.setAttribute('cell','12'); f.setAttribute('still','');
+  f.style.cssText='display:block;position:absolute;inset:0;width:1324px;height:745px';
+  d.appendChild(f);
+  await new Promise(r=>setTimeout(r,800));
+  const c=f.querySelector('canvas')||f.shadowRoot?.querySelector('canvas');
+  const url=c.toDataURL('image/png');
+  await fetch('/save?name='+j.name,{method:'POST',body:url});
+ }
+ document.title='done';
+}
+window.onload=go;
+</script></body></html>

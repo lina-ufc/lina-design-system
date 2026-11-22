@@ -1,0 +1,32 @@
+{
+  "env": {
+    "CAVEMAN_DEFAULT_MODE": "ultra",
+    "PONYTAIL_DEFAULT_MODE": "ultra"
+  },
+  "enabledPlugins": {
+    "caveman@caveman": true,
+    "ponytail@ponytail": true
+  },
+  "extraKnownMarketplaces": {
+    "caveman": {
+      "source": { "source": "github", "repo": "JuliusBrussee/caveman" }
+    },
+    "ponytail": {
+      "source": { "source": "github", "repo": "DietrichGebert/ponytail" }
+    }
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume|clear",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh \"$CLAUDE_PROJECT_DIR/.claude/hooks/build-setup.sh\"",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}

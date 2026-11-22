@@ -1,0 +1,123 @@
+/* Páginas do documento do sistema (index.html e capítulos), geradas por sistema.py.
+   Só leiaute do site e peças de conteúdo dos capítulos; cores e fontes vêm de styles.css. */
+
+body{margin:0;background:var(--creme);color:var(--umbro);font:300 16px/1.5 var(--font-body);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.mono,.mono *{font-family:var(--font-mono);font-variant-ligatures:none}
+
+/* ---- leiaute ---- */
+body>aside{position:fixed;inset:0 auto 0 0;width:260px;overflow:auto;padding:32px 24px;box-sizing:border-box;border-right:1px solid var(--fio);background:var(--nata)}
+body>aside .logo img{width:132px;display:block;margin-bottom:8px}
+body>aside .tit{font:500 11px var(--font-mono);letter-spacing:.12em;text-transform:uppercase;opacity:.62;margin:0 0 28px}
+body>aside summary{display:none}
+body>aside ol{list-style:none;margin:0;padding:0}
+body>aside li li a{display:block;padding:2px 0 2px 26px;font-size:12.5px;text-decoration:none;opacity:.75}
+body>aside li li a:hover,body>aside .cap:hover{color:var(--ferro);opacity:1}
+body>aside .cap{display:flex;gap:12px;margin:14px 0 4px;font-weight:500;text-decoration:none}
+body>aside .cap span{font:500 13px var(--font-mono);color:var(--ferro);width:14px}
+body>aside .atual>.cap{color:var(--ferro)}
+main{margin-left:260px;padding:48px 56px 120px;max-width:1240px;box-sizing:border-box}
+@media (max-width:820px){
+  body>aside{position:static;width:auto;border-right:0;border-bottom:1px solid var(--fio);padding:20px 16px}
+  body>aside .tit{margin-bottom:12px}
+  body>aside summary{display:block;cursor:pointer;font:500 13px var(--font-mono);color:var(--ferro)}
+  main{margin:0;padding:32px 16px 80px}
+}
+
+/* ---- quadros ---- */
+.num{font:500 13px var(--font-mono);color:var(--ferro);margin:0}
+.desc{margin:0 0 28px;max-width:62ch}
+.vazio{font:300 13px var(--font-mono);opacity:.62;border:1px dashed var(--fio-forte);border-radius:8px;padding:20px}
+.quadro article{scroll-margin-top:24px}
+.quadro article header{display:grid;grid-template-columns:1fr auto;column-gap:24px;margin-bottom:10px}
+.quadro .k{grid-column:1;font-size:18px;font-weight:500;margin:0;opacity:1;letter-spacing:0;text-transform:none}
+.quadro .sub{grid-column:1;margin:0;font-size:13.5px;opacity:.75}
+.arq{grid-column:2;grid-row:1/3;align-self:end;margin:0;font:300 11px var(--font-mono)}
+.arq a{text-decoration:none;opacity:.62}.arq a:hover{opacity:1;color:var(--ferro)}
+.fr{position:relative;overflow:hidden;background:#fff;border:1px solid var(--fio);border-radius:4px}
+.fr iframe{position:absolute;top:0;left:0;border:0;transform-origin:0 0}
+
+/* ---- estado ---- */
+.st{font:500 10px var(--font-mono);letter-spacing:.12em;text-transform:uppercase;padding:2px 8px;border-radius:4px;vertical-align:3px;margin-left:8px}
+.st.aprovado{background:var(--turquesa);color:var(--turquesa-tinta)}
+.st.rascunho{background:var(--damasco);color:var(--umbro)}
+.st.revisar{background:var(--ferro);color:var(--creme)}
+
+/* ---- página de capítulo ---- */
+.capitulo{max-width:1040px}
+.capitulo>header{margin-bottom:56px}
+.capitulo h1{font-size:clamp(36px,5vw,58px);font-weight:500;letter-spacing:-.024em;line-height:1;margin:6px 0 14px}
+.capitulo>header p.desc{font-size:18px;line-height:1.58;margin:0}
+.capitulo>section{padding-top:40px;margin-bottom:64px;border-top:1px solid var(--fio-forte);scroll-margin-top:16px}
+.capitulo h2{font-size:26px;font-weight:800;letter-spacing:-.012em;color:var(--ferro);margin:4px 0 12px}
+.capitulo h3{font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--ferro);margin:32px 0 4px}
+.capitulo h4{margin:0}
+.lead{font-size:18px;line-height:1.58;max-width:62ch;margin:0 0 24px;text-wrap:pretty}
+.k{font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;opacity:.62}
+.cap{font-size:12.5px;line-height:1.4;opacity:.75}
+.vizinhos{display:flex;justify-content:space-between;gap:16px;border-top:2px solid var(--umbro);padding-top:20px;font-weight:500}
+.vizinhos a{text-decoration:none}.vizinhos a:hover{color:var(--ferro)}
+
+/* pesos de uma família */
+.pesos{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:var(--fio);border:1px solid var(--fio);border-radius:var(--radius-xl);overflow:hidden;margin:0 0 16px}
+.pesos>div{background:var(--creme);padding:18px;display:grid;gap:6px;align-content:start}
+.pesos .aa{font-size:72px;line-height:1}
+.pesos b{font-weight:500}
+.pesos .ferro{background:var(--ferro);color:var(--creme)}
+.pesos .turquesa{background:var(--turquesa);color:var(--turquesa-tinta)}
+.pesos.pm .aa{font-family:var(--font-mono);font-variant-ligatures:none}
+.alfabeto{font-size:19px;letter-spacing:.01em;margin:0;overflow-wrap:anywhere}
+.alfabeto.mono{font-size:16px}
+
+/* tabela de especificação: rótulo em mono, amostra ao lado */
+.spec{display:grid;grid-template-columns:190px minmax(0,1fr);max-width:960px;margin:0}
+.spec dt,.spec dd{margin:0;padding:11px 0;border-bottom:1px solid var(--fio);align-content:end}
+.spec dt{font:300 11px/1.45 var(--font-mono);opacity:.7;padding-right:20px}
+@media (max-width:600px){.spec{grid-template-columns:1fr}.spec dt{border:0;padding-bottom:4px}}
+
+/* exemplos de detalhe */
+.detalhes{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:8px;margin:0 0 16px}
+.detalhes>div{display:grid;gap:6px;padding:14px;background:var(--nata);border-radius:var(--radius-xl)}
+.detalhes>div>span:last-child{font-size:20px;font-weight:500}
+.detalhes .m>span:last-child{font:300 17px var(--font-mono);font-variant-ligatures:none}
+.regras{margin:0;padding-left:18px;font-size:14px;max-width:62ch}
+
+/* composições */
+.caixa{border-radius:var(--radius-xl);background:var(--creme);box-shadow:inset 0 0 0 1px var(--fio);padding:26px 28px;display:grid;gap:12px;align-content:start}
+.caixa.nata{background:var(--nata);box-shadow:none}
+.caixa p{margin:0;font-size:15px;line-height:1.5;text-wrap:pretty}
+.caixa hr{border:0;height:1px;background:var(--fio);margin:0}
+.et{font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;opacity:.7}
+.ficha{font-family:var(--font-mono);font-variant-ligatures:none;display:grid;grid-template-columns:auto 1fr;gap:2px 16px;margin:0;line-height:1.6}
+.ficha dt{opacity:.6}.ficha dd{margin:0}
+.comp-dupla{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:14px;margin:0 0 14px}
+@media (max-width:760px){.comp-dupla{grid-template-columns:1fr}}
+.numeros{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1px;background:var(--ferro-fundo);border-radius:var(--radius-xl);overflow:hidden;margin:0 0 14px;color:var(--creme)}
+.numeros>div{background:var(--ferro);padding:24px;display:grid;gap:10px;align-content:start}
+.numeros .n{font:800 56px/1 var(--font-mono);letter-spacing:-.02em}
+.numeros b{font-size:15px;font-weight:500}
+.numeros p{margin:0;font-size:13.5px;line-height:1.5;color:var(--areia)}
+.duas-colunas .cols{columns:2 300px;column-gap:33px}
+.duas-colunas .cols p{margin:0 0 1em}
+
+/* peças herdadas dos cartões (guidelines/card.css) */
+.capitulo .k{margin:0 0 8px}
+.capitulo .h{font-size:24px;font-weight:800;letter-spacing:-.012em;line-height:1.12;margin:0 0 10px}
+.capitulo .p{font-size:16px;max-width:64ch;margin:0 0 14px;text-wrap:pretty}
+.capitulo .cap b{font-weight:500}
+.row{display:flex;gap:28px;flex-wrap:wrap;align-items:flex-end}
+.fig{display:grid;gap:10px;align-content:start}
+.dado{font:300 11px var(--font-mono);font-variant-ligatures:none}
+/* ponytail: diagramas dos cartões têm grade fixa (feitos para 900px); no celular a seção rola na horizontal. Refazer em grade fluida se o celular importar. */
+@media (max-width:820px){.capitulo>section{overflow-x:auto}.quadro article header{grid-template-columns:1fr}.arq{grid-column:1;grid-row:auto;overflow-wrap:anywhere}}
+
+/* ---- home: mapa do documento; "citado em" ---- */
+.mapa>ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1px;background:var(--fio);border:1px solid var(--fio);border-radius:var(--radius-xl);overflow:hidden}
+.mapa>ol>li{background:var(--creme);padding:20px 22px}
+.mapa .cap{display:flex;gap:10px;align-items:baseline;font-size:20px;font-weight:800;text-decoration:none;opacity:1}
+.mapa .cap:hover{color:var(--ferro)}
+.mapa li p{margin:6px 0 10px;font-size:14px;opacity:.75}
+.mapa li ol{list-style:none;margin:0;padding:0;font-size:13px;line-height:1.7}
+.mapa li li a{text-decoration:none}.mapa li li a:hover{color:var(--ferro)}
+.citado{margin:28px 0 0;padding-top:10px;border-top:1px solid var(--fio);font:300 12px var(--font-mono);opacity:.75}
+.citado a{text-decoration:none;color:var(--ferro)}.citado a:hover{text-decoration:underline}

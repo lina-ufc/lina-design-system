@@ -1,0 +1,19 @@
+/* MOVIMENTO
+
+   Raro e curto. A interface tem uma única transição: o aviso, 0,18s de opacidade mais 8px de
+   subida, com 1800ms de permanência. Nenhuma curva de aceleração é autorada, nada salta, nada
+   se move ao passar o cursor.
+
+   O movimento longo é GERATIVO, não coreografado: o campo pontilhado redesenha seu ruído a cada
+   ~40ms; a figura da emergência corre um laço de quatro fases. Ambos respeitam
+   prefers-reduced-motion desenhando um único quadro estável. */
+:root {
+  --duration-fast: .18s; /* @kind other */
+  --duration-hold: 1800ms; /* @kind other */
+  --ease-default: ease; /* @kind other */
+  --translate-toast: 8px;
+  --dither-frame: 40ms; /* @kind other */ /* intervalo entre quadros do campo pontilhado */
+}
+@media (prefers-reduced-motion: reduce) {
+  :root { --duration-fast: 0s; /* @kind other */ }
+}

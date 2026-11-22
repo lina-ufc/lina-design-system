@@ -1,0 +1,42 @@
+<h2>Um arco estreito e um contraponto</h2>
+<div style="display:grid;grid-template-columns:320px minmax(0,1fr) 230px;gap:28px;align-items:start;margin-top:14px">
+<div id="coerencia-wheel"></div>
+<div style="display:grid;gap:12px">
+<p class="cap" style="font-size:13px"><b>Matiz.</b> Ferro, damasco, areia e creme ocupam um arco de 47° (7° a 54°): são variações de uma mesma terra. A turquesa está a 166° do ferro — quase o complemento —, e por isso funciona como o contraponto único.</p>
+<p class="cap" style="font-size:13px"><b>Saturação.</b> Os quentes são vivos (63% a 96%); a turquesa é contida (36%). O frio entra baixo para não disputar com o ferro.</p>
+<p class="cap" style="font-size:13px"><b>Valor.</b> As cinco cores se distribuem em degraus nítidos de luminosidade. Cada par adjacente na escada tem contraste baixo; pares distantes têm contraste alto. A hierarquia vem do valor, não do matiz.</p>
+<p class="cap" style="font-size:13px"><b>Ajuste.</b> O creme está a 54°, junto à areia, e não no amarelo-esverdeado; assim o papel pertence à família quente.</p>
+</div><div id="coerencia-ladder"></div></div>
+<script>{
+const HEX={ferro:'#A81F0D',areia:'#E1CE7A',creme:'#FAF5C6',damasco:'#FDD692',turquesa:'#64B6AC',umbro:'#2A1A12','ferro fundo':'#6E1408','turquesa fundo':'#2F6A62','turquesa tinta':'#14322E',nata:'#FDF1CF'};
+const rgb=h=>[1,3,5].map(i=>parseInt(h.substr(i,2),16)/255);
+const lum=h=>{const c=rgb(h).map(v=>v<=.03928?v/12.92:((v+.055)/1.055)**2.4);return .2126*c[0]+.7152*c[1]+.0722*c[2]};
+const ratio=(a,b)=>{const x=lum(a),y=lum(b);return (Math.max(x,y)+.05)/(Math.min(x,y)+.05)};
+const fmt=n=>n.toFixed(1).replace('.',',');
+const hsl=h=>{const [r,g,b]=rgb(h),mx=Math.max(r,g,b),mn=Math.min(r,g,b),d=mx-mn;let H=0;if(d){if(mx===r)H=((g-b)/d)%6;else if(mx===g)H=(b-r)/d+2;else H=(r-g)/d+4;}const l=(mx+mn)/2;return {h:(H*60+360)%360,s:d?d/(1-Math.abs(2*l-1)):0,l};};
+const main=['ferro','damasco','areia','creme','turquesa'];const R=100,c=135;
+const pt=(a,r)=>[c+Math.cos((a-90)*Math.PI/180)*r,c+Math.sin((a-90)*Math.PI/180)*r];
+const f=n=>n.toFixed(1);
+let o='';
+for(let a=0;a<360;a+=30){const [x1,y1]=pt(a,R),[x2,y2]=pt(a,R+5);o+='<line x1="'+f(x1)+'" y1="'+f(y1)+'" x2="'+f(x2)+'" y2="'+f(y2)+'" stroke="#C9B87A"/>';}
+o+='<circle cx="'+c+'" cy="'+c+'" r="'+R+'" fill="none" stroke="#C9B87A"/><circle cx="'+c+'" cy="'+c+'" r="'+R/2+'" fill="none" stroke="#D9CB8C" stroke-dasharray="3 3"/>';
+o+='<text x="'+(c+3)+'" y="'+(c-R/2-3)+'" font-family="JetBrains Mono" font-size="9" fill="#6B5A3A">50%</text><text x="'+(c+3)+'" y="'+(c-R-3)+'" font-family="JetBrains Mono" font-size="9" fill="#6B5A3A">100%</text>';
+const V={};main.forEach(k=>V[k]=hsl(HEX[k]));
+const arcR=R+14,[a1,a2]=[pt(7,arcR),pt(54,arcR)];
+o+='<path d="M'+f(a1[0])+' '+f(a1[1])+' A'+arcR+' '+arcR+' 0 0 1 '+f(a2[0])+' '+f(a2[1])+'" fill="none" stroke="#A81F0D" stroke-width="3" stroke-linecap="round"/>';
+const [am0,am1]=pt(17,arcR+8);o+='<text x="'+f(am0)+'" y="'+f(am1)+'" font-family="JetBrains Mono" font-size="10" font-weight="700" fill="#A81F0D" text-anchor="start">47°</text>';
+const cr=34,[b1,b2]=[pt(V.ferro.h,cr),pt(V.turquesa.h,cr)];
+o+='<path d="M'+f(b1[0])+' '+f(b1[1])+' A'+cr+' '+cr+' 0 0 1 '+f(b2[0])+' '+f(b2[1])+'" fill="none" stroke="#2F6A62" stroke-width="1.5" stroke-dasharray="3 2"/>';
+const [m0,m1]=pt(90,cr+6);o+='<text x="'+f(m0)+'" y="'+f(m1+4)+'" font-family="JetBrains Mono" font-size="10" font-weight="700" fill="#2F6A62">166°</text>';
+const LA={ferro:[-14,'end'],damasco:[44,'start'],areia:[96,'start'],creme:[62,'start'],turquesa:[180,'middle']};
+main.forEach(k=>{const v=V[k],[x,y]=pt(v.h,v.s*R);o+='<line x1="'+c+'" y1="'+c+'" x2="'+f(x)+'" y2="'+f(y)+'" stroke="#C9B87A" stroke-width=".8"/>';});
+main.forEach(k=>{const v=V[k],[x,y]=pt(v.h,v.s*R),[ang,anc]=LA[k],[lx,ly]=pt(ang,R+(k==='turquesa'?22:k==='damasco'?36:30));
+o+='<line x1="'+f(x)+'" y1="'+f(y)+'" x2="'+f(lx)+'" y2="'+f(ly)+'" stroke="#2A1A12" stroke-width=".6" opacity=".5"/>';
+o+='<circle cx="'+f(x)+'" cy="'+f(y)+'" r="10" fill="'+HEX[k]+'" stroke="#2A1A12" stroke-width="1"/>';
+const ty=k==='turquesa'?ly+12:ly+4,dx=anc==='start'?4:anc==='end'?-4:0;
+o+='<text x="'+f(lx+dx)+'" y="'+f(ty)+'" font-family="Outfit" font-size="12" font-weight="600" fill="#2A1A12" text-anchor="'+anc+'">'+k+'</text>';});
+o+='<circle cx="'+c+'" cy="'+c+'" r="2" fill="#2A1A12"/>';
+document.getElementById('coerencia-wheel').innerHTML='<svg viewBox="0 0 320 290" width="320" height="290" style="display:block;max-width:100%;height:auto;overflow:visible">'+o+'</svg><div style="display:grid;grid-template-columns:14px minmax(0,1fr) 40px 40px;gap:4px 8px;align-items:center;margin-top:4px;font-size:12px"><span></span><span class="cap">cor</span><span class="cap">matiz</span><span class="cap">sat.</span>'+main.map(k=>'<span style="width:12px;height:12px;border-radius:50%;background:'+HEX[k]+';box-shadow:inset 0 0 0 1px #2A1A12"></span><span>'+k+'</span><span class="dado">'+Math.round(V[k].h)+'°</span><span class="dado">'+Math.round(V[k].s*100)+'%</span>').join('')+'</div><p class="cap" style="margin-top:8px">Ângulo = matiz · distância do centro = saturação.</p>';
+const all=main.concat(['umbro']).map(k=>[k,lum(HEX[k])]).sort((a,b)=>b[1]-a[1]);
+document.getElementById('coerencia-ladder').innerHTML='<p class="k">Escada de valor</p>'+all.map(([k,L])=>'<div style="display:grid;grid-template-columns:minmax(0,1fr) 34px;gap:8px;align-items:center;margin-bottom:5px"><div style="background:'+HEX[k]+';height:30px;width:'+Math.max(14,Math.round(Math.cbrt(L)*100))+'%;box-shadow:inset 0 0 0 1px #E6DFA2"></div><span class="dado">'+Math.round(116*Math.cbrt(L)-16)+'</span></div><div class="cap" style="margin:-3px 0 6px">'+k+'</div>').join('')+'<p class="cap">Luminosidade L* (0–100). Umbro incluído como referência do escuro.</p>';
+}</script>
