@@ -21,7 +21,7 @@
 | 02 — word | `[██████████]` | 4/4 | Concluído 2026-11-22 |
 | 03 — latex | `[██████████]` | 4/4 | Concluído 2026-11-22; folhas aprovadas pelo usuário |
 | 04 — conferencia-e-release | `[██████████]` | 4/4 | Concluído 2026-11-23; release `documentos-v1.0.0` |
-| 05 — site | `[░░░░░░░░░░]` | 0/3 | Escrito 2026-11-23. Próximo |
+| 05 — site | `[███░░░░░░░]` | 1/3 | Escrito 2026-11-23; Task 1 feita |
 
 ## Plano 01 — html-deck
 
@@ -74,7 +74,7 @@ Branch `main`. PDFs de exemplo da release vêm do LaTeX; TeX Live do Ubuntu no r
 
 Branch `main`. Só o Baixar da 8.2 é gerado (`_gerar.py`); `site.yml` baixa a release `documentos-v*`.
 
-- [ ] **Task 1** — Baixar gerado e `site.yml`
+- [x] **Task 1** — Baixar gerado e `site.yml` — `f0d4c7d`, `_gerar.py` 2× idêntico (`layouts 32`, `documentos 5`), falta de PDF erra, `RELEASE_URL_DOCUMENTOS` ok, YAML carrega, `sistema.py` ok
 - [ ] **Task 2** — Estrutura e Uso
 - [ ] **Task 3** — Revisão, publicação e memória
 
@@ -91,6 +91,7 @@ Branch `main`. Só o Baixar da 8.2 é gerado (`_gerar.py`); `site.yml` baixa a r
 
 ## Changelog
 
+- 2026-11-23 — Plano 05, Task 1 (Baixar gerado e `site.yml`) concluída, `f0d4c7d`.
 - 2026-11-23 — Plano 05 (site) escrito.
 - 2026-11-23 — Release `documentos-v1.0.0` publicada. Plano 04 concluído. Minors adiados: trap EXIT e saída do `validate.py` no `make.sh`; checagem A4 silenciosa no `check_pacotes.py`.
 - 2026-11-22 — Task 3 (WordCraft) concluída, `5b65a21`.
