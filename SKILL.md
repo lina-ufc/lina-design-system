@@ -6,9 +6,8 @@ user-invocable: true
 
 Leia o README.md desta habilidade e explore os outros arquivos.
 
-O sistema inteiro está catalogado em `sistema.json` (capítulos e entradas, cada uma com arquivo e estado:
-aprovado, rascunho, revisar) e visível num só documento, `index.html`, gerado por `python3 sistema.py`. Use só o
-que está aprovado; rascunho e revisar ainda podem mudar. Elemento novo: crie o arquivo, acrescente a entrada em
+O sistema inteiro está catalogado em `sistema.json` (capítulos e entradas, cada uma com seu arquivo)
+e visível no site, gerado por `python3 sistema.py`. O que está publicado vale, mesmo que seja revisado depois. Elemento novo: crie o arquivo, acrescente a entrada em
 `sistema.json` e gere de novo o `index.html`.
 
 A identidade do LINA é uma regra de construção: toda forma é uma união de células com cantos de ¼ de célula, e

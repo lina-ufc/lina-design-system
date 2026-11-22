@@ -37,11 +37,6 @@ main{margin-left:260px;padding:48px 56px 120px;max-width:1240px;box-sizing:borde
 .fr{position:relative;overflow:hidden;background:#fff;border:1px solid var(--fio);border-radius:4px}
 .fr iframe{position:absolute;top:0;left:0;border:0;transform-origin:0 0}
 
-/* ---- estado ---- */
-.st{font:500 10px var(--font-mono);letter-spacing:.12em;text-transform:uppercase;padding:2px 8px;border-radius:4px;vertical-align:3px;margin-left:8px}
-.st.aprovado{background:var(--turquesa);color:var(--turquesa-tinta)}
-.st.rascunho{background:var(--damasco);color:var(--umbro)}
-.st.revisar{background:var(--ferro);color:var(--creme)}
 
 /* ---- página de capítulo ---- */
 .capitulo{max-width:1040px}
@@ -121,3 +116,7 @@ main{margin-left:260px;padding:48px 56px 120px;max-width:1240px;box-sizing:borde
 .mapa li li a{text-decoration:none}.mapa li li a:hover{color:var(--ferro)}
 .citado{margin:28px 0 0;padding-top:10px;border-top:1px solid var(--fio);font:300 12px var(--font-mono);opacity:.75}
 .citado a{text-decoration:none;color:var(--ferro)}.citado a:hover{text-decoration:underline}
+/* Bloco "Baixar": fim da seção, depois da explicação. */
+.dl{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:12px 0 20px}
+.dl a{display:grid;gap:4px;padding:16px 18px;border-radius:var(--radius-xl);box-shadow:inset 0 0 0 1px var(--fio);text-decoration:none;color:inherit}
+.dl a:hover{box-shadow:inset 0 0 0 2px var(--ferro)}.dl b{font-weight:500;color:var(--ferro)}

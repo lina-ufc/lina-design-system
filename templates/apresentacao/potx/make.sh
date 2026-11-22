@@ -1,7 +1,7 @@
 #!/bin/sh
 # Gera o template e os arquivos de download.
 # Saída em templates/apresentacao/: .potx, -exemplo.pptx, -exemplo.pdf, Apresentacao.dc.html + img/;
-# em downloads/: LINA-Apresentacao-HTML.zip e LINA-Fontes-e-Icones.zip. Tudo gerado fica fora do git.
+# em downloads/: LINA-Apresentacao-HTML.zip e LINA-Fontes.zip e LINA-Icones.zip. Tudo gerado fica fora do git.
 # Precisa de: node (npm ci nesta pasta), python3 com lxml, defusedxml e pillow, soffice (LibreOffice) para o PDF.
 set -e
 cd "$(dirname "$0")"

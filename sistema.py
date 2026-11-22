@@ -56,10 +56,6 @@ def num_nome(e):
     return m.groups() if m else ('', e['nome'])
 
 
-def estado(e):
-    return '' if e['estado'] == 'aprovado' else f'<span class="st {e["estado"]}">{e["estado"]}</span>'
-
-
 def nav(atual):
     itens = ''
     for c in CAPS:
@@ -92,15 +88,21 @@ if (matchMedia('(min-width:821px)').matches) document.querySelector('details.sum
 # ---- quadro (arquivo inteiro em iframe) ----
 def quadro(e):
     url = quote(e['arquivo'])
-    cab = (f'<header><p class="k">{escape(e["nome"])} <span class="st {e["estado"]}">{e["estado"]}</span></p>'
+    cab = (f'<header><p class="k">{escape(e["nome"])}</p>'
            f'<p class="sub">{escape(e["sub"])}</p>'
            f'<p class="arq"><a href="{url}" target="_blank">{escape(e["arquivo"])} ↗</a></p></header>')
     if not e.get('vista'):
         return f'<article id="{e["id"]}">{cab}</article>'
-    w, h = e['vista'].split('x')
-    v = int((RAIZ / e['arquivo']).stat().st_mtime)
-    return (f'<article id="{e["id"]}">{cab}<div class="fr" data-w="{w}" data-h="{h}">'
-            f'<iframe src="{url}?v={v}" loading="lazy" width="{w}" height="{h}" title="{escape(e["nome"])}"></iframe></div></article>')
+    return f'<article id="{e["id"]}">{cab}{moldura(e["arquivo"], e["vista"], e["nome"])}</article>'
+
+
+# Também dentro de uma seção: <!--quadro caminho LxA--> vira a moldura (exemplo de template no meio do texto).
+def moldura(arquivo, vista, titulo):
+    w, h = vista.split('x')
+    # _snthumb: o deck-stage abre sem a coluna de miniaturas (no-rail); outros arquivos ignoram.
+    v = int((RAIZ / arquivo).stat().st_mtime)
+    return (f'<div class="fr" data-w="{w}" data-h="{h}">'
+            f'<iframe src="{quote(arquivo)}?v={v}&_snthumb=1" loading="lazy" width="{w}" height="{h}" title="{escape(titulo)}"></iframe></div>')
 
 
 AJUSTA = '''
@@ -173,7 +175,8 @@ for c in CAPS:
         if 'secao' in e:
             num, _ = num_nome(e)
             frag = re.sub(r'<script src="([^"]+)"></script>', uma_vez, frags[e['id']])
-            corpo += f'<section id="{e["id"]}"><p class="num">{num} {estado(e)}</p>{frag}{citado_em(e)}</section>\n'
+            frag = re.sub(r'<!--quadro (\S+) (\d+x\d+)-->', lambda m: moldura(m[1], m[2], e['nome']), frag)
+            corpo += f'<section id="{e["id"]}"><p class="num">{num}</p>{frag}{citado_em(e)}</section>\n'
         else:
             corpo += f'<section class="quadro">{quadro(e)}</section>\n'
     corpo = corpo or '<p class="vazio">Ainda sem entradas.</p>'

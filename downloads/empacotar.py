@@ -16,11 +16,12 @@ comuns = ['lina-geometry.js', 'lina-dither-field.js']  # ficam em assets/, o dec
 zipar('LINA-Apresentacao-HTML.zip', [(os.path.join(T, f), 'LINA-Apresentacao-HTML/' + f) for f in base + usados]
       + [(os.path.join(R, 'assets', f), 'LINA-Apresentacao-HTML/' + f) for f in comuns])
 
-# Fontes e ícones: Outfit (OFL) e os seis pesos do Phosphor (MIT).
-fi = []
-for pasta, dest in [('assets/fonts', 'fontes'), ('assets/icons/phosphor', 'icones-phosphor')]:
+# Fontes (Outfit e JetBrains Mono, OFL) e ícones (Phosphor nos seis pesos, MIT), um pacote cada:
+# cada um é baixado na página do seu capítulo (5 Tipografia, 6 Ícones).
+for nome, pasta in [('LINA-Fontes', 'assets/fonts'), ('LINA-Icones', 'assets/icons/phosphor')]:
+    fi = []
     for raiz, _, fs in os.walk(os.path.join(R, pasta)):
         for f in fs:
             if f.startswith('.'): continue
-            o = os.path.join(raiz, f); fi.append((o, 'LINA-Fontes-e-Icones/' + dest + '/' + os.path.relpath(o, os.path.join(R, pasta))))
-zipar('LINA-Fontes-e-Icones.zip', fi)
+            o = os.path.join(raiz, f); fi.append((o, nome + '/' + os.path.relpath(o, os.path.join(R, pasta))))
+    zipar(nome + '.zip', fi)

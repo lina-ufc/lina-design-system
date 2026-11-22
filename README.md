@@ -73,7 +73,7 @@ Arranjos: **horizontal** (principal), **vertical** (LI sobre nA, a ¼) e **símb
 | Assinatura em bloco | `lina-assinatura-{pt,en}-bloco-*` | horizontal + nome abaixo em Outfit Black + "ARTE•ARQUITETURA•AMBIENTE" em JetBrains Mono | ferro, creme, umbro, creme-sobre-ferro, creme-sobre-umbro, ferro-sobre-creme |
 | Assinatura lateral | `lina-assinatura-{pt,en}-lateral-*` | horizontal + nome ao lado, mesmas fontes | mesmas da assinatura em bloco |
 
-Nome na assinatura: PT "Laboratório de Modelagem da Informação"; EN "Laboratory of Information Modeling". Uma tinta só. Nos SVG o texto está em curvas; no `LINA-Marca.vectorcraft` fica vivo e pede as fontes de `LINA-Fontes-e-Icones.zip`. Vazados, símbolo e selo não têm texto: servem aos dois idiomas.
+Nome na assinatura: PT "Laboratório de Modelagem da Informação"; EN "Laboratory of Information Modeling". Uma tinta só. Nos SVG o texto está em curvas; no `LINA-Marca.vectorcraft` fica vivo e pede as fontes de `LINA-Fontes.zip`. Vazados, símbolo e selo não têm texto: servem aos dois idiomas.
 
 **Logos institucionais** em `assets/logos-institutions/<instituição>/` (SVG convertido dos originais oficiais; PNG quando não há vetor): UFC, IAUD, PPGAUD, PPGEC, CNPq, FUNCAP, SECULT, Cientista Chefe Cultura, LAREB, Documenta CE e Rede Documenta. Pacote: release `institucionais-vX.Y.Z` (`downloads/institucionais.sh`). Licenças: `LICENSE`.
 

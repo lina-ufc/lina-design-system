@@ -1,5 +1,6 @@
-<h2>Margem: a marca assina, o texto conduz</h2>
-<p class="p">Em documentos de leitura, o LINA recua. Papel branco, <a href="1-logotipo.html#s-variacoes">logotipo como assinatura</a> e um único fio em ferro marcando a entrada do título. Sem pontilhado. O template <b>Documento A4 · Margem</b> traz capa e página interna de relatório, primeira página de artigo e procedimento operacional padrão.</p>
+<h2>Documentos A4</h2>
+<h2 class="h" style="font-size:18px;margin:26px 0 6px">Estrutura</h2>
+<p class="p">Papel branco, <a href="1-logotipo.html#s-variacoes">logotipo como assinatura</a> e um fio ferro na entrada do título. Sem pontilhado: em texto de leitura a marca fica no cabeçalho. Quatro páginas-modelo: capa e página interna de relatório, primeira página de artigo e procedimento operacional padrão (POP).</p>
 <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;margin-top:18px">
 <div class="fig"><div id="documentos-a4-p1"></div><p class="cap"><b>Capa.</b> Logotipo de 40 mm no topo; título, fio e rótulo no terço inferior.</p></div>
 <div class="fig"><div id="documentos-a4-p2"></div><p class="cap"><b>Interna.</b> Cabeçalho corrido: logotipo de 14 mm e referência em mono.</p></div>
@@ -18,3 +19,9 @@ pg('documentos-a4-p2',head+bar(20,36,80,6,U)+lines(20,48,80,7,5)+lines(110,48,80
 pg('documentos-a4-p3',head+bar(20,36,18,2.5,F)+bar(20,42,160,7,U)+bar(20,52,110,7,U)+lines(20,64,90,2,4)+'<line x1="20" y1="76" x2="190" y2="76" stroke="'+A+'" stroke-width=".5"/>'+bar(20,81,24,2.5,U)+lines(52,81,138,5,5)+'<line x1="20" y1="110" x2="190" y2="110" stroke="'+A+'" stroke-width=".5"/>'+bar(20,118,40,3,U)+lines(20,125,80,22,5)+lines(110,118,80,24,5));
 pg('documentos-a4-p4',head+bar(20,36,52,2.5,F)+bar(20,42,150,7,U)+bar(20,52,80,7,U)+lines(20,66,40,2,4)+lines(80,66,40,2,4)+lines(140,66,40,2,4)+'<line x1="20" y1="80" x2="190" y2="80" stroke="'+A+'" stroke-width=".5"/>'+bar(20,86,30,4,U)+lines(20,94,150,2,5)+[0,1,2,3].map(i=>bar(20,112+i*12,8,3,F)+lines(32,112+i*12,140,2,4.5)).join('')+'<rect x="20" y="164" width="170" height="16" rx="3" fill="'+N+'"/>'+bar(26,170,16,3,F)+'<line x1="20" y1="258" x2="190" y2="258" stroke="'+A+'" stroke-width=".5"/>'+lines(20,263,40,2,5)+lines(80,263,40,2,5)+lines(140,263,40,2,5));
 }</script>
+<h2 class="h" style="font-size:18px;margin:26px 0 6px">Exemplo</h2>
+<p class="p">O modelo completo. <a href="templates/documento-a4/DocumentoA4.dc.html" target="_blank">Abrir em tela cheia ↗</a></p>
+<!--quadro templates/documento-a4/DocumentoA4.dc.html 1280x900-->
+<h2 class="h" style="font-size:18px;margin:26px 0 6px">Baixar</h2>
+<p class="p">Ainda sem arquivo editável. As versões em Word (<span class="mono">.dotx</span>) e LaTeX saem deste exemplo e entram aqui quando estiverem prontas.</p>
+<p class="p">Para montar à mão: fontes (<a href="5-tipografia.html#s-composicoes">5.5</a>) e logos (<a href="1-logotipo.html#s-combinacoes-de-cores">1.8</a>).</p>
