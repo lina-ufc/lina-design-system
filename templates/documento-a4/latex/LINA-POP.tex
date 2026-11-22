@@ -1,0 +1,89 @@
+% LINA · POP, procedimento operacional padrão (entrada, meio, finalização).
+% Compile com XeLaTeX. Só comandos de lina.cls: nada de \vspace, \fontsize, \color, \hspace ou \newpage aqui.
+\documentclass[pop]{lina}
+
+\referencia{POP-04}
+\titulocurto{POP-04 · v. 2.1 · vigência 03/2026}
+\siglarodape{LINA · POP-04}
+
+\begin{document}
+
+% ---------- Entrada ----------
+\rotulo{Procedimento operacional padrão}
+\titulo{Nome do procedimento, começando por um substantivo de ação}
+\begin{metadados}[0]{YYY}
+  \rotulometa{Responsável}\newline Coordenação técnica &
+  \rotulometa{Aplica-se a}\newline edifício · objeto &
+  \rotulometa{Duração}\newline \mono{≈ 4 h}
+\end{metadados}
+
+\secaofio{Objetivo}
+Uma ou duas frases sobre o resultado que o procedimento garante, não sobre as tarefas.
+
+\section{Material}
+Equipamento · acessório · ficha de campo · mídia de cópia
+
+\secaotabela{Procedimento}
+\begin{passos}
+  \item Cada passo começa com um verbo no imperativo e descreve uma única ação.
+  \item Quando houver um critério de conferência, escreva-o no mesmo passo.
+  \item Valores e parâmetros remetem a tabelas numeradas, não ao texto corrido.
+  \item Nomes de arquivo e caminhos vão em mono: \mono{AAAA-MM-DD\_local\_E01}.
+\end{passos}
+
+\begin{atencao}
+  \rotuloatencao{Atenção.} Uma caixa por página, no máximo, para riscos ao equipamento ou às pessoas.
+\end{atencao}
+
+\paginademo
+
+% ---------- Meio ----------
+\secaotabela{Procedimento \continuacao{(continuação)}}
+\begin{passos}
+  \item A numeração continua entre páginas; nunca reinicie a contagem.
+  \item Quando um passo depender de condição, escreva a condição primeiro: “Se a prévia falhar, repita o passo 04.”
+  \item Agrupe passos longos em etapas com subtítulo, mantendo a numeração corrida.
+  \item O último passo é sempre o de registro: o que salvar, onde e com que nome.
+\end{passos}
+
+\titulotabela{Parâmetros por escala do objeto.}
+\begin{tabela}{YW{142}W{130}}
+  Escala & Resolução & Distância \\
+  objeto & \numero{— mm} & \numero{— m} \\
+  edifício & \numero{— mm} & \numero{— m} \\
+  cidade & \numero{— mm} & \numero{— m} \\
+\end{tabela}
+\nota{Valores de referência; ajuste conforme o manual do equipamento.}
+
+\secaoafastadatabela{Critérios de aceitação}
+\begin{criterios}
+  \item Cada estação compartilha ao menos três alvos com a anterior.
+  \item O erro de registro não excede o valor da tabela 1.
+  \item Todos os arquivos estão no servidor com o nome padrão.
+\end{criterios}
+
+\paginademo
+
+% ---------- Finalização ----------
+\section{Registro de execução}
+Preencha uma linha por execução e arquive esta folha com os dados.
+\begin{tabela}[12.7]{W{112}YW{152}W{90}}
+  Data & Local / estações & Operador & Conferido \\
+  \registro{5}
+\end{tabela}
+
+\secaoafastadatabela{Histórico de revisões}
+\begin{tabela}[6.4]{W{82}W{122}Y}
+  Versão & Data & Alteração \\
+  1.0 & \numero{05/2024} & Emissão inicial. \\
+  2.0 & \numero{08/2025} & Inclusão da tabela de parâmetros por escala. \\
+  2.1 & \numero{03/2026} & Ajuste do padrão de nome de arquivo. \\
+\end{tabela}
+
+\secaoafastada{Documentos relacionados}
+\numero{POP-03} Calibração do escâner · \numero{POP-07} Registro de nuvens de pontos
+
+\vfill
+\assinaturas{Elaborado por}{Revisado por}{Aprovado por}
+
+\end{document}
