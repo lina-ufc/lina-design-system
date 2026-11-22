@@ -18,5 +18,14 @@ else:
         erros.append('há conteúdo no deck fora das seções')
 if 'Como usar este template' in h:
     erros.append('cartão "Como usar" ainda presente')
-print('\n'.join(erros) or 'ok: 9 páginas no deck')
+# Texto corrido: uma regra só (.tc), justificada e hifenizada; títulos, legendas e tabelas fora dela.
+if len(re.findall(r'\.tc\{text-align:justify;hyphens:auto;-webkit-hyphens:auto\}', h)) != 1:
+    erros.append('falta a regra única .tc (justify + hyphens:auto)')
+tc = re.findall(r'<(\w+)[^>]*class="tc"[^>]*>(.{0,40})', h)
+if len(tc) < 20:
+    erros.append(f'só {len(tc)} blocos de texto corrido marcados com .tc')
+for tag, txt in tc:
+    if tag in ('h1', 'h2', 'td', 'th') or re.match(r'(<[^>]+>)*(Figura|Tabela|Fonte:)', txt):
+        erros.append(f'.tc em título, legenda ou tabela: <{tag}> {txt}')
+print('\n'.join(erros) or f'ok: 9 páginas no deck, {len(tc)} blocos justificados')
 sys.exit(1 if erros else 0)
