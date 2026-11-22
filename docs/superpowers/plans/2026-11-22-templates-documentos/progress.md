@@ -42,7 +42,7 @@ Checagens que rodaram: `check_html.py` (Tasks 1 e 2); `sistema.py` e navegador d
 Branch `main`, base `7a35f7e`. API do `docx` 9.16: tem `fonts`, `hyphenation`, SVG com `fallback`, tabela `float`, `TOTAL_PAGES`, `language`, colunas e `titlePage`; estilos de tabela injetados no `styles.xml` (pós-processamento com `fflate`).
 
 - [x] **Task 1** — Base e Relatório — `786a546`, check_word ok, validate ok, distorcidas 0, render 3 páginas; revisão: 2 Important corrigidos em `b230c54`
-- [x] **Task 2** — Artigo — `b230c54`, check_word ok (4 arquivos), validate ok, render 3 páginas, Relatório sem regressão; revisão pendente
+- [x] **Task 2** — Artigo — `b230c54`, check_word ok (4 arquivos), validate ok, render 3 páginas, Relatório sem regressão; revisão limpa (0 Important), Minors levados à Task 3
 - [ ] **Task 3** — POP
 - [ ] **Task 4** — Conferência e passagem para o 03
 
