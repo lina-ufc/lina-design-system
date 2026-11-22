@@ -91,7 +91,8 @@ def confere(caminho, erros, avisos):
             err(f'{p}: estilo "{u}" usado e ausente em styles.xml')
         # toda tabela traz estilo
         for tb in re.findall(r'<w:tbl>.*?</w:tbl>', x, re.S):
-            if '<w:tblStyle ' not in re.search(r'<w:tblPr>.*?</w:tblPr>', tb, re.S).group(0):
+            pr = re.search(r'<w:tblPr>.*?</w:tblPr>', tb, re.S)
+            if not pr or '<w:tblStyle ' not in pr.group(0):
                 err(f'{p}: tabela sem w:tblStyle')
     quebras = len(re.findall(r'<w:br\b[^>]*w:type="page"', doc))
     if quebras > 2:

@@ -1,10 +1,10 @@
 // Gera os modelos Word do Documento A4 (.docx de exemplo e .dotx) a partir do HTML de referência.
 // Uso (cwd = word/): node build.js  →  out/LINA-<Modelo>-exemplo.docx e out/LINA-<Modelo>.dotx
-// Acrescentar um modelo: uma função de conteúdo + um objeto de tamanhos em MODELOS (POP: Task 3).
+// Acrescentar um modelo: uma função de conteúdo + um objeto de tamanhos em MODELOS .
 const {
   Document, Packer, Paragraph, TextRun, ImageRun, Table, TableRow, TableCell, Header, Footer, Tab, PageNumber,
   AlignmentType, BorderStyle, LineRuleType, WidthType, TableLayoutType, TableAnchorType,
-  RelativeHorizontalPosition, RelativeVerticalPosition, SectionType,
+  RelativeHorizontalPosition, RelativeVerticalPosition, SectionType, LevelFormat, HeightRule,
 } = require('docx');
 const { unzipSync, zipSync, strFromU8, strToU8 } = require('fflate'); // docx 9 usa fflate, não jszip
 const sharp = require('sharp');
@@ -59,6 +59,17 @@ const MODELOS = {
     rotulo: { px: 13, fio: false, antes: px(36) },
     titulo: { font: F.reg, bold: true, px: 32, lh: 1.12, track: -0.012, antes: 10 },
     secao: { px: 15, lh: 1.55, track: 0, after: 8, antes: 28 },
+  },
+  pop: {
+    arq: 'POP',
+    ref: 'POP-04 · v. 2.1 · vigência 03/2026',
+    cabSecao: 0,
+    rodape: 'LINA · POP-04',
+    total: true, // rodapé "n / total"
+    top: px(134 - 32), // 32 px vêm do "antes" do rótulo e da seção
+    rotulo: { px: 13, fio: false, antes: px(38) },
+    titulo: { font: F.reg, bold: true, px: 32, lh: 1.12, track: -0.012, antes: 10 },
+    secao: { px: 18, lh: 1.2, track: 0, after: 8, antes: 32 },
   },
 };
 
@@ -122,7 +133,6 @@ const estilosP = (t) => [
   P('LINAEquipe', 'LINA Equipe', { paragraph: { spacing: { before: px(14), line: lh(13, 1.45), lineRule: EXACT } }, run: { size: hp(13) } }),
   // before/after de 24 px: respiro do colofão entre o fio e o texto e até a margem inferior
   P('LINAColofao', 'LINA Colofão', { paragraph: { spacing: { before: px(24), after: px(24), line: lh(12, 1.55), lineRule: EXACT } }, run: { size: hp(12) } }),
-  // parágrafo mínimo (1 pt) que fecha seção ou separa tabelas
   P('LINAAutores', 'LINA Autores', { paragraph: { spacing: { before: px(18) } }, run: { size: hp(15) } }),
   P('LINAAfiliacao', 'LINA Afiliação', { paragraph: { spacing: { before: px(4) } }, run: { size: hp(12), color: mix(C.umbro, 0.75) } }),
   P('LINAResumo', 'LINA Resumo', { paragraph: { alignment: AlignmentType.BOTH, spacing: { line: lh(14, 1.55), lineRule: EXACT } }, run: { size: hp(14) } }),
@@ -136,13 +146,40 @@ const estilosP = (t) => [
     paragraph: { border: { bottom: { style: BorderStyle.SINGLE, size: bd(1), color: C.fioForte, space: 0 } }, spacing: { before: px(4), after: px(12), line: 20, lineRule: EXACT } },
     run: { size: 2 },
   }),
+  // POP: Seção com fio fio-forte acima (Objetivo); passo (texto e número); lista de critérios; caixa Atenção; nota; assinatura
+  P('LINASecaoFio', 'LINA Seção com Fio', {
+    basedOn: 'LINASecao',
+    paragraph: { spacing: { before: px(34) }, border: { top: { style: BorderStyle.SINGLE, size: bd(1), color: C.fioForte, space: pts(16) } } },
+  }),
+  P('LINAPasso', 'LINA Passo', { basedOn: 'LINACorpo', paragraph: { spacing: { after: 0, line: lh(15, 1.5), lineRule: EXACT } } }),
+  // ponytail: marcador U+25A1 (o JetBrains Mono não tem o ☐ U+2610), indent de 24 px do HTML
+  P('LINALista', 'LINA Lista', {
+    basedOn: 'LINACorpo',
+    paragraph: { numbering: { reference: 'lista', level: 0 }, alignment: AlignmentType.LEFT, spacing: { after: px(8), line: lh(15, 1.5), lineRule: EXACT } },
+  }),
+  P('LINAAtencaoTexto', 'LINA Atenção Texto', { basedOn: 'LINACorpo', paragraph: { spacing: { after: 0, line: lh(15, 1.5), lineRule: EXACT } }, run: { font: F.reg } }),
+  P('LINANota', 'LINA Nota', { paragraph: { spacing: { before: px(8) } }, run: { size: hp(12), color: mix(C.umbro, 0.75) } }),
+  P('LINAMonoCel', 'LINA Mono Célula', { run: { font: F.mono, size: hp(13) } }),
+  P('LINAAssinatura', 'LINA Assinatura', {
+    paragraph: {
+      spacing: { before: px(44), after: px(24), line: lh(12, 1.5), lineRule: EXACT },
+      border: { top: { style: BorderStyle.SINGLE, size: bd(1), color: C.umbro, space: pts(8) } },
+    },
+    run: { size: hp(12) },
+  }),
+  P('LINAQuebraGrande', 'LINA Quebra Grande', { paragraph: { spacing: { before: 0, after: 0, line: px(21), lineRule: EXACT } }, run: { size: 2 } }),
+  // parágrafo mínimo (1 pt) que fecha seção ou separa tabelas
   P('LINAQuebra', 'LINA Quebra', { paragraph: { spacing: { before: 0, after: 0, line: 20, lineRule: EXACT } }, run: { size: 2 } }),
 ];
 const estilosC = [
   { id: 'LINADestaque', name: 'LINA Destaque', quickFormat: true, run: { font: F.med, language: LANG } },
   { id: 'LINAMono', name: 'LINA Mono', quickFormat: true, run: { font: F.mono } },
+  { id: 'LINAMonoTexto', name: 'LINA Mono Texto', quickFormat: true, run: { font: F.mono, size: hp(13) } }, // mono inline no texto, 13 px = 10 pt
   { id: 'LINAMonoPequeno', name: 'LINA Mono Pequeno', quickFormat: true, run: { font: F.mono, size: hp(11) } },
   { id: 'LINAFonte', name: 'LINA Fonte', quickFormat: true, run: { font: F.mono, size: hp(11), color: mix(C.umbro, 0.75) } },
+  { id: 'LINAPassoNumero', name: 'LINA Passo Número', quickFormat: true, run: { font: F.mono, bold: true, color: C.ferro, size: hp(14) } },
+  { id: 'LINAAtencaoRotulo', name: 'LINA Atenção Rótulo', quickFormat: true, run: { font: F.reg, bold: true, color: C.ferro } },
+  { id: 'LINAContinuacao', name: 'LINA Continuação', quickFormat: true, run: { font: F.light, bold: false, color: mix(C.umbro, 0.7) } },
   { id: 'LINARotuloMeta', name: 'LINA Rótulo Meta', quickFormat: true, run: { color: mix(C.umbro, 0.7) } },
 ];
 
@@ -162,12 +199,17 @@ const ESTILOS_TABELA = [
   }),
   estTab('LINAMetadados', 'LINA Metadados', { borders: bordas(), mar: marg(0, 0, 0, 0) }),
   estTab('LINAMetadadosFio', 'LINA Metadados Fio', { borders: bordas(C.fioForte), mar: marg(0, 0, 0, 0) }),
-  // Resumo do Artigo: fio acima e abaixo; 10 px nas células + 10 px entre linhas ≈ 20 px do HTML
-  estTab('LINAMetadadosFios', 'LINA Metadados Fios', { borders: bordas(C.fioForte, C.fioForte), mar: marg(px(10), 0, px(10), 0) }),
-  // provisórios: Artigo e POP (Tasks 2-3) ajustam olhando o HTML
-  estTab('LINAPassos', 'LINA Passos', { borders: bordas(C.umbro, C.fioForte, C.fioForte), mar: marg(px(7), 0, px(7), px(12)) }),
+  // Resumo do Artigo: fio acima e abaixo; 9 + 9 px entre linhas (gap 18 do HTML), 20 px de respiro na 1ª e na última linha
+  estTab('LINAMetadadosFios', 'LINA Metadados Fios', {
+    borders: bordas(C.fioForte, C.fioForte), mar: marg(px(9), 0, px(9), 0),
+    extra: `<w:tblStylePr w:type="firstRow"><w:tcPr><w:tcMar><w:top w:w="${px(20)}" w:type="dxa"/></w:tcMar></w:tcPr></w:tblStylePr>`
+      + `<w:tblStylePr w:type="lastRow"><w:tcPr><w:tcMar><w:bottom w:w="${px(20)}" w:type="dxa"/></w:tcMar></w:tcPr></w:tblStylePr>`,
+  }),
+  // Passos do POP: sem fio; 7 px em cima e embaixo = 14 px entre passos
+  estTab('LINAPassos', 'LINA Passos', { borders: bordas(), mar: marg(px(7), 0, px(7), 0) }),
   estTab('LINAAtencao', 'LINA Atenção', {
-    borders: bordas(), shd: `<w:shd w:val="clear" w:color="auto" w:fill="${C.nata}"/>`, mar: marg(px(16), px(20), px(16), px(20)),
+    borders: bordas(), mar: marg(px(16), px(20), px(16), px(20)),
+    extra: `<w:tblStylePr w:type="firstRow"><w:tcPr><w:shd w:val="clear" w:color="auto" w:fill="${C.nata}"/></w:tcPr></w:tblStylePr>`,
   }),
 ].join('');
 
@@ -193,7 +235,7 @@ async function ativos() {
     .replace(/<metadata>[\s\S]*?<\/metadata>/, '').replace('#2A1A12', '#' + C.ferroFundo));
   const [, vw, vh] = svg.toString().match(/viewBox="0 0 ([\d.]+) ([\d.]+)"/).map(Number); // proporção do desenho
   const png = await sharp(svg, { density: 600 }).resize({ width: 600 }).png().toBuffer(); // reserva única, serve a qualquer largura
-  const FW = Math.round(TWPX); // figura de largura total
+  const FW = Math.floor(TWPX); // figura de largura total
   const mkFig = (h) => sharp(Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${FW * 3}" height="${h * 3}" viewBox="0 0 ${FW} ${h}"><rect width="${FW}" height="${h}" rx="11" fill="#${C.nata}"/><text x="${FW / 2}" y="${h / 2 + 4}" text-anchor="middle" font-family="JetBrains Mono" font-size="12" fill="#${mix(C.umbro, 0.6, C.nata)}">[ figura ]</text></svg>`)).png().toBuffer();
   const figs = { 300: await mkFig(300), 260: await mkFig(260) }; // Relatório 300 px, Artigo 260 px
   return {
@@ -304,12 +346,11 @@ MODELOS.relatorio.conteudo = relatorio;
 
 // ---------- Artigo ----------
 function artigo(a) {
-  const duas = COL2;
   const C1 = SectionType.CONTINUOUS, PROX = SectionType.NEXT_PAGE;
   // 2 colunas seguidas sempre de seção contínua de 1 coluna: é ela que equilibra as colunas
   const corpo = (...ts) => ts.map((t) => par('LINACorpo', t));
   const w3 = [TW - 2 * px(110), px(110), px(110)];
-  const linha = (nome) => new TableRow({ children: [cel(w3[0], par(undefined, nome)), cel(w3[1], par('LINANumero', '—')), cel(w3[2], par('LINANumero', '—'))] });
+  const linha = (nome) => new TableRow({ children: [cel(w3[0], par(undefined, nome)), cel(w3[1], par('LINAMonoCel', '—')), cel(w3[2], par('LINAMonoCel', '—'))] });
   const ref = (...c) => par('LINAReferencia', ...c);
   const doi = (d) => r(d, 'LINAMonoPequeno');
   const meta = (...c) => [new Paragraph({ style: 'LINAColofao', children: c })];
@@ -323,16 +364,16 @@ function artigo(a) {
       grade('LINAMetadadosFios', [110], 18, [
         [[par('LINAResumo', r('Resumo', 'LINADestaque'))], [par('LINAResumo', 'Resumo de até 250 palavras, em parágrafo único: objetivo, método, resultados e conclusão. O resumo ocupa a largura total e é separado do corpo por dois fios areia.')]],
         [[par('LINAResumo', r('Palavras-chave', 'LINADestaque'))], [par('LINAResumo', 'três a cinco termos; separados por ponto e vírgula')]],
-      ]),
+      ], { tableLook: { firstRow: true, lastRow: true, noHBand: true, noVBand: true } }),
       quebra(),
     ] },
-    { type: C1, column: duas, children: [
+    { type: C1, column: COL2, children: [
       par('LINASecao', '1 · Introdução'),
       ...corpo('O corpo do artigo corre em duas colunas de 79 mm com 8 mm de entrecoluna. Seções numeradas em Bold no mesmo corpo do texto; não há recuo de primeira linha, e os parágrafos se separam por meia linha.',
         'Citações seguem a norma da publicação. Notas vão ao pé da coluna em 9 pt. Figuras ocupam uma coluna ou a largura total e sempre trazem legenda e fonte.'),
     ] },
     { type: C1, children: [quebra()] },
-    { type: PROX, column: duas, children: [
+    { type: PROX, column: COL2, children: [
       par('LINASecao', '2 · Método'),
       ...corpo('Descreva o recorte, os dados e os procedimentos em ordem de execução. Quando o método se apoiar em ferramenta própria, nomeie a versão e o repositório em mono no próprio texto.',
         'As subseções usam numeração decimal (2.1, 2.2) em Medium, sem quebra de coluna antes delas.'),
@@ -341,7 +382,7 @@ function artigo(a) {
       new Paragraph({ style: 'LINAFigura', children: [a.figura(260)] }),
       par('LINALegenda', r('Figura 2.', 'LINADestaque'), ' Figuras de largura total interrompem as duas colunas e voltam a elas logo abaixo. ', r('Fonte: LINA, 2026.', 'LINAFonte')),
     ] },
-    { type: C1, column: duas, children: [
+    { type: C1, column: COL2, children: [
       par('LINASecao', '3 · Resultados'),
       ...corpo('Apresente os resultados na mesma ordem das perguntas da introdução. Tabelas trazem título acima e fonte abaixo; figuras, legenda abaixo.',
         'Números em tabela vão em mono, alinhados, com a mesma quantidade de casas decimais por coluna.'),
@@ -349,12 +390,12 @@ function artigo(a) {
     { type: C1, children: [
       par('LINATituloTabela', 'Tabela 1. Título da tabela acima dela, em uma linha.'),
       tabela('LINATabela', w3, [
-        new TableRow({ tableHeader: true, children: [cel(w3[0], par(undefined, 'Recorte')), cel(w3[1], par('LINADireita', 'Elementos')), cel(w3[2], par('LINADireita', 'Relações'))] }),
+        new TableRow({ tableHeader: true, children: [cel(w3[0], par(undefined, 'Recorte')), cel(w3[1], par(undefined, 'Elementos')), cel(w3[2], par(undefined, 'Relações'))] }),
         linha('Centro'), linha('Benfica'), linha('Aldeota'),
       ], { tableLook: { firstRow: true, noHBand: true, noVBand: true } }),
       quebra(),
     ] },
-    { type: PROX, column: duas, children: [
+    { type: PROX, column: COL2, children: [
       par('LINASecao', '5 · Conclusão'),
       ...corpo('Retome o objetivo em uma frase, responda a ele com os resultados e indique o alcance e os limites do trabalho. Termine com os próximos passos da pesquisa.'),
     ] },
@@ -365,7 +406,7 @@ function artigo(a) {
       par('LINAFio'),
       quebra(),
     ] },
-    { type: C1, column: duas, children: [
+    { type: C1, column: COL2, children: [
       ref('BERTALANFFY, Ludwig von. ', r('Teoria geral dos sistemas', 'LINADestaque'), '. Petrópolis: Vozes, 1975.'),
       ref('SOBRENOME, Nome. Título do capítulo. ', r('In', 'LINADestaque'), ': SOBRENOME, Nome (org.). ', r('Título do livro', 'LINADestaque'), '. Cidade: Editora, ano. p. 00–00.'),
       ref('SOBRENOME, Nome; SOBRENOME, Nome. Título do artigo. ', r('Periódico', 'LINADestaque'), ', v. 0, n. 0, p. 00–00, ano. DOI: ', doi('10.0000/0000'), '.'),
@@ -389,6 +430,94 @@ function artigo(a) {
 }
 MODELOS.artigo.conteudo = artigo;
 
+// ---------- POP ----------
+function pop() {
+  const PROX = SectionType.NEXT_PAGE;
+  const passo = (n, ...c) => new TableRow({ cantSplit: true, children: [
+    cel(px(40), par('LINAPasso', r(n, 'LINAPassoNumero'))), cel(TW - px(40), par('LINAPasso', ...c)),
+  ] });
+  const passos = (...ps) => tabela('LINAPassos', [px(40), TW - px(40)], ps.map(([n, ...c]) => passo(n, ...c)));
+  const meta = (rot, ...v) => [new Paragraph({ style: 'LINAMeta', children: [r(rot, 'LINARotuloMeta'), ...v.map((x) => (typeof x === 'string' ? r(x, null, 1) : x))] })];
+  const cab = (...ts) => new TableRow({ tableHeader: true, children: ts.map(([w, t]) => cel(px(w), par(undefined, t))) });
+  const tab = (colunas, rows) => tabela('LINATabela', colunas, rows, { tableLook: { firstRow: true, noHBand: true, noVBand: true } });
+  const mono = (t) => par('LINAMonoCel', t);
+  const assina = (rot) => [new Paragraph({ style: 'LINAAssinatura', children: [r(rot, 'LINARotuloMeta'), r('Nome · data', null, 1)] })];
+  const wp = [px(130 + 12), px(130)]; wp.unshift(TW - wp[0] - wp[1]);
+  const wr = [px(112), 0, px(152), px(90)]; wr[1] = TW - wr[0] - wr[2] - wr[3];
+  const wh = [px(82), px(122), 0]; wh[2] = TW - wh[0] - wh[1];
+  const vazia = () => new TableRow({ cantSplit: true, height: { value: px(30), rule: HeightRule.EXACT }, children: wr.map((w) => cel(w, new Paragraph({}))) });
+  const hist = (v, d, t) => new TableRow({ children: [cel(wh[0], par(undefined, v)), cel(wh[1], mono(d)), cel(wh[2], par(undefined, t))] });
+  const esc = (nome, res, dist) => new TableRow({ children: [cel(wp[0], par(undefined, nome)), cel(wp[1], mono(res)), cel(wp[2], mono(dist))] });
+  return [
+    { children: [
+      par('LINARotulo', 'Procedimento operacional padrão'),
+      par('LINATitulo', 'Nome do procedimento, começando por um substantivo de ação'),
+      grade('LINAMetadados', [200, 200], 20, [[
+        meta('Responsável', 'Coordenação técnica'), meta('Aplica-se a', 'edifício · objeto'), meta('Duração', r('≈ 4 h', 'LINAMonoTexto', 1)),
+      ]]),
+      par('LINASecaoFio', 'Objetivo'),
+      par('LINACorpo', 'Uma ou duas frases sobre o resultado que o procedimento garante, não sobre as tarefas.'),
+      par('LINASecao', 'Material'),
+      par('LINACorpo', 'Equipamento · acessório · ficha de campo · mídia de cópia'),
+      par('LINASecao', 'Procedimento'),
+      passos(
+        ['01', 'Cada passo começa com um verbo no imperativo e descreve uma única ação.'],
+        ['02', 'Quando houver um critério de conferência, escreva-o no mesmo passo.'],
+        ['03', 'Valores e parâmetros remetem a tabelas numeradas, não ao texto corrido.'],
+        ['04', 'Nomes de arquivo e caminhos vão em mono: ', r('AAAA-MM-DD_local_E01', 'LINAMonoTexto'), '.'],
+      ),
+      par('LINAQuebraGrande'),
+      tabela('LINAAtencao', [TW], [new TableRow({ cantSplit: true, children: [cel(TW,
+        par('LINAAtencaoTexto', r('Atenção.', 'LINAAtencaoRotulo'), ' Uma caixa por página, no máximo, para riscos ao equipamento ou às pessoas.'))] })], { tableLook: { firstRow: true, noHBand: true, noVBand: true } }),
+      quebra(),
+    ] },
+    { type: PROX, children: [
+      par('LINASecao', 'Procedimento ', r('(continuação)', 'LINAContinuacao')),
+      passos(
+        ['05', 'A numeração continua entre páginas; nunca reinicie a contagem.'],
+        ['06', 'Quando um passo depender de condição, escreva a condição primeiro: “Se a prévia falhar, repita o passo 04.”'],
+        ['07', 'Agrupe passos longos em etapas com subtítulo, mantendo a numeração corrida.'],
+        ['08', 'O último passo é sempre o de registro: o que salvar, onde e com que nome.'],
+      ),
+      par('LINATituloTabela', 'Tabela 1. Parâmetros por escala do objeto.'),
+      tab(wp, [
+        new TableRow({ tableHeader: true, children: [cel(wp[0], par(undefined, 'Escala')), cel(wp[1], par(undefined, 'Resolução')), cel(wp[2], par(undefined, 'Distância'))] }),
+        esc('objeto', '— mm', '— m'), esc('edifício', '— mm', '— m'), esc('cidade', '— mm', '— m'),
+      ]),
+      par('LINANota', 'Valores de referência; ajuste conforme o manual do equipamento.'),
+      par('LINASecao', 'Critérios de aceitação'),
+      par('LINALista', 'Cada estação compartilha ao menos três alvos com a anterior.'),
+      par('LINALista', 'O erro de registro não excede o valor da tabela 1.'),
+      par('LINALista', 'Todos os arquivos estão no servidor com o nome padrão.'),
+    ] },
+    { type: PROX, children: [
+      par('LINASecao', 'Registro de execução'),
+      par('LINACorpo', 'Preencha uma linha por execução e arquive esta folha com os dados.'),
+      tab(wr, [
+        new TableRow({ tableHeader: true, children: [cel(wr[0], par(undefined, 'Data')), cel(wr[1], par(undefined, 'Local / estações')), cel(wr[2], par(undefined, 'Operador')), cel(wr[3], par(undefined, 'Conferido'))] }),
+        vazia(), vazia(), vazia(), vazia(), vazia(),
+      ]),
+      par('LINASecao', 'Histórico de revisões'),
+      tab(wh, [
+        new TableRow({ tableHeader: true, children: [cel(wh[0], par(undefined, 'Versão')), cel(wh[1], par(undefined, 'Data')), cel(wh[2], par(undefined, 'Alteração'))] }),
+        hist('1.0', '05/2024', 'Emissão inicial.'),
+        hist('2.0', '08/2025', 'Inclusão da tabela de parâmetros por escala.'),
+        hist('2.1', '03/2026', 'Ajuste do padrão de nome de arquivo.'),
+      ]),
+      par('LINASecao', 'Documentos relacionados'),
+      par('LINACorpo', r('POP-03', 'LINAMonoTexto'), ' Calibração do escâner · ', r('POP-07', 'LINAMonoTexto'), ' Registro de nuvens de pontos'),
+      quebra(),
+      // assinaturas: tabela flutuante ancorada na margem inferior (nunca caixa de texto); linha umbro = borda do parágrafo
+      grade('LINAMetadados', [198, 198], 24, [[assina('Elaborado por'), assina('Revisado por'), assina('Aprovado por')]], { float: {
+        horizontalAnchor: TableAnchorType.MARGIN, verticalAnchor: TableAnchorType.MARGIN,
+        relativeHorizontalPosition: RelativeHorizontalPosition.LEFT, relativeVerticalPosition: RelativeVerticalPosition.BOTTOM,
+      } }),
+      quebra(),
+    ] },
+  ];
+}
+MODELOS.pop.conteudo = pop;
+
 // ---------- montagem ----------
 const fonte = (f) => fs.readFileSync(ROOT('assets/fonts/' + f));
 const FONTES = [
@@ -403,8 +532,8 @@ async function main() {
   const a = await ativos();
   fs.mkdirSync(A('out'), { recursive: true });
   for (const t of Object.values(MODELOS)) {
-    const cab = (txt) => new Header({ children: [new Paragraph({ style: 'LINACabecalho', children: [a.logo(54), new TextRun({ children: [new Tab(), txt], style: 'LINAMono' })] })] });
-    const rodape = () => new Footer({ children: [new Paragraph({ style: 'LINARodape', children: [new TextRun({ children: [t.rodape || 'LINA · UFC', new Tab(), PageNumber.CURRENT] })] })] });
+    const cab = (txt) => new Header({ children: [new Paragraph({ style: 'LINACabecalho', children: [a.logo(54), new TextRun({ children: [new Tab(), txt], style: 'LINAMonoTexto' })] })] });
+    const rodape = () => new Footer({ children: [new Paragraph({ style: 'LINARodape', children: [new TextRun({ children: [t.rodape || 'LINA · UFC', new Tab(), PageNumber.CURRENT, ...(t.total ? [' / ', PageNumber.TOTAL_PAGES] : [])] })] })] });
     // conteudo() devolve as seções; a de índice t.cabSecao leva cabeçalho e rodapé, as seguintes herdam (a numeração
     // continua). Relatório: a 0 é a capa, sem eles, e conta como página 1. t.primeira: cabeçalho próprio da 1ª página.
     const sections = t.conteudo(a).map(({ children, page, ...props }, i) => ({
@@ -422,6 +551,10 @@ async function main() {
         default: { document: { run: { font: F.light, size: hp(15), color: C.umbro, language: LANG } } },
         paragraphStyles: estilosP(t), characterStyles: estilosC,
       },
+      numbering: { config: [{ reference: 'lista', levels: [{
+        level: 0, format: LevelFormat.BULLET, text: '\u25A1', alignment: AlignmentType.LEFT,
+        style: { paragraph: { indent: { left: px(24), hanging: px(24) } }, run: { font: F.mono, size: hp(15) } },
+      }] }] },
       sections,
     });
     const buf = await Packer.toBuffer(doc);
