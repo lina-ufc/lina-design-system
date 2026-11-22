@@ -1,0 +1,67 @@
+% LINA · Relatório institucional (capa, página interna, finalização).
+% Compile com XeLaTeX. Só comandos de lina.cls: nada de \vspace, \fontsize, \color, \hspace ou \newpage aqui.
+\documentclass[relatorio]{lina}
+
+\referencia{REL-2026-01}
+\versao{1.0}
+\data{10/2026}
+\titulocurto{Relatório anual de atividades}
+\siglarodape{LINA · UFC}
+
+\begin{document}
+
+% ---------- Capa ----------
+\begin{capa}{LINA · UFC\newline Fortaleza, 2026}
+  \rotulo{Relatório institucional}
+  \titulo{Relatório anual de atividades 2026}
+  \subtitulo{Pesquisa, ensino e extensão do Laboratório de Modelagem da Informação}
+  \begin{metadados}[18]{YYR}
+    \destaque{Laboratório de Modelagem da Informação}\newline Arte · Arquitetura · Ambiente &
+    Departamento de Arquitetura, Urbanismo e Design\newline Universidade Federal do Ceará &
+    \mostrar{referencia}\newline v. \mostrar{versao}
+  \end{metadados}
+\end{capa}
+
+% ---------- Página interna ----------
+\section{1 · Apresentação}
+\begin{multicols}{2}
+O Laboratório de Modelagem da Informação reúne pesquisadores de arquitetura, urbanismo e design em torno da informação que descreve o espaço, da escala do objeto à da paisagem. Este relatório apresenta as atividades do ano nas cinco linhas de pesquisa do grupo.
+
+Cada seção descreve projetos em andamento, produção bibliográfica, orientações e parcerias. Os indicadores ao final seguem os critérios da plataforma institucional e permitem comparar o desempenho com os anos anteriores.
+\end{multicols}
+
+\figuramarcadora
+\legenda{Legenda em Outfit 9 pt, uma linha abaixo da figura. \fonte{Fonte: LINA, 2026.}}
+
+\subsection{1.1 · Indicadores do ano}
+\begin{tabela}{YNN}
+  Indicador & \destaque{2025} & \destaque{2026} \\
+  Artigos em periódicos & \numero{—} & \numero{—} \\
+  Orientações concluídas & \numero{—} & \numero{—} \\
+\end{tabela}
+
+\paginademo
+
+% ---------- Finalização ----------
+\section{5 · Considerações finais}
+\begin{multicols}{2}
+Feche o documento com uma síntese do ano em dois ou três parágrafos: o que foi alcançado, o que ficou pendente e as prioridades para o próximo ciclo. Não introduza dados novos nesta seção.
+
+Os anexos, quando houver, vêm antes desta página e seguem a mesma grade das páginas internas, numerados como A, B, C.
+\end{multicols}
+
+\subsection{Equipe}
+\begin{metadados}{YYY}
+  \rotulometa{Coordenação}\newline Nome Sobrenome &
+  \rotulometa{Vice-coordenação}\newline Nome Sobrenome &
+  \rotulometa{Pesquisadores}\newline Nome Sobrenome\newline Nome Sobrenome \\
+  \rotulometa{Pós-graduação}\newline Nome Sobrenome\newline Nome Sobrenome &
+  \rotulometa{Graduação}\newline Nome Sobrenome\newline Nome Sobrenome &
+  \rotulometa{Técnico}\newline Nome Sobrenome
+\end{metadados}
+
+\vfill
+\colofao{\destaque{Laboratório de Modelagem da Informação}\newline Departamento de Arquitetura, Urbanismo e Design\newline Universidade Federal do Ceará\newline Av. da Universidade, Fortaleza – CE}
+  {contato@lina.ufc.br\newline lina.ufc.br}
+
+\end{document}
