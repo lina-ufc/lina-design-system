@@ -13,12 +13,12 @@
 
 ## Resumo
 
-`[██████░░░░]` 43% — 3 de 7 tarefas escritas.
+`[███████░░░]` 71% — 5 de 7 tarefas escritas.
 
 | Plano | Progresso | Tarefas | Estado |
 | --- | --- | --- | --- |
 | 01 — html-deck | `[██████████]` | 3/3 | Concluído 2026-11-22 |
-| 02 — word | `[░░░░░░░░░░]` | 0/4 | Escrito 2026-11-22, não iniciado |
+| 02 — word | `[█████░░░░░]` | 2/4 | Em execução |
 | 03 — latex | `[░░░░░░░░░░]` | — | Não escrito. Escrito quando 02 terminar |
 | 04 — conferencia-e-release | `[░░░░░░░░░░]` | — | Não escrito. Escrito quando 03 terminar |
 | 05 — site | `[░░░░░░░░░░]` | — | Não escrito. Escrito quando 04 terminar |
@@ -37,12 +37,12 @@ Checagens que rodaram: `check_html.py` (Tasks 1 e 2); `sistema.py` e navegador d
 
 ## Plano 02 — word
 
-`[░░░░░░░░░░]` 0% — 0 de 4 tarefas.
+`[█████░░░░░]` 50% — 2 de 4 tarefas.
 
-Branch `main`.
+Branch `main`, base `7a35f7e`. API do `docx` 9.16: tem `fonts`, `hyphenation`, SVG com `fallback`, tabela `float`, `TOTAL_PAGES`, `language`, colunas e `titlePage`; estilos de tabela injetados no `styles.xml` (pós-processamento com `fflate`).
 
-- [ ] **Task 1** — Base e Relatório
-- [ ] **Task 2** — Artigo
+- [x] **Task 1** — Base e Relatório — `786a546`, check_word ok, validate ok, distorcidas 0, render 3 páginas; revisão: 2 Important corrigidos em `b230c54`
+- [x] **Task 2** — Artigo — `b230c54`, check_word ok (4 arquivos), validate ok, render 3 páginas, Relatório sem regressão; revisão pendente
 - [ ] **Task 3** — POP
 - [ ] **Task 4** — Conferência e passagem para o 03
 
@@ -59,6 +59,9 @@ Branch `main`.
 
 ## Changelog
 
+- 2026-11-22 — Task 2 (Artigo) concluída, `b230c54`; inclui correções da revisão da Task 1.
+- 2026-11-22 — Task 1 (base e Relatório) concluída, `786a546`.
+- 2026-11-22 — Deck HTML dividido em três (Relatório, Artigo, POP), `7a35f7e`.
 - 2026-11-22 — Pedido do usuário: deck dividido em três (Relatório, Artigo, POP), lado a lado na 8.2; `check_html.py` ok, desktop e 375 px conferidos.
 - 2026-11-22 — Plano 02 (word) escrito.
 - 2026-11-22 — Task 3 (deck no site) concluída, `150e2d8`. Plano 01 concluído.
