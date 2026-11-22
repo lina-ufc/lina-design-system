@@ -1,6 +1,6 @@
 # Templates de documentos A4 — progresso
 
-**Última atualização:** 2026-11-22, branch `main`. Nada deste conjunto commitado ainda. Índice: [`README.md`](README.md).
+**Última atualização:** 2026-11-22, branch `main`. Spec e plano em `5624fcb`; execução em `main`. Índice: [`README.md`](README.md).
 
 ## Como atualizar este arquivo
 
@@ -13,11 +13,11 @@
 
 ## Resumo
 
-`[░░░░░░░░░░]` 0% — 0 de 3 tarefas escritas.
+`[███░░░░░░░]` 33% — 1 de 3 tarefas escritas.
 
 | Plano | Progresso | Tarefas | Estado |
 | --- | --- | --- | --- |
-| 01 — html-deck | `[░░░░░░░░░░]` | 0/3 | Escrito 2026-11-22, a executar |
+| 01 — html-deck | `[███░░░░░░░]` | 1/3 | **Em execução 2026-11-22** em `main` |
 | 02 — word | `[░░░░░░░░░░]` | — | Não escrito. Escrito quando 01 terminar |
 | 03 — latex | `[░░░░░░░░░░]` | — | Não escrito. Escrito quando 02 terminar |
 | 04 — conferencia-e-release | `[░░░░░░░░░░]` | — | Não escrito. Escrito quando 03 terminar |
@@ -25,28 +25,29 @@
 
 ## Plano 01 — html-deck
 
-`[░░░░░░░░░░]` 0% — 0 de 3 tarefas.
+`[███░░░░░░░]` 33% — 1 de 3 tarefas.
 
-Branch `main`, base `a1a93a8` (mais a reorganização do site ainda sem commit).
+Branch `main`, base `5624fcb`.
 
-- [ ] **Task 1** — Deck A4
+- [x] **Task 1** — Deck A4 — `83a069c`, check_html ok, 9 páginas vistas no navegador
 - [ ] **Task 2** — Texto corrido justificado
 - [ ] **Task 3** — Deck no site
 
-Checagens que rodaram: nenhuma ainda.
+Checagens que rodaram: `check_html.py` (Task 1).
 
 ## Estado herdado
 
 - `DocumentoA4.dc.html` com 9 páginas soltas (sem deck), cartão "Como usar" e rótulos entre páginas.
 - `sistema.py` já aceita `<!--quadro caminho LxA-->` dentro de fragmento.
-- Reorganização do capítulo 8 e remoção das etiquetas de estado feitas, sem commit.
+- Reorganização do capítulo 8 e remoção das etiquetas de estado feitas em `481558d`.
 
 ## Pendências do usuário
 
-1. Commitar a reorganização do site (bloqueia só o commit do 01, não a execução).
-2. Ok nas folhas de comparação (plano 04) antes da release.
-3. Ok explícito para criar a tag `documentos-v1.0.0` e publicar.
+1. Ok nas folhas de comparação (plano 04) antes da release.
+2. Ok explícito para criar a tag `documentos-v1.0.0` e publicar.
 
 ## Changelog
 
+- 2026-11-22 — Task 1 (deck A4) concluída, `83a069c`.
+- 2026-11-22 — Reorganização do site commitada (`481558d`); execução do 01 aberta.
 - 2026-11-22 — Conjunto criado; spec aprovada; plano 01 escrito.
