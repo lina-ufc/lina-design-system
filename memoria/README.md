@@ -16,7 +16,7 @@
 - [ds-capitulos-paginas](ds-capitulos-paginas.md) — Documento em páginas por capítulo (fragmentos em capitulos/); home é o Preâmbulo; links entre seções com "Citado em"
 - [fotos-referencia-cores](fotos-referencia-cores.md) — Ideia futura: fotos por cor na 2.2; curadoria do usuário, não buscar
 - [icones-phosphor](icones-phosphor.md) — Phosphor adotado (2026-11-22); pixel rejeitado; duotone com 2ª cor; legados apagados
-- [templates-downloads](templates-downloads.md) — Cap. 8 = downloads; layouts numerados em 6 famílias; páginas de ícones no exemplo; cap. 9 fora
+- [templates-downloads](templates-downloads.md) — Cap. 8 = downloads; layouts numerados em 6 famílias; 8.2 baixa da release documentos-v*, só o Baixar é gerado; cap. 9 fora
 - [repositorio-github](repositorio-github.md) — Fonte em ~/developer/lina-design-system (GitHub público); releases por tag de template; site no Pages; CNR movido
 - [marca-release](marca-release.md) — Marca em release marca-vX.Y.Z por downloads/marca.sh local; .vectorcraft/.ase fora do git
 - [texto-vivo-vectorcraft](texto-vivo-vectorcraft.md) — Texto vivo no .vectorcraft; curvas só nos SVG exportados; fontes vão junto
