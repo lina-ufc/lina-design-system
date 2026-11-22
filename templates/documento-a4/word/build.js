@@ -438,7 +438,6 @@ function pop() {
   ] });
   const passos = (...ps) => tabela('LINAPassos', [px(40), TW - px(40)], ps.map(([n, ...c]) => passo(n, ...c)));
   const meta = (rot, ...v) => [new Paragraph({ style: 'LINAMeta', children: [r(rot, 'LINARotuloMeta'), ...v.map((x) => (typeof x === 'string' ? r(x, null, 1) : x))] })];
-  const cab = (...ts) => new TableRow({ tableHeader: true, children: ts.map(([w, t]) => cel(px(w), par(undefined, t))) });
   const tab = (colunas, rows) => tabela('LINATabela', colunas, rows, { tableLook: { firstRow: true, noHBand: true, noVBand: true } });
   const mono = (t) => par('LINAMonoCel', t);
   const assina = (rot) => [new Paragraph({ style: 'LINAAssinatura', children: [r(rot, 'LINARotuloMeta'), r('Nome · data', null, 1)] })];
@@ -532,7 +531,7 @@ async function main() {
   const a = await ativos();
   fs.mkdirSync(A('out'), { recursive: true });
   for (const t of Object.values(MODELOS)) {
-    const cab = (txt) => new Header({ children: [new Paragraph({ style: 'LINACabecalho', children: [a.logo(54), new TextRun({ children: [new Tab(), txt], style: 'LINAMonoTexto' })] })] });
+    const cab = (txt) => new Header({ children: [new Paragraph({ style: 'LINACabecalho', children: [a.logo(54), new TextRun({ children: [new Tab(), txt], style: 'LINAMono' })] })] });
     const rodape = () => new Footer({ children: [new Paragraph({ style: 'LINARodape', children: [new TextRun({ children: [t.rodape || 'LINA · UFC', new Tab(), PageNumber.CURRENT, ...(t.total ? [' / ', PageNumber.TOTAL_PAGES] : [])] })] })] });
     // conteudo() devolve as seções; a de índice t.cabSecao leva cabeçalho e rodapé, as seguintes herdam (a numeração
     // continua). Relatório: a 0 é a capa, sem eles, e conta como página 1. t.primeira: cabeçalho próprio da 1ª página.
