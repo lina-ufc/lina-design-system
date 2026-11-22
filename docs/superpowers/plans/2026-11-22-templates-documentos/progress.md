@@ -13,14 +13,14 @@
 
 ## Resumo
 
-`[█████████░]` 87% — 13 de 15 tarefas escritas.
+`[█████████░]` 93% — 14 de 15 tarefas escritas.
 
 | Plano | Progresso | Tarefas | Estado |
 | --- | --- | --- | --- |
 | 01 — html-deck | `[██████████]` | 3/3 | Concluído 2026-11-22 |
 | 02 — word | `[██████████]` | 4/4 | Concluído 2026-11-22 |
 | 03 — latex | `[██████████]` | 4/4 | Concluído 2026-11-22; folhas aprovadas pelo usuário |
-| 04 — conferencia-e-release | `[█████░░░░░]` | 2/4 | Em execução |
+| 04 — conferencia-e-release | `[████████░░]` | 3/4 | Em execução; falta ensaio e release |
 | 05 — site | `[░░░░░░░░░░]` | — | Não escrito. Escrito quando 04 terminar |
 
 ## Plano 01 — html-deck
@@ -59,13 +59,13 @@ Branch `main`, base `543fe22`. TeX Live 2026 *basic* local: sem `tcolorbox`, `la
 
 ## Plano 04 — conferencia-e-release
 
-`[█████░░░░░]` 50% — 2 de 4 tarefas.
+`[████████░░]` 75% — 3 de 4 tarefas.
 
 Branch `main`. PDFs de exemplo da release vêm do LaTeX; TeX Live do Ubuntu no runner; ensaio por `workflow_dispatch` antes da tag.
 
 - [x] **Task 1** — `make.sh`, pacotes e `check_pacotes.py` — `73cc037`, `make.sh` 2× com `ok: 5 arquivos`, git status limpo; revisão: 1 Important (pipe mascarava `validate.py`) corrigido em `0f4d6a8`
 - [x] **Task 2** — CHANGELOG e workflow — `aa2ac37`, YAML carrega, tag `documentos-v9.9.9` falha e `v1.0.0` passa, publicar só em tag; revisão limpa
-- [ ] **Task 3** — Teste de digitação no WordCraft
+- [x] **Task 3** — Teste de digitação no WordCraft — `5b65a21`, Relatório estável ao digitar; numeração do POP é texto literal; Artigo e POP diferem > 3 pt do LibreOffice (`tcMar` em `tblStylePr`), anotado no handoff 02
 - [ ] **Task 4** — Ensaio e release `documentos-v1.0.0`
 
 ## Estado herdado
@@ -81,6 +81,7 @@ Branch `main`. PDFs de exemplo da release vêm do LaTeX; TeX Live do Ubuntu no r
 
 ## Changelog
 
+- 2026-11-22 — Task 3 (WordCraft) concluída, `5b65a21`.
 - 2026-11-22 — Task 2 (CHANGELOG e workflow) concluída, `aa2ac37`.
 - 2026-11-22 — Task 1 (make.sh e pacotes) concluída, `73cc037`, correção `0f4d6a8`.
 - 2026-11-22 — Folhas HTML × Word × LaTeX aprovadas pelo usuário. Plano 04 escrito.
