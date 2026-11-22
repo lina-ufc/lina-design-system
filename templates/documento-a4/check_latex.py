@@ -13,7 +13,10 @@ PROIBIDOS = r'\\(vspace|hspace|fontsize|color|newpage|setlength)\b'  # o que a c
 # Texto que deve estar em cada página (mesmas quebras do HTML). Estender nas Tasks 2 e 3.
 QUEBRAS = {'Relatorio': [['Relatório institucional', 'Relatório anual de atividades 2026'],
                          ['1 · Apresentação', 'Indicadores do ano'],
-                         ['5 · Considerações finais', 'Equipe', 'contato@lina.ufc.br']]}
+                         ['5 · Considerações finais', 'Equipe', 'contato@lina.ufc.br']],
+          'Artigo': [['Cadernos LINA · v. 2 · n. 1 · 2026 · p. 1–18', 'Resumo', 'Palavras-chave', '1 · Introdução', 'DOI 10.0000/cl.2026.0001'],
+                     ['Sobrenome et al. · Título abreviado do artigo', '2 · Método', '[ figura ]', '3 · Resultados', 'Tabela 1.', 'Aldeota'],
+                     ['5 · Conclusão', 'Agradecimentos', 'Referências', 'BERTALANFFY', 'Correspondência', 'Licença']]}
 erros = []
 
 

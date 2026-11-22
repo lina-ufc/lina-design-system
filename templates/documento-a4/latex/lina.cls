@@ -19,19 +19,21 @@
   \def\lina@fio@rotulo{{\color{ferro}\hrule height\px{2}}\vskip\px{28}}%
   \def\lina@cabecalho{\lina@referencia\ · \lina@titulocurto}}
 \DeclareOption{artigo}{%
-  \def\lina@top{106}%
-  \def\lina@rotpt{10}\def\lina@rotantes{36}%
-  \def\lina@titpt{24}\def\lina@titlh{35.84}\def\lina@titls{-1.2}\def\lina@titantes{10}%
+  \def\lina@top{134}%
+  \def\lina@rotpt{10}\def\lina@rotantes{8}%   % o resto dos 44 px do HTML vem da margem superior
+  \def\lina@titpt{24}\def\lina@titlh{35.84}\def\lina@titls{-1.2}\def\lina@titantes{2.4}%
   \def\lina@secpt{11.5}\def\lina@seclh{23.25}\def\lina@secls{0}\def\lina@secantes{28}\def\lina@secdepois{8}%
   \def\lina@fontetitulo{Outfit-Bold}\def\lina@fio@rotulo{}%
   \def\lina@cabecalho{\lina@titulocurto}}
 \DeclareOption{pop}{%
-  \def\lina@top{102}%
-  \def\lina@rotpt{10}\def\lina@rotantes{38}%
-  \def\lina@titpt{24}\def\lina@titlh{35.84}\def\lina@titls{-1.2}\def\lina@titantes{10}%
-  \def\lina@secpt{13.5}\def\lina@seclh{21.6}\def\lina@secls{0}\def\lina@secantes{32}\def\lina@secdepois{8}%
+  \def\lina@top{141}%
+  \def\lina@rotpt{10}\def\lina@rotantes{0}%
+  \def\lina@titpt{24}\def\lina@titlh{35.84}\def\lina@titls{-1.2}\def\lina@titantes{2.4}%
+  \def\lina@secpt{13.5}\def\lina@seclh{21.6}\def\lina@secls{0}\def\lina@secantes{28}\def\lina@secdepois{8}%
   \def\lina@fontetitulo{Outfit-Bold}\def\lina@fio@rotulo{}%
-  \def\lina@cabecalho{\lina@titulocurto}}
+  \def\lina@cabecalho{\lina@titulocurto}%
+  \def\lina@total{\ /\ \pageref{lina@ultima}}\AtEndDocument{\label{lina@ultima}}}  % "n / total" no rodapé
+\def\lina@total{}
 \ExecuteOptions{relatorio}
 \ProcessOptions\relax
 \LoadClass[a4paper]{article}
@@ -77,6 +79,7 @@
 
 % ---------- corpo ----------
 \setlength\parindent{0pt}
+\setlength\JustifyingParindent{0pt}
 \setlength\parskip{\px{10}}
 \raggedbottom
 \emergencystretch=3em
@@ -91,6 +94,8 @@
 \newcommand\data[1]{\def\lina@data{#1}}
 \newcommand\titulocurto[1]{\def\lina@titulocurto{#1}}
 \newcommand\siglarodape[1]{\def\lina@siglarodape{#1}}
+\def\lina@cabprimeira{}
+\newcommand\cabecalhoprimeira[1]{\def\lina@cabprimeira{#1}}   % cabeçalho próprio da 1ª página (Artigo)
 \newcommand\mostrar[1]{\csname lina@#1\endcsname}
 
 % ---------- estilos de caractere ----------
@@ -98,15 +103,26 @@
 \newcommand\mono[1]{{\ttfamily #1}}
 \newcommand\fonte[1]{{\ttfamily\fontsize{8.5pt}{\f@baselineskip}\selectfont\color{umbro!75!white}#1}}
 \newcommand\rotulometa[1]{{\color{umbro!70!white}#1}}
+\newcommand\doi[1]{{\ttfamily\fontsize{8.25pt}{\f@baselineskip}\selectfont #1}}
 \newcommand\numero[1]{{\ttfamily\fontsize{10pt}{\f@baselineskip}\selectfont #1}}
 
 % ---------- título, rótulo, subtítulo ----------
-\newcommand\rotulo[1]{\par\vskip\px{\lina@rotantes}\lina@fio@rotulo
-  {\noindent\lina@f@rotulo\linatam{\lina@rotpt}{20}\color{ferro}\RaggedRight\MakeUppercase{#1}\par}}
+\newcommand\rotulo[1]{\par\lina@fio@rotulo
+  {\noindent\lina@f@rotulo\linatam{\lina@rotpt}{20}\color{ferro}\RaggedRight\raisebox{-\px{\lina@rotantes}}[\height][\depth]{\MakeUppercase{#1}}\par}}
+% \lina@rotantes: desce o texto do rótulo sem mexer na caixa (um \vskip no topo da página seria descartado)
 \newcommand\titulo[1]{\par\vskip\px{\lina@titantes}%
   {\noindent\lina@f@titulo\linatam{\lina@titpt}{\lina@titlh}\RaggedRight\rightskip=0pt plus 1fil\hyphenpenalty=10000 #1\par}}
 \newcommand\subtitulo[1]{\par\vskip\px{22}%
   {\noindent\begin{minipage}{\px{497}}\linatam{13.5}{23}\RaggedRight #1\par\end{minipage}\par}\vskip\px{64}}
+
+% espaço de n px acima de um parágrafo solto (desconta o \parskip que o parágrafo traz)
+\newcommand\lina@antes[1]{\par\vskip\dimexpr\px{#1}-\parskip\relax}
+% Artigo: autores e afiliação
+\newcommand\autores[1]{\lina@antes{18}{\noindent\linatam{11.25}{\lina@autlh}\RaggedRight #1\par}}
+\newcommand\afiliacao[1]{\lina@antes{4}{\noindent\linatam{9}{\lina@autlh}\RaggedRight\color{umbro!75!white}#1\par}}
+\def\lina@autlh{18.9}
+% texto em 14 px justificado (resumo, agradecimentos)
+\newcommand\textomenor[1]{\lina@antes{8}{\linatam{10.5}{21.7}#1\par}\vskip-\px{6.4}}  % -6,4: acerto contra o HTML
 
 % ---------- seções ----------
 \newlength\lina@sa \newlength\lina@sd \newlength\lina@ssa \newlength\lina@ssd
@@ -117,9 +133,15 @@
 \titleformat{\subsection}{\lina@f@bold\linatam{13.5}{22.5}\RaggedRight}{}{0pt}{}
 \titlespacing*{\subsection}{0pt}{\lina@ssa}{\lina@ssd}
 
+% seção fora das colunas (Agradecimentos, Referências): entrelinha normal da Outfit (1,26); o espaço abaixo vem de quem segue
+\newcommand\secaosolta[1]{\lina@antes{35}{\noindent\lina@f@secao\linatam{\lina@secpt}{18.9}\RaggedRight #1\par}\nobreak}  % 35 = 28 + 7: acerto contra o HTML
+
 % ---------- duas colunas ----------
 \setlength\columnsep{\px{32}}
 \setlength\multicolsep{0pt}
+% \begin{colunas}: duas colunas com 28 px acima (descartados se começar a página)
+\newenvironment{colunas}{\par\vskip\dimexpr\px{28}-\parskip\relax\addtolength\lina@sd{-\parskip}\begin{multicols}{2}}
+  {\end{multicols}\addtolength\lina@sd{\parskip}\vskip-\px{5.3}}  % o fim do multicols deixa ~4 pt a mais que o HTML
 
 % ---------- legenda e figura marcadora ----------
 \DeclareCaptionFont{lina}{\linatam{9}{17.4}}
@@ -137,34 +159,51 @@
 \newcommand\lina@fio[1]{\noalign{{\color{#1}\hrule height\px{1}}}}
 \newcolumntype{Y}{>{\lina@cab\RaggedRight\arraybackslash}X}
 \newcolumntype{R}{>{\RaggedLeft\arraybackslash\ttfamily\fontsize{9pt}{\px{18}}\selectfont}X}
+\newcolumntype{W}[1]{>{\lina@cab\RaggedRight\arraybackslash}p{\px{#1}}}   % coluna de largura fixa em px, texto à esquerda
 \newcolumntype{N}{>{\lina@cab\RaggedLeft\arraybackslash}p{\px{90}}}
 % \begin{metadados}[respiro em px]{colunas}: fio fio-forte acima; linhas separadas por 14 px.
 % \begin{metadados*}[respiro em px]{colunas}: fio fio-forte acima e abaixo; linhas separadas por 18 px.
 % Dentro da célula, quebra de linha é \newline; \\ termina a linha da tabela (a última fica sem \\).
+\newcommand\lina@tcs{12}
 \newcommand\lina@metanl{\tabularnewline[\px{\lina@metagap}]}
 \newcommand\lina@metabegin[2]{\par\vskip-\parskip\begingroup\linatam{10}{19.5}\def\lina@pad{#1}%
-  \setlength\tabcolsep{\px{12}}\def\arraybackslash{\let\\\lina@metanl}%
+  \setlength\tabcolsep{\px{\lina@tcs}}\def\arraybackslash{\let\\\lina@metanl}%
   \tabularx{\linewidth}{@{}#2@{}}\lina@fio{fio-forte}\noalign{\vskip\px{#1}}}
 \newenvironment{metadados}[2][12]{\def\lina@metagap{14}\lina@metabegin{#1}{#2}}{\endtabularx\endgroup\par}
 \newenvironment{metadados*}[2][20]{\def\lina@metagap{18}\lina@metabegin{#1}{#2}}%
   {\endtabularx\par\vskip\px{\lina@pad}{\color{fio-forte}\hrule height\px{1}}\endgroup\par}
+% resumo do Artigo: metadados* de duas colunas (rótulo de 110 px, texto justificado), 28 px abaixo da afiliação.
+% \begin{resumo} texto \palavraschave{termos} \end{resumo}
+% (a célula de várias linhas engole o espaço do \\[..]: aqui o espaço entre linhas vai em \noalign)
+\newenvironment{resumo}{\par\vskip\px{28}\def\lina@tcs{9}\renewcommand\lina@metanl{\tabularnewline\noalign{\vskip\px{18}}}%
+  \lina@metabegin{20}{>{\linatam{10.5}{21.7}\bfseries\RaggedRight\arraybackslash}p{\px{110}}>{\linatam{10.5}{21.7}\justifying\arraybackslash}X}\destaque{Resumo} &}%
+  {\endtabularx\par\vskip\px{\lina@pad}{\color{fio-forte}\hrule height\px{1}}\endgroup\par\vskip\px{15}}  % 15: acerto contra o HTML (colunas desconta um \parskip que aqui não há)
+\newcommand\palavraschave[1]{\\ \destaque{Palavras-chave} & #1}
 % \begin{tabela}{colunas}: fio umbro acima, fio fio-forte sob cada linha (terminar toda linha com \\);
 % a 1ª linha (cabeçalho) sai em Medium
 \newcount\lina@linha \lina@linha=1
 \newcommand\lina@cab{\ifnum\lina@linha=0 \bfseries\fi}
-\newcommand\lina@tabnl{\global\advance\lina@linha by 1 \tabularnewline[\px{9}]\lina@fio{fio-forte}}
+\newcommand\lina@tabnl{\global\advance\lina@linha by 1 \tabularnewline[\px{11.1}]\lina@fio{fio-forte}}
 \newenvironment{tabela}[1]{\par\vskip-\parskip\begingroup\linatam{10.5}{16}%
   \setlength\extrarowheight{\px{9}}\setlength\tabcolsep{0pt}\def\arraybackslash{\let\\\lina@tabnl}%
   \tabularx{\linewidth}{@{}#1@{}}\lina@fio{umbro}\noalign{\global\lina@linha=0 }}%
   {\endtabularx\endgroup\par}
 
+% título da tabela acima dela, em Medium 9 pt: \titulotabela{Título.} dá "Tabela n. Título."
+\newcommand\titulotabela[1]{\par\vskip\dimexpr\px{22}-\parskip\relax
+  {\captionsetup{font={lina,bf},aboveskip=0pt,belowskip=\px{8}}\noindent\parbox{\linewidth}{\captionof{table}{#1}}\par}\nobreak\vskip\px{8}}
+% \registro{n}: n linhas vazias (31 px) em tabela de 4 colunas
+\newcount\lina@n
+\newcommand\registro[1]{\lina@n=#1 \@whilenum\lina@n>0\do{\rule{0pt}{\px{13}}&&&\\\global\advance\lina@n by -1 }}
+
 % ---------- cabeçalho e rodapé ----------
 \pagestyle{fancy}
 \fancyhf{}
 \fancyhead[L]{\includegraphics[width=14mm]{logos/lina-horizontal-ferro.pdf}}
-\fancyhead[R]{\raisebox{3pt}{\ttfamily\fontsize{9pt}{9pt}\selectfont\lina@cabecalho}}
+\newcommand\lina@cabdir{\ifnum\value{page}=1 \ifx\lina@cabprimeira\@empty\lina@cabecalho\else\lina@cabprimeira\fi\else\lina@cabecalho\fi}
+\fancyhead[R]{\raisebox{3pt}{\ttfamily\fontsize{9pt}{9pt}\selectfont\lina@cabdir}}
 \fancyfoot[L]{\ttfamily\fontsize{8.5pt}{10pt}\selectfont\color{umbro!70!white}\lina@siglarodape}
-\fancyfoot[R]{\ttfamily\fontsize{8.5pt}{10pt}\selectfont\color{umbro!70!white}\thepage}
+\fancyfoot[R]{\ttfamily\fontsize{8.5pt}{10pt}\selectfont\color{umbro!70!white}\thepage\lina@total}
 \renewcommand\headrulewidth{0pt}
 \renewcommand\headrule{\vskip\px{12}{\color{fio-forte}\hrule width\headwidth height\px{1}}}
 \renewcommand\footrulewidth{0pt}
@@ -186,6 +225,14 @@
   #2\newline\mbox{}\newline \lina@referencia\ · v. \lina@versao\ · \lina@data\rule[-\px{24}]{0pt}{0pt}\\
   \end{tabularx}\endgroup\par}
 
-% ---------- referências (Artigo) ----------
-\newenvironment{referencias}{\par\linatam{9}{18}\setlength\leftskip{\px{16}}\setlength\parindent{-\px{16}}%
-  \setlength\parskip{\px{8}}}{\par}
+% ---------- referências (Artigo): duas colunas sob um fio fio-forte; \destaque no lugar do itálico ----------
+\newenvironment{referencias}{\par\vskip\px{12}{\color{fio-forte}\hrule height\px{1}}\vskip\px{12}%
+  \begin{multicols}{2}\linatam{9}{18}\setlength\leftskip{\px{16}}\setlength\parindent{-\px{16}}\setlength\parskip{\px{8}}\vskip-\parskip}%
+  {\end{multicols}}
+
+% ---------- pé do Artigo: correspondência, histórico e licença (\vfill antes, na mesma página) ----------
+\newcommand\historico[3]{\par\begingroup\linatam{9}{18}\setlength\tabcolsep{\px{12}}%
+  \begin{tabularx}{\linewidth}{@{}>{\RaggedRight\arraybackslash}X>{\RaggedRight\arraybackslash}X>{\RaggedRight\arraybackslash}X@{}}%
+  \lina@fio{fio-forte}\noalign{\vskip\px{16}}%
+  #1\rule[-\px{39.7}]{0pt}{0pt} & #2\rule[-\px{39.7}]{0pt}{0pt} & #3\rule[-\px{39.7}]{0pt}{0pt}\\
+  \end{tabularx}\endgroup\par}

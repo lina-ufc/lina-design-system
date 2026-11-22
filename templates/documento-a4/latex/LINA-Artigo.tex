@@ -1,0 +1,89 @@
+% LINA · Artigo acadêmico (entrada, meio, finalização).
+% Compile com XeLaTeX. Só comandos de lina.cls: nada de \vspace, \fontsize, \color, \hspace ou \newpage aqui.
+\documentclass[artigo]{lina}
+
+\titulocurto{Sobrenome et al. · Título abreviado do artigo}
+\cabecalhoprimeira{Cadernos LINA · v. 2 · n. 1 · 2026 · p. 1–18}
+\siglarodape{DOI 10.0000/cl.2026.0001}
+
+\begin{document}
+
+% ---------- Entrada ----------
+\rotulo{Artigo}
+\titulo{Título do artigo em até três linhas, com subtítulo após dois-pontos se necessário}
+\autores{\destaque{Nome Sobrenome}¹ · \destaque{Nome Sobrenome}¹ · \destaque{Nome Sobrenome}²}
+\afiliacao{¹ Universidade Federal do Ceará · ² Instituição}
+\begin{resumo}
+  Resumo de até 250 palavras, em parágrafo único: objetivo, método, resultados e~conclusão. O resumo ocupa a largura total e é separado do corpo por dois fios areia.
+  \palavraschave{três a cinco termos; separados por ponto e vírgula}
+\end{resumo}
+\begin{colunas}
+\section{1 · Introdução}
+O corpo do artigo corre em duas colunas de 79 mm com 8 mm de entrecoluna. Seções numeradas em Bold no mesmo corpo do texto; não há recuo de primeira linha, e os parágrafos se separam por meia linha.
+
+\columnbreak
+Citações seguem a norma da publicação. Notas vão ao pé da coluna em 9 pt. Figuras ocupam uma coluna ou a largura total e sempre trazem legenda e fonte.
+\end{colunas}
+
+\paginademo
+
+% ---------- Meio ----------
+\begin{colunas}
+\section{2 · Método}
+Descreva o recorte, os dados e os procedimentos em ordem de execução. Quando o método se apoiar em ferramenta própria, nomeie a versão e o repositório em mono no próprio texto.
+
+As subseções usam numeração decimal (2.1, 2.2) em Medium, sem quebra de coluna antes delas.
+\end{colunas}
+
+\setcounter{figure}{1}% neste exemplo é a figura 2
+\figuramarcadora[260]
+\legenda{Figuras de largura total interrompem as duas colunas e voltam a elas logo abaixo. \fonte{Fonte: LINA, 2026.}}
+
+\begin{colunas}
+\section{3 · Resultados}
+Apresente os resultados na mesma ordem das perguntas da introdução. Tabelas trazem título acima e fonte abaixo; figuras, legenda abaixo.
+
+\columnbreak
+Números em tabela vão em mono, alinhados, com a mesma quantidade de casas decimais por coluna.
+\end{colunas}
+
+\titulotabela{Título da tabela acima dela, em uma linha.}
+\begin{tabela}{YW{122}W{110}}
+  Recorte & Elementos & Relações \\
+  Centro & \numero{—} & \numero{—} \\
+  Benfica & \numero{—} & \numero{—} \\
+  Aldeota & \numero{—} & \numero{—} \\
+\end{tabela}
+
+\paginademo
+
+% ---------- Finalização ----------
+\begin{colunas}
+\section{5 · Conclusão}
+Retome o objetivo em uma frase, responda a ele com os resultados e indique o alcance e os limites do trabalho. Termine com os próximos passos da pesquisa.
+\end{colunas}
+
+\secaosolta{Agradecimentos}
+\textomenor{Agências de fomento, número do processo e pessoas que contribuíram sem autoria.}
+
+\secaosolta{Referências}
+\begin{referencias}
+BERTALANFFY, Ludwig von. \destaque{Teoria geral dos sistemas}. Petrópolis: Vozes, 1975.
+
+SOBRENOME, Nome. Título do capítulo. \destaque{In}: SOBRENOME, Nome (org.). \destaque{Título do livro}. Cidade: Editora, ano. p. 00–00.
+
+SOBRENOME, Nome; SOBRENOME, Nome. Título do artigo. \destaque{Periódico}, v. 0, n. 0, p. 00–00, ano. DOI: \doi{10.0000/0000}.
+
+\columnbreak
+VIEIRA, Jorge de Albuquerque. Organização e sistemas. \destaque{Informática na educação: teoria \& prática}, Porto Alegre, v. 3, n. 1, 2000. DOI: \doi{10.22456/1982-1654.6363}.
+
+SOBRENOME, Nome. \destaque{Título da tese}. Tese (Doutorado em Arquitetura) — Universidade, Cidade, ano.
+\end{referencias}
+
+\vfill
+\historico
+  {\rotulometa{Correspondência}\newline Nome Sobrenome\newline \doi{nome@ufc.br}}
+  {\rotulometa{Histórico}\newline \doi{recebido 12/02/2026}\newline \doi{aceito 30/04/2026}}
+  {\rotulometa{Licença}\newline CC BY 4.0. Permitida a reprodução com citação da fonte.}
+
+\end{document}
