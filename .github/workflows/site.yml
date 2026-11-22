@@ -28,7 +28,7 @@ jobs:
           TAG=apresentacao-v$V
           gh release download "$TAG" -D templates/apresentacao
           unzip -q templates/apresentacao/LINA-Apresentacao-HTML.zip -d "$RUNNER_TEMP/h"
-          cp -R "$RUNNER_TEMP/h/LINA-Apresentacao-HTML/Apresentacao.dc.html" "$RUNNER_TEMP/h/LINA-Apresentacao-HTML/img" templates/apresentacao/
+          cp -R "$RUNNER_TEMP/h/LINA-Apresentacao-HTML/Apresentacao.dc.html" "$RUNNER_TEMP/h/LINA-Apresentacao-HTML/img" "$RUNNER_TEMP/h/LINA-Apresentacao-HTML/lina-geometry.js" "$RUNNER_TEMP/h/LINA-Apresentacao-HTML/lina-dither-field.js" templates/apresentacao/
           rm templates/apresentacao/LINA-Apresentacao-HTML.zip
           echo "RELEASE_TAG=$TAG" >> "$GITHUB_ENV"
           echo "RELEASE_URL=https://github.com/$GITHUB_REPOSITORY/releases/download/$TAG/" >> "$GITHUB_ENV"
