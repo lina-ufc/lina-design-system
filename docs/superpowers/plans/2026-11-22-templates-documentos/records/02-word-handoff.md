@@ -41,7 +41,12 @@ Data: 2026-11-22. Commits do plano 02: `786a546` (base e Relatório), `b230c54` 
 
 ## Não verificado
 
-- Abrir e digitar no Microsoft Word (não há Word nesta máquina). O teste de que digitar não quebra o modelo ficou coberto pela checagem estrutural (só estilos, sem caixa de texto nem formatação direta); o teste manual vai para o plano 04.
+- Abrir e digitar no Microsoft Word (não há Word nesta máquina). Teste de digitação feito em 2026-11-22 no WordCraft (clone do Word), não no Word real. Relatório e POP abrem; parágrafo novo com `LINA Corpo`, título com `LINA Seção` e linha nova na tabela de indicadores ficam só com estilo (sem formatação direta), 3 páginas mantidas, o fluxo só muda a quebra. Relatório em `.superpowers/sdd/04-conferencia-e-release/task-3-report.md`.
+- **Passo novo no POP:** a numeração dos passos é texto literal ("01"…"08") com o estilo de caractere `LINA Passo Número`, sem numeração automática do Word. Quem acrescenta um passo digita o número e aplica o estilo de caractere. No WordCraft a linha inserida veio com parágrafo `Normal`; só ficou igual às outras aplicando `LINA Passo` nas duas células. Se o Word copiar o formato da linha de cima, isso não ocorre; conferir no Word.
+- **WordCraft x LibreOffice (exemplo.docx sem edição, 3 páginas nos dois):** Relatório igual ±1 px (±0,75 pt). Diferenças > 3 pt em Artigo e POP, causa provável `tcMar` dentro de `tblStylePr` firstRow/lastRow ignorado pelo WordCraft: passos do POP 6 pt mais baixos (firstRow top = 0), Resumo do Artigo 7,5 pt mais alto (firstRow top = 20 px), cabeçalho do registro do POP 7–9 pt. No Artigo (p. 2 e 3) a coluna 2 após um título começa 19,5 pt mais alta no WordCraft: tratamento do espaço antes no topo da coluna. Gerador não alterado; só o Word real decide qual dos dois está certo.
+- WordCraft hifeniza em pt-BR ("ativi-dades"), o que confirma a configuração do `settings.xml` e os estilos; o Word real segue sem teste.
+- O WordCraft renderiza o fundo nata do "Atenção" e o fio ferro da capa (`LINA Fio` + `LINA Quebra`); o Word segue sem teste.
+- Margem superior do Relatório é 140 px (`build.js:43`, `top: px(134 + 6)`), não os 134 px da tabela de medidas (base sem ajuste do modelo); o LaTeX deve usar 140 px no Relatório.
 - Fonte do texto "[ figura ]" no PNG da figura depende de a JetBrains Mono estar instalada na máquina do build.
 
 ## Para o 03 (LaTeX)
