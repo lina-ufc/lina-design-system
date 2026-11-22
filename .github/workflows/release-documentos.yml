@@ -1,0 +1,55 @@
+# Tag documentos-vX.Y.Z: gera os modelos A4 e publica a release. Disparo manual (ensaio): gera e sobe o artifact, sem publicar.
+name: Release · documentos A4
+on:
+  push:
+    tags: ['documentos-v*']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  release:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: templates/documento-a4/word/package-lock.json
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: pip install lxml defusedxml
+      - name: LaTeX, rsvg e poppler
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends texlive-xetex texlive-latex-recommended texlive-latex-extra texlive-lang-portuguese texlive-pictures latexmk librsvg2-bin poppler-utils
+      - name: Tag confere com o CHANGELOG
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          V=$(sed -n 's/^## \([0-9][0-9.]*\).*/\1/p' templates/documento-a4/CHANGELOG.md | head -1)
+          test "documentos-v$V" = "$GITHUB_REF_NAME" || { echo "tag $GITHUB_REF_NAME, CHANGELOG diz $V"; exit 1; }
+      - run: sh templates/documento-a4/make.sh
+      - name: Publica a release
+        if: startsWith(github.ref, 'refs/tags/')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          awk '/^## /{n++} n==1' templates/documento-a4/CHANGELOG.md | tail -n +2 > notas.md
+          gh release create "$GITHUB_REF_NAME" --title "Documentos A4 ${GITHUB_REF_NAME#documentos-}" --notes-file notas.md \
+            downloads/LINA-Documentos-Word.zip \
+            downloads/LINA-Documentos-LaTeX.zip \
+            templates/documento-a4/LINA-Relatorio-exemplo.pdf \
+            templates/documento-a4/LINA-Artigo-exemplo.pdf \
+            templates/documento-a4/LINA-POP-exemplo.pdf
+      - name: Ensaio (sem publicar)
+        if: ${{ !startsWith(github.ref, 'refs/tags/') }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: documentos-ensaio
+          path: |
+            downloads/LINA-Documentos-Word.zip
+            downloads/LINA-Documentos-LaTeX.zip
+            templates/documento-a4/LINA-Relatorio-exemplo.pdf
+            templates/documento-a4/LINA-Artigo-exemplo.pdf
+            templates/documento-a4/LINA-POP-exemplo.pdf
