@@ -31,6 +31,16 @@ jobs:
           rm templates/apresentacao/LINA-Apresentacao-HTML.zip
           echo "RELEASE_TAG=$TAG" >> "$GITHUB_ENV"
           echo "RELEASE_URL=https://github.com/$GITHUB_REPOSITORY/releases/download/$TAG/" >> "$GITHUB_ENV"
+      - name: Arquivos da release atual dos documentos
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # Sem release para a versão do CHANGELOG, o passo falha e o site antigo fica.
+          V=$(sed -n 's/^## \([0-9][0-9.]*\).*/\1/p' templates/documento-a4/CHANGELOG.md | head -1)
+          TAG=documentos-v$V
+          gh release download "$TAG" -D downloads -p '*.zip'
+          gh release download "$TAG" -D templates/documento-a4 -p '*.pdf'
+          echo "RELEASE_URL_DOCUMENTOS=https://github.com/$GITHUB_REPOSITORY/releases/download/$TAG/" >> "$GITHUB_ENV"
       - run: python3 downloads/empacotar.py
       - run: python3 capitulos/8-templates/_gerar.py
       - run: python3 sistema.py

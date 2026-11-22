@@ -1,6 +1,6 @@
-"""Gera a seção Apresentação do capítulo 8 (8.1): estrutura, exemplo, uso e downloads.
+"""Gera a seção Apresentação do capítulo 8 (8.1): estrutura, exemplo, uso e downloads; e o Baixar da 8.2 (Documentos A4).
 Rodar depois de publicar o template e os pacotes (downloads/empacotar.py): python3 capitulos/8-templates/_gerar.py"""
-import os, re, zipfile
+import os, re, sys, zipfile
 from html import escape
 AQUI = os.path.dirname(os.path.abspath(__file__)); R = os.path.dirname(os.path.dirname(AQUI))
 T = 'templates/apresentacao'
@@ -74,3 +74,25 @@ apres = f'''<style>.fam{{margin:8px 0 20px;padding:0;list-style:none;display:gri
 
 open(os.path.join(AQUI, '1-apresentacao.html'), 'w').write(apres + '\n')
 print('layouts', len(LAYS))
+
+# 8.2 Documentos A4: só o bloco Baixar (o resto da página é escrito à mão).
+TD = 'templates/documento-a4'
+VER_D = re.search(r'^## (\d[\d.]*)', open(os.path.join(R, TD, 'CHANGELOG.md'), encoding='utf-8').read(), re.M).group(1)
+REL_D = os.environ.get('RELEASE_URL_DOCUMENTOS', '')
+DL_D = [('downloads/LINA-Documentos-Word.zip', 'Word · .zip', 'Modelos .dotx e exemplos .docx dos três documentos.'),
+        ('downloads/LINA-Documentos-LaTeX.zip', 'LaTeX · .zip', 'Classe lina.cls, três exemplos, fontes e logo; sobe direto no Overleaf.'),
+        (f'{TD}/LINA-Relatorio-exemplo.pdf', 'Relatório · .pdf', 'Exemplo para consultar sem editor.'),
+        (f'{TD}/LINA-Artigo-exemplo.pdf', 'Artigo · .pdf', 'Exemplo para consultar sem editor.'),
+        (f'{TD}/LINA-POP-exemplo.pdf', 'POP · .pdf', 'Exemplo para consultar sem editor.')]
+for p, _, _ in DL_D:
+    if not os.path.exists(os.path.join(R, p)): sys.exit('falta: ' + p)
+href_d = lambda p: REL_D + os.path.basename(p) if REL_D else p
+hist_d = REL_D.replace('/download/', '/tag/').rstrip('/') if REL_D else f'{TD}/CHANGELOG.md'
+cards_d = ''.join(f'<a href="{escape(href_d(p))}" download><b>{t}</b><span class="p" style="margin:0">{d}</span><span class="mono cap">{os.path.basename(p)} · {tam(p)}</span></a>' for p, t, d in DL_D)
+baixar_d = f'''<p class="p mono">Versão {VER_D} · <a href="{escape(hist_d)}">histórico de versões</a> · <a href="https://github.com/lina-ufc/lina-design-system/releases">versões anteriores</a></p>
+<div class="dl">{cards_d}</div>
+<p class="p">Também: fontes (<a href="5-tipografia.html#s-composicoes">5.5</a>) e logos (<a href="1-logotipo.html#s-combinacoes-de-cores">1.8</a>).</p>'''
+f = os.path.join(AQUI, '2-documentos-a4.html')
+h = open(f, encoding='utf-8').read(); k = 'Baixar</h2>\n'
+open(f, 'w', encoding='utf-8').write(h[:h.index(k) + len(k)] + baixar_d + '\n')
+print('documentos', len(DL_D))
