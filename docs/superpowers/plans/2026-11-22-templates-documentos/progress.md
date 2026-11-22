@@ -13,13 +13,13 @@
 
 ## Resumo
 
-`[███████░░░]` 73% — 8 de 11 tarefas escritas.
+`[█████████░]` 91% — 10 de 11 tarefas escritas.
 
 | Plano | Progresso | Tarefas | Estado |
 | --- | --- | --- | --- |
 | 01 — html-deck | `[██████████]` | 3/3 | Concluído 2026-11-22 |
 | 02 — word | `[██████████]` | 4/4 | Concluído 2026-11-22 |
-| 03 — latex | `[███░░░░░░░]` | 1/4 | Em execução |
+| 03 — latex | `[████████░░]` | 3/4 | Em execução |
 | 04 — conferencia-e-release | `[░░░░░░░░░░]` | — | Não escrito. Escrito quando 03 terminar |
 | 05 — site | `[░░░░░░░░░░]` | — | Não escrito. Escrito quando 04 terminar |
 
@@ -48,13 +48,13 @@ Branch `main`, base `7a35f7e`. API do `docx` 9.16: tem `fonts`, `hyphenation`, S
 
 ## Plano 03 — latex
 
-`[███░░░░░░░]` 25% — 1 de 4 tarefas.
+`[████████░░]` 75% — 3 de 4 tarefas.
 
 Branch `main`, base `543fe22`. TeX Live 2026 *basic* local: sem `tcolorbox`, `lastpage`, `svg`, `needspace`, `textpos`.
 
 - [x] **Task 1** — Classe base, `latex.sh`, check e Relatório — `b472cb5`, check_latex ok (3 páginas A4, só Outfit/JetBrainsMono, 0 Overfull, compila em pasta vazia); revisão: 1 Important + 5 correções em `2b85ec8`
-- [ ] **Task 2** — Artigo
-- [ ] **Task 3** — POP
+- [x] **Task 2** — Artigo — `3973f4e`, check_latex ok (3 modelos), Δ ≤ 4 pt contra o HTML salvo o resumo (hifenização); revisão: correções em `cbeacd8`
+- [x] **Task 3** — POP — `bde6b1d`, check confere "1 / 3"…"3 / 3", Atenção com cantos de 11 px, mono 10 pt; revisão: correções em `cbeacd8`
 - [ ] **Task 4** — Conferência e passagem para o 04
 
 ## Estado herdado
@@ -70,6 +70,7 @@ Branch `main`, base `543fe22`. TeX Live 2026 *basic* local: sem `tcolorbox`, `la
 
 ## Changelog
 
+- 2026-11-22 — Tasks 2 e 3 (Artigo e POP) concluídas num só despacho, `3973f4e` e `bde6b1d`, correção `cbeacd8`. Word: espaçamentos alinhados ao HTML (`b6f1aa2`, `2225370`).
 - 2026-11-22 — Task 1 (classe LaTeX e Relatório) concluída, `b472cb5`, correção `2b85ec8`.
 - 2026-11-22 — Plano 03 (latex) escrito.
 - 2026-11-22 — Task 4 concluída, `4fd708d`; correção da revisão da Task 3. Plano 02 concluído.
