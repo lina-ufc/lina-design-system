@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,31 +10,12 @@
 <!-- @template name="Documento A4 · Margem" description="Relatório institucional, artigo acadêmico e procedimento operacional padrão em A4, prontos para PDF" -->
 <helmet><script src="./ds-base.js"></script><style>
 body{margin:0;background:#E9E4C4}
+section[data-page]{font-family:var(--font-body);color:var(--umbro);-webkit-font-smoothing:antialiased}
 @page{size:A4;margin:0}
-@media print{body{background:none}[data-noprint]{display:none!important}[data-page]{box-shadow:none!important;margin:0!important;break-after:page}[data-row]{display:block!important}body>*>div{padding:0!important;gap:0!important}}
+@media print{body{background:none}[data-page]{margin:0!important;break-after:page}}
 </style></helmet>
-<div style="display:grid;justify-content:start;gap:24px;padding:48px;font-family:var(--font-body);color:var(--umbro);-webkit-font-smoothing:antialiased">
-<sc-if value="{{ showGuide }}" hint-placeholder-val="{{ true }}">
-<div data-noprint="" style="width:794px;box-sizing:border-box;padding:40px 48px;background:var(--creme);border-radius:11px;font-size:14px;line-height:1.55">
-<p style="margin:0;font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;opacity:.62">Template · Documento A4 · Margem</p>
-<h1 style="margin:8px 0 0;font-size:26px;font-weight:800;letter-spacing:-.012em">Como usar este template</h1>
-<p style="margin:12px 0 0;max-width:64ch;font-weight:300">Papel branco, a marca como assinatura e um único fio em ferro marcando a entrada do título. Todo o resto é tipografia. Edite os textos diretamente nas páginas; apague as páginas que não usar. Este quadro não sai na impressão.</p>
-<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 32px;margin-top:24px;padding-top:20px;border-top:1px solid var(--fio-forte)">
-<div><p style="margin:0;font-weight:700">Página</p><p style="margin:4px 0 0;font-weight:300">A4 (210 × 297 mm). Margens laterais de 20 mm; superior e inferior de 17 mm. Capa com 19 mm no topo. Cabeçalho corrido com o logotipo de 14 mm à esquerda e a referência em mono à direita, sobre um fio areia.</p></div>
-<div><p style="margin:0;font-weight:700">Logotipo</p><p style="margin:4px 0 0;font-weight:300">Sempre em ferro com o A em ferro fundo, sobre o branco. Na capa, 40 mm de largura; nas páginas internas, 14 mm. Nunca centralizado, nunca sobre imagem.</p></div>
-<div><p style="margin:0;font-weight:700">Cor</p><p style="margin:4px 0 0;font-weight:300">Texto em umbro. Ferro só em três lugares: o fio da capa, o rótulo de tipo de documento e a numeração de passos. Nata para caixas de atenção e figuras. Sem pontilhado: ele pertence às peças de divulgação.</p></div>
-<div><p style="margin:0;font-weight:700">Tipografia</p><p style="margin:4px 0 0;font-weight:300">Outfit para tudo que se lê; JetBrains Mono só para dado: código do documento, DOI, versão, data, nome de arquivo, paginação. Corpo de 11,5 pt Light, entrelinha 1,55. Títulos ExtraBold (capa) e Bold (internas).</p></div>
-<div><p style="margin:0;font-weight:700">Hierarquia</p><p style="margin:4px 0 0;font-weight:300">Rótulo em caixa alta, ferro, 10 pt Medium → título → subtítulo ou autoria → corpo. Seções numeradas (1 · Introdução). Não use mais de três níveis.</p></div>
-<div><p style="margin:0;font-weight:700">Código do documento</p><p style="margin:4px 0 0;font-weight:300"><span style="font-family:var(--font-mono);font-size:12px">REL-AAAA-NN</span> relatório · <span style="font-family:var(--font-mono);font-size:12px">POP-NN</span> procedimento · artigos usam o DOI. Versão no formato <span style="font-family:var(--font-mono);font-size:12px">v. 1.0</span>.</p></div>
-</div>
-<p style="margin:22px 0 0;padding:14px 18px;background:var(--nata);border-radius:11px;font-weight:300"><b style="font-weight:700">Para exportar:</b> imprima a página (Ctrl/Cmd + P), escolha “Salvar como PDF”, papel A4, margens “nenhuma” e ative “gráficos de plano de fundo”. Cada página sai em uma folha.</p>
-</div>
-</sc-if>
-<sc-if value="{{ showRel }}" hint-placeholder-val="{{ true }}">
-<div data-noprint="" style="display:flex;align-items:baseline;gap:14px;margin-top:24px"><span style="font-size:22px;font-weight:700">Relatório institucional</span><span style="font-family:var(--font-mono);font-size:12px;opacity:.6">entrada · meio · finalização</span></div>
-<div data-row="" style="display:flex;gap:32px;align-items:flex-start">
-<div data-pcol=""><p data-noprint="" style="margin:0 0 12px;font-family:var(--font-mono);font-size:12px;opacity:.6">1 · capa</p>
-<section data-page="" data-screen-label="Relatório · entrada" style="width:794px;height:1123px;box-sizing:border-box;overflow:hidden;position:relative;background:#fff;box-shadow:0 2px 18px rgba(42,26,18,.18);padding:72px 76px;display:flex;flex-direction:column">
+<x-import component-from-global-scope="deck-stage" from="../apresentacao/deck-stage.js" width="794" height="1123" hint-size="100%,100%">
+<section data-page="" data-label="Relatório · entrada" style="width:794px;height:1123px;box-sizing:border-box;overflow:hidden;position:relative;background:#fff;padding:72px 76px;display:flex;flex-direction:column">
 <div style="display:flex;justify-content:space-between;align-items:flex-start">
 <svg viewBox="0 0 17.5 6" width="150" style="display:block;height:auto" role="img" aria-label="LINA"><path fill="#A81F0D" d="M0 0.5A0.5 0.5 0 0 1 0.5 0L1.5 0A0.5 0.5 0 0 1 2 0.5L2 3.5A0.5 0.5 0 0 0 2.5 4L3.5 4A0.5 0.5 0 0 1 4 4.5L4 5.5A0.5 0.5 0 0 1 3.5 6L2.5 6A0.5 0.5 0 0 1 2 5.5L2 4.5A0.5 0.5 0 0 0 1.5 4L0.5 4A0.5 0.5 0 0 1 0 3.5Z"></path><path fill="#A81F0D" d="M4.5 0.5A0.5 0.5 0 0 1 5 0L6 0A0.5 0.5 0 0 1 6.5 0.5L6.5 5.5A0.5 0.5 0 0 1 6 6L5 6A0.5 0.5 0 0 1 4.5 5.5Z"></path><path fill="#A81F0D" d="M9 1.5A0.5 0.5 0 0 1 9.5 1L11.5 1A0.5 0.5 0 0 1 12 1.5L12 5.5A0.5 0.5 0 0 1 11.5 6L10.5 6A0.5 0.5 0 0 1 10 5.5L10 3.5A0.5 0.5 0 0 0 9.5 3L9.5 3A0.5 0.5 0 0 0 9 3.5L9 5.5A0.5 0.5 0 0 1 8.5 6L7.5 6A0.5 0.5 0 0 1 7 5.5L7 3.5A0.5 0.5 0 0 1 7.5 3L8.5 3A0.5 0.5 0 0 0 9 2.5Z"></path><path fill="#6E1408" d="M12.5 0.5A0.5 0.5 0 0 1 13 0L15 0A0.5 0.5 0 0 1 15.5 0.5L15.5 1.5A0.5 0.5 0 0 0 16 2L17 2A0.5 0.5 0 0 1 17.5 2.5L17.5 5.5A0.5 0.5 0 0 1 17 6L16 6A0.5 0.5 0 0 1 15.5 5.5L15.5 5.5A0.5 0.5 0 0 0 15 5L15 5A0.5 0.5 0 0 0 14.5 5.5L14.5 5.5A0.5 0.5 0 0 1 14 6L13 6A0.5 0.5 0 0 1 12.5 5.5ZM15.5 2.5A0.5 0.5 0 0 0 15 2L15 2A0.5 0.5 0 0 0 14.5 2.5L14.5 3.5A0.5 0.5 0 0 0 15 4L15 4A0.5 0.5 0 0 0 15.5 3.5Z"></path></svg>
 <p style="margin:0;font-family:var(--font-mono);font-size:12px;text-align:right;line-height:1.6">LINA · UFC<br>Fortaleza, 2026</p>
@@ -50,9 +31,7 @@ body{margin:0;background:#E9E4C4}
 <p style="margin:0;font-family:var(--font-mono);font-size:12px;text-align:right">REL-2026-01<br>v. 1.0</p>
 </div>
 </section>
-</div>
-<div data-pcol=""><p data-noprint="" style="margin:0 0 12px;font-family:var(--font-mono);font-size:12px;opacity:.6">2 · página interna</p>
-<section data-page="" data-screen-label="Relatório · meio" style="width:794px;height:1123px;box-sizing:border-box;overflow:hidden;position:relative;background:#fff;box-shadow:0 2px 18px rgba(42,26,18,.18);padding:64px 76px">
+<section data-page="" data-label="Relatório · meio" style="width:794px;height:1123px;box-sizing:border-box;overflow:hidden;position:relative;background:#fff;padding:64px 76px">
 <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;padding-bottom:12px;border-bottom:1px solid var(--fio-forte)">
 <svg viewBox="0 0 17.5 6" width="54" style="display:block;height:auto" role="img" aria-label="LINA"><path fill="#A81F0D" d="M0 0.5A0.5 0.5 0 0 1 0.5 0L1.5 0A0.5 0.5 0 0 1 2 0.5L2 3.5A0.5 0.5 0 0 0 2.5 4L3.5 4A0.5 0.5 0 0 1 4 4.5L4 5.5A0.5 0.5 0 0 1 3.5 6L2.5 6A0.5 0.5 0 0 1 2 5.5L2 4.5A0.5 0.5 0 0 0 1.5 4L0.5 4A0.5 0.5 0 0 1 0 3.5Z"></path><path fill="#A81F0D" d="M4.5 0.5A0.5 0.5 0 0 1 5 0L6 0A0.5 0.5 0 0 1 6.5 0.5L6.5 5.5A0.5 0.5 0 0 1 6 6L5 6A0.5 0.5 0 0 1 4.5 5.5Z"></path><path fill="#A81F0D" d="M9 1.5A0.5 0.5 0 0 1 9.5 1L11.5 1A0.5 0.5 0 0 1 12 1.5L12 5.5A0.5 0.5 0 0 1 11.5 6L10.5 6A0.5 0.5 0 0 1 10 5.5L10 3.5A0.5 0.5 0 0 0 9.5 3L9.5 3A0.5 0.5 0 0 0 9 3.5L9 5.5A0.5 0.5 0 0 1 8.5 6L7.5 6A0.5 0.5 0 0 1 7 5.5L7 3.5A0.5 0.5 0 0 1 7.5 3L8.5 3A0.5 0.5 0 0 0 9 2.5Z"></path><path fill="#6E1408" d="M12.5 0.5A0.5 0.5 0 0 1 13 0L15 0A0.5 0.5 0 0 1 15.5 0.5L15.5 1.5A0.5 0.5 0 0 0 16 2L17 2A0.5 0.5 0 0 1 17.5 2.5L17.5 5.5A0.5 0.5 0 0 1 17 6L16 6A0.5 0.5 0 0 1 15.5 5.5L15.5 5.5A0.5 0.5 0 0 0 15 5L15 5A0.5 0.5 0 0 0 14.5 5.5L14.5 5.5A0.5 0.5 0 0 1 14 6L13 6A0.5 0.5 0 0 1 12.5 5.5ZM15.5 2.5A0.5 0.5 0 0 0 15 2L15 2A0.5 0.5 0 0 0 14.5 2.5L14.5 3.5A0.5 0.5 0 0 0 15 4L15 4A0.5 0.5 0 0 0 15.5 3.5Z"></path></svg>
 <span style="font-family:var(--font-mono)">REL-2026-01 · Relatório anual de atividades</span>
@@ -72,9 +51,7 @@ body{margin:0;background:#E9E4C4}
 </div>
 <p style="position:absolute;bottom:40px;left:76px;right:76px;margin:0;display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:11px;opacity:.7"><span>LINA · UFC</span><span>2</span></p>
 </section>
-</div>
-<div data-pcol=""><p data-noprint="" style="margin:0 0 12px;font-family:var(--font-mono);font-size:12px;opacity:.6">24 · página final</p>
-<section data-page="" data-screen-label="Relatório · finalização" style="width:794px;height:1123px;box-sizing:border-box;overflow:hidden;position:relative;background:#fff;box-shadow:0 2px 18px rgba(42,26,18,.18);padding:64px 76px">
+<section data-page="" data-label="Relatório · finalização" style="width:794px;height:1123px;box-sizing:border-box;overflow:hidden;position:relative;background:#fff;padding:64px 76px">
 <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;padding-bottom:12px;border-bottom:1px solid var(--fio-forte)">
 <svg viewBox="0 0 17.5 6" width="54" style="display:block;height:auto" role="img" aria-label="LINA"><path fill="#A81F0D" d="M0 0.5A0.5 0.5 0 0 1 0.5 0L1.5 0A0.5 0.5 0 0 1 2 0.5L2 3.5A0.5 0.5 0 0 0 2.5 4L3.5 4A0.5 0.5 0 0 1 4 4.5L4 5.5A0.5 0.5 0 0 1 3.5 6L2.5 6A0.5 0.5 0 0 1 2 5.5L2 4.5A0.5 0.5 0 0 0 1.5 4L0.5 4A0.5 0.5 0 0 1 0 3.5Z"></path><path fill="#A81F0D" d="M4.5 0.5A0.5 0.5 0 0 1 5 0L6 0A0.5 0.5 0 0 1 6.5 0.5L6.5 5.5A0.5 0.5 0 0 1 6 6L5 6A0.5 0.5 0 0 1 4.5 5.5Z"></path><path fill="#A81F0D" d="M9 1.5A0.5 0.5 0 0 1 9.5 1L11.5 1A0.5 0.5 0 0 1 12 1.5L12 5.5A0.5 0.5 0 0 1 11.5 6L10.5 6A0.5 0.5 0 0 1 10 5.5L10 3.5A0.5 0.5 0 0 0 9.5 3L9.5 3A0.5 0.5 0 0 0 9 3.5L9 5.5A0.5 0.5 0 0 1 8.5 6L7.5 6A0.5 0.5 0 0 1 7 5.5L7 3.5A0.5 0.5 0 0 1 7.5 3L8.5 3A0.5 0.5 0 0 0 9 2.5Z"></path><path fill="#6E1408" d="M12.5 0.5A0.5 0.5 0 0 1 13 0L15 0A0.5 0.5 0 0 1 15.5 0.5L15.5 1.5A0.5 0.5 0 0 0 16 2L17 2A0.5 0.5 0 0 1 17.5 2.5L17.5 5.5A0.5 0.5 0 0 1 17 6L16 6A0.5 0.5 0 0 1 15.5 5.5L15.5 5.5A0.5 0.5 0 0 0 15 5L15 5A0.5 0.5 0 0 0 14.5 5.5L14.5 5.5A0.5 0.5 0 0 1 14 6L13 6A0.5 0.5 0 0 1 12.5 5.5ZM15.5 2.5A0.5 0.5 0 0 0 15 2L15 2A0.5 0.5 0 0 0 14.5 2.5L14.5 3.5A0.5 0.5 0 0 0 15 4L15 4A0.5 0.5 0 0 0 15.5 3.5Z"></path></svg>
 <span style="font-family:var(--font-mono)">REL-2026-01 · Relatório anual de atividades</span>
@@ -90,14 +67,7 @@ body{margin:0;background:#E9E4C4}
 </div>
 <p style="position:absolute;bottom:40px;left:76px;right:76px;margin:0;display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:11px;opacity:.7"><span>LINA · UFC</span><span>24</span></p>
 </section>
-</div>
-</div>
-</sc-if>
-<sc-if value="{{ showArt }}" hint-placeholder-val="{{ true }}">
-<div data-noprint="" style="display:flex;align-items:baseline;gap:14px;margin-top:24px"><span style="font-size:22px;font-weight:700">Artigo acadêmico</span><span style="font-family:var(--font-mono);font-size:12px;opacity:.6">entrada · meio · finalização</span></div>
-<div data-row="" style="display:flex;gap:32px;align-items:flex-start">
-<div data-pcol=""><p data-noprint="" style="margin:0 0 12px;font-family:var(--font-mono);font-size:12px;opacity:.6">1 · primeira página</p>
-<section data-page="" data-screen-label="Artigo · entrada" style="width:794px;height:1123px;box-sizing:border-box;overflow:hidden;position:relative;background:#fff;box-shadow:0 2px 18px rgba(42,26,18,.18);padding:64px 76px">
+<section data-page="" data-label="Artigo · entrada" style="width:794px;height:1123px;box-sizing:border-box;overflow:hidden;position:relative;background:#fff;padding:64px 76px">
 <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;padding-bottom:12px;border-bottom:1px solid var(--fio-forte)">
 <svg viewBox="0 0 17.5 6" width="54" style="display:block;height:auto" role="img" aria-label="LINA"><path fill="#A81F0D" d="M0 0.5A0.5 0.5 0 0 1 0.5 0L1.5 0A0.5 0.5 0 0 1 2 0.5L2 3.5A0.5 0.5 0 0 0 2.5 4L3.5 4A0.5 0.5 0 0 1 4 4.5L4 5.5A0.5 0.5 0 0 1 3.5 6L2.5 6A0.5 0.5 0 0 1 2 5.5L2 4.5A0.5 0.5 0 0 0 1.5 4L0.5 4A0.5 0.5 0 0 1 0 3.5Z"></path><path fill="#A81F0D" d="M4.5 0.5A0.5 0.5 0 0 1 5 0L6 0A0.5 0.5 0 0 1 6.5 0.5L6.5 5.5A0.5 0.5 0 0 1 6 6L5 6A0.5 0.5 0 0 1 4.5 5.5Z"></path><path fill="#A81F0D" d="M9 1.5A0.5 0.5 0 0 1 9.5 1L11.5 1A0.5 0.5 0 0 1 12 1.5L12 5.5A0.5 0.5 0 0 1 11.5 6L10.5 6A0.5 0.5 0 0 1 10 5.5L10 3.5A0.5 0.5 0 0 0 9.5 3L9.5 3A0.5 0.5 0 0 0 9 3.5L9 5.5A0.5 0.5 0 0 1 8.5 6L7.5 6A0.5 0.5 0 0 1 7 5.5L7 3.5A0.5 0.5 0 0 1 7.5 3L8.5 3A0.5 0.5 0 0 0 9 2.5Z"></path><path fill="#6E1408" d="M12.5 0.5A0.5 0.5 0 0 1 13 0L15 0A0.5 0.5 0 0 1 15.5 0.5L15.5 1.5A0.5 0.5 0 0 0 16 2L17 2A0.5 0.5 0 0 1 17.5 2.5L17.5 5.5A0.5 0.5 0 0 1 17 6L16 6A0.5 0.5 0 0 1 15.5 5.5L15.5 5.5A0.5 0.5 0 0 0 15 5L15 5A0.5 0.5 0 0 0 14.5 5.5L14.5 5.5A0.5 0.5 0 0 1 14 6L13 6A0.5 0.5 0 0 1 12.5 5.5ZM15.5 2.5A0.5 0.5 0 0 0 15 2L15 2A0.5 0.5 0 0 0 14.5 2.5L14.5 3.5A0.5 0.5 0 0 0 15 4L15 4A0.5 0.5 0 0 0 15.5 3.5Z"></path></svg>
 <span style="font-family:var(--font-mono)">Cadernos LINA · v. 2 · n. 1 · 2026 · p. 1–18</span>
@@ -119,9 +89,7 @@ body{margin:0;background:#E9E4C4}
 </div>
 <p style="position:absolute;bottom:40px;left:76px;right:76px;margin:0;display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:11px;opacity:.7"><span>DOI 10.0000/cl.2026.0001</span><span>1</span></p>
 </section>
-</div>
-<div data-pcol=""><p data-noprint="" style="margin:0 0 12px;font-family:var(--font-mono);font-size:12px;opacity:.6">9 · página interna</p>
-<section data-page="" data-screen-label="Artigo · meio" style="width:794px;height:1123px;box-sizing:border-box;overflow:hidden;position:relative;background:#fff;box-shadow:0 2px 18px rgba(42,26,18,.18);padding:64px 76px">
+<section data-page="" data-label="Artigo · meio" style="width:794px;height:1123px;box-sizing:border-box;overflow:hidden;position:relative;background:#fff;padding:64px 76px">
 <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;padding-bottom:12px;border-bottom:1px solid var(--fio-forte)">
 <svg viewBox="0 0 17.5 6" width="54" style="display:block;height:auto" role="img" aria-label="LINA"><path fill="#A81F0D" d="M0 0.5A0.5 0.5 0 0 1 0.5 0L1.5 0A0.5 0.5 0 0 1 2 0.5L2 3.5A0.5 0.5 0 0 0 2.5 4L3.5 4A0.5 0.5 0 0 1 4 4.5L4 5.5A0.5 0.5 0 0 1 3.5 6L2.5 6A0.5 0.5 0 0 1 2 5.5L2 4.5A0.5 0.5 0 0 0 1.5 4L0.5 4A0.5 0.5 0 0 1 0 3.5Z"></path><path fill="#A81F0D" d="M4.5 0.5A0.5 0.5 0 0 1 5 0L6 0A0.5 0.5 0 0 1 6.5 0.5L6.5 5.5A0.5 0.5 0 0 1 6 6L5 6A0.5 0.5 0 0 1 4.5 5.5Z"></path><path fill="#A81F0D" d="M9 1.5A0.5 0.5 0 0 1 9.5 1L11.5 1A0.5 0.5 0 0 1 12 1.5L12 5.5A0.5 0.5 0 0 1 11.5 6L10.5 6A0.5 0.5 0 0 1 10 5.5L10 3.5A0.5 0.5 0 0 0 9.5 3L9.5 3A0.5 0.5 0 0 0 9 3.5L9 5.5A0.5 0.5 0 0 1 8.5 6L7.5 6A0.5 0.5 0 0 1 7 5.5L7 3.5A0.5 0.5 0 0 1 7.5 3L8.5 3A0.5 0.5 0 0 0 9 2.5Z"></path><path fill="#6E1408" d="M12.5 0.5A0.5 0.5 0 0 1 13 0L15 0A0.5 0.5 0 0 1 15.5 0.5L15.5 1.5A0.5 0.5 0 0 0 16 2L17 2A0.5 0.5 0 0 1 17.5 2.5L17.5 5.5A0.5 0.5 0 0 1 17 6L16 6A0.5 0.5 0 0 1 15.5 5.5L15.5 5.5A0.5 0.5 0 0 0 15 5L15 5A0.5 0.5 0 0 0 14.5 5.5L14.5 5.5A0.5 0.5 0 0 1 14 6L13 6A0.5 0.5 0 0 1 12.5 5.5ZM15.5 2.5A0.5 0.5 0 0 0 15 2L15 2A0.5 0.5 0 0 0 14.5 2.5L14.5 3.5A0.5 0.5 0 0 0 15 4L15 4A0.5 0.5 0 0 0 15.5 3.5Z"></path></svg>
 <span style="font-family:var(--font-mono)">Sobrenome et al. · Título abreviado do artigo</span>
@@ -138,9 +106,7 @@ body{margin:0;background:#E9E4C4}
 </div>
 <p style="position:absolute;bottom:40px;left:76px;right:76px;margin:0;display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:11px;opacity:.7"><span>DOI 10.0000/cl.2026.0001</span><span>9</span></p>
 </section>
-</div>
-<div data-pcol=""><p data-noprint="" style="margin:0 0 12px;font-family:var(--font-mono);font-size:12px;opacity:.6">18 · última página</p>
-<section data-page="" data-screen-label="Artigo · finalização" style="width:794px;height:1123px;box-sizing:border-box;overflow:hidden;position:relative;background:#fff;box-shadow:0 2px 18px rgba(42,26,18,.18);padding:64px 76px">
+<section data-page="" data-label="Artigo · finalização" style="width:794px;height:1123px;box-sizing:border-box;overflow:hidden;position:relative;background:#fff;padding:64px 76px">
 <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;padding-bottom:12px;border-bottom:1px solid var(--fio-forte)">
 <svg viewBox="0 0 17.5 6" width="54" style="display:block;height:auto" role="img" aria-label="LINA"><path fill="#A81F0D" d="M0 0.5A0.5 0.5 0 0 1 0.5 0L1.5 0A0.5 0.5 0 0 1 2 0.5L2 3.5A0.5 0.5 0 0 0 2.5 4L3.5 4A0.5 0.5 0 0 1 4 4.5L4 5.5A0.5 0.5 0 0 1 3.5 6L2.5 6A0.5 0.5 0 0 1 2 5.5L2 4.5A0.5 0.5 0 0 0 1.5 4L0.5 4A0.5 0.5 0 0 1 0 3.5Z"></path><path fill="#A81F0D" d="M4.5 0.5A0.5 0.5 0 0 1 5 0L6 0A0.5 0.5 0 0 1 6.5 0.5L6.5 5.5A0.5 0.5 0 0 1 6 6L5 6A0.5 0.5 0 0 1 4.5 5.5Z"></path><path fill="#A81F0D" d="M9 1.5A0.5 0.5 0 0 1 9.5 1L11.5 1A0.5 0.5 0 0 1 12 1.5L12 5.5A0.5 0.5 0 0 1 11.5 6L10.5 6A0.5 0.5 0 0 1 10 5.5L10 3.5A0.5 0.5 0 0 0 9.5 3L9.5 3A0.5 0.5 0 0 0 9 3.5L9 5.5A0.5 0.5 0 0 1 8.5 6L7.5 6A0.5 0.5 0 0 1 7 5.5L7 3.5A0.5 0.5 0 0 1 7.5 3L8.5 3A0.5 0.5 0 0 0 9 2.5Z"></path><path fill="#6E1408" d="M12.5 0.5A0.5 0.5 0 0 1 13 0L15 0A0.5 0.5 0 0 1 15.5 0.5L15.5 1.5A0.5 0.5 0 0 0 16 2L17 2A0.5 0.5 0 0 1 17.5 2.5L17.5 5.5A0.5 0.5 0 0 1 17 6L16 6A0.5 0.5 0 0 1 15.5 5.5L15.5 5.5A0.5 0.5 0 0 0 15 5L15 5A0.5 0.5 0 0 0 14.5 5.5L14.5 5.5A0.5 0.5 0 0 1 14 6L13 6A0.5 0.5 0 0 1 12.5 5.5ZM15.5 2.5A0.5 0.5 0 0 0 15 2L15 2A0.5 0.5 0 0 0 14.5 2.5L14.5 3.5A0.5 0.5 0 0 0 15 4L15 4A0.5 0.5 0 0 0 15.5 3.5Z"></path></svg>
 <span style="font-family:var(--font-mono)">Sobrenome et al. · Título abreviado do artigo</span>
@@ -157,14 +123,7 @@ body{margin:0;background:#E9E4C4}
 </div>
 <p style="position:absolute;bottom:40px;left:76px;right:76px;margin:0;display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:11px;opacity:.7"><span>DOI 10.0000/cl.2026.0001</span><span>18</span></p>
 </section>
-</div>
-</div>
-</sc-if>
-<sc-if value="{{ showPop }}" hint-placeholder-val="{{ true }}">
-<div data-noprint="" style="display:flex;align-items:baseline;gap:14px;margin-top:24px"><span style="font-size:22px;font-weight:700">Procedimento operacional padrão</span><span style="font-family:var(--font-mono);font-size:12px;opacity:.6">entrada · meio · finalização</span></div>
-<div data-row="" style="display:flex;gap:32px;align-items:flex-start">
-<div data-pcol=""><p data-noprint="" style="margin:0 0 12px;font-family:var(--font-mono);font-size:12px;opacity:.6">1 / 3 · identificação e passos</p>
-<section data-page="" data-screen-label="POP · entrada" style="width:794px;height:1123px;box-sizing:border-box;overflow:hidden;position:relative;background:#fff;box-shadow:0 2px 18px rgba(42,26,18,.18);padding:64px 76px">
+<section data-page="" data-label="POP · entrada" style="width:794px;height:1123px;box-sizing:border-box;overflow:hidden;position:relative;background:#fff;padding:64px 76px">
 <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;padding-bottom:12px;border-bottom:1px solid var(--fio-forte)">
 <svg viewBox="0 0 17.5 6" width="54" style="display:block;height:auto" role="img" aria-label="LINA"><path fill="#A81F0D" d="M0 0.5A0.5 0.5 0 0 1 0.5 0L1.5 0A0.5 0.5 0 0 1 2 0.5L2 3.5A0.5 0.5 0 0 0 2.5 4L3.5 4A0.5 0.5 0 0 1 4 4.5L4 5.5A0.5 0.5 0 0 1 3.5 6L2.5 6A0.5 0.5 0 0 1 2 5.5L2 4.5A0.5 0.5 0 0 0 1.5 4L0.5 4A0.5 0.5 0 0 1 0 3.5Z"></path><path fill="#A81F0D" d="M4.5 0.5A0.5 0.5 0 0 1 5 0L6 0A0.5 0.5 0 0 1 6.5 0.5L6.5 5.5A0.5 0.5 0 0 1 6 6L5 6A0.5 0.5 0 0 1 4.5 5.5Z"></path><path fill="#A81F0D" d="M9 1.5A0.5 0.5 0 0 1 9.5 1L11.5 1A0.5 0.5 0 0 1 12 1.5L12 5.5A0.5 0.5 0 0 1 11.5 6L10.5 6A0.5 0.5 0 0 1 10 5.5L10 3.5A0.5 0.5 0 0 0 9.5 3L9.5 3A0.5 0.5 0 0 0 9 3.5L9 5.5A0.5 0.5 0 0 1 8.5 6L7.5 6A0.5 0.5 0 0 1 7 5.5L7 3.5A0.5 0.5 0 0 1 7.5 3L8.5 3A0.5 0.5 0 0 0 9 2.5Z"></path><path fill="#6E1408" d="M12.5 0.5A0.5 0.5 0 0 1 13 0L15 0A0.5 0.5 0 0 1 15.5 0.5L15.5 1.5A0.5 0.5 0 0 0 16 2L17 2A0.5 0.5 0 0 1 17.5 2.5L17.5 5.5A0.5 0.5 0 0 1 17 6L16 6A0.5 0.5 0 0 1 15.5 5.5L15.5 5.5A0.5 0.5 0 0 0 15 5L15 5A0.5 0.5 0 0 0 14.5 5.5L14.5 5.5A0.5 0.5 0 0 1 14 6L13 6A0.5 0.5 0 0 1 12.5 5.5ZM15.5 2.5A0.5 0.5 0 0 0 15 2L15 2A0.5 0.5 0 0 0 14.5 2.5L14.5 3.5A0.5 0.5 0 0 0 15 4L15 4A0.5 0.5 0 0 0 15.5 3.5Z"></path></svg>
 <span style="font-family:var(--font-mono)">POP-04 · v. 2.1 · vigência 03/2026</span>
@@ -190,9 +149,7 @@ body{margin:0;background:#E9E4C4}
 <div style="margin-top:28px;padding:16px 20px;background:var(--nata);border-radius:11px;font-size:15px;line-height:1.5"><b style="font-weight:700;color:var(--ferro)">Atenção.</b> Uma caixa por página, no máximo, para riscos ao equipamento ou às pessoas.</div>
 <p style="position:absolute;bottom:40px;left:76px;right:76px;margin:0;display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:11px;opacity:.7"><span>LINA · POP-04</span><span>1 / 3</span></p>
 </section>
-</div>
-<div data-pcol=""><p data-noprint="" style="margin:0 0 12px;font-family:var(--font-mono);font-size:12px;opacity:.6">2 / 3 · continuação</p>
-<section data-page="" data-screen-label="POP · meio" style="width:794px;height:1123px;box-sizing:border-box;overflow:hidden;position:relative;background:#fff;box-shadow:0 2px 18px rgba(42,26,18,.18);padding:64px 76px">
+<section data-page="" data-label="POP · meio" style="width:794px;height:1123px;box-sizing:border-box;overflow:hidden;position:relative;background:#fff;padding:64px 76px">
 <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;padding-bottom:12px;border-bottom:1px solid var(--fio-forte)">
 <svg viewBox="0 0 17.5 6" width="54" style="display:block;height:auto" role="img" aria-label="LINA"><path fill="#A81F0D" d="M0 0.5A0.5 0.5 0 0 1 0.5 0L1.5 0A0.5 0.5 0 0 1 2 0.5L2 3.5A0.5 0.5 0 0 0 2.5 4L3.5 4A0.5 0.5 0 0 1 4 4.5L4 5.5A0.5 0.5 0 0 1 3.5 6L2.5 6A0.5 0.5 0 0 1 2 5.5L2 4.5A0.5 0.5 0 0 0 1.5 4L0.5 4A0.5 0.5 0 0 1 0 3.5Z"></path><path fill="#A81F0D" d="M4.5 0.5A0.5 0.5 0 0 1 5 0L6 0A0.5 0.5 0 0 1 6.5 0.5L6.5 5.5A0.5 0.5 0 0 1 6 6L5 6A0.5 0.5 0 0 1 4.5 5.5Z"></path><path fill="#A81F0D" d="M9 1.5A0.5 0.5 0 0 1 9.5 1L11.5 1A0.5 0.5 0 0 1 12 1.5L12 5.5A0.5 0.5 0 0 1 11.5 6L10.5 6A0.5 0.5 0 0 1 10 5.5L10 3.5A0.5 0.5 0 0 0 9.5 3L9.5 3A0.5 0.5 0 0 0 9 3.5L9 5.5A0.5 0.5 0 0 1 8.5 6L7.5 6A0.5 0.5 0 0 1 7 5.5L7 3.5A0.5 0.5 0 0 1 7.5 3L8.5 3A0.5 0.5 0 0 0 9 2.5Z"></path><path fill="#6E1408" d="M12.5 0.5A0.5 0.5 0 0 1 13 0L15 0A0.5 0.5 0 0 1 15.5 0.5L15.5 1.5A0.5 0.5 0 0 0 16 2L17 2A0.5 0.5 0 0 1 17.5 2.5L17.5 5.5A0.5 0.5 0 0 1 17 6L16 6A0.5 0.5 0 0 1 15.5 5.5L15.5 5.5A0.5 0.5 0 0 0 15 5L15 5A0.5 0.5 0 0 0 14.5 5.5L14.5 5.5A0.5 0.5 0 0 1 14 6L13 6A0.5 0.5 0 0 1 12.5 5.5ZM15.5 2.5A0.5 0.5 0 0 0 15 2L15 2A0.5 0.5 0 0 0 14.5 2.5L14.5 3.5A0.5 0.5 0 0 0 15 4L15 4A0.5 0.5 0 0 0 15.5 3.5Z"></path></svg>
 <span style="font-family:var(--font-mono)">POP-04 · v. 2.1 · vigência 03/2026</span>
@@ -215,9 +172,7 @@ body{margin:0;background:#E9E4C4}
 <ul style="margin:12px 0 0;padding:0;list-style:none;display:grid;gap:8px;font-size:15px;font-weight:300;line-height:1.5"><li style="display:grid;grid-template-columns:24px minmax(0,1fr)"><span style="width:12px;height:12px;margin-top:5px;border:1.5px solid var(--umbro);border-radius:3px;box-sizing:border-box"></span><span>Cada estação compartilha ao menos três alvos com a anterior.</span></li><li style="display:grid;grid-template-columns:24px minmax(0,1fr)"><span style="width:12px;height:12px;margin-top:5px;border:1.5px solid var(--umbro);border-radius:3px;box-sizing:border-box"></span><span>O erro de registro não excede o valor da tabela 1.</span></li><li style="display:grid;grid-template-columns:24px minmax(0,1fr)"><span style="width:12px;height:12px;margin-top:5px;border:1.5px solid var(--umbro);border-radius:3px;box-sizing:border-box"></span><span>Todos os arquivos estão no servidor com o nome padrão.</span></li></ul>
 <p style="position:absolute;bottom:40px;left:76px;right:76px;margin:0;display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:11px;opacity:.7"><span>LINA · POP-04</span><span>2 / 3</span></p>
 </section>
-</div>
-<div data-pcol=""><p data-noprint="" style="margin:0 0 12px;font-family:var(--font-mono);font-size:12px;opacity:.6">3 / 3 · registro e aprovação</p>
-<section data-page="" data-screen-label="POP · finalização" style="width:794px;height:1123px;box-sizing:border-box;overflow:hidden;position:relative;background:#fff;box-shadow:0 2px 18px rgba(42,26,18,.18);padding:64px 76px">
+<section data-page="" data-label="POP · finalização" style="width:794px;height:1123px;box-sizing:border-box;overflow:hidden;position:relative;background:#fff;padding:64px 76px">
 <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;padding-bottom:12px;border-bottom:1px solid var(--fio-forte)">
 <svg viewBox="0 0 17.5 6" width="54" style="display:block;height:auto" role="img" aria-label="LINA"><path fill="#A81F0D" d="M0 0.5A0.5 0.5 0 0 1 0.5 0L1.5 0A0.5 0.5 0 0 1 2 0.5L2 3.5A0.5 0.5 0 0 0 2.5 4L3.5 4A0.5 0.5 0 0 1 4 4.5L4 5.5A0.5 0.5 0 0 1 3.5 6L2.5 6A0.5 0.5 0 0 1 2 5.5L2 4.5A0.5 0.5 0 0 0 1.5 4L0.5 4A0.5 0.5 0 0 1 0 3.5Z"></path><path fill="#A81F0D" d="M4.5 0.5A0.5 0.5 0 0 1 5 0L6 0A0.5 0.5 0 0 1 6.5 0.5L6.5 5.5A0.5 0.5 0 0 1 6 6L5 6A0.5 0.5 0 0 1 4.5 5.5Z"></path><path fill="#A81F0D" d="M9 1.5A0.5 0.5 0 0 1 9.5 1L11.5 1A0.5 0.5 0 0 1 12 1.5L12 5.5A0.5 0.5 0 0 1 11.5 6L10.5 6A0.5 0.5 0 0 1 10 5.5L10 3.5A0.5 0.5 0 0 0 9.5 3L9.5 3A0.5 0.5 0 0 0 9 3.5L9 5.5A0.5 0.5 0 0 1 8.5 6L7.5 6A0.5 0.5 0 0 1 7 5.5L7 3.5A0.5 0.5 0 0 1 7.5 3L8.5 3A0.5 0.5 0 0 0 9 2.5Z"></path><path fill="#6E1408" d="M12.5 0.5A0.5 0.5 0 0 1 13 0L15 0A0.5 0.5 0 0 1 15.5 0.5L15.5 1.5A0.5 0.5 0 0 0 16 2L17 2A0.5 0.5 0 0 1 17.5 2.5L17.5 5.5A0.5 0.5 0 0 1 17 6L16 6A0.5 0.5 0 0 1 15.5 5.5L15.5 5.5A0.5 0.5 0 0 0 15 5L15 5A0.5 0.5 0 0 0 14.5 5.5L14.5 5.5A0.5 0.5 0 0 1 14 6L13 6A0.5 0.5 0 0 1 12.5 5.5ZM15.5 2.5A0.5 0.5 0 0 0 15 2L15 2A0.5 0.5 0 0 0 14.5 2.5L14.5 3.5A0.5 0.5 0 0 0 15 4L15 4A0.5 0.5 0 0 0 15.5 3.5Z"></path></svg>
 <span style="font-family:var(--font-mono)">POP-04 · v. 2.1 · vigência 03/2026</span>
@@ -244,23 +199,7 @@ body{margin:0;background:#E9E4C4}
 <div style="position:absolute;bottom:88px;left:76px;right:76px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;font-size:12px"><div><div style="height:44px;border-bottom:1px solid var(--umbro)"></div><p style="margin:8px 0 0"><span style="opacity:.7">Elaborado por</span><br>Nome · data</p></div><div><div style="height:44px;border-bottom:1px solid var(--umbro)"></div><p style="margin:8px 0 0"><span style="opacity:.7">Revisado por</span><br>Nome · data</p></div><div><div style="height:44px;border-bottom:1px solid var(--umbro)"></div><p style="margin:8px 0 0"><span style="opacity:.7">Aprovado por</span><br>Nome · data</p></div></div>
 <p style="position:absolute;bottom:40px;left:76px;right:76px;margin:0;display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:11px;opacity:.7"><span>LINA · POP-04</span><span>3 / 3</span></p>
 </section>
-</div>
-</div>
-</sc-if>
-</div>
+</x-import>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;documento&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;todos&quot;,&quot;relatório&quot;,&quot;artigo&quot;,&quot;pop&quot;],&quot;default&quot;:&quot;todos&quot;,&quot;tsType&quot;:&quot;'todos'|'relatório'|'artigo'|'pop'&quot;},&quot;instrucoes&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
-class Component extends DCLogic {
-  renderVals() {
-    const d = this.props.documento ?? 'todos';
-    return {
-      showGuide: this.props.instrucoes ?? true,
-      showRel: d === 'todos' || d === 'relatório',
-      showArt: d === 'todos' || d === 'artigo',
-      showPop: d === 'todos' || d === 'pop',
-    };
-  }
-}
-</script>
 </body>
 </html>
