@@ -75,7 +75,7 @@ Arranjos: **horizontal** (principal), **vertical** (LI sobre nA, a ¼) e **símb
 
 Nome na assinatura: PT "Laboratório de Modelagem da Informação"; EN "Laboratory of Information Modeling". Uma tinta só. Nos SVG o texto está em curvas; no `LINA-Marca.vectorcraft` fica vivo e pede as fontes de `LINA-Fontes-e-Icones.zip`. Vazados, símbolo e selo não têm texto: servem aos dois idiomas.
 
-**Logos institucionais** em `assets/logos-institutions/` (versões brancas PNG/SVG): brasão UFC (`brasao1`/`brasao3` horizontal, `brasao4` vertical), IAUD (`iaud-horizontal-branco`) e PPGAUD (`ppgaud-branco`). Os originais `.ai` ficam com as instituições e na pasta arquivada do Drive. Licenças: `LICENSE`.
+**Logos institucionais** em `assets/logos-institutions/<instituição>/` (SVG convertido dos originais oficiais; PNG quando não há vetor): UFC, IAUD, PPGAUD, PPGEC, CNPq, FUNCAP, SECULT, Cientista Chefe Cultura, LAREB, Documenta CE e Rede Documenta. Pacote: release `institucionais-vX.Y.Z` (`downloads/institucionais.sh`). Licenças: `LICENSE`.
 
 ## 2 · Cores
 

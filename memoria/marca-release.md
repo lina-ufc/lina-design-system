@@ -10,8 +10,10 @@ Decisão do usuário (2026-11-22): um arquivo por forma no repositório era ruim
 - Conteúdo: `LINA-Marca.vectorcraft` (pranchetas por forma + construção, cores como amostras
   globais ligadas), `LINA-Cores.ase`, `LINA-Logos.zip` (SVG, PNG 2000 px, PDF).
 - Logos institucionais em release própria (decisão 2026-11-22): tag `institucionais-vX.Y.Z`,
-  `downloads/institucionais.sh`, CHANGELOG em `assets/logos-institutions/`. Variações
-  institucionais virão em versões futuras.
+  `downloads/institucionais.sh`, CHANGELOG em `assets/logos-institutions/`. Desde 2.0.0:
+  SVG por instituição em `assets/logos-institutions/<inst>/` (no git), convertidos dos .ai/.eps
+  oficiais com pdftocairo; sem .vectorcraft. FUNCAP só PNG (sem vetor oficial online).
+  LED e Inovação Patrimônio ficaram de fora por decisão do usuário.
 - `sh downloads/marca.sh` gera os zips; `--publicar` cria tag e release. Roda local: o
   GitHub Actions não tem o VectorCraft. Versão lida de `assets/logos/CHANGELOG.md`.
 - `.vectorcraft`, `.ase` e `downloads/institucionais/` ficam fora do git (só na release).
