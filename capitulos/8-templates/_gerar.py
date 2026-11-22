@@ -80,10 +80,10 @@ TD = 'templates/documento-a4'
 VER_D = re.search(r'^## (\d[\d.]*)', open(os.path.join(R, TD, 'CHANGELOG.md'), encoding='utf-8').read(), re.M).group(1)
 REL_D = os.environ.get('RELEASE_URL_DOCUMENTOS', '')
 DL_D = [('downloads/LINA-Documentos-Word.zip', 'Word · .zip', 'Modelos .dotx e exemplos .docx dos três documentos.'),
-        ('downloads/LINA-Documentos-LaTeX.zip', 'LaTeX · .zip', 'Classe lina.cls, três exemplos, fontes e logo; sobe direto no Overleaf.'),
-        (f'{TD}/LINA-Relatorio-exemplo.pdf', 'Relatório · .pdf', 'Exemplo para consultar sem editor.'),
-        (f'{TD}/LINA-Artigo-exemplo.pdf', 'Artigo · .pdf', 'Exemplo para consultar sem editor.'),
-        (f'{TD}/LINA-POP-exemplo.pdf', 'POP · .pdf', 'Exemplo para consultar sem editor.')]
+        ('downloads/LINA-Documentos-LaTeX.zip', 'LaTeX · .zip', 'Classe lina.cls, três modelos .tex, fontes e logo. Sobe direto no Overleaf.'),
+        (f'{TD}/LINA-Relatorio-exemplo.pdf', 'Relatório · .pdf', 'Exemplo de três páginas, para consultar sem abrir um editor.'),
+        (f'{TD}/LINA-Artigo-exemplo.pdf', 'Artigo · .pdf', 'Exemplo de três páginas, para consultar sem abrir um editor.'),
+        (f'{TD}/LINA-POP-exemplo.pdf', 'POP · .pdf', 'Exemplo de três páginas, para consultar sem abrir um editor.')]
 for p, _, _ in DL_D:
     if not os.path.exists(os.path.join(R, p)): sys.exit('falta: ' + p)
 href_d = lambda p: REL_D + os.path.basename(p) if REL_D else p
