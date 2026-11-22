@@ -118,8 +118,10 @@ Detalhes e modelo de despacho: [`docs/guidelines/delegacao.md`](docs/guidelines/
 
 - Delegar quando o trabalho pede abrir mais de três arquivos ou quando ainda não se sabe
   quais abrir. Abaixo disso, ou quando depende do contexto desta conversa, fazer direto.
-- **Sempre passar `model`** no despacho: `haiku` para busca mecânica, `sonnet` como padrão.
-  `opus` só depois de um modelo mais barato errar, com justificativa de uma linha.
+- **Sempre passar `model`** no despacho: `haiku` para busca mecânica, `sonnet` como padrão
+  (ou o tier abaixo, se `sonnet` não existir). O orquestrador fica no modelo atual da sessão
+  (normalmente o `opus` mais recente). `opus` em subagente só quando o `sonnet` errar muito
+  ou a tarefa for especializada e pedir raciocínio alto, com justificativa de uma linha.
   `fable` nunca sem o usuário concordar no mesmo turno.
 - Preferir `cavecrew-investigator`, `cavecrew-builder` e `cavecrew-reviewer` (com `model`).
 - Nunca delegar: a verificação final antes de dizer que está pronto, operação irreversível

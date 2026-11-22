@@ -23,3 +23,4 @@
 - [margem-meia-celula](margem-meia-celula.md) — ½ célula entre arte e borda em todo logo com fundo; vazados até a placa; exceção símbolo vazado e selo
 - [padrao-explicacao-download](padrao-explicacao-download.md) — Explicação antes, "Baixar" no fim; cap. 8 uma seção por template; títulos simples; sem etiquetas de estado
 - [planos-em-pasta](planos-em-pasta.md) — Plano longo em pasta com progress.md; guias em docs/guidelines/
+- [builder-sem-terminal](builder-sem-terminal.md) — cavecrew-builder não roda código; gerador/script novo vai para general-purpose sonnet com Bash

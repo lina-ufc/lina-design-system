@@ -52,6 +52,13 @@ localizar, `cavecrew-builder` para edição limitada de um ou dois arquivos,
 `cavecrew-reviewer` para um diff, porque a saída deles já vem comprimida. Eles
 não têm modelo próprio, então ainda assim passar `model` no despacho.
 
+`cavecrew-builder` não tem terminal: escreve sem rodar. Serve para edição pequena que o
+controlador confere com um comando. Código novo que precisa de ciclo escrever, rodar e
+corrigir (gerador, build, script com saída a renderizar) vai para um agente com Bash
+(`general-purpose` com `model: sonnet`), que testa sozinho e entrega já rodando. Também não
+mandar o agente ler arquivos enormes (tipos `.d.ts` de biblioteca, bundles) para "conferir
+a API": passar os nomes que importam ou mandar buscar com `grep` o símbolo exato.
+
 ## Delegar
 
 - Leitura ou busca ampla o bastante para passar o limite de CLAUDE.md §8.
