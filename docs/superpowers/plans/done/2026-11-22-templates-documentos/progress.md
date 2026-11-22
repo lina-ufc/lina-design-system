@@ -13,7 +13,7 @@
 
 ## Resumo
 
-`[█████████░]` 94% — 17 de 18 tarefas.
+`[██████████]` 100% — 18 de 18 tarefas. Conjunto concluído e movido para `done/`.
 
 | Plano | Progresso | Tarefas | Estado |
 | --- | --- | --- | --- |
@@ -21,7 +21,7 @@
 | 02 — word | `[██████████]` | 4/4 | Concluído 2026-11-22 |
 | 03 — latex | `[██████████]` | 4/4 | Concluído 2026-11-22; folhas aprovadas pelo usuário |
 | 04 — conferencia-e-release | `[██████████]` | 4/4 | Concluído 2026-11-23; release `documentos-v1.0.0` |
-| 05 — site | `[███████░░░]` | 2/3 | Escrito 2026-11-23; Tasks 1–2 feitas |
+| 05 — site | `[██████████]` | 3/3 | Concluído 2026-11-23; site publicado |
 
 ## Plano 01 — html-deck
 
@@ -70,13 +70,13 @@ Branch `main`. PDFs de exemplo da release vêm do LaTeX; TeX Live do Ubuntu no r
 
 ## Plano 05 — site
 
-`[███████░░░]` 67% — 2 de 3 tarefas.
+`[██████████]` 100% — 3 de 3 tarefas.
 
 Branch `main`. Só o Baixar da 8.2 é gerado (`_gerar.py`); `site.yml` baixa a release `documentos-v*`.
 
 - [x] **Task 1** — Baixar gerado e `site.yml` — `f0d4c7d`, `_gerar.py` 2× idêntico (`layouts 32`, `documentos 5`), falta de PDF erra, `RELEASE_URL_DOCUMENTOS` ok, YAML carrega, `sistema.py` ok
 - [x] **Task 2** — Estrutura e Uso — `54c10c6`, revisão: 1 Important (cabeçalho do Word) corrigido antes do commit; texto aprovado pelo usuário; 375 px sem rolagem lateral
-- [ ] **Task 3** — Revisão, publicação e memória
+- [x] **Task 3** — Revisão, publicação e memória — `4cac200` + fechamento, run do site 45083528209 verde, 8.2 publicada com Versão 1.0.0 e 5 links da release (HTTP 200), memória `templates-downloads` atualizada
 
 ## Estado herdado
 
@@ -91,6 +91,7 @@ Branch `main`. Só o Baixar da 8.2 é gerado (`_gerar.py`); `site.yml` baixa a r
 
 ## Changelog
 
+- 2026-11-23 — Push e site publicado (run 45083528209). Plano 05 e conjunto concluídos; pasta e spec em `done/`. Minors adiados: três links "Tela cheia ↗" com o mesmo texto; subtítulos Word/LaTeX do Uso não são heading.
 - 2026-11-23 — Task 2 (Estrutura e Uso) concluída, `54c10c6`. Minors adiados: LEIA-ME do zip LaTeX com menus antigos do Overleaf (1.0.1); `LINA Destaque` sem uso nos exemplos; "sigla do rodapé" imprecisa no Artigo.
 - 2026-11-23 — Plano 05, Task 1 (Baixar gerado e `site.yml`) concluída, `f0d4c7d`.
 - 2026-11-23 — Plano 05 (site) escrito.

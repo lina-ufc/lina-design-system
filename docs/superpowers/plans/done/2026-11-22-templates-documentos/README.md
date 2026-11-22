@@ -1,6 +1,6 @@
 # Templates de documentos A4 — conjunto de planos
 
-Spec: [`../../specs/2026-11-22-templates-documentos-design.md`](../../specs/2026-11-22-templates-documentos-design.md)
+Spec: [`../../../specs/done/2026-11-22-templates-documentos-design.md`](../../../specs/done/2026-11-22-templates-documentos-design.md)
 (inclui o mapa de estilos comum a Word e LaTeX). Estado de cada tarefa: [`progress.md`](progress.md).
 
 Ordem de leitura e execução. 01 a 05 estão escritos; cada seguinte é escrito quando o anterior
