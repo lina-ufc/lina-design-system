@@ -18,5 +18,6 @@ Decisão do usuário (2026-11-22): um arquivo por forma no repositório era ruim
   GitHub Actions não tem o VectorCraft. Versão lida de `assets/logos/CHANGELOG.md`.
 - `.vectorcraft`, `.ase` e `downloads/institucionais/` ficam fora do git (só na release).
 - Armadilha: importar `.af` (Affinity) no VectorCraft perde cantos arredondados; partir dos SVG.
-- Cartão de download em `capitulos/1-logotipo/7-variacoes.html` aponta para `marca-v1.0.0`;
-  ao subir versão, atualizar os links.
+- Links de download em `capitulos/1-logotipo/8-combinacoes-de-cores.html` e
+  `capitulos/2-cores/8-principal-com-auxiliar.html` apontam para a tag; ao publicar versão nova,
+  atualizar os links no mesmo commit.

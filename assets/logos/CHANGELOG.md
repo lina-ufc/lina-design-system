@@ -2,6 +2,12 @@
 
 A primeira linha `## x.y.z` é a versão atual. Release: tag `marca-vX.Y.Z`, gerada por `sh downloads/marca.sh --publicar`.
 
+## 1.1.0 — 2026-11-22
+
+- "A" em cor própria nas assinaturas (bloco e lateral, PT e EN), como no horizontal e no vertical: umbro nas versões ferro e ferro sobre creme, damasco em creme sobre ferro, areia em creme sobre umbro. O A diferente representa a sobreposição de arte, arquitetura e ambiente.
+- Versões monocromáticas (só creme, só umbro) e vazadas seguem com o A da mesma cor: exceção admitida.
+- `LINA-Marca.vectorcraft`: A das quatro pranchetas de assinatura ligado à amostra Umbro.
+
 ## 1.0.0 — 2026-11-22
 
 Primeira versão do pacote de marca. Logos institucionais em release própria (`institucionais-v*`).

@@ -24,7 +24,7 @@ const MX = px(76), TW = PAGE_W - 2 * MX;       // margens laterais e largura do 
 const TWPX = TW / 15;                          // largura do texto em px do HTML (≈ 642)
 const COL2 = { count: 2, space: px(32), equalWidth: true }; // duas colunas, entrecoluna de 32 px
 
-const C = { ferro: 'A81F0D', ferroFundo: '6E1408', umbro: '2A1A12', nata: 'FDF1CF', fioForte: 'C9B87A' };
+const C = { ferro: 'A81F0D', umbro: '2A1A12', nata: 'FDF1CF', fioForte: 'C9B87A' };
 // opacidade vira cor: mistura de fg com bg (branco por padrão)
 const mix = (fg, a, bg = 'FFFFFF') => [0, 2, 4].map((i) =>
   Math.round(parseInt(fg.substr(i, 2), 16) * a + parseInt(bg.substr(i, 2), 16) * (1 - a)).toString(16).padStart(2, '0')).join('').toUpperCase();
@@ -230,9 +230,9 @@ function pos(buf, dotx) {
 
 // ---------- ativos (logo e figura marcadora) ----------
 async function ativos() {
-  // o desenho do HTML tem o "A" em ferro-fundo; o arquivo de assets traz umbro e metadados C2PA
+  // o arquivo de assets traz metadados C2PA; o "A" já vem em umbro, como no HTML
   const svg = Buffer.from(fs.readFileSync(ROOT('assets/logos/sand/lina-horizontal-ferro.svg'), 'utf8')
-    .replace(/<metadata>[\s\S]*?<\/metadata>/, '').replace('#2A1A12', '#' + C.ferroFundo));
+    .replace(/<metadata>[\s\S]*?<\/metadata>/, ''));
   const [, vw, vh] = svg.toString().match(/viewBox="0 0 ([\d.]+) ([\d.]+)"/).map(Number); // proporção do desenho
   const png = await sharp(svg, { density: 600 }).resize({ width: 600 }).png().toBuffer(); // reserva única, serve a qualquer largura
   const FW = Math.floor(TWPX); // figura de largura total

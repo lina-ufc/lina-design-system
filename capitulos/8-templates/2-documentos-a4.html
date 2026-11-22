@@ -8,8 +8,8 @@
 <div class="fig"><div id="documentos-a4-p4"></div><p class="cap"><b>POP.</b> Passos numerados em mono ferro; uma caixa nata de atenção.</p></div>
 </div>
 <script src="assets/lina-paths.js"></script><script>{
-const W=window.LINA_PATHS.wordmark,F='#A81F0D',FF='#6E1408',U='#2A1A12',A='#C9B87A',N='#FDF1CF';
-const wm=(x,y,w)=>'<g transform="translate('+x+' '+y+') scale('+(w/17.5)+')">'+W.letters.map(l=>'<path fill="'+(l.letter==='A'?FF:F)+'" d="'+l.d+'"/>').join('')+'</g>';
+const W=window.LINA_PATHS.wordmark,F='#A81F0D',U='#2A1A12',A='#C9B87A',N='#FDF1CF';
+const wm=(x,y,w)=>'<g transform="translate('+x+' '+y+') scale('+(w/17.5)+')">'+W.letters.map(l=>'<path fill="'+(l.letter==='A'?U:F)+'" d="'+l.d+'"/>').join('')+'</g>';
 const bar=(x,y,w,h,c)=>'<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" rx="'+Math.min(h/2,1.5)+'" fill="'+c+'"/>';
 const lines=(x,y,w,n,g,c,h)=>{let s='';for(let i=0;i<n;i++)s+=bar(x,y+i*g,i===n-1?w*.6:w,h||2,c||'#D8D2B8');return s};
 const pg=(id,o)=>document.getElementById(id).innerHTML='<svg viewBox="0 0 210 297" style="display:block;width:100%;height:auto;background:#fff;box-shadow:0 1px 8px rgba(42,26,18,.18)">'+o+'</svg>';

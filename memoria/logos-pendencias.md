@@ -16,3 +16,5 @@ catalogados no `README.md` §1. Aguardam decisão do usuário:
 assinaturas em bloco PT/EN.
 
 Slide 4 do CNR lê `lina-assinatura-en-bloco-creme.svg` direto: mudar esse arquivo muda o slide no próximo build.
+
+2026-11-22: A recolorido nas 16 assinaturas não monocromáticas, pela regra [[a-do-logo]] (marca 1.1.0).
