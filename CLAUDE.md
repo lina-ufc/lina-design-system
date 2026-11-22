@@ -112,6 +112,41 @@ skills que impõem estética própria (`design-taste-frontend`, `taste-design`).
 | Pôster ou peça estática | `canvas-design` |
 | Texto longo em documento ou no site | `humanizer` |
 
+## 8. Subagentes
+
+Detalhes e modelo de despacho: [`docs/guidelines/delegacao.md`](docs/guidelines/delegacao.md).
+
+- Delegar quando o trabalho pede abrir mais de três arquivos ou quando ainda não se sabe
+  quais abrir. Abaixo disso, ou quando depende do contexto desta conversa, fazer direto.
+- **Sempre passar `model`** no despacho: `haiku` para busca mecânica, `sonnet` como padrão.
+  `opus` só depois de um modelo mais barato errar, com justificativa de uma linha.
+  `fable` nunca sem o usuário concordar no mesmo turno.
+- Preferir `cavecrew-investigator`, `cavecrew-builder` e `cavecrew-reviewer` (com `model`).
+- Nunca delegar: a verificação final antes de dizer que está pronto, operação irreversível
+  (push, release, apagar), o julgamento que o usuário pediu a mim.
+- Todo despacho e todo `SendMessage` repetem a §0 e dizem o formato exato do retorno:
+  caminhos e linhas, nunca o corpo de arquivos.
+- Tarefas independentes: em paralelo, numa só mensagem.
+
+## 9. Planos longos
+
+Tarefa pesada (4+ arquivos, sistema ou dependência nova, requisito ambíguo, não termina numa
+sessão): `superpowers:brainstorming` → spec → `superpowers:writing-plans` → execução.
+Regras completas: [`docs/guidelines/fluxo-de-planos.md`](docs/guidelines/fluxo-de-planos.md)
+e formato do acompanhamento: [`docs/guidelines/formato-progress.md`](docs/guidelines/formato-progress.md).
+
+- Spec em `docs/superpowers/specs/AAAA-MM-DD-<slug>.md`; planos em `docs/superpowers/plans/`.
+- **Plano longo vira pasta de subplanos:** `docs/superpowers/plans/AAAA-MM-DD-<slug>/` com
+  `README.md` (índice e ordem de leitura), `progress.md` (estado de cada tarefa),
+  `NN-<slug>.md` (um subplano por arquivo) e `records/` (registros de execução).
+- **Escrever só o subplano 01.** Executar, testar, marcar no `progress.md`, depois escrever
+  o 02, já com o que o 01 ensinou. Subplano não escrito é só uma linha na tabela.
+- Tarefa só está feita quando o `progress.md` diz. Atualizar quando a checagem da tarefa
+  passa, nunca em lote no fim da sessão.
+- Não repetir no chat o que o `progress.md` ou os `records/` já registram: uma linha com o
+  resultado e o caminho.
+- Plano ou spec concluído vai para `done/`.
+
 ---
 
 **Funciona se:** diffs menores, menos retrabalho, perguntas antes da implementação
