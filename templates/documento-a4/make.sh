@@ -12,7 +12,8 @@ DL=../../downloads
 (cd word && node build.js)
 python3 check_word.py
 for f in word/out/*.dotx word/out/*.docx; do
-  python3 ../apresentacao/potx/vendor/office/validate.py "$f" | tail -1
+  out=$(python3 ../apresentacao/potx/vendor/office/validate.py "$f")  # sem pipe: set -e vê o exit do validate.py
+  echo "$out" | tail -1
 done
 
 # LaTeX
