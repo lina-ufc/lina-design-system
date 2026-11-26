@@ -8,7 +8,7 @@
 
 **Tech Stack:** HTML do site, `sistema.py`, `_recortes.sh` (`pdftoppm`, `pdftotext`, `magick`).
 
-**Spec:** [`../../specs/2026-11-26-capitulo-7-componentes-design.md`](../../specs/2026-11-26-capitulo-7-componentes-design.md)
+**Spec:** [`../../../specs/done/2026-11-26-capitulo-7-componentes-design.md`](../../../specs/done/2026-11-26-capitulo-7-componentes-design.md)
 
 ## Global Constraints
 

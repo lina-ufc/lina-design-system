@@ -1,4 +1,4 @@
-<h2>Tinta × fundo</h2>
+<h2>Estudo de contraste</h2>
 <p class="p">Razão de contraste WCAG para cada par. Cheio: texto de qualquer tamanho (≥ 4,5). Meio: só títulos grandes (≥ 3). Riscado: não usar para texto.</p>
 <div id="estudo-de-contraste-m" style="display:grid;grid-template-columns:96px repeat(8,minmax(0,1fr));gap:3px;margin-top:10px"></div>
 <script>{
@@ -10,6 +10,6 @@ const fmt=n=>n.toFixed(1).replace('.',',');
 const K=['creme','nata','damasco','areia','turquesa','ferro','turquesa fundo','umbro'];
 let h='<div class="cap" style="align-self:end">tinta ↓ fundo →</div>'+K.map(k=>'<div class="cap" style="align-self:end;text-align:center">'+k+'</div>').join('');
 K.forEach(fg=>{h+='<div class="cap" style="align-self:center;font-weight:500;opacity:1">'+fg+'</div>';K.forEach(bg=>{if(fg===bg){h+='<div></div>';return;}const r=ratio(HEX[fg],HEX[bg]),ok=r>=4.5,mid=r>=3;
-h+='<div style="background:'+HEX[bg]+';color:'+HEX[fg]+';height:46px;border-radius:var(--radius-lg);display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:inset 0 0 0 1px rgba(42,26,18,.08);'+(ok?'':mid?'opacity:.8':'opacity:.38')+'"><span style="font-weight:800;font-size:15px;line-height:1;'+(mid?'':'text-decoration:line-through')+'">Aa</span><span class="dado" style="font-size:10px;margin-top:3px">'+fmt(r)+'</span></div>';});});
+h+='<div style="background:'+HEX[bg]+';color:'+HEX[fg]+';height:46px;border-radius:var(--radius-lg);display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:inset 0 0 0 1px rgba(42,26,18,.08);'+(ok?'':mid?'opacity:.8':'opacity:.38')+'"><span style="font-weight:800;font-size:15px;line-height:1;'+(mid?'':'text-decoration:line-through')+'">Aa</span><span class="dado" style="font-size:11px;margin-top:3px">'+fmt(r)+'</span></div>';});});
 document.getElementById('estudo-de-contraste-m').innerHTML=h;
 }</script>

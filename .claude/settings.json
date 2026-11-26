@@ -5,7 +5,12 @@
   },
   "enabledPlugins": {
     "caveman@caveman": true,
-    "ponytail@ponytail": true
+    "ponytail@ponytail": true,
+    "academic-research-skills@academic-research-skills": false,
+    "playwright@claude-plugins-official": false,
+    "context7@claude-plugins-official": false,
+    "swift-lsp@claude-plugins-official": false,
+    "claude-code-setup@claude-plugins-official": false
   },
   "extraKnownMarketplaces": {
     "caveman": {

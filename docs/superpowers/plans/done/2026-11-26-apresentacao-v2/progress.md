@@ -13,7 +13,7 @@
 
 ## Resumo
 
-`[█████████░]` planos 01–05 concluídos; 06 em 3/4 (falta publicar).
+`[██████████]` planos 01–06 concluídos; 2.0.0 publicada.
 
 | Plano | Progresso | Tarefas | Estado |
 | --- | --- | --- | --- |
@@ -22,7 +22,7 @@
 | 03 — imagem | `[██████████]` | 3/3 | Concluído 2026-11-26 |
 | 04 — dados-e-fim | `[██████████]` | 3/3 | Concluído 2026-11-26 |
 | 05 — deck-html | `[██████████]` | 3/3 | Concluído 2026-11-26 |
-| 06 — site-e-versao | `[████████░░]` | 3/4 | Aguardando aval para push e tag |
+| 06 — site-e-versao | `[██████████]` | 4/4 | Concluído 2026-11-26 |
 
 ## Plano 01 — base-e-abertura
 
@@ -76,12 +76,12 @@ Desvios: interface do apresentador em português; `prepara()` passa `alt` adiant
 
 ## Plano 06 — site-e-versao
 
-`[████████░░]` 75% — 3 de 4 tarefas.
+`[██████████]` 100% — 4 de 4 tarefas.
 
 - [x] **Task 1** — Regressão local CNR e Vision — `f56b38c`, 6 decks geram com a mesma contagem de slides; 3 quebras corrigidas no `build.js`; make ok; registro em [`records/06-regressao.md`](records/06-regressao.md)
 - [x] **Task 2** — README do template e CHANGELOG 2.0.0 — `61e5098`
 - [x] **Task 3** — Página 8.1 do site e print do apresentador — `63790b2` + ajuste de texto do orquestrador; `sistema.py` 27 links ok; 375 px sem rolagem lateral; print em `capitulos/8-templates/img/apresentador.png`
-- [ ] **Task 4** — Revisão e pedido de publicação — revisão manual feita (desktop e 375 px; skills de crítica não rodadas); push e tag aguardam o usuário
+- [x] **Task 4** — Revisão e publicação — `2a93a1c`, tag `apresentacao-v2.0.0`; release e site ok no Actions (CI ganhou poppler e `LINA_FONTS`); skills de crítica não rodadas
 
 Desvios: `1.1 Abertura` continua no template (só a variação "logo" saiu; Review Focus do plano estava errado); `pres` do `DECK` virou Proxy para o `notes()` do Vision; letreiro grande no slide 4 do CNR vem de SVG refeito em `1a4cf6c` (peça do deck, não do gerador); hora do print em formato do Chrome headless.
 
@@ -96,3 +96,4 @@ Desvios: `1.1 Abertura` continua no template (só a variação "logo" saiu; Revi
 - 2026-11-26 — plano 06 tarefas 1–3 concluídas (`f56b38c`, `61e5098`, `63790b2`); publicação aguarda o usuário.
 - 2026-11-26 — janela do apresentador: slide atual grande, próximo em miniatura menor e apagada com o começo da nota, aviso de miniaturas estáticas; print, README, CHANGELOG e página 8.1 atualizados.
 - 2026-11-26 — conferência visual dos 63 slides do .pptx (LibreOffice): nada fora do lugar; tabela com recuo de 20 px da 2ª coluna em diante e números da coluna destacada em mono (.pptx e HTML).
+- 2026-11-26 — release 2.0.0 publicada; plano concluído.

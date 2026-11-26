@@ -158,13 +158,13 @@
   },
   {
    "cap": "3",
-   "nome": "3.2 A regra do pontilhado — tom",
+   "nome": "3.2 A regra do pontilhado: tom",
    "sub": "Retícula, tom, limiares, tamanho do ponto e a matriz de presença",
    "secao": "capitulos/3-padroes/2-a-regra-do-pontilhado-tom.html"
   },
   {
    "cap": "3",
-   "nome": "3.3 A regra do pontilhado — sólido",
+   "nome": "3.3 A regra do pontilhado: sólido",
    "sub": "Sólidos traçados pela regra do logotipo, vizinhança e do tom ao padrão",
    "secao": "capitulos/3-padroes/3-a-regra-do-pontilhado-solido.html"
   },
@@ -278,6 +278,12 @@
   },
   {
    "cap": "7",
+   "nome": "7.4 Número em destaque",
+   "sub": "Número grande em ferro, o que mede abaixo",
+   "secao": "capitulos/7-componentes/4-numero-em-destaque.html"
+  },
+  {
+   "cap": "7",
    "nome": "7.5 Passos",
    "sub": "Número de dois dígitos em mono ferro",
    "secao": "capitulos/7-componentes/5-passos.html"
@@ -293,6 +299,18 @@
    "nome": "7.7 Cabeçalho e rodapé",
    "sub": "Identificação à esquerda, página à direita",
    "secao": "capitulos/7-componentes/7-cabecalho-e-rodape.html"
+  },
+  {
+   "cap": "7",
+   "nome": "7.8 Cartão",
+   "sub": "Fundo nata, título e texto curto",
+   "secao": "capitulos/7-componentes/8-cartao.html"
+  },
+  {
+   "cap": "7",
+   "nome": "7.9 Tile de ícone",
+   "sub": "Ícone Phosphor em quadrado de cantos ¼",
+   "secao": "capitulos/7-componentes/9-tile-de-icone.html"
   },
   {
    "cap": "8",

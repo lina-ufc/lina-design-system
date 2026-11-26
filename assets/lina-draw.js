@@ -18,7 +18,7 @@
   const rects = (list, stroke, sw = 1, dash = '4 3', fill = 'none') => '<g fill="' + fill + '" stroke="' + stroke + '" stroke-width="' + sw + '"' + (dash ? ' stroke-dasharray="' + dash + '"' : '') + '>' + list.map((r) => '<rect x="' + r.x + '" y="' + r.y + '" width="' + r.w + '" height="' + r.h + '"/>').join('') + '</g>';
   const path = (d, fill, extra = '') => '<path d="' + d + '" fill="' + fill + '" fill-rule="evenodd" ' + extra + '/>';
   const outline = (d, stroke, sw = 1, dash = '4 3') => '<path d="' + d + '" fill="none" stroke="' + stroke + '" stroke-width="' + sw + '"' + (dash ? ' stroke-dasharray="' + dash + '"' : '') + '/>';
-  const text = (x, y, t, o = {}) => '<text x="' + x + '" y="' + y + '" font-family="Outfit, sans-serif" font-size="' + (o.size || 11) + '" font-weight="' + (o.weight || 500) + '" fill="' + (o.fill || G.mid) + '" text-anchor="' + (o.anchor || 'middle') + '">' + t + '</text>';
+  const text = (x, y, t, o = {}) => '<text x="' + x + '" y="' + y + '" font-family="Outfit, sans-serif" font-size="' + (o.size || 12) + '" font-weight="' + (o.weight || 500) + '" fill="' + (o.fill || G.mid) + '" text-anchor="' + (o.anchor || 'middle') + '">' + t + '</text>';
   function hdim(x1, x2, y, label, c = G.dark, below = false) {
     const t = 4;
     return '<g stroke="' + c + '" stroke-width="1"><line x1="' + x1 + '" y1="' + y + '" x2="' + x2 + '" y2="' + y + '"/><line x1="' + x1 + '" y1="' + (y - t) + '" x2="' + x1 + '" y2="' + (y + t) + '"/><line x1="' + x2 + '" y1="' + (y - t) + '" x2="' + x2 + '" y2="' + (y + t) + '"/></g>' + (label ? text((x1 + x2) / 2, below ? y + 16 : y - 8, label, { fill: c }) : '');

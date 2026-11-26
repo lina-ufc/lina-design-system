@@ -1,0 +1,26 @@
+<h2>Tile de ícone</h2>
+<p class="lead">Quadrado de cantos arredondados com um ícone Phosphor no centro. A peça existe só no slide.</p>
+<div style="display:grid;gap:24px;margin:0 0 14px">
+  <figure class="fig" style="margin:0">
+    <img src="capitulos/7-componentes/img/tile-slide.png" alt="Três tiles quadrados lado a lado, de cantos arredondados, cada um com um ícone creme no centro. O primeiro é ferro, com uma câmera. O segundo é turquesa fundo, com um gráfico de linha. O terceiro é umbro, com uma régua." width="396" height="96" style="display:block;width:100%;max-width:198px;height:auto">
+    <figcaption class="cap">Slide</figcaption>
+  </figure>
+</div>
+<h3>Regra</h3>
+<ul class="regras">
+  <li>O tile é um quadrado cujos cantos medem um quarto do lado. O tamanho se passa ao tile, e o exemplo usa 96 px (cantos de 24 px).</li>
+  <li>O ícone ocupa 56% do lado e fica centrado. Num tile de 96 px, são cerca de 54 px.</li>
+  <li>O tile padrão é damasco, com o ícone em ferro. Em ferro, turquesa fundo ou umbro, o ícone é creme.</li>
+  <li>O ícone vem da biblioteca do slide, com 22 nomes (câmera, régua, gráfico de linha, mapa e outros). Fora dela, o código para com erro.</li>
+  <li>O tile numerado é outra peça, <code class="mono">comp.tileNumero</code>, e aparece na 7.5.</li>
+</ul>
+<h3>Não fazer</h3>
+<ul class="regras">
+  <li>Ícone de outra família que não a Phosphor.</li>
+</ul>
+<h3>Como pedir</h3>
+<dl class="spec">
+  <dt>Slide</dt><dd>Copie o slide 26 do exemplo para um slide com o layout "2.6 Só título". Ao gerar pelo código: <code class="mono">comp.tileIcone(sl, x, y, tamanho, 'camera', cor)</code>; omita <code class="mono">cor</code> para o tile damasco. Nos layouts o tile já vem pronto, com um campo de imagem "Ícone" onde a pessoa cola o ícone: "2.3 Lista · ícones" usa tile damasco de 72 px com ícone de 40 px, e "3.1 Ícones · recursos" usa tile ferro.</dd>
+  <dt>Word</dt><dd>Ainda não existe.</dd>
+  <dt>LaTeX</dt><dd>Ainda não existe.</dd>
+</dl>

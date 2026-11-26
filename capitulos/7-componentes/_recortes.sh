@@ -27,8 +27,11 @@ recorta templates/apresentacao/LINA-Apresentacao-exemplo.pdf 55 "Coluna destacad
 recorta templates/documento-a4/LINA-POP-exemplo.pdf 2 "Parâmetros por escala" 89 514 1012 290 tabela-a4
 recorta templates/apresentacao/LINA-Apresentacao-exemplo.pdf 26 "Legenda colada à figura" 48 860 624 112 legenda-slide
 recorta templates/documento-a4/LINA-Relatorio-exemplo.pdf 2 "Figura 1." 89 940 1012 135 legenda-a4
+recorta templates/apresentacao/LINA-Apresentacao-exemplo.pdf 52 "Em números" 48 300 1824 368 numero-slide
 recorta templates/apresentacao/LINA-Apresentacao-exemplo.pdf 30 "Do levantamento ao painel" 48 270 1824 290 passos-slide
 recorta templates/documento-a4/LINA-POP-exemplo.pdf 1 "Cada passo começa com um verbo" 89 800 1012 220 passos-a4
 recorta templates/documento-a4/LINA-POP-exemplo.pdf 2 "Valores de referência" 89 676 1012 160 nota-a4
 recorta templates/apresentacao/LINA-Apresentacao-exemplo.pdf 24 "Título abreviado do trabalho" 0 0 1920 1080 cabecalho-slide
 recorta templates/documento-a4/LINA-POP-exemplo.pdf 1 "POP-04" 0 0 1191 1684 cabecalho-a4
+recorta templates/apresentacao/LINA-Apresentacao-exemplo.pdf 26 "Cartão com ícone" 72 276 1176 240 cartao-slide
+recorta templates/apresentacao/LINA-Apresentacao-exemplo.pdf 26 "Componentes" 1272 276 396 96 tile-slide

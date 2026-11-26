@@ -13,13 +13,13 @@
 
 ## Resumo
 
-`[███████░░░]` plano 01 concluído (`8eb2a05`); plano 02 concluído (sem commit).
+`[██████████]` plano 01 concluído (`8eb2a05`); plano 02 concluído (`e1ecf84`); plano 03 concluído.
 
 | Plano | Progresso | Tarefas | Estado |
 | --- | --- | --- | --- |
 | 01 — molde-e-declaracao | `[██████████]` | 3/3 | Concluído (`8eb2a05`) |
-| 02 — pecas-gerais | `[██████████]` | 6/6 | Concluído (sem commit) |
-| 03 — pecas-do-slide | `[░░░░░░░░░░]` | — | Não escrito. Escrito quando o 02 terminar |
+| 02 — pecas-gerais | `[██████████]` | 6/6 | Concluído (`e1ecf84`) |
+| 03 — pecas-do-slide | `[██████████]` | 4/4 | Concluído (sem commit) |
 
 ## Plano 01 — molde-e-declaracao
 
@@ -40,6 +40,15 @@
 - [x] Tarefa 5 — 7.7 Cabeçalho e rodapé (sem commit)
 - [x] Tarefa 6 — verificação e aprovação do usuário (aprovado 2026-11-26)
 
+## Plano 03 — pecas-do-slide
+
+`[██████████]` 100% — 4 de 4 tarefas.
+
+- [x] Tarefa 1 — 7.4 Número em destaque (sem commit)
+- [x] Tarefa 2 — 7.8 Cartão (sem commit)
+- [x] Tarefa 3 — 7.9 Tile de ícone (sem commit)
+- [x] Tarefa 4 — verificação do capítulo e aprovação do usuário (aprovado 2026-11-26)
+
 ## Changelog
 
 - 2026-11-26 — conjunto criado; spec aprovada; plano 01 escrito.
@@ -49,3 +58,6 @@
 - 2026-11-26 — tarefas 1 a 4 feitas e revisadas. Slide da 7.3 na p. 26 (só ela usa `comp.legenda`); sub da 7.5 trocado ("uma ação por passo" era texto de exemplo); `rule()` do slide mede em pt; PNG do script agora determinístico. Decisões em `.superpowers/sdd/02-pecas-gerais/progress.md`.
 - 2026-11-26 — tarefa 5 feita. Verificação: nomes conferidos no código, script regenera sem mudar PNG (agora sem chunk de data), 1440 e 375 px sem corte. Capturas em `records/02-*.jpg`. Aguarda aprovação.
 - 2026-11-26 — cinco seções aprovadas pelo usuário. Plano 02 concluído; falta commit.
+- 2026-11-26 — plano 02 commitado (`e1ecf84`). Plano 03 escrito: só slide; recortes das p. 52 e 26 conferidos com `pdftotext`; `desc` do capítulo 7 já está atualizado.
+- 2026-11-26 — tarefas 1 a 3 feitas e revisadas. Corrigido: justificativas e finalidades inventadas ("primeiro ponto de leitura", "marca uma etapa"), exemplo 4 col/240 px tratado como regra; peso real é Outfit ExtraBold (`F.bold`). Verificação: nomes no código, script regenera só os 3 PNG novos, 7.1 a 7.9 em ordem, 1440 e 375 px sem corte, proporções < 0,5 px. Capturas em `records/03-*.jpg`. Aguarda aprovação. Decisões em `.superpowers/sdd/03-pecas-do-slide/progress.md`.
+- 2026-11-26 — três seções aprovadas pelo usuário. Plano 03 e capítulo 7 concluídos; conjunto e spec movidos para `done/`; falta commit.

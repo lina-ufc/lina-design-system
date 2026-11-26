@@ -62,7 +62,8 @@ def nav(atual):
         sub = ''.join(f'<li><a href="{e["href"]}">{escape(e["nome"])}</a></li>' for e in entradas(c))
         href = pagina_de(c)
         cls = ' class="atual"' if c is atual else ''
-        itens += f'<li{cls}><a class="cap" href="{href}"><span>{c["id"]}</span>{escape(c["nome"])}</a><ol>{sub}</ol></li>'
+        breve = '' if sub else '<small class="breve">em breve</small>'
+        itens += f'<li{cls}><a class="cap" href="{href}"><span>{c["id"]}</span>{escape(c["nome"])}{breve}</a><ol>{sub}</ol></li>'
     return (f'<aside><a class="logo" href="index.html"><img src="assets/logos/sand/lina-horizontal-ferro.svg" alt="LINA"></a>'
             f'<p class="tit">Sistema de design</p><details class="sum"><summary>Sumário</summary><ol>{itens}</ol></details></aside>')
 
@@ -179,7 +180,7 @@ for c in CAPS:
             corpo += f'<section id="{e["id"]}"><p class="num">{num}</p>{frag}{citado_em(e)}</section>\n'
         else:
             corpo += f'<section class="quadro">{quadro(e)}</section>\n'
-    corpo = corpo or '<p class="vazio">Ainda sem entradas.</p>'
+    corpo = corpo or '<p class="vazio">Em breve.</p>'
     if c['id'] == '0':
         corpo += mapa
     i = CAPS.index(c)
