@@ -664,6 +664,20 @@ async function examples() {
   s('2.2 Colunas', { 'Rótulo': 'Guia do template · apague este slide antes de apresentar', 'Título': 'Como usar', itens: [
     { 'Subtítulo': 'Montar', 'Texto': 'Novo slide: Página Inicial › Novo Slide › escolha um layout LINA.\nRodapé: Inserir › Cabeçalho e Rodapé › Rodapé › “Título abreviado” › Aplicar a Todos.\nImagens e ícones: clique no ícone do espaço; a imagem recorta sozinha.' },
     { 'Subtítulo': 'Regras', 'Texto': 'Instale a Outfit e a JetBrains Mono (livres, em assets/fonts e Google Fonts). Ao salvar, marque “Incorporar fontes”.\nÍcones Phosphor, peso regular, um tratamento por slide: sólido, simples ou claro.\nSem emoji. Mono só para datas, números, rótulos e legendas.' }] });
+  // Páginas de ícones (HTML, PDF e .pptx): ladrilho e ícone num PNG só, um clique copia os dois. Só os ícones que o DS tem em assets/icons/phosphor.
+  const RI = 'Ícones · copiar e colar · apague antes de apresentar';
+  s('2.6 Só título', { 'Rótulo': RI, 'Título': 'Ícones · tratamentos' }, (sl) => {
+    TRAT.flat().forEach((t, i) => { const x = col((i % 6) * 2)[0], y = CT + 20 + Math.floor(i / 6) * 330;
+      sl.addImage({ path: bibPng(t, 'buildings'), x: X(x), y: X(y), w: X(200), h: X(200), altText: t[0] });
+      txt(sl, t[0], [x, y + 226, col(0, 2)[1], 30], S.cap, { fontSize: P(22) }); });
+    txt(sl, 'Phosphor, seis pesos. Cores só do DS. Um tratamento por slide.', [col(10)[0], CT + 350, col(0, 2)[1], 200], S.cap);
+  });
+  s('2.6 Só título', { 'Rótulo': RI, 'Título': 'Ícones · biblioteca' }, (sl) => {
+    BIB.forEach((n, i) => { const x = M + (i % 8) * (FW / 8), y = CT + 10 + Math.floor(i / 8) * 170;
+      sl.addImage({ path: bibPng(TRAT[0][0], n), x: X(x), y: X(y), w: X(96), h: X(96), altText: n });
+      txt(sl, n, [x, y + 108, FW / 8 - 12, 30], S.cap); });
+    txt(sl, 'Mais de 1.500 ícones em phosphoricons.com; os do LINA estão em assets/icons/phosphor.', [M, CB - 30, FW, 30], S.cap);
+  });
 }
 
 // ---------- imagem e vídeo no fill ----------
@@ -741,30 +755,11 @@ function criaSlides() {
   }
 }
 
-// Páginas de ícones aplicados: um bloco de 2 linhas × 11 por tratamento, ou 1 linha por par duotone; nome na coluna 0.
-function iconPages() {
-  TRAT.forEach((blocos, p) => {
-    const sl = pres.addSlide({ masterName: '2.6 Só título' });
-    sl.addText('Ícones · copiar e colar · apague antes de apresentar', { placeholder: 'Rótulo' });
-    sl.addText(['Sólido e cheio', 'Claro e simples', 'Duotone · fundos claros', 'Duotone · fundos escuros'][p], { placeholder: 'Título' });
-    const linhas = p < 2 ? 2 : 1;
-    blocos.forEach((t, b) => {
-      sl.addText(t[0], { x: X(M), y: X(row(1 + b * linhas)[0]), w: X(CW), h: X(RH), margin: 0, valign: 'middle', ...S.cap, fontSize: P(22) });
-      BIB.slice(0, 11 * linhas).forEach((n, i) => {
-        const [x] = col(1 + (i % 11)), [y] = row(1 + b * linhas + Math.floor(i / 11));
-        sl.addImage({ path: bibPng(t, n), x: X(x + 3), y: X(y), w: X(RH), h: X(RH), altText: n });
-      });
-    });
-    sl.addText('Clique no ícone, copie (⌘C) e cole no seu slide. Um tratamento por slide. Nomes e outros ícones: phosphoricons.com', { x: X(M), y: X(row(5)[0] + 60), w: X(FW), h: X(60), margin: 0, valign: 'bottom', ...S.cap });
-  });
-}
-
 (async () => {
   await assets();
   defineLayouts();
   await examples();
   flushLayouts(); await prepara(); criaSlides();
-  if (!process.env.DECK) iconPages();
   fs.writeFileSync(A('out/layouts.json'), JSON.stringify(LAYOUTS));
   console.log('html', require('./html.js')({ layouts: HTML_LAYOUTS, slides: HTML_SLIDES, out: A('out/html/Apresentacao.dc.html'), C, F, W, FOOT_Y, M, R }), 'slides');
   console.log(await pres.writeFile({ fileName: A('out/LINA-Apresentacao.pptx') }));
