@@ -22,7 +22,8 @@ removidos e outros renomeados; os nomes antigos continuam valendo no gerador, ma
 - Imagem no preenchimento: `cover`, `fit` e `alt`; vídeo com poster.
 - Componentes do gerador: declaração-chave, cartão, tile numerado, tile de ícone, número com seta, legenda,
   legenda de cores, tabela com coluna destacada, marcador.
-- Notas do apresentador no .pptx e no HTML; janela do apresentador (tecla N) com nota, próxima nota, miniaturas e cronômetro.
+- Notas do apresentador no .pptx e no HTML; janela do apresentador (tecla N) com nota, slide atual grande, próximo em miniatura menor
+  com o começo da próxima nota, aviso de miniaturas estáticas e cronômetro.
 - Transições opcionais no deck HTML, desligadas com movimento reduzido.
 - Idioma do deck (`lang`) no HTML e no .pptx; texto alternativo nas imagens.
 - Pacote HTML offline: `fonts.css` e `fonts/` com Outfit, JetBrains Mono e STIX Two Math (OFL).

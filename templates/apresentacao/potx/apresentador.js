@@ -1,6 +1,6 @@
 // Janela do apresentador do deck HTML (o html.js injeta este arquivo só quando há notas). Adaptado do Vision.
 // O runtime do deck-stage carrega as notas, mas só as mostra dentro de um aplicativo hospedeiro; aqui:
-//   N  abre o apresentador: nota atual (fonte ajustada para caber), começo da próxima nota, slide atual e próximo, cronômetro, hora.
+//   N  abre o apresentador: nota atual (fonte ajustada para caber), slide atual grande, próximo pequeno com o começo da nota dele, cronômetro, hora.
 //      É uma janela comum: arraste para a tela do notebook e maximize, ou use F nela para tela cheia.
 // No apresentador: setas, espaço, PageUp e PageDown movem o deck; P inicia ou pausa o cronômetro; R zera.
 // O cronômetro começa sozinho na primeira troca de slide. Sem contagem regressiva (decisão do Vision).
@@ -37,8 +37,8 @@
     $('ni').hidden = last; $('end').hidden = !last;
     if (!last) $('ni').src = img(cur + 1);
     $('notes').innerHTML = notes[cur] ? notes[cur].split(/\n+/).map((p) => `<p>${esc(p)}</p>`).join('') : '<p class="none">Sem notas neste slide.</p>';
-    const prox = (notes[cur + 1] || '').split(/\n+/)[0]; // começo da próxima nota: só a primeira linha, em cinza
-    $('nn').textContent = prox ? 'Próxima: ' + prox : '';
+    $('nl').textContent = last ? 'Próximo' : `Próximo · ${cur + 2}`;
+    $('nn').textContent = (notes[cur + 1] || '').split(/\n+/)[0]; // começo da próxima nota: só a primeira linha, em cinza
     fitNotes();
   };
   // Maior fonte (12–40 px) em que a nota cabe na coluna sem rolar.
@@ -75,8 +75,10 @@
     button:hover,button:focus-visible{background:#6E1408;outline:none}
     .main{display:grid;grid-template-columns:1fr 1fr;gap:24px;padding:16px;min-height:0}
     .col{display:flex;flex-direction:column;gap:8px;min-height:0}
-    .shots{justify-content:center}
-    .shots img,.shots #end{width:auto;max-width:100%;max-height:calc(50vh - 60px);align-self:center}
+    #ci{width:auto;max-width:100%;max-height:calc(100vh - 300px);align-self:start}
+    .next{display:grid;grid-template-columns:32% 1fr;gap:16px;align-items:start;margin-top:8px;padding-top:16px;border-top:1px solid #6E1408}
+    #ni{opacity:.55;outline:1px solid #C9B87A} /* pequeno e apagado: não confundir com o atual */
+    .aviso{margin:auto 0 0;font:12px 'JetBrains Mono',monospace;color:#C9B87A}
     .lab{margin:0;font:12px 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:#C9B87A}
     img{display:block;width:100%;aspect-ratio:16/9;object-fit:contain;background:#000}
     #end{aspect-ratio:16/9;display:grid;place-items:center;margin:0;border:1px dashed #C9B87A;color:#C9B87A;
@@ -84,7 +86,7 @@
     #end[hidden],img[hidden]{display:none}
     #notes{flex:1;min-height:0;overflow:hidden;line-height:1.4}
     #notes p{margin:0 0 .6em} #notes .none{color:#C9B87A}
-    #nn{margin:0;color:#C9B87A;font-size:15px;line-height:1.3;max-height:2.6em;overflow:hidden}`;
+    #nn{margin:8px 0 0;color:#C9B87A;font-size:15px;line-height:1.3;max-height:5.2em;overflow:hidden}`;
   const HTML = `
     <div class="bar">
       <span id="t">00:00</span><button id="pp">Iniciar</button><button id="rs">Zerar</button>
@@ -93,9 +95,11 @@
       <span class="sp"></span><span id="clk"></span>
     </div>
     <div class="main">
-      <div class="col"><p class="lab">Notas</p><div id="notes"></div><p id="nn"></p></div>
-      <div class="col shots"><p class="lab">Atual</p><img id="ci" alt="Slide atual">
-        <p class="lab">Próximo</p><img id="ni" alt="Próximo slide"><p id="end" hidden>Fim do deck</p></div>
+      <div class="col"><p class="lab">Notas</p><div id="notes"></div></div>
+      <div class="col"><p class="lab">Atual</p><img id="ci" alt="Slide atual">
+        <div class="next"><div><img id="ni" alt="Próximo slide"><p id="end" hidden>Fim do deck</p></div>
+          <div><p class="lab" id="nl">Próximo</p><p id="nn"></p></div></div>
+        <p class="aviso">Miniaturas estáticas: vídeos e animações aparecem parados.</p></div>
     </div>`;
 
   const open = async () => {

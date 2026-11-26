@@ -138,7 +138,7 @@ Um deck próprio usa o gerador assim: `DECK=meu-deck.js FOOT="Título abreviado"
 
 ## Deck HTML
 
-- Teclas: F alterna tela cheia, G mostra a grade, N abre a janela do apresentador (nota atual, começo da próxima nota, slide atual e próximo, cronômetro e hora). A janela é um pop-up: o navegador precisa permitir pop-up. Nela, P inicia ou pausa o cronômetro e R zera.
+- Teclas: F alterna tela cheia, G mostra a grade, N abre a janela do apresentador (nota atual, slide atual grande, próximo em miniatura menor com o começo da próxima nota, cronômetro e hora). As miniaturas são estáticas: vídeos e animações aparecem parados. A janela é um pop-up: o navegador precisa permitir pop-up. Nela, P inicia ou pausa o cronômetro e R zera.
 - Notas: `notas` no `s()` vai para o campo de notas do .pptx e para o HTML. Sem notas, a janela não existe.
 - Transições (opcionais, `opcoes.transicoes`): elementos iguais ficam parados, os que mudam de lugar deslizam, o resto entra em sequência. Sem movimento com `prefers-reduced-motion`.
 - Pacote offline: o zip do deck HTML leva `fonts.css` e `fonts/` ao lado do HTML; a fonte instalada tem prioridade e o arquivo cobre o computador sem ela.
