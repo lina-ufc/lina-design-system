@@ -20,6 +20,9 @@ cp out/LINA-Apresentacao.potx $T/LINA-Apresentacao.potx
 cp out/LINA-Apresentacao.pptx $T/LINA-Apresentacao-exemplo.pptx
 rm -rf $T/img && cp -R out/html/img $T/img && cp out/html/Apresentacao.dc.html $T/
 cp ../../../assets/lina-geometry.js ../../../assets/lina-dither-field.js $T/  # fonte única em assets/
+cp apresentador.js transicao.js $T/
 python3 embed-deck-stage.py $T/Apresentacao.dc.html $T/deck-stage.js
 soffice --headless --convert-to pdf --outdir out $T/LINA-Apresentacao-exemplo.pptx >/dev/null && cp out/LINA-Apresentacao-exemplo.pdf $T/
+# Miniaturas do apresentador (slide atual e próximo): img/miniaturas/s-NN.jpg, 960 px de largura.
+mkdir -p $T/img/miniaturas && pdftoppm -jpeg -scale-to 960 out/LINA-Apresentacao-exemplo.pdf $T/img/miniaturas/s
 python3 ../../../downloads/empacotar.py

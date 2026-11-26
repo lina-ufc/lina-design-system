@@ -135,6 +135,8 @@ module.exports = function toHTML({ layouts, slides, out, opcoes = { lang: 'pt-BR
   // Notas do apresentador: um item por slide; '<' escapado para não fechar o script.
   const notas = slides.some((s) => s.notas)
     ? `<script type="application/json" id="speaker-notes">${JSON.stringify(slides.map((s) => s.notas || '')).replace(/</g, '\\u003c')}</script>\n` : '';
+  // Scripts opcionais: o apresentador só com notas; as transições só com opcoes.transicoes.
+  const extra = (notas ? '<script src="./apresentador.js"></script>\n' : '') + (opcoes.transicoes ? '<script src="./transicao.js"></script>\n' : '');
   const html = `<!DOCTYPE html>
 <html lang="${opcoes.lang}">
 <head>
@@ -143,7 +145,7 @@ module.exports = function toHTML({ layouts, slides, out, opcoes = { lang: 'pt-BR
 <script src="./support.js"></script>
 ${notas}<script src="./lina-geometry.js"></script>
 <script src="./lina-dither-field.js"></script>
-</head>
+${extra}</head>
 <body>
 <x-dc>
 <!-- GERADO por potx/build.js + potx/html.js. Não edite à mão: mude build.js e rode make.sh; o .pptx e este HTML saem juntos. -->

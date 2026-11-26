@@ -27,3 +27,5 @@ downloads/institucionais/
 templates/documento-a4/word/out/
 templates/documento-a4/latex/out/
 templates/documento-a4/*.pdf
+templates/apresentacao/apresentador.js
+templates/apresentacao/transicao.js

@@ -549,6 +549,7 @@ async function examples() {
   // Outro deck com os mesmos layouts: DECK=arquivo.js node build.js (o módulo recebe as peças e monta os slides).
   if (process.env.DECK) return require(path.resolve(process.env.DECK))({ pres, s, ic, icon, A, C, F, P, X, col, row, CT, CB, TY, M, W, G, FW, FOOT_Y, sharp, FAM, pad, comp, opcoes });
 
+  opcoes.transicoes = true; // o deck de exemplo mostra as transições
   const EV = 'Seminário de pesquisa · 15 · 10 · 2026', TT = 'Título do trabalho em até três linhas, com subtítulo após dois-pontos';
   const AUTORES = ['Ana Beatriz Lima', 'Carlos Eduardo Rocha', 'Daniela Moura', 'Eduardo Pinheiro', 'Fernanda Sales', 'Gabriel Nogueira'];
   const logo = (i) => ({ img: A('gen/logo-parceiro.png'), box: { x: X(LOGO_P(i)[0]), y: X(LOGO_P(i)[1]), w: X(LOGO_P(i)[2]), h: X(LOGO_P(i)[3]) } });
