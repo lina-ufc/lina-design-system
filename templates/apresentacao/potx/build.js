@@ -171,6 +171,8 @@ const layout = (...a) => PEND.push(a);
 const num = (n) => n.split(' ')[0].split('.').map(Number);
 // Famílias paramétricas (param.js): FAM[base] constrói o layout para N itens; ALIAS traduz nomes antigos.
 const FAM = {}, SLIDES = [];
+// Opções do deck; o módulo DECK pode mudá-las. Vão para out/opcoes.json (post.py lê lang) e para o html.js.
+const opcoes = { lang: 'pt-BR', transicoes: false };
 const renomeia = (f, re, novo) => Object.fromEntries(Object.entries(f).map(([k, v]) => [k.replace(re, novo), v]));
 const semChave = (f, re) => Object.fromEntries(Object.entries(f).filter(([k]) => !re.test(k)));
 const ALIAS = {
@@ -537,14 +539,15 @@ async function examples() {
   const IMG = A('gen/provisoria.png');
   const icon = (n, tag) => A(`gen/${n}-${tag}.png`);
   // s() só registra: os layouts usados são definidos depois (flushLayouts) e os slides criados em criaSlides.
-  const s = (m, fill = {}, extra) => {
+  // fill.notas: notas do apresentador (\n separa parágrafos); sai do fill antes da checagem de espaços.
+  const s = (m, { notas, ...fill } = {}, extra) => {
     const r = !ALIAS[m] && PEND.some((x) => x[0] === m) ? { base: m, name: m, fill } : resolve(m, fill, FAM, ALIAS);
-    SLIDES.push({ ...r, extra });
+    SLIDES.push({ ...r, notas, extra });
   };
   const PROV = (r) => ({ img: A(`gen/prov-${r}.png`) }); // provisória na proporção r/100 (largura/altura)
   const ic = (n, tag, box = [0, 0, 0, 0]) => ({ img: icon(n, tag), box: { x: X(box[0]), y: X(box[1]), w: X(box[2]), h: X(box[3]) } });
   // Outro deck com os mesmos layouts: DECK=arquivo.js node build.js (o módulo recebe as peças e monta os slides).
-  if (process.env.DECK) return require(path.resolve(process.env.DECK))({ pres, s, ic, icon, A, C, F, P, X, col, row, CT, CB, TY, M, W, G, FW, FOOT_Y, sharp, FAM, pad, comp });
+  if (process.env.DECK) return require(path.resolve(process.env.DECK))({ pres, s, ic, icon, A, C, F, P, X, col, row, CT, CB, TY, M, W, G, FW, FOOT_Y, sharp, FAM, pad, comp, opcoes });
 
   const EV = 'Seminário de pesquisa · 15 · 10 · 2026', TT = 'Título do trabalho em até três linhas, com subtítulo após dois-pontos';
   const AUTORES = ['Ana Beatriz Lima', 'Carlos Eduardo Rocha', 'Daniela Moura', 'Eduardo Pinheiro', 'Fernanda Sales', 'Gabriel Nogueira'];
@@ -552,13 +555,14 @@ async function examples() {
   const PARTES = ['Contexto e problema', 'Método', 'Levantamento', 'Resultados', 'Discussão', 'Conclusões', 'Trabalhos futuros', 'Referências', 'Anexo A', 'Anexo B', 'Anexo C', 'Anexo D', 'Anexo E', 'Anexo F', 'Anexo G', 'Anexo H', 'Anexo I', 'Anexo J'];
   const sumario = (n) => ({ 'Rótulo': 'Sumário', 'Título': 'O que vamos ver',
     itens: PARTES.slice(0, n).map((t) => (n <= 5 ? { Item: t, Descrição: 'Uma linha sobre esta parte' } : t)) });
-  s('1.1 Abertura', {});
-  s('1.2 Capa', { 'Evento': EV, 'Título': TT, 'Apresentador': 'Nome do Apresentador', 'Coautores': 'Coautora Sobrenome · Coautor Sobrenome · Orientadora Sobrenome' });
+  s('1.1 Abertura', { notas: 'Deixe a trama rodar enquanto a sala se acomoda.\nComece quando o silêncio chegar.' });
+  s('1.2 Capa', { 'Evento': EV, 'Título': TT, 'Apresentador': 'Nome do Apresentador', 'Coautores': 'Coautora Sobrenome · Coautor Sobrenome · Orientadora Sobrenome',
+    notas: 'Bom dia. Eu sou [nome], do LINA.\nHoje vou mostrar o trabalho em três partes: problema, método e resultados.' });
   s('1.2 Capa', { 'Evento': EV, 'Título': TT, itens: AUTORES, 'Logo 1': logo(0) });
   s('1.2 Capa', { 'Evento': EV, 'Título': 'Título longo do trabalho, que precisa de quatro linhas para caber inteiro na capa, com subtítulo após dois-pontos e ainda uma explicação',
     'Apresentador': 'Nome do Apresentador', 'Coautores': 'Coautora Sobrenome · Coautor Sobrenome · Orientadora Sobrenome', 'Logo 1': logo(0), 'Logo 2': logo(1) });
   s('1.3 Capa · imagem', { 'Imagem': { img: IMG }, 'Evento': EV, 'Título': 'Título do trabalho em até três linhas', itens: AUTORES });
-  for (const n of [4, 6, 12, 18]) s('1.4 Sumário', sumario(n));
+  for (const n of [4, 6, 12, 18]) s('1.4 Sumário', n === 4 ? { ...sumario(n), notas: 'Quatro blocos. Cite cada um em uma frase e diga quanto tempo leva.' } : sumario(n));
   s('1.5 Seção', { 'Número': '01', 'Título': 'Contexto', 'Descrição': 'Uma frase sobre o que esta seção vai mostrar.' });
   s('2.1 Texto', { 'Rótulo': '02 · Problema', 'Título': 'Uma afirmação por slide, escrita como frase completa',
     'Texto': [{ text: 'Até três parágrafos curtos à direita sustentam a afirmação do título.', options: { breakLine: true } },
@@ -609,7 +613,8 @@ async function examples() {
   for (const k of [5, 8]) s('3.2 Ícones · processo', { 'Rótulo': '03 · Método', 'Título': 'Do levantamento ao painel', itens: [...REC.slice(6), ...REC.slice(0, 6)].slice(0, k).map(([n, nome]) => ({ 'Ícone': ic(n, 'ferro'), 'Subtítulo': nome, 'Texto': 'O que acontece nesta etapa.' })) });
   s('3.3 Ícones · ilustrações', { 'Rótulo': '03 · Método', 'Título': 'Quatro frentes, quatro cenas', itens: REC.slice(0, 4).map(([, nome]) => ({ 'Ilustração': { img: IMG }, 'Subtítulo': nome, 'Texto': 'Uma ou duas frases.' })) });
   const NR = ([n, t]) => ({ 'Número': n, 'Nota': t });
-  s('4.1 Imagem lateral', { 'Rótulo': '01 · Contexto', 'Título': 'Área de estudo', 'Texto': 'Duas ou três frases sobre o recorte e a escala do mapa.', 'Imagem': { img: IMG } });
+  s('4.1 Imagem lateral', { 'Rótulo': '01 · Contexto', 'Título': 'Área de estudo', 'Texto': 'Duas ou três frases sobre o recorte e a escala do mapa.', 'Imagem': { img: IMG, alt: 'Mapa provisório da área de estudo' },
+    notas: 'Mostre onde fica a área e por que ela serve de caso.\nDiga a escala do mapa antes de falar dos dados.' });
   s('4.1 Imagem lateral · recuada', { 'Rótulo': '01 · Contexto', 'Título': 'Três números do estudo', 'Imagem': PROV(133), 'Legenda': 'Fonte: LINA, 2026. Legenda logo abaixo da figura.',
     itens: [['38%', 'da área construída'], ['4,2 h', 'de campo por fachada'], ['120', 'imagens térmicas']].map(NR) });
   s('4.1 Imagem lateral · esquerda', { 'Rótulo': '01 · Contexto', 'Título': 'Quatro frentes do estudo', 'Imagem': { img: IMG },
@@ -657,7 +662,7 @@ async function examples() {
   s('5.5 Tabela · texto', { 'Rótulo': '04 · Resultados', 'Título': 'Fotogrametria contra laser', 'Texto': 'O laser erra menos que a fotogrametria em todas as amostras.', 'Fonte': 'Fonte: LINA, 2026.' }, (sl) =>
     comp.tabela(sl, { cab: ['Amostra', 'Método', 'Área (m²)', 'Erro'], destaque: 3, colW: [1, 1, 1, 1], box: [col(4)[0], CT, col(0, 8)[1], CB - CT - 50],
       linhas: [['A1', 'Laser', '120', '0,8%'], ['A2', 'Foto', '96', '1,2%'], ['A3', 'Laser', '210', '0,6%'], ['A4', 'Foto', '75', '1,9%'], ['A5', 'Laser', '160', '0,7%']] }));
-  s('6.1 Encerramento', { 'Título': 'Obrigado', 'Apresentador': 'Nome do Apresentador', 'Contato': 'nome@ufc.br · lina.ufc.br' });
+  s('6.1 Encerramento', { 'Título': 'Obrigado', 'Apresentador': 'Nome do Apresentador', 'Contato': 'nome@ufc.br · lina.ufc.br', notas: 'Agradeça à equipe e à plateia.\nDeixe o contato na tela e abra para perguntas.' });
   s('6.1 Encerramento', { 'Título': 'Obrigado', 'Apresentador': 'Nome do Apresentador', 'Contato': 'nome@ufc.br · lina.ufc.br', 'Logo 1': logo(0) });
   s('6.2 Encerramento · autores', { 'Título': 'Obrigado', itens: AUTORES.slice(0, 3) });
   s('6.2 Encerramento · autores', { 'Título': 'Obrigado', itens: EQ.slice(0, 8) });
@@ -714,8 +719,8 @@ async function prepara() {
     for (const k of ks) {
       const v = f[k], box = ov[k] || L.ph.find((p) => p.name === k).box;
       if (v.video) f[k] = { solto: { video: v.video, poster: v.poster, cover: (await sharp(v.poster).resize(1280).jpeg({ quality: 80 }).toBuffer()).toString('base64'), box: contido(box, ...dim[k]) } };
-      else if (ov[k] || v.modo === 'fit') { const c = contido(box, ...dim[k]); f[k] = { solto: { img: await inteira(v.img, c), box: c } }; }
-      else f[k] = { img: await cobre(v.img, Math.round(box[2] * 2), Math.round(box[3] * 2), v.posicao || fam.posicao), box: { x: X(box[0]), y: X(box[1]), w: X(box[2]), h: X(box[3]) } };
+      else if (ov[k] || v.modo === 'fit') { const c = contido(box, ...dim[k]); f[k] = { solto: { img: await inteira(v.img, c), box: c, alt: v.alt } }; }
+      else f[k] = { img: await cobre(v.img, Math.round(box[2] * 2), Math.round(box[3] * 2), v.posicao || fam.posicao), box: { x: X(box[0]), y: X(box[1]), w: X(box[2]), h: X(box[3]) }, alt: v.alt };
     }
     for (const k of Object.keys(ov)) if (typeof f[k] === 'string' || Array.isArray(f[k])) f[k] = { solto: { texto: f[k], box: ov[k] } };
   }
@@ -723,7 +728,7 @@ async function prepara() {
 
 // Cria os slides registrados por s(); preenchimento com chave que não é espaço do layout resolvido é erro.
 function criaSlides() {
-  for (const { name, base, n, itens, fill: f0, extra } of SLIDES) {
+  for (const { name, base, n, itens, fill: f0, extra, notas } of SLIDES) {
     const fill = { ...f0 };
     const L = LAYOUTS.find((l) => l.name === name);
     for (const k of Object.keys(fill)) if (!L.ph.some((p) => p.name === k)) throw new Error(`'${k}' não é espaço de '${name}'`);
@@ -734,8 +739,9 @@ function criaSlides() {
     }
     // Capa com título longo (mais de 60 caracteres): 56 em vez de 72, para caber nas linhas 2–3.
     if (base === '1.2 Capa' && typeof fill['Título'] === 'string' && fill['Título'].length > 60) fill['Título'] = [{ text: fill['Título'], options: { fontSize: P(56) } }];
-    const real = pres.addSlide({ masterName: name }), rec = { master: name, fill: Object.fromEntries(Object.entries(fill).filter(([, v]) => !(v && v.solto))), charts: [], tables: [], images: [], media: [], texts: [] };
+    const real = pres.addSlide({ masterName: name }), rec = { master: name, fill: Object.fromEntries(Object.entries(fill).filter(([, v]) => !(v && v.solto))), charts: [], tables: [], images: [], media: [], texts: [], notas };
     HTML_SLIDES.push(rec);
+    if (notas) real.addNotes(notas);
     const sl = { addChart: (t, d, o) => (rec.charts.push({ type: t, series: d, opts: o }), real.addChart(t, d, o)),
       addTable: (r, o) => (rec.tables.push({ rows: r, opts: o }), real.addTable(r, structuredClone(o))),
       addImage: (o) => (o.placeholder || o.pptOnly || rec.images.push(o), real.addImage(o)), addText: (v, o) => (o.placeholder || rec.texts.push([v, o]), real.addText(v, o)),
@@ -743,11 +749,11 @@ function criaSlides() {
       anim: (a) => { rec.anim = a; }, html: (h) => { rec.html = (rec.html || '') + h; } }; // anim: efeito de entrada no deck HTML (ex.: 'aleatorio'); html: marcação crua, só no deck HTML; imagem com pptOnly: só no .pptx
     for (const [k, v] of Object.entries(fill)) {
       if (v && v.solto) {
-        const { img, video, poster, cover, texto, box: [x, y, w, h] } = v.solto, b = { x: X(x), y: X(y), w: X(w), h: X(h) };
-        if (img) sl.addImage({ path: img, ...b });
+        const { img, video, poster, cover, texto, alt, box: [x, y, w, h] } = v.solto, b = { x: X(x), y: X(y), w: X(w), h: X(h) };
+        if (img) sl.addImage({ path: img, ...b, ...(alt && { altText: alt }) });
         else if (video) sl.addMedia({ type: 'video', path: video, cover: 'data:image/jpeg;base64,' + cover, poster, loop: true, bg: '#000000', ...b });
         else sl.addText(texto, { ...b, margin: 0, align: 'left', valign: 'top', ...S.cap });
-      } else if (typeof v === 'object' && v && v.img) sl.addImage({ placeholder: k, path: v.img, ...v.box, ...v.ppt });
+      } else if (typeof v === 'object' && v && v.img) sl.addImage({ placeholder: k, path: v.img, ...v.box, ...v.ppt, ...(v.alt && { altText: v.alt }) });
       else sl.addText(v, { placeholder: k });
     }
     FAM[base] && FAM[base].desenha && FAM[base].desenha(sl, itens, n);
@@ -759,8 +765,9 @@ function criaSlides() {
   await assets();
   defineLayouts();
   await examples();
+  fs.writeFileSync(A('out/opcoes.json'), JSON.stringify(opcoes));
   flushLayouts(); await prepara(); criaSlides();
   fs.writeFileSync(A('out/layouts.json'), JSON.stringify(LAYOUTS));
-  console.log('html', require('./html.js')({ layouts: HTML_LAYOUTS, slides: HTML_SLIDES, out: A('out/html/Apresentacao.dc.html'), C, F, W, FOOT_Y, M, R }), 'slides');
+  console.log('html', require('./html.js')({ layouts: HTML_LAYOUTS, slides: HTML_SLIDES, out: A('out/html/Apresentacao.dc.html'), opcoes, C, F, W, FOOT_Y, M, R }), 'slides');
   console.log(await pres.writeFile({ fileName: A('out/LINA-Apresentacao.pptx') }));
 })();

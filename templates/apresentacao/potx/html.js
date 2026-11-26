@@ -5,9 +5,11 @@ const path = require('path');
 
 const PX = (inch) => +(inch * 144).toFixed(2);
 const esc = (t) => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+// alt: texto do alt (ou decorativa: alt vazio + aria-hidden).
+const alt = (t) => (t ? `alt="${esc(t).replace(/"/g, '&quot;')}"` : 'alt="" aria-hidden="true"');
 const hex = (c) => (c && !c.startsWith('#') ? '#' + c : c);
 
-module.exports = function toHTML({ layouts, slides, out, C, F, W, FOOT_Y, M, R }) {
+module.exports = function toHTML({ layouts, slides, out, opcoes = { lang: 'pt-BR' }, C, F, W, FOOT_Y, M, R }) {
   const imgDir = path.join(path.dirname(out), 'img');
   fs.mkdirSync(imgDir, { recursive: true });
   const img = (p) => { const n = path.basename(p); fs.copyFileSync(p, path.join(imgDir, n)); return 'img/' + n; };
@@ -84,7 +86,7 @@ module.exports = function toHTML({ layouts, slides, out, C, F, W, FOOT_Y, M, R }
 
   const obj = (o) => {
     if (o.rect) return `<div style="position:absolute;${box(o.rect)};background:${hex(o.rect.fill.color)}"></div>`;
-    if (o.image) return `<img src="${img(o.image.path)}" alt="" style="position:absolute;${box(o.image)}">`;
+    if (o.image) return `<img src="${img(o.image.path)}" ${alt(o.image.altText)} style="position:absolute;${box(o.image)}">`;
     if (o.line) { const l = o.line; return l.w ? `<div style="position:absolute;left:${PX(l.x)}px;top:${PX(l.y) - l.line.width}px;width:${PX(l.w)}px;border-top:${l.line.width * 2}px solid ${hex(l.line.color)}"></div>`
       : `<div style="position:absolute;left:${PX(l.x) - l.line.width}px;top:${PX(l.y)}px;height:${PX(l.h)}px;border-left:${l.line.width * 2}px solid ${hex(l.line.color)}"></div>`; }
     if (o.text) { const t = o.text.options; return `<div style="position:absolute;${box(t)};box-sizing:border-box;border-radius:${t.shape === 'ellipse' ? '50%' : PX(t.rectRadius) + 'px'};background:${hex(t.fill.color)};${t.line && t.line.color ? `border:${t.line.width * 2}px solid ${hex(t.line.color)}` : ''}"></div>`; }
@@ -102,7 +104,7 @@ module.exports = function toHTML({ layouts, slides, out, C, F, W, FOOT_Y, M, R }
     }
     for (const [k, v] of Object.entries(sl.fill)) {
       const o = phs[k];
-      if (v && v.img) body += `<img src="${img(v.img)}" alt="" style="position:absolute;${box(v.box)};object-fit:cover;border-radius:${o ? radius(o) : 0}px">`;
+      if (v && v.img) body += `<img src="${img(v.img)}" ${alt(v.alt)} style="position:absolute;${box(v.box)};object-fit:cover;border-radius:${o ? radius(o) : 0}px">`;
       else if (v && v.media) continue;
       else body += textBox(o, v);
     }
@@ -112,7 +114,7 @@ module.exports = function toHTML({ layouts, slides, out, C, F, W, FOOT_Y, M, R }
     // anim 'aleatorio': as imagens entram em fade, uma a uma, em ordem sorteada a cada build.
     const ord = sl.images.map((_, k) => k).sort(() => Math.random() - 0.5), D = {};
     ord.forEach((k, n) => { D[k] = sl.anim === 'aleatorio' ? `;--d:${(0.15 + n * 0.06).toFixed(2)}s` : ''; });
-    sl.images.forEach((m, k) => { body += `<img src="${img(m.path)}" alt="" style="position:absolute;${box(m)};object-fit:cover${D[k]}">`; });
+    sl.images.forEach((m, k) => { body += `<img src="${img(m.path)}" ${alt(m.altText)} style="position:absolute;${box(m)};object-fit:cover${D[k]}">`; });
     if (sl.html) body += sl.html;
     for (const m of sl.media) if (!m.loop) body += `<video src="${img(m.path)}" poster="${img(m.poster)}" controls style="position:absolute;${box(m)};object-fit:contain;background:#000"></video>`;
     if (L.foot) {
@@ -130,13 +132,16 @@ module.exports = function toHTML({ layouts, slides, out, C, F, W, FOOT_Y, M, R }
     return `<section${anim} data-label="${esc(sl.master)}" data-screen-label="${String(i + 1).padStart(2, '0')} ${esc(sl.master)}" style="position:relative;overflow:hidden;${bg}">\n${body}\n</section>`;
   });
 
+  // Notas do apresentador: um item por slide; '<' escapado para não fechar o script.
+  const notas = slides.some((s) => s.notas)
+    ? `<script type="application/json" id="speaker-notes">${JSON.stringify(slides.map((s) => s.notas || '')).replace(/</g, '\\u003c')}</script>\n` : '';
   const html = `<!DOCTYPE html>
-<html>
+<html lang="${opcoes.lang}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
-<script src="./lina-geometry.js"></script>
+${notas}<script src="./lina-geometry.js"></script>
 <script src="./lina-dither-field.js"></script>
 </head>
 <body>

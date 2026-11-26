@@ -39,4 +39,14 @@ if (fs.existsSync(f)) {
   const ord = [...nomes].sort((a, b) => { const x = chave(a), y = chave(b); return x[0] - y[0] || x[1] - y[1] || x[2] - y[2]; });
   assert.deepEqual(nomes, ord, 'layouts fora de ordem numérica');
 }
+// Idioma e notas (se o build já gerou): opcoes.json, lang no HTML e #speaker-notes com um item por slide.
+const hf = require('path').join(__dirname, 'out/html/Apresentacao.dc.html');
+if (fs.existsSync(hf)) {
+  assert.equal(JSON.parse(fs.readFileSync(require('path').join(__dirname, 'out/opcoes.json'))).lang, 'pt-BR');
+  const h = fs.readFileSync(hf, 'utf8');
+  assert(h.includes('<html lang="pt-BR">'), 'html sem lang');
+  const m = /<script type="application\/json" id="speaker-notes">(.*?)<\/script>/.exec(h);
+  assert(m && !m[1].includes('<'), 'sem #speaker-notes ou com < cru');
+  assert.equal(JSON.parse(m[1]).length, (h.match(/<section[ >]/g) || []).length, 'notas ≠ slides');
+}
 console.log('check ok');

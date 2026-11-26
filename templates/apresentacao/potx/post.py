@@ -9,6 +9,7 @@ W, FOOT_Y, R = 1920, 996, 22
 EMU = 6350  # por px de referência (1 px = 1/144 pol)
 FOOT_TEXT = __import__('os').environ.get('FOOT', 'Título abreviado do trabalho')
 LAYOUTS = {l['name']: l for l in json.load(open('out/layouts.json'))}
+LANG = (json.load(open('out/opcoes.json')) if __import__('os').path.exists('out/opcoes.json') else {}).get('lang', 'pt-BR')  # idioma do deck (build.js: opcoes.lang)
 
 FTR = ('<p:sp><p:nvSpPr><p:cNvPr id="{id}" name="Rodapé"/><p:cNvSpPr><a:spLocks noGrp="1"/></p:cNvSpPr>'
        '<p:nvPr><p:ph type="ftr" sz="quarter" idx="11"/></p:nvPr></p:nvSpPr><p:spPr>{xfrm}</p:spPr>'
@@ -51,7 +52,7 @@ def fix_layout(x):
         x = x[:a] + sp + x[b:]
         if p.get('degrade'): x = poe_grad(x, p['idx'], p['degrade'])
     if L['foot']:
-        x = x.replace('</p:spTree>', FTR.format(id=900, xfrm=XFRM, lst=LST, run='<a:endParaRPr lang="pt-BR"/>') + '</p:spTree>', 1)
+        x = x.replace('</p:spTree>', FTR.format(id=900, xfrm=XFRM, lst=LST, run=f'<a:endParaRPr lang="{LANG}"/>') + '</p:spTree>', 1)
     return x, L['foot'], name
 
 with zipfile.ZipFile(SRC) as z:
@@ -65,7 +66,7 @@ m = files['ppt/slideMasters/slideMaster1.xml'].decode()
 m = m.replace('<p:hf sldNum="0" hdr="0" ftr="0" dt="0"/>', '<p:hf hdr="0" dt="0"/>')  # rodapé e número ligados
 files['ppt/slideMasters/slideMaster1.xml'] = m.encode()
 if 'type="ftr"' not in m:
-    files['ppt/slideMasters/slideMaster1.xml'] = m.replace('</p:spTree>', FTR.format(id=900, xfrm=XFRM, lst=LST, run='<a:endParaRPr lang="pt-BR"/>') + '</p:spTree>', 1).encode()
+    files['ppt/slideMasters/slideMaster1.xml'] = m.replace('</p:spTree>', FTR.format(id=900, xfrm=XFRM, lst=LST, run=f'<a:endParaRPr lang="{LANG}"/>') + '</p:spTree>', 1).encode()
 for n in list(files):
     if re.match(r'ppt/slides/slide\d+\.xml$', n):
         rel = files[n.replace('slides/', 'slides/_rels/') + '.rels'].decode()
@@ -73,8 +74,12 @@ for n in list(files):
         for p in LAYOUTS.get(nome_layout.get(lay), {'ph': []})['ph']:  # o preenchimento do layout não vale se o slide traz <a:noFill/>
             if p.get('degrade'): files[n] = poe_grad(files[n].decode(), p['idx'], p['degrade']).encode()
         if foot_layout.get(lay):
-            run = f'<a:r><a:rPr lang="pt-BR"/><a:t>{escape(FOOT_TEXT)}</a:t></a:r>'
+            run = f'<a:r><a:rPr lang="{LANG}"/><a:t>{escape(FOOT_TEXT)}</a:t></a:r>'
             files[n] = files[n].decode().replace('</p:spTree>', FTR.format(id=901, xfrm=XFRM, lst=LST, run=run) + '</p:spTree>', 1).encode()
+
+# Idioma do texto (o pptxgenjs grava en-US).
+for n in list(files):
+    if re.match(r'ppt/(slides|slideLayouts|slideMasters|notesSlides)/[^/]+\.xml$', n): files[n] = files[n].decode().replace('lang="en-US"', f'lang="{LANG}"').encode()
 
 # Guias da grade modular (mesmos números de build.js). pos em 1/8 pt = px × 4.
 M, G, CW, RH, B0 = 72, 24, 126, 120, 132  # B0: início dos módulos, abaixo da faixa do rótulo (72 a 108)
