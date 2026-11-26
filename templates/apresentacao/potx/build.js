@@ -506,21 +506,30 @@ function defineLayouts() {
 
   // Encerramento centrado: logo LINA e logos institucionais nas mesmas alturas da capa (72 do topo e da base);
   // 'Obrigado' preenche a linha 2, apresentador e contato na linha 3.
+  // Logos de 2 a 4: UFC e IAUD mais 0 a 2 parceiros, o grupo centrado no slide (largura visível 604 sem parceiro, 626 + 303·k com k).
   const ENC = { ty: -42, size: 171, py: 47, cy: 99 }; // py, cy: abaixo da descendente do g, que entra na linha 3
-  layout('6.1 Encerramento', [
+  const encTopo = () => [
     { image: { path: A('logo-h-creme.png'), x: X((W - 200) / 2), y: X(M), w: X(200), h: X(68.6) } }, // como na capa, centrada
-    ph('Título', 'title', [M, row(2)[0] + ENC.ty, FW, 200], { ...S.title, fontSize: P(ENC.size), color: C.creme, align: 'center' }, 'Obrigado'),
-    ph('Apresentador', 'body', [M, row(3)[0] + ENC.py, FW, 44], { ...S.label, fontSize: P(LBL.size), color: C.creme, align: 'center' }, 'Nome do Apresentador'),
-    ph('Contato', 'body', [M, row(3)[0] + ENC.cy, FW, 36], { ...S.label, color: C.creme, align: 'center' }, 'nome@ufc.br · lina.ufc.br'),
-    ...insts(1080 - M - 99, 646), // como na capa: pé visível a 72 da borda
-  ], { bg: { path: A('trama-capa.png') }, foot: false });
-  // Variação: autores em duas colunas; a calha entre col 6 e 7 cai no centro do slide.
-  layout('6.2 Encerramento · autores', [
-    { image: { path: A('logo-h-creme.png'), x: X((W - 200) / 2), y: X(M), w: X(200), h: X(68.6) } },
-    ph('Título', 'title', [M, row(2)[0] + ENC.ty, FW, 200], { ...S.title, fontSize: P(ENC.size), color: C.creme, align: 'center' }, 'Obrigado'),
-    ...[[0, 'right'], [6, 'left']].map(([c, align], i) => ph(`Autores ${i + 1}`, 'body', [col(c)[0], row(3)[0] + ENC.py, col(0, 6)[1], RH], { ...S.label, fontSize: P(LBL.size), color: C.creme, align }, 'Nome do Autor\nNome do Autor')),
-    ...insts(1080 - M - 99, 646),
-  ], { bg: { path: A('trama-capa.png') }, foot: false });
+    ph('Título', 'title', [M, row(2)[0] + ENC.ty, FW, 200], { ...S.title, fontSize: P(ENC.size), color: C.creme, align: 'center' }, 'Obrigado')];
+  FAM['6.1 Encerramento'] = { faixa: [2, 4], unidade: 'logos', padrao: 2, opts: CAPA,
+    n: (f) => { const c = Object.keys(f).filter((k) => /^Logo \d+$/.test(k)).length; return c ? c + 2 : undefined; },
+    build: (n) => { const k = n - 2, x0 = k ? 949 - (626 + k * (279 + G)) / 2 : 646;
+      return [ ...encTopo(),
+        ph('Apresentador', 'body', [M, row(3)[0] + ENC.py, FW, 44], { ...S.label, fontSize: P(LBL.size), color: C.creme, align: 'center' }, 'Nome do Apresentador'),
+        ph('Contato', 'body', [M, row(3)[0] + ENC.cy, FW, 36], { ...S.label, color: C.creme, align: 'center' }, 'nome@ufc.br · lina.ufc.br'),
+        ...insts(1080 - M - 99, x0),
+        ...Array.from({ length: k }, (_, i) => ph(`Logo ${i + 1}`, 'pic', [x0 + 637 + G + i * (279 + G), 1080 - M - 99 + 7, 279, 93], { color: C.creme }, 'Logo parceiro')) ]; } };
+  // Autores: até 3 numa coluna centrada; 4 a 8 em duas, com a calha no centro do slide (esquerda alinhada à direita, direita à esquerda); 9 a 12 em três de 4 módulos.
+  // Sem N explícito, `Autores 2` ou `Autores 3` no preenchimento (deck antigo) garantem as duas ou três colunas.
+  FAM['6.2 Encerramento · autores'] = { faixa: [1, 12], unidade: 'autores', padrao: 2, opts: CAPA,
+    n: (f) => { const c = conta(f); return c && Math.max(c, [0, 0, 4, 9][Object.keys(f).filter((k) => /^Autores \d+$/.test(k)).length] || 0); },
+    itens: (it, n) => { const nc = n <= 3 ? 1 : n <= 8 ? 2 : 3, per = Math.ceil(n / nc);
+      return Object.fromEntries(Array.from({ length: nc }, (_, c) => [`Autores ${c + 1}`, it.slice(c * per, (c + 1) * per).join('\n')])); },
+    build: (n) => { const nc = n <= 3 ? 1 : n <= 8 ? 2 : 3, per = Math.ceil(n / nc);
+      return [ ...encTopo(), ...Array.from({ length: nc }, (_, c) => { const k = Math.min(per, n - c * per), st = { ...S.label, fontSize: P(nc === 3 ? 22 : LBL.size), color: C.creme, lineSpacingMultiple: 1.1 };
+        const [x, w, align] = nc === 1 ? [M, FW, 'center'] : nc === 2 ? [col(c * 6)[0], col(0, 6)[1], c ? 'left' : 'right'] : [col(c * 4)[0], col(0, 4)[1], 'center'];
+        return ph(`Autores ${c + 1}`, 'body', [x, row(3)[0] + ENC.py, w, 200], { ...st, align }, nomes(k)); }),
+        ...insts(1080 - M - 99, 646) ]; } };
 }
 
 // ---------- slides de exemplo ----------
@@ -649,7 +658,9 @@ async function examples() {
     comp.tabela(sl, { cab: ['Amostra', 'Método', 'Área (m²)', 'Erro'], destaque: 3, colW: [1, 1, 1, 1], box: [col(4)[0], CT, col(0, 8)[1], CB - CT - 50],
       linhas: [['A1', 'Laser', '120', '0,8%'], ['A2', 'Foto', '96', '1,2%'], ['A3', 'Laser', '210', '0,6%'], ['A4', 'Foto', '75', '1,9%'], ['A5', 'Laser', '160', '0,7%']] }));
   s('6.1 Encerramento', { 'Título': 'Obrigado', 'Apresentador': 'Nome do Apresentador', 'Contato': 'nome@ufc.br · lina.ufc.br' });
-  s('6.2 Encerramento · autores', { 'Título': 'Obrigado', 'Autores 1': 'Nome do Autor\nNome da Autora\nNome do Autor', 'Autores 2': 'Nome da Autora\nNome do Autor' });
+  s('6.1 Encerramento', { 'Título': 'Obrigado', 'Apresentador': 'Nome do Apresentador', 'Contato': 'nome@ufc.br · lina.ufc.br', 'Logo 1': logo(0) });
+  s('6.2 Encerramento · autores', { 'Título': 'Obrigado', itens: AUTORES.slice(0, 3) });
+  s('6.2 Encerramento · autores', { 'Título': 'Obrigado', itens: EQ.slice(0, 8) });
   s('2.2 Colunas', { 'Rótulo': 'Guia do template · apague este slide antes de apresentar', 'Título': 'Como usar', itens: [
     { 'Subtítulo': 'Montar', 'Texto': 'Novo slide: Página Inicial › Novo Slide › escolha um layout LINA.\nRodapé: Inserir › Cabeçalho e Rodapé › Rodapé › “Título abreviado” › Aplicar a Todos.\nImagens e ícones: clique no ícone do espaço; a imagem recorta sozinha.' },
     { 'Subtítulo': 'Regras', 'Texto': 'Instale a Outfit e a JetBrains Mono (livres, em assets/fonts e Google Fonts). Ao salvar, marque “Incorporar fontes”.\nÍcones Phosphor, peso regular, um tratamento por slide: sólido, simples ou claro.\nSem emoji. Mono só para datas, números, rótulos e legendas.' }] });
