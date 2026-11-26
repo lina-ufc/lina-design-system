@@ -23,13 +23,15 @@ jobs:
       - name: LibreOffice (PDF) e fontes do LINA
         run: |
           sudo apt-get update
-          sudo apt-get install -y --no-install-recommends libreoffice-impress
+          sudo apt-get install -y --no-install-recommends libreoffice-impress poppler-utils
           mkdir -p ~/.local/share/fonts && cp assets/fonts/*.ttf ~/.local/share/fonts/ && fc-cache -f
       - name: Tag confere com o CHANGELOG
         run: |
           V=$(sed -n 's/^## \([0-9][0-9.]*\).*/\1/p' templates/apresentacao/CHANGELOG.md | head -1)
           test "apresentacao-v$V" = "$GITHUB_REF_NAME" || { echo "tag $GITHUB_REF_NAME, CHANGELOG diz $V"; exit 1; }
       - run: sh templates/apresentacao/potx/make.sh
+        env:
+          LINA_FONTS: ${{ github.workspace }}/assets/fonts  # post.py embute as fontes no .potx
       - name: Publica a release e atualiza o site
         env:
           GH_TOKEN: ${{ github.token }}
