@@ -229,7 +229,8 @@ function defineLayouts() {
   const CAPA = () => ({ bg: { path: A('trama-capa.png') }, foot: false });
   const nomes = (k) => Array(k).fill('Nome do Autor').join('\n');
   // N a partir dos placeholders 'Autores c' do preenchimento (uma linha por nome); sem eles, o padrão da família.
-  const conta = (f) => Object.entries(f).filter(([k]) => /^Autores \d+$/.test(k)).reduce((a, [, v]) => a + String(v).split('\n').length, 0) || undefined;
+  // per: nomes por coluna; o formato antigo com 'Autores 1' e 'Autores 2' pede ao menos per + 1 nomes (duas colunas), mesmo com poucos nomes.
+  const conta = (f, per = 1) => { const ks = Object.keys(f).filter((k) => /^Autores \d+$/.test(k)); return Math.max(ks.reduce((a, k) => a + String(f[k]).split('\n').length, 0), ks.length && per * (ks.length - 1) + 1) || undefined; };
 
   // Abertura: só a trama da capa, antes dela. No HTML a trama anima e continua sem salto na capa seguinte.
   FAM['1.1 Abertura'] = { build: () => [], opts: CAPA };
@@ -238,7 +239,7 @@ function defineLayouts() {
   // Logos: a parte visível do brasão UFC termina 99 px abaixo de y; o pé fica a 72 da borda, como o topo da logo LINA.
   // Um autor: apresentador e coautores. De 2 a 9: nomes em Medium 32, até 3 por coluna, colunas de 4 módulos. Logo 1 e 2: parceiros à direita do IAUD.
   FAM['1.2 Capa'] = { faixa: [1, 9], unidade: 'autores', padrao: 1, campo: 'Autor', opts: CAPA,
-    n: (f) => { const c = conta(f); return c && Math.max(2, c); },
+    n: (f) => { const c = conta(f, 3); return c && Math.max(2, c); },
     itens: (it, n) => n === 1 ? { Apresentador: it[0] }
       : Object.fromEntries(Array.from({ length: Math.ceil(n / 3) }, (_, c) => [`Autores ${c + 1}`, it.slice(c * 3, c * 3 + 3).join('\n')])),
     build: (n) => [ ...cover(M), ...insts(1080 - M - 99),
@@ -254,7 +255,7 @@ function defineLayouts() {
   // Variação da capa com imagem: a imagem ocupa as colunas 1–5 (margem a margem na altura); logo, evento, título,
   // autores e logos institucionais deslocados para a coluna 6. Autores em Medium 28, entrelinha 1,0, colunas de 3 e 4 módulos (a segunda só acima de 3).
   const IX = col(5)[0], AUT = { ...S.sub, fontSize: P(28), lineSpacingMultiple: 1.0, color: C.creme };
-  FAM['1.3 Capa · imagem'] = { faixa: [1, 6], unidade: 'autores', padrao: 3, campo: 'Autor', opts: CAPA, n: conta,
+  FAM['1.3 Capa · imagem'] = { faixa: [1, 6], unidade: 'autores', padrao: 3, campo: 'Autor', opts: CAPA, n: (f) => conta(f, 3),
     itens: (it, n) => ({ 'Autores 1': it.slice(0, 3).join('\n'), ...(n > 3 && { 'Autores 2': it.slice(3).join('\n') }) }),
     build: (n) => [
       pic('Imagem', [M, M, col(0, 5)[1], 1080 - 2 * M]),
@@ -546,8 +547,10 @@ async function examples() {
   };
   const PROV = (r) => ({ img: A(`gen/prov-${r}.png`) }); // provisória na proporção r/100 (largura/altura)
   const ic = (n, tag, box = [0, 0, 0, 0]) => ({ img: icon(n, tag), box: { x: X(box[0]), y: X(box[1]), w: X(box[2]), h: X(box[3]) } });
+  // Decks antigos (lib.js do Vision) contam e anotam `pres.slides`; os slides só nascem depois do deck, então devolve registros que guardam a nota.
+  const presDeck = new Proxy(pres, { get: (t, k) => k === 'slides' ? SLIDES.map((r) => ({ addNotes: (x) => { r.notas = x; } })) : typeof t[k] === 'function' ? t[k].bind(t) : t[k] });
   // Outro deck com os mesmos layouts: DECK=arquivo.js node build.js (o módulo recebe as peças e monta os slides).
-  if (process.env.DECK) return require(path.resolve(process.env.DECK))({ pres, s, ic, icon, A, C, F, P, X, col, row, CT, CB, TY, M, W, G, FW, FOOT_Y, sharp, FAM, pad, comp, opcoes });
+  if (process.env.DECK) return require(path.resolve(process.env.DECK))({ pres: presDeck, s, ic, icon, A, C, F, P, X, col, row, CT, CB, TY, M, W, G, FW, FOOT_Y, sharp, FAM, pad, comp, opcoes });
 
   opcoes.transicoes = true; // o deck de exemplo mostra as transições
   const EV = 'Seminário de pesquisa · 15 · 10 · 2026', TT = 'Título do trabalho em até três linhas, com subtítulo após dois-pontos';
@@ -721,7 +724,7 @@ async function prepara() {
       const v = f[k], box = ov[k] || L.ph.find((p) => p.name === k).box;
       if (v.video) f[k] = { solto: { video: v.video, poster: v.poster, cover: (await sharp(v.poster).resize(1280).jpeg({ quality: 80 }).toBuffer()).toString('base64'), box: contido(box, ...dim[k]) } };
       else if (ov[k] || v.modo === 'fit') { const c = contido(box, ...dim[k]); f[k] = { solto: { img: await inteira(v.img, c), box: c, alt: v.alt } }; }
-      else f[k] = { img: await cobre(v.img, Math.round(box[2] * 2), Math.round(box[3] * 2), v.posicao || fam.posicao), box: { x: X(box[0]), y: X(box[1]), w: X(box[2]), h: X(box[3]) }, alt: v.alt };
+      else f[k] = { novo: true, img: await cobre(v.img, Math.round(box[2] * 2), Math.round(box[3] * 2), v.posicao || fam.posicao), box: { x: X(box[0]), y: X(box[1]), w: X(box[2]), h: X(box[3]) }, alt: v.alt };
     }
     for (const k of Object.keys(ov)) if (typeof f[k] === 'string' || Array.isArray(f[k])) f[k] = { solto: { texto: f[k], box: ov[k] } };
   }
@@ -733,8 +736,8 @@ function criaSlides() {
     const fill = { ...f0 };
     const L = LAYOUTS.find((l) => l.name === name);
     for (const k of Object.keys(fill)) if (!L.ph.some((p) => p.name === k)) throw new Error(`'${k}' não é espaço de '${name}'`);
-    // Imagem do preenchimento ocupa a caixa do espaço do layout resolvido (a do exemplo pode ser de outro arranjo).
-    for (const [k, v] of Object.entries(fill)) if (v && v.img) {
+    // Imagem nova (cover) ocupa a caixa do espaço do layout resolvido (a do exemplo pode ser de outro arranjo); o formato antigo { img, box } com caixa mantém a sua.
+    for (const [k, v] of Object.entries(fill)) if (v && v.img && (v.novo || !(v.box && v.box.w))) {
       const [x, y, w, h] = L.ph.find((p) => p.name === k).box.map(X);
       fill[k] = { ...v, box: { ...v.box, x, y, w, h, ...(v.box.sizing && { sizing: { ...v.box.sizing, w, h } }) } };
     }
