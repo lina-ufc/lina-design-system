@@ -95,3 +95,4 @@ Desvios: `1.1 Abertura` continua no template (só a variação "logo" saiu; Revi
 - 2026-11-26 — plano 05 concluído (`9d7f27b`, `59ca189`, `0f912e5`); plano 06 escrito.
 - 2026-11-26 — plano 06 tarefas 1–3 concluídas (`f56b38c`, `61e5098`, `63790b2`); publicação aguarda o usuário.
 - 2026-11-26 — janela do apresentador: slide atual grande, próximo em miniatura menor e apagada com o começo da nota, aviso de miniaturas estáticas; print, README, CHANGELOG e página 8.1 atualizados.
+- 2026-11-26 — conferência visual dos 63 slides do .pptx (LibreOffice): nada fora do lugar; tabela com recuo de 20 px da 2ª coluna em diante e números da coluna destacada em mono (.pptx e HTML).

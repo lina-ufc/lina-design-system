@@ -142,12 +142,13 @@ const comp = {
     forma(sl, 'rect', [x + i * 220, y, 24, 24], cor);
     txt(sl, rotulo, [x + i * 220 + 36, y, 170, 24], S.cap, { valign: 'middle' });
   }),
-  // Tabela no estilo do exemplo: cabeçalho Medium com fio umbro, células Light (mono da 2ª coluna em diante), fio forte; `destaque` = índice da coluna em nata, Medium e ferro.
+  // Tabela no estilo do exemplo: cabeçalho Medium com fio umbro, células Light (mono da 2ª coluna em diante), fio forte; `destaque` = índice da coluna em nata e ferro.
+  // Da 2ª coluna em diante, recuo de 20 px à esquerda: o texto não encosta na faixa nata.
   // cab: textos ou trechos; colW: pesos das colunas (padrão: a 1ª vale o dobro); box: [x, y, w, h].
   tabela(sl, { cab, linhas, destaque, colW, box = [M, CT, FW, CB - CT - 50] }, placeholder = 'Tabela') {
     const [x, y, w] = box, k = colW || cab.map((_, j) => (j ? 1 : 2)), tot = k.reduce((a, b) => a + b);
-    const nb = { type: 'none' }, cel = (t, j, cab_, mono) => ({ text: t, options: { fontFace: j === destaque ? F.medium : cab_ ? F.medium : mono ? F.mono : F.light,
-      color: j === destaque ? C.ferro : C.umbro, ...(j === destaque && { fill: { color: C.nata } }),
+    const nb = { type: 'none' }, cel = (t, j, cab_, mono) => ({ text: t, options: { fontFace: cab_ ? F.medium : mono ? F.mono : F.light,
+      color: j === destaque ? C.ferro : C.umbro, ...(j === destaque && { fill: { color: C.nata } }), margin: [0, 0, 0, j ? X(20) : 0], // [topo, dir, baixo, esq] em polegadas
       border: [nb, nb, cab_ ? { pt: 1, color: C.umbro } : { pt: 0.75, color: C.fioForte }, nb] } });
     sl.addTable([cab.map((t, j) => cel(t, j, true)), ...linhas.map((r) => r.map((t, j) => cel(t, j, false, j > 0)))],
       { placeholder, x: X(x), y: X(y), w: X(w), colW: k.map((v) => X(w * v / tot)), fontSize: P(28), rowH: X(72), valign: 'middle', margin: [0, 0, 0, 0] });

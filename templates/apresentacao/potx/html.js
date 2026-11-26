@@ -79,7 +79,7 @@ module.exports = function toHTML({ layouts, slides, out, opcoes = { lang: 'pt-BR
   const table = (t) => {
     const o = t.opts, cols = o.colW.map((c) => `<col style="width:${PX(c)}px">`).join('');
     const cell = (c, j) => { const co = c.options, b = co.border[2];
-      return `<td style="width:${PX(o.colW[j])}px;height:${PX(o.rowH)}px;padding:0;vertical-align:middle;font-family:'${co.fontFace}';color:${hex(co.color)};border-bottom:${b.pt * 2}px solid ${hex(b.color)}${co.fill ? `;background:${hex(co.fill.color)}` : ''}">${Array.isArray(c.text) ? c.text.map(run).join('') : esc(c.text)}</td>`; };
+      return `<td style="width:${PX(o.colW[j])}px;height:${PX(o.rowH)}px;box-sizing:border-box;padding:0 0 0 ${PX(co.margin?.[3] || 0)}px;vertical-align:middle;font-family:'${co.fontFace}';color:${hex(co.color)};border-bottom:${b.pt * 2}px solid ${hex(b.color)}${co.fill ? `;background:${hex(co.fill.color)}` : ''}">${Array.isArray(c.text) ? c.text.map(run).join('') : esc(c.text)}</td>`; };
     return `<table style="position:absolute;left:${PX(o.x)}px;top:${PX(o.y)}px;width:${PX(o.w)}px;border-collapse:collapse;table-layout:fixed;font-size:${o.fontSize * 2}px">` +
       `<colgroup>${cols}</colgroup>${t.rows.map((r) => `<tr>${r.map((c, j) => cell(c, j)).join('')}</tr>`).join('')}</table>`;
   };
