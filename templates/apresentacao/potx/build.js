@@ -59,6 +59,8 @@ async function assets() {
   const hatch = (w, h) => `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}"><defs><pattern id="p" width="28" height="28" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="28" stroke="#${C.fioForte}" stroke-width="2"/></pattern></defs><rect width="100%" height="100%" fill="#${C.nata}"/><rect width="100%" height="100%" fill="url(#p)"/></svg>`;
   await sharp(Buffer.from(hatch(1600, 1000))).png().toFile(A('gen/provisoria.png'));
   for (const r of [150, 133, 75, 100]) await sharp(Buffer.from(hatch(1200, Math.round(120000 / r)))).png().toFile(A(`gen/prov-${r}.png`)); // proporção r/100 (largura/altura)
+  // Seta ferro do 5.3 · antes e depois (traço de 14 px, pontas redondas), desenhada aqui para o .pptx e o HTML saírem iguais.
+  await sharp(Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="240" height="160" viewBox="0 0 240 160"><g fill="none" stroke="#${C.ferro}" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"><path d="M16 80H224M156 24L224 80L156 136"/></g></svg>`)).png().toFile(A('gen/seta-ferro.png'));
   // Espaço de logo de parceiro (3:1): retângulo creme vazado, como o da capa.
   await sharp(Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="837" height="279"><rect x="3" y="3" width="831" height="273" fill="none" stroke="#${C.creme}" stroke-width="6" stroke-dasharray="24 14"/><text x="418.5" y="150" text-anchor="middle" font-family="JetBrains Mono" font-size="54" fill="#${C.creme}">Logo parceiro</text></svg>`)).png().toFile(A('gen/logo-parceiro.png'));
 }
@@ -140,6 +142,16 @@ const comp = {
     forma(sl, 'rect', [x + i * 220, y, 24, 24], cor);
     txt(sl, rotulo, [x + i * 220 + 36, y, 170, 24], S.cap, { valign: 'middle' });
   }),
+  // Tabela no estilo do exemplo: cabeçalho Medium com fio umbro, células Light (mono da 2ª coluna em diante), fio forte; `destaque` = índice da coluna em nata, Medium e ferro.
+  // cab: textos ou trechos; colW: pesos das colunas (padrão: a 1ª vale o dobro); box: [x, y, w, h].
+  tabela(sl, { cab, linhas, destaque, colW, box = [M, CT, FW, CB - CT - 50] }, placeholder = 'Tabela') {
+    const [x, y, w] = box, k = colW || cab.map((_, j) => (j ? 1 : 2)), tot = k.reduce((a, b) => a + b);
+    const nb = { type: 'none' }, cel = (t, j, cab_, mono) => ({ text: t, options: { fontFace: j === destaque ? F.medium : cab_ ? F.medium : mono ? F.mono : F.light,
+      color: j === destaque ? C.ferro : C.umbro, ...(j === destaque && { fill: { color: C.nata } }),
+      border: [nb, nb, cab_ ? { pt: 1, color: C.umbro } : { pt: 0.75, color: C.fioForte }, nb] } });
+    sl.addTable([cab.map((t, j) => cel(t, j, true)), ...linhas.map((r) => r.map((t, j) => cel(t, j, false, j > 0)))],
+      { placeholder, x: X(x), y: X(y), w: X(w), colW: k.map((v) => X(w * v / tot)), fontSize: P(28), rowH: X(72), valign: 'middle', margin: [0, 0, 0, 0] });
+  },
   marcador(sl, x, y, texto, w = 700) {
     forma(sl, 'ellipse', [x, y + 14, 16, 16], C.ferro);
     txt(sl, texto, [x + 40, y, w - 40, 110], S.body);
@@ -459,11 +471,20 @@ function defineLayouts() {
     rule(col(8)[0], CT, col(0, 4)[1], C.umbro, 2),
     ph('Leituras', 'body', [col(8)[0], CT + 24, col(0, 4)[1], CB - CT - 24], { ...S.body, fontSize: P(26) }, 'Três leituras do gráfico, uma por parágrafo.') ]);
 
-  layout('5.3 Números-chave', [ ...header(),
-    ...[0, 4, 8].flatMap((c, i) => [ rule(col(c)[0], CT + 40, col(0, 4)[1], C.ferro, 3),
-      ph(`Número ${i + 1}`, 'body', [col(c)[0], CT + 70, col(0, 4)[1], 170], { fontFace: F.bold, fontSize: P(140), color: C.ferro, valign: 'bottom', lineSpacingMultiple: 0.9 }, '00'),
-      ph(`Rótulo ${i + 1}`, 'body', [col(c)[0], CT + 270, col(0, 4)[1], 50], S.sub, 'O que o número mede'),
-      ph(`Nota ${i + 1}`, 'body', [col(c)[0], CT + 336, col(0, 4)[1], CB - CT - 336], { ...S.body, fontSize: P(24) }, 'Recorte, unidade, fonte.') ]) ]);
+  // Números-chave: N de 2 a 4 em colunas iguais; 140 px até 3, 110 com 4 (cabe 1.234,5 em 3 módulos).
+  FAM['5.3 Números-chave'] = { faixa: [2, 4], unidade: 'números', padrao: 3, campo: 'Número',
+    build: (n) => { const s = 12 / n, w = col(0, s)[1];
+      return [ ...header(), ...Array.from({ length: n }, (_, i) => { const x = col(i * s)[0]; return [ rule(x, CT + 40, w, C.ferro, 3),
+        ph(`Número ${i + 1}`, 'body', [x, CT + 70, w, 170], { fontFace: F.bold, fontSize: P(n > 3 ? 110 : 140), color: C.ferro, valign: 'bottom', lineSpacingMultiple: 0.9 }, '00'),
+        ph(`Rótulo ${i + 1}`, 'body', [x, CT + 270, w, 50], S.sub, 'O que o número mede'),
+        ph(`Nota ${i + 1}`, 'body', [x, CT + 336, w, CB - CT - 336], { ...S.body, fontSize: P(24) }, 'Recorte, unidade, fonte.')]; }).flat() ]; } };
+  // Antes e depois: dois números de 5 módulos com a seta ferro entre eles (PNG, igual no .pptx e no HTML); uma nota só.
+  layout('5.3 Números-chave · antes e depois', [ ...header(),
+    ...[0, 7].flatMap((c, i) => [ rule(col(c)[0], CT + 40, col(0, 5)[1], C.ferro, 3),
+      ph(`Número ${i + 1}`, 'body', [col(c)[0], CT + 70, col(0, 5)[1], 170], { fontFace: F.bold, fontSize: P(140), color: C.ferro, valign: 'bottom', lineSpacingMultiple: 0.9 }, '00'),
+      ph(`Rótulo ${i + 1}`, 'body', [col(c)[0], CT + 270, col(0, 5)[1], 50], S.sub, i ? 'Depois' : 'Antes') ]),
+    { image: { path: A('gen/seta-ferro.png'), x: X(W / 2 - 60), y: X(CT + 130), w: X(120), h: X(80) } },
+    ph('Nota', 'body', [M, CT + 336, col(0, 8)[1], CB - CT - 336], { ...S.body, fontSize: P(24) }, 'Recorte, unidade, fonte.') ]);
 
   layout('5.4 Comparação', [ ...header(),
     { line: { x: X(W / 2), y: X(CT), w: 0, h: X(CB - CT), line: { color: C.fioForte, width: 1.5 } } },
@@ -475,6 +496,11 @@ function defineLayouts() {
   layout('5.5 Tabela', [ ...header(),
     ph('Tabela', 'tbl', [M, CT, FW, CB - CT - 50], {}, 'Tabela'),
     ph('Fonte', 'body', [M, CB - 30, FW, 30], S.cap, 'Fonte: autor, ano.') ]);
+  // Frase grande nas colunas 0–3 (Medium 40), tabela nas colunas 4–11.
+  layout('5.5 Tabela · texto', [ ...header(),
+    ph('Texto', 'body', [M, CT, col(0, 4)[1], CB - CT], { ...S.sub, fontSize: P(40), lineSpacingMultiple: 1.15 }, 'Uma frase grande que diz o que a tabela prova.'),
+    ph('Tabela', 'tbl', [col(4)[0], CT, col(0, 8)[1], CB - CT - 50], {}, 'Tabela'),
+    ph('Fonte', 'body', [col(4)[0], CB - 30, col(0, 8)[1], 30], S.cap, 'Fonte: autor, ano.') ]);
 
   layout('2.6 Só título', [ ...header() ]);
 
@@ -590,15 +616,13 @@ async function examples() {
   s('4.7 Imagem cheia · título', { 'Imagem': { img: IMG }, 'Título': 'Título sobre a imagem', 'Rótulo': '03 · Método', 'Fonte': 'Fonte: LINA, 2026.' });
   const EQ = ['Ana Lima', 'Carlos Rocha', 'Daniela Moura', 'Eduardo Pinheiro', 'Fernanda Sales', 'Gabriel Nogueira', 'Helena Castro', 'Igor Matos', 'Júlia Araújo', 'Lucas Ferreira', 'Mariana Teles', 'Nicolas Prado', 'Olívia Campos', 'Pedro Alves'];
   for (const n of [6, 14]) s('4.8 Equipe', { 'Rótulo': '06 · Equipe', 'Título': 'Quem fez o trabalho', itens: EQ.slice(0, n).map((nm, i) => ({ 'Retrato': { img: IMG }, 'Nome': nm, 'Papel': ['Coordenação', 'Pesquisa', 'Campo', 'Dados'][i % 4] })) });
-  s('5.1 Gráfico', { 'Rótulo': '04 · Resultados', 'Título': 'Série medida ao longo do ano', 'Fonte': 'Fonte: LINA, 2026.' }, (sl) => {
-    const meses = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
-    sl.addChart(pres.charts.LINE, [{ name: 'Medido', labels: meses, values: [3, 4, 6, 8, 11, 14, 16, 15, 12, 9, 6, 4] },
-      { name: 'Modelo', labels: meses, values: [3.5, 4.5, 6.5, 8.5, 10.5, 13, 15, 14.5, 12.5, 9.5, 6.5, 4.5] }],
-      { placeholder: 'Gráfico', chartColors: [C.ferro, C.turquesaFundo], lineSize: 3, lineDataSymbol: 'none',
-        showLegend: true, legendPos: 't', legendFontFace: '+mn-lt', legendFontSize: 14, legendColor: C.umbro,
-        catAxisLabelFontFace: '+mn-lt', valAxisLabelFontFace: '+mn-lt', catAxisLabelFontSize: 14, valAxisLabelFontSize: 14,
-        catAxisLabelColor: C.umbro, valAxisLabelColor: C.umbro, valGridLine: { color: C.fio, size: 1 }, catGridLine: { style: 'none' },
-        catAxisLineColor: C.fioForte, valAxisLineShow: false });
+  s('5.1 Gráfico', { 'Rótulo': '04 · Resultados', 'Título': 'Duas séries lado a lado', 'Fonte': 'Fonte: LINA, 2026.' }, (sl) => {
+    const anos = ['2020', '2021', '2022', '2023', '2024'];
+    sl.addChart(pres.charts.BAR, [{ name: 'Medido', labels: anos, values: [42, 55, 61, 48, 70] }, { name: 'Modelo', labels: anos, values: [30, 38, 52, 60, 66] }],
+      { placeholder: 'Gráfico', barDir: 'col', barGrouping: 'clustered', chartColors: [C.ferro, C.turquesaFundo], barGapWidthPct: 40, showValue: true, dataLabelPosition: 'outEnd',
+        dataLabelFontFace: '+mn-lt', dataLabelFontSize: 14, dataLabelColor: C.umbro, showLegend: true, legendPos: 't', legendFontFace: '+mn-lt', legendFontSize: 14, legendColor: C.umbro,
+        catAxisLabelFontFace: '+mn-lt', catAxisLabelFontSize: 14, catAxisLabelColor: C.umbro, valAxisHidden: true,
+        valGridLine: { style: 'none' }, catGridLine: { style: 'none' }, catAxisLineColor: C.fioForte });
   });
   s('5.2 Gráfico e leituras', { 'Rótulo': '04 · Resultados', 'Título': 'Onde o modelo erra mais',
     'Leituras': [{ text: 'O erro cresce no verão.', options: { breakLine: true } }, { text: 'O inverno fica dentro da margem.', options: { breakLine: true } },
@@ -610,21 +634,20 @@ async function examples() {
         catAxisLabelFontFace: '+mn-lt', catAxisLabelFontSize: 14, catAxisLabelColor: C.umbro, valAxisHidden: true,
         valGridLine: { style: 'none' }, catGridLine: { style: 'none' }, catAxisLineColor: C.fioForte, showLegend: false });
   });
-  s('5.3 Números-chave', { 'Rótulo': '04 · Resultados', 'Título': 'Em números',
-    'Número 1': '76', 'Rótulo 1': 'estações monitoradas', 'Nota 1': 'Entre 2018 e 2026.',
-    'Número 2': '3×', 'Rótulo 2': 'mais rápido', 'Nota 2': 'Comparado ao processo manual.',
-    'Número 3': '0,8', 'Rótulo 3': 'correlação', 'Nota 3': 'Entre modelo e medição.' });
+  const NUM = (v) => v.map(([n, r, nt]) => ({ 'Número': n, 'Rótulo': r, 'Nota': nt }));
+  s('5.3 Números-chave · antes e depois', { 'Rótulo': '04 · Resultados', 'Título': 'Uma fachada, antes e depois', 'Número 1': '4,2 h', 'Rótulo 1': 'por fachada, antes', 'Número 2': '1,1 h', 'Rótulo 2': 'por fachada, depois', 'Nota': 'Média de 12 fachadas; levantamento por drone.' });
+  s('5.3 Números-chave', { 'Rótulo': '04 · Resultados', 'Título': 'Em números', itens: NUM([['76', 'estações monitoradas', 'Entre 2018 e 2026.'], ['3×', 'mais rápido', 'Comparado ao processo manual.'], ['0,8', 'correlação', 'Entre modelo e medição.']]) });
+  s('5.3 Números-chave', { 'Rótulo': '04 · Resultados', 'Título': 'Quatro números do estudo', itens: NUM([['1.234,5', 'metros medidos', 'Perímetro total.'], ['38%', 'da área construída', 'Recorte: centro.'], ['4,2 h', 'de campo por fachada', 'Média de 12 fachadas.'], ['120', 'imagens térmicas', 'Entre 2018 e 2026.']]) });
   s('5.4 Comparação', { 'Rótulo': '04 · Resultados', 'Título': 'Dois cenários',
     'Lado 1': 'Antes', 'Imagem 1': { img: IMG }, 'Texto 1': 'O que se via antes da intervenção.',
     'Lado 2': 'Depois', 'Imagem 2': { img: IMG }, 'Texto 2': 'O que muda com a intervenção.' });
-  s('5.5 Tabela', { 'Rótulo': '03 · Método', 'Título': 'Materiais', 'Fonte': 'Fonte: literatura.' }, (sl) => {
-    const h = (t) => ({ text: t, options: { fontFace: F.medium, color: C.umbro, border: [{ type: 'none' }, { type: 'none' }, { pt: 1, color: C.umbro }, { type: 'none' }] } });
-    const c = (t, mono) => ({ text: t, options: { fontFace: mono ? F.mono : F.light, color: C.umbro, border: [{ type: 'none' }, { type: 'none' }, { pt: 0.75, color: C.fioForte }, { type: 'none' }] } });
-    const rows = [['Pedra', '2570', '2,34', '0,1'], ['Enchimento', '1800', '1,20', '0,15'], ['Solo', '1937', '0,01', '0,3']];
-    const m = (t) => ({ text: t, options: { fontFace: F.math, fontSize: P(34) } }); // símbolos em STIX Two Math: Outfit não tem grego
-    sl.addTable([[h('Material'), h([m('𝜌'), { text: ' (kg/m³)' }]), h([m('𝐸'), { text: ' (GPa)' }]), h([m('𝜈')])], ...rows.map((r) => r.map((v, i) => c(v, i > 0)))],
-      { placeholder: 'Tabela', x: X(M), y: X(CT), w: X(FW), colW: [X(FW * .4), X(FW * .2), X(FW * .2), X(FW * .2)], fontSize: P(28), rowH: X(72), valign: 'middle', margin: [0, 0, 0, 0] });
-  });
+  const m = (t) => ({ text: t, options: { fontFace: F.math, fontSize: P(34) } }); // símbolos em STIX Two Math: Outfit não tem grego
+  s('5.5 Tabela', { 'Rótulo': '03 · Método', 'Título': 'Materiais', 'Fonte': 'Fonte: literatura. Coluna destacada: a que o slide discute.' }, (sl) =>
+    comp.tabela(sl, { cab: ['Material', [m('𝜌'), { text: ' (kg/m³)' }], [m('𝐸'), { text: ' (GPa)' }], [m('𝜈')]], destaque: 2, colW: [2, 1, 1, 1],
+      linhas: [['Pedra', '2570', '2,34', '0,1'], ['Enchimento', '1800', '1,20', '0,15'], ['Solo', '1937', '0,01', '0,3']] }));
+  s('5.5 Tabela · texto', { 'Rótulo': '04 · Resultados', 'Título': 'Fotogrametria contra laser', 'Texto': 'O laser erra menos que a fotogrametria em todas as amostras.', 'Fonte': 'Fonte: LINA, 2026.' }, (sl) =>
+    comp.tabela(sl, { cab: ['Amostra', 'Método', 'Área (m²)', 'Erro'], destaque: 3, colW: [1, 1, 1, 1], box: [col(4)[0], CT, col(0, 8)[1], CB - CT - 50],
+      linhas: [['A1', 'Laser', '120', '0,8%'], ['A2', 'Foto', '96', '1,2%'], ['A3', 'Laser', '210', '0,6%'], ['A4', 'Foto', '75', '1,9%'], ['A5', 'Laser', '160', '0,7%']] }));
   s('6.1 Encerramento', { 'Título': 'Obrigado', 'Apresentador': 'Nome do Apresentador', 'Contato': 'nome@ufc.br · lina.ufc.br' });
   s('6.2 Encerramento · autores', { 'Título': 'Obrigado', 'Autores 1': 'Nome do Autor\nNome da Autora\nNome do Autor', 'Autores 2': 'Nome da Autora\nNome do Autor' });
   s('2.2 Colunas', { 'Rótulo': 'Guia do template · apague este slide antes de apresentar', 'Título': 'Como usar', itens: [

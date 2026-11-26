@@ -51,19 +51,23 @@ module.exports = function toHTML({ layouts, slides, out, C, F, W, FOOT_Y, M, R }
   };
 
   const chart = (o, c) => {
-    const w = PX(o.w), h = PX(o.h), s = c.series, labels = s[0].labels, n = labels.length;
+    const w = PX(o.w), h = PX(o.h), s = c.series, labels = s[0].labels.flat(), n = labels.length;
     const all = s.flatMap((x) => x.values), max = Math.ceil(Math.max(...all) / 2) * 2;
     const top = c.opts.showLegend ? 70 : 40, bot = 50, left = c.type === 'line' ? 60 : 10, ph = h - top - bot, pw = w - left - 10;
     const Y = (v) => top + ph * (1 - v / max), X0 = (i) => left + pw * (i + 0.5) / n;
     const t = (x, y, txt, a = 'middle') => `<text x="${x}" y="${y}" text-anchor="${a}" font-family="${F.light}" font-size="28" fill="#${C.umbro}">${esc(txt)}</text>`;
+    const legend = () => s.map((x, k) => `<rect x="${w / 2 - 170 + k * 190}" y="16" width="18" height="18" fill="#${c.opts.chartColors[k]}"/>` + t(w / 2 - 144 + k * 190, 33, x.name, 'start')).join('');
     let g = '';
     if (c.type === 'line') {
       for (let v = 0; v <= max; v += 2) g += `<line x1="${left}" x2="${w}" y1="${Y(v)}" y2="${Y(v)}" stroke="#${C.fio}" stroke-width="2"/>` + t(left - 14, Y(v) + 9, v, 'end');
       s.forEach((x, k) => { g += `<polyline fill="none" stroke="#${c.opts.chartColors[k]}" stroke-width="6" stroke-linejoin="round" points="${x.values.map((v, i) => `${X0(i)},${Y(v)}`).join(' ')}"/>`; });
-      g += s.map((x, k) => `<rect x="${w / 2 - 170 + k * 190}" y="16" width="18" height="18" fill="#${c.opts.chartColors[k]}"/>` + t(w / 2 - 144 + k * 190, 33, x.name, 'start')).join('');
+      g += legend();
     } else {
-      const bw = pw / n * (1 - c.opts.barGapWidthPct / 140);
-      s[0].values.forEach((v, i) => { g += `<rect x="${X0(i) - bw / 2}" y="${Y(v)}" width="${bw}" height="${top + ph - Y(v)}" fill="#${c.opts.chartColors[i]}"/>` + t(X0(i), Y(v) - 12, v); });
+      // Uma série: cor por barra (chartColors[i]); várias: grupos lado a lado, cor por série e legenda.
+      const bw = pw / n * (1 - c.opts.barGapWidthPct / 140), ns = s.length, b1 = bw / ns;
+      s.forEach((x, k) => x.values.forEach((v, i) => { const bx = X0(i) - bw / 2 + k * b1;
+        g += `<rect x="${bx}" y="${Y(v)}" width="${b1}" height="${top + ph - Y(v)}" fill="#${c.opts.chartColors[ns > 1 ? k : i]}"/>` + t(bx + b1 / 2, Y(v) - 12, v); }));
+      if (ns > 1 && c.opts.showLegend) g += legend();
       g += `<line x1="${left}" x2="${w}" y1="${top + ph}" y2="${top + ph}" stroke="#${C.fioForte}" stroke-width="2"/>`;
     }
     g += labels.map((l, i) => t(X0(i), h - 14, l)).join('');
@@ -73,7 +77,7 @@ module.exports = function toHTML({ layouts, slides, out, C, F, W, FOOT_Y, M, R }
   const table = (t) => {
     const o = t.opts, cols = o.colW.map((c) => `<col style="width:${PX(c)}px">`).join('');
     const cell = (c, j) => { const co = c.options, b = co.border[2];
-      return `<td style="width:${PX(o.colW[j])}px;height:${PX(o.rowH)}px;padding:0;vertical-align:middle;font-family:'${co.fontFace}';color:${hex(co.color)};border-bottom:${b.pt * 2}px solid ${hex(b.color)}">${Array.isArray(c.text) ? c.text.map(run).join('') : esc(c.text)}</td>`; };
+      return `<td style="width:${PX(o.colW[j])}px;height:${PX(o.rowH)}px;padding:0;vertical-align:middle;font-family:'${co.fontFace}';color:${hex(co.color)};border-bottom:${b.pt * 2}px solid ${hex(b.color)}${co.fill ? `;background:${hex(co.fill.color)}` : ''}">${Array.isArray(c.text) ? c.text.map(run).join('') : esc(c.text)}</td>`; };
     return `<table style="position:absolute;left:${PX(o.x)}px;top:${PX(o.y)}px;width:${PX(o.w)}px;border-collapse:collapse;table-layout:fixed;font-size:${o.fontSize * 2}px">` +
       `<colgroup>${cols}</colgroup>${t.rows.map((r) => `<tr>${r.map((c, j) => cell(c, j)).join('')}</tr>`).join('')}</table>`;
   };
