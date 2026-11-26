@@ -13,14 +13,14 @@
 
 ## Resumo
 
-`[███░░░░░░░]` planos 01 e 02 concluídos; 03 escrito.
+`[█████░░░░░]` planos 01–03 concluídos; 04 escrito.
 
 | Plano | Progresso | Tarefas | Estado |
 | --- | --- | --- | --- |
 | 01 — base-e-abertura | `[██████████]` | 2/2 | Concluído 2026-11-26 |
 | 02 — texto-e-icones | `[██████████]` | 4/4 | Concluído 2026-11-26 |
-| 03 — imagem | `[░░░░░░░░░░]` | 0/3 | Escrito |
-| 04 — dados-e-fim | `[░░░░░░░░░░]` | — | Não escrito |
+| 03 — imagem | `[██████████]` | 3/3 | Concluído 2026-11-26 |
+| 04 — dados-e-fim | `[░░░░░░░░░░]` | 0/3 | Escrito |
 | 05 — deck-html | `[░░░░░░░░░░]` | — | Não escrito |
 | 06 — site-e-versao | `[░░░░░░░░░░]` | — | Não escrito |
 
@@ -46,14 +46,25 @@ Desvios: rótulo da declaração A em damasco (turquesa sobre turquesa fundo dav
 
 ## Plano 03 — imagem
 
+`[██████████]` 100% — 3 de 3 tarefas.
+
+- [x] **Task 1** — Imagem no fill: `cover`, `fit`, vídeo — `9dfd301`, check ok; vídeo testado em deck descartável (loop no .pptx, poster no PDF, sem caixa cinza)
+- [x] **Task 2** — Família 4 (4.1–4.8) e aliases — `e86e474`, validate ok, distorcidas 0, check ok, prancha vista; aliases 4.x testados com caixa antiga e nova
+- [x] **Task 3** — Degradês da 4.7 · título — `8eae1de`, `gradFill` no `post.py` (layout e slides), visto no PDF; PowerPoint não conferido
+
+Desvios: exemplo 4.4 com imagem (sem mp4 no repo); `fit` e vídeo soltos, placeholder vazio; hook `arranja(dim, n)` para 4.5 e 4.1 recuada; passo `prepara()` antes do replay; helper `img(box)` saiu de todo o exemplo; equipe de 14 em 2 linhas de 7.
+
+## Plano 04 — dados-e-fim
+
 `[░░░░░░░░░░]` 0% — 0 de 3 tarefas.
 
-- [ ] **Task 1** — Imagem no fill: `cover`, `fit`, vídeo
-- [ ] **Task 2** — Família 4 (4.1–4.8) e aliases
-- [ ] **Task 3** — Degradês da 4.7 · título
+- [ ] **Task 1** — Família 5 e bugs de gráfico e tabela
+- [ ] **Task 2** — Família 6 (encerramentos)
+- [ ] **Task 3** — Páginas de ícones 7.1 e 7.2 no exemplo (HTML, PDF e .pptx)
 
 ## Changelog
 
 - 2026-11-26 — conjunto criado; plano 01 escrito.
 - 2026-11-26 — plano 01 concluído (`60e3fcb`, `bb4a62e`); plano 02 escrito.
 - 2026-11-26 — plano 02 concluído (`941842b`…`5b4c1ec`); plano 03 escrito.
+- 2026-11-26 — plano 03 concluído (`9dfd301`, `e86e474`, `8eae1de`); plano 04 escrito.
