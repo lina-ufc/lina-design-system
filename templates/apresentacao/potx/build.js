@@ -119,6 +119,7 @@ const ALIAS = {
   '2.3 Três colunas': { para: '2.2 Colunas' },
   '2.5 Conclusões': { para: '2.2 Colunas · ícones' },
   '2.4 Equação': { para: '2.5 Equação' },
+  '3.3 Ícones · lista e imagem': { para: '2.3 Lista · ícones e imagem', conv: (f) => renomeia(f, /^Subtítulo /, 'Item ') },
 };
 // Logos de parceiros da capa 1.2: à direita do IAUD, mesma linha e altura (93), proporção 3:1.
 const LOGO_P = (i) => [M - 11 + 356 + 281 + G + i * (279 + G), 1080 - M - 99 + 7, 279, 93];
@@ -284,30 +285,30 @@ function defineLayouts() {
     ph('Equação', 'body', [M, row(2)[0], FW, row(0, 2)[1]], { fontFace: F.math, fontSize: P(64), color: C.umbro, align: 'center', valign: 'middle' }, 'Inserir › Equação'),
     ph('Nota', 'body', [col(2)[0], row(4)[0], col(0, 8)[1], 120], { ...S.body, fontSize: P(24), align: 'center' }, 'O que cada termo representa.') ] };
 
-  // Ícones: tratamento sólido (ícone creme sobre ladrilho ferro).
-  layout('3.1 Ícones · recursos', [ ...header(),
-    ...[0, 3, 6, 9].flatMap((c, i) => [ tile(col(c)[0], CT + 10, 96, C.ferro),
-      pic(`Ícone ${i + 1}`, [col(c)[0] + 20, CT + 30, 56, 56], 'Ícone'),
-      ph(`Subtítulo ${i + 1}`, 'body', [col(c)[0], CT + 140, col(0, 3)[1], 50], S.sub, 'Recurso'),
-      ph(`Texto ${i + 1}`, 'body', [col(c)[0], CT + 206, col(0, 3)[1], CB - CT - 206], { ...S.body, fontSize: P(26) }, 'Uma ou duas frases.') ]) ]);
+  // Família 3 · Ícones, paramétrica. Recursos: tile ferro com ícone creme; até 4 numa linha, acima 2 linhas com tile menor.
+  const recursos = (n) => { const rows = n <= 4 ? 1 : 2, per = Math.ceil(n / rows), s = 12 / per, ts = rows === 1 ? 96 : 72, is = rows === 1 ? 56 : 40;
+    return [ ...header(), ...Array.from({ length: n }, (_, i) => { const x = col((i % per) * s)[0], w = col(0, s)[1], y = CT + 10 + Math.floor(i / per) * 360; return [
+      tile(x, y, ts, C.ferro), pic(`Ícone ${i + 1}`, [x + (ts - is) / 2, y + (ts - is) / 2, is, is], 'Ícone'),
+      ph(`Subtítulo ${i + 1}`, 'body', [x, y + ts + 34, w, 50], S.sub, 'Recurso'),
+      ph(`Texto ${i + 1}`, 'body', [x, y + ts + 96, w, 120], { ...S.body, fontSize: P(26) }, 'Uma ou duas frases.')]; }).flat() ]; };
+  FAM['3.1 Ícones · recursos'] = { faixa: [2, 8], unidade: 'recursos', campo: 'Subtítulo', build: recursos };
 
-  // Ícones: tratamento simples (ícone ferro, sem ladrilho), passos ligados por um fio.
-  layout('3.2 Ícones · processo', [ ...header(),
-    ...[0, 3, 6, 9].flatMap((c, i) => [
-      ...(i < 3 ? [rule(col(c)[0] + 96, CT + 46, col(0, 3)[1] + G - 120, C.fioForte, 2)] : []),
-      pic(`Ícone ${i + 1}`, [col(c)[0], CT + 10, 72, 72], 'Ícone'),
-      ph(`Número ${i + 1}`, 'body', [col(c)[0], CT + 120, col(0, 3)[1], 36], S.label, `0${i + 1}`),
-      ph(`Subtítulo ${i + 1}`, 'body', [col(c)[0], CT + 166, col(0, 3)[1], 50], S.sub, 'Etapa'),
-      ph(`Texto ${i + 1}`, 'body', [col(c)[0], CT + 232, col(0, 3)[1], CB - CT - 232], { ...S.body, fontSize: P(26) }, 'O que acontece nesta etapa.') ]) ]);
+  // Processo: ícone ferro sem tile, número, etapa e fio entre etapas; largura útil repartida por igual (N que não divide 12); acima de 6, 2 linhas.
+  FAM['3.2 Ícones · processo'] = { faixa: [2, 12], unidade: 'etapas', campo: 'Subtítulo', numera: true,
+    build: (n) => { const rows = n <= 6 ? 1 : 2, per = Math.ceil(n / rows), w = (FW - (per - 1) * G) / per;
+      return [ ...header(), ...Array.from({ length: n }, (_, i) => { const c = i % per, x = M + c * (w + G), y = CT + 10 + Math.floor(i / per) * 360; return [
+        ...(c < per - 1 && i < n - 1 ? [rule(x + 96, y + 36, w + G - 120, C.fioForte, 2)] : []),
+        pic(`Ícone ${i + 1}`, [x, y, 72, 72], 'Ícone'), ph(`Número ${i + 1}`, 'body', [x, y + 110, w, 36], S.label, pad(i + 1)),
+        ph(`Subtítulo ${i + 1}`, 'body', [x, y + 156, w, 50], S.sub, 'Etapa'),
+        ph(`Texto ${i + 1}`, 'body', [x, y + 210, w, 120], { ...S.body, fontSize: P(26) }, 'O que acontece nesta etapa.')]; }).flat() ]; } };
 
-  // Ícones: tratamento claro (ícone ferro sobre ladrilho damasco), lista ao lado de imagem sangrada.
-  const IW = col(6)[0];
-  layout('3.3 Ícones · lista e imagem', [ ...header(IW - M - 60),
-    ...[0, 1, 2].flatMap((r) => { const y = row(1 + r * 1.5)[0]; return [ tile(M, y, 88, C.damasco),
-      pic(`Ícone ${r + 1}`, [M + 18, y + 18, 52, 52], 'Ícone'),
-      ph(`Subtítulo ${r + 1}`, 'body', [M + 120, y, IW - M - 180, 46], S.sub, 'Item'),
-      ph(`Texto ${r + 1}`, 'body', [M + 120, y + 56, IW - M - 180, 130], { ...S.body, fontSize: P(26) }, 'Uma frase sobre o item.') ]; }),
-    pic('Imagem', [IW, 0, W - IW, FOOT_Y]) ]);
+  // Ilustrações: imagem de 380 de altura no lugar do ícone (N de 2 a 4).
+  FAM['3.3 Ícones · ilustrações'] = { faixa: [2, 4], unidade: 'ilustrações', campo: 'Subtítulo',
+    build: (n) => { const s = 12 / n, w = col(0, s)[1];
+      return [ ...header(), ...Array.from({ length: n }, (_, i) => { const x = col(i * s)[0]; return [
+        pic(`Ilustração ${i + 1}`, [x, CT, w, 380], 'Ilustração'),
+        ph(`Subtítulo ${i + 1}`, 'body', [x, CT + 404, w, 80], { ...S.sub, fontSize: P(30) }, 'Subtítulo em até duas linhas'),
+        ph(`Texto ${i + 1}`, 'body', [x, CT + 496, w, 200], { ...S.body, fontSize: P(26) }, 'Uma ou duas frases.')]; }).flat() ]; } };
 
   // Imagem sangrada pelo topo e pela direita; texto e legenda na coluna estreita (mapas, fotos).
   const SW = col(0, 4)[1], SX = M + SW + G;
@@ -449,15 +450,11 @@ async function examples() {
   s('2.4 Linha do tempo · vertical', { 'Rótulo': '02 · Trajetória', 'Título': 'Trajetória', 'Imagem': img([SX, 0, W - SX, FOOT_Y]), itens: marcos(5, 4).map((m) => ({ ...m, 'Texto': 'Uma linha sobre o marco.' })) });
   s('2.5 Equação', { 'Rótulo': '03 · Método', 'Título': 'O modelo', 'Equação': '𝜃(𝑡) = 𝑇(𝑡) + 𝑆(𝑡) + 𝐷(𝑡) + 𝜀(𝑡)', 'Nota': 'Tendência, ciclo sazonal, ciclo diário e resíduo.' });
   s('2.6 Só título', { 'Rótulo': '03 · Método', 'Título': 'Diagrama livre: monte com ícones e pictogramas' });
-  const feat = [['scan-line', 'Levantamento'], ['layers', 'Modelagem'], ['database', 'Dados'], ['chart-line', 'Análise']];
-  s('3.1 Ícones · recursos', Object.assign({ 'Rótulo': '03 · Método', 'Título': 'Quatro frentes de trabalho' },
-    ...feat.map(([n, t], i) => ({ [`Ícone ${i + 1}`]: ic(n, 'creme', [col(i * 3)[0] + 20, CT + 30, 56, 56]), [`Subtítulo ${i + 1}`]: t, [`Texto ${i + 1}`]: 'Uma ou duas frases sobre esta frente.' }))));
-  const proc = [['camera', 'Captura'], ['box', 'Modelo'], ['cpu', 'Simulação'], ['monitor', 'Painel']];
-  s('3.2 Ícones · processo', Object.assign({ 'Rótulo': '03 · Método', 'Título': 'Do levantamento ao painel' },
-    ...proc.map(([n, t], i) => ({ [`Ícone ${i + 1}`]: ic(n, 'ferro', [col(i * 3)[0], CT + 10, 72, 72]), [`Número ${i + 1}`]: `0${i + 1}`, [`Subtítulo ${i + 1}`]: t, [`Texto ${i + 1}`]: 'O que acontece nesta etapa.' }))));
-  const list = [['map', 'Território'], ['landmark', 'Patrimônio'], ['users', 'Comunidade']];
-  s('3.3 Ícones · lista e imagem', Object.assign({ 'Rótulo': '01 · Contexto', 'Título': 'Três dimensões do caso', 'Imagem': img([IW, 0, W - IW, FOOT_Y]) },
-    ...list.map(([n, t], i) => ({ [`Ícone ${i + 1}`]: ic(n, 'ferro', [M + 18, row(1 + i * 1.5)[0] + 18, 52, 52]), [`Subtítulo ${i + 1}`]: t, [`Texto ${i + 1}`]: 'Uma frase sobre esta dimensão.' }))));
+  const REC = [['scan-line', 'Levantamento'], ['layers', 'Modelagem'], ['database', 'Dados'], ['chart-line', 'Análise'], ['cpu', 'Simulação'], ['users', 'Equipe'], ['camera', 'Captura'], ['monitor', 'Painel']];
+  const por3 = (k, tag, t) => REC.slice(0, k).map(([n, nome]) => ({ 'Ícone': ic(n, tag), 'Subtítulo': nome, 'Texto': t }));
+  for (const k of [4, 6, 8]) s('3.1 Ícones · recursos', { 'Rótulo': '03 · Método', 'Título': `${['Quatro', 'Seis', 'Oito'][[4, 6, 8].indexOf(k)]} frentes de trabalho`, itens: por3(k, 'creme', k > 4 ? 'Uma frase.' : 'Uma ou duas frases sobre esta frente.') });
+  for (const k of [5, 8]) s('3.2 Ícones · processo', { 'Rótulo': '03 · Método', 'Título': 'Do levantamento ao painel', itens: [...REC.slice(6), ...REC.slice(0, 6)].slice(0, k).map(([n, nome]) => ({ 'Ícone': ic(n, 'ferro'), 'Subtítulo': nome, 'Texto': 'O que acontece nesta etapa.' })) });
+  s('3.3 Ícones · ilustrações', { 'Rótulo': '03 · Método', 'Título': 'Quatro frentes, quatro cenas', itens: REC.slice(0, 4).map(([, nome]) => ({ 'Ilustração': img([0, 0, 1600, 1000]), 'Subtítulo': nome, 'Texto': 'Uma ou duas frases.' })) });
   s('4.1 Imagem lateral', { 'Rótulo': '01 · Contexto', 'Título': 'Área de estudo', 'Texto': 'Duas ou três frases sobre o recorte e a escala do mapa.', 'Imagem': img([SX, 0, W - SX, FOOT_Y]) });
   s('4.2 Texto e grade 2×2', Object.assign({ 'Rótulo': '01 · Contexto', 'Título': 'O lugar hoje', 'Texto': 'Duas ou três frases sobre as fotos.' },
     ...[0, 1, 2, 3].map((i) => { const gw = (W - SX - 8) / 2, gh = (FOOT_Y - 8) / 2;

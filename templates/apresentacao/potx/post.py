@@ -35,7 +35,7 @@ def fix_layout(x):
                 adj = round(R / min(bw, bh) * 50000)
                 sp = sp.replace('<a:prstGeom prst="rect"><a:avLst></a:avLst></a:prstGeom>',
                                 f'<a:prstGeom prst="roundRect"><a:avLst><a:gd name="adj" fmla="val {adj}"/></a:avLst></a:prstGeom>', 1)
-            if p['name'].startswith('Imagem'):
+            if p['name'].startswith(('Imagem', 'Ilustração')):
                 sp = sp.replace('<a:noFill/>', '<a:solidFill><a:srgbClr val="FDF1CF"/></a:solidFill>', 1)
         x = x[:a] + sp + x[b:]
     if L['foot']:
