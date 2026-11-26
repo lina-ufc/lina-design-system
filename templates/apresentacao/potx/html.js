@@ -33,7 +33,7 @@ module.exports = function toHTML({ layouts, slides, out, opcoes = { lang: 'pt-BR
     const t = st.length ? `<span style="${st.join(';')}">${esc(r.text)}</span>` : esc(r.text);
     return o.hyperlink ? `<a href="${esc(o.hyperlink.url)}" style="color:inherit${o.underline && o.underline.style === 'none' ? ';text-decoration:none' : ''}">${t}</a>` : t;
   };
-  const textBox = (o, v) => {
+  const textBox = (o, v, h) => { // h: título do slide, anunciado como cabeçalho
     const lh = (o.lineSpacingMultiple || 1) * 1.2, after = (o.paraSpaceAfter || 0) * 2;
     const jc = { top: 'flex-start', middle: 'center', bottom: 'flex-end' }[o.valign || 'top'];
     const pad = Array.isArray(o.margin) ? `${o.margin[3] * 2}px ${o.margin[1] * 2}px ${o.margin[2] * 2}px ${o.margin[0] * 2}px` : `${o.margin ? o.margin * 2 : 0}px`; // pt [esq, dir, baixo, topo] → CSS [topo dir baixo esq]
@@ -43,7 +43,7 @@ module.exports = function toHTML({ layouts, slides, out, opcoes = { lang: 'pt-BR
     // Entrelinha menor que 1: o DeckCraft sobe a primeira linha mais que o navegador. Calibrado no número da seção
     // (371 px, 0,85): sem isto o HTML desce 21 px. ponytail: fator empírico, refazer se mudar fonte ou renderizador.
     const dy = (o.lineSpacingMultiple || 1) < 1 ? (1 - o.lineSpacingMultiple) * 0.38 * o.fontSize * 2 : 0;
-    return `<div style="position:absolute;${box(o)};margin-top:${-dy.toFixed(1)}px;box-sizing:border-box;padding:${pad};${bg}${sh}display:flex;flex-direction:column;justify-content:${jc};` +
+    return `<div${h ? ' role="heading" aria-level="2"' : ''} style="position:absolute;${box(o)};margin-top:${-dy.toFixed(1)}px;box-sizing:border-box;padding:${pad};${bg}${sh}display:flex;flex-direction:column;justify-content:${jc};` +
       `text-align:${o.align || 'left'};${font(o)};line-height:${lh}">${ps}</div>`;
   };
   // Mesma regra de post.py: espaços de imagem que não sangram têm cantos de 22 px.
@@ -106,7 +106,7 @@ module.exports = function toHTML({ layouts, slides, out, opcoes = { lang: 'pt-BR
       const o = phs[k];
       if (v && v.img) body += `<img src="${img(v.img)}" ${alt(v.alt)} style="position:absolute;${box(v.box)};object-fit:cover;border-radius:${o ? radius(o) : 0}px">`;
       else if (v && v.media) continue;
-      else body += textBox(o, v);
+      else body += textBox(o, v, k === 'Título');
     }
     for (const c of sl.charts) body += chart(phs[c.opts.placeholder], c);
     for (const t of sl.tables) body += table(t);
@@ -137,10 +137,14 @@ module.exports = function toHTML({ layouts, slides, out, opcoes = { lang: 'pt-BR
     ? `<script type="application/json" id="speaker-notes">${JSON.stringify(slides.map((s) => s.notas || '')).replace(/</g, '\\u003c')}</script>\n` : '';
   // Scripts opcionais: o apresentador só com notas; as transições só com opcoes.transicoes.
   const extra = (notas ? '<script src="./apresentador.js"></script>\n' : '') + (opcoes.transicoes ? '<script src="./transicao.js"></script>\n' : '');
+  // Título da página: opcoes.titulo ou o título do primeiro slide que tiver um (texto ou trechos).
+  const tt = slides.map((s) => s.fill && s.fill['Título']).find(Boolean);
+  const titulo = opcoes.titulo || (typeof tt === 'string' ? tt : Array.isArray(tt) ? tt.map((r) => r.text || '').join('') : '') || 'Apresentação LINA';
   const html = `<!DOCTYPE html>
 <html lang="${opcoes.lang}">
 <head>
 <meta charset="utf-8">
+<title>${esc(titulo)}</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="./fonts.css">
 <script src="./support.js"></script>

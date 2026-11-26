@@ -127,6 +127,12 @@ for n in list(files):
     files[n] = x.encode()
 
 # Fontes embutidas (formato EOT em ppt/fonts/*.fntdata, como o PowerPoint grava), para abrir igual em computador sem
+# Texto alternativo: o pptxgenjs põe o caminho do arquivo no descr de imagem sem alt (vaza a pasta local e o leitor
+# de tela lê o caminho). Imagem sem alt é decorativa (ícone ao lado do texto, marca do rodapé): descr vazio.
+for n in list(files):
+    if n.startswith('ppt/slide') and n.endswith('.xml'):
+        files[n] = re.sub(rb'descr="(?:/|[A-Za-z]:\\)[^"]*"', b'descr=""', files[n])
+
 # as fontes. Origem: LINA_FONTS ou ~/Library/Fonts; fonte ausente é pulada com aviso.
 import os
 FONTS = os.environ.get('LINA_FONTS', os.path.expanduser('~/Library/Fonts'))

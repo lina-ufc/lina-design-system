@@ -445,7 +445,7 @@
     .thumb[data-drop="after"]::before { bottom: -8px; opacity: 1; }
     .thumb[data-skip] .frame { opacity: 0.35; }
     .thumb[data-skip] .frame::after {
-      content: 'Skipped';
+      content: 'Pulado';
       position: absolute;
       inset: 0;
       display: flex;
@@ -1113,18 +1113,18 @@
       const overlay = document.createElement('div');
       overlay.className = 'overlay export-hidden';
       overlay.setAttribute('role', 'toolbar');
-      overlay.setAttribute('aria-label', 'Deck controls');
+      overlay.setAttribute('aria-label', 'Controles do deck');
       overlay.setAttribute('data-omelette-chrome', '');
       overlay.innerHTML = `
-        <button class="btn prev" type="button" aria-label="Previous slide" title="Previous (←)">
+        <button class="btn prev" type="button" aria-label="Slide anterior" title="Anterior (←)">
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3L5 8l5 5"/></svg>
         </button>
         <span class="count" aria-live="polite"><span class="current">1</span><span class="sep">/</span><span class="total">1</span></span>
-        <button class="btn next" type="button" aria-label="Next slide" title="Next (→)">
+        <button class="btn next" type="button" aria-label="Próximo slide" title="Próximo (→)">
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3l5 5-5 5"/></svg>
         </button>
         <span class="divider"></span>
-        <button class="btn reset" type="button" aria-label="Reset to first slide" title="Reset (R)">Reset<span class="kbd">R</span></button>
+        <button class="btn reset" type="button" aria-label="Voltar ao primeiro slide" title="Início (R)">Início<span class="kbd">R</span></button>
       `;
 
       overlay.querySelector('.prev').addEventListener('click', () => this._advance(-1, 'click'));
@@ -1207,12 +1207,12 @@
       menu.className = 'ctxmenu export-hidden';
       menu.setAttribute('data-omelette-chrome', '');
       menu.innerHTML = `
-        <button type="button" data-act="skip">Skip slide</button>
-        <button type="button" data-act="up">Move up</button>
-        <button type="button" data-act="down">Move down</button>
-        <button type="button" data-act="duplicate">Duplicate slide</button>
+        <button type="button" data-act="skip">Pular slide</button>
+        <button type="button" data-act="up">Subir</button>
+        <button type="button" data-act="down">Descer</button>
+        <button type="button" data-act="duplicate">Duplicar slide</button>
         <hr>
-        <button type="button" data-act="delete">Delete slide</button>
+        <button type="button" data-act="delete">Apagar slide</button>
       `;
       menu.addEventListener('click', (e) => {
         const act = e.target && e.target.getAttribute && e.target.getAttribute('data-act');
@@ -1257,12 +1257,12 @@
       confirm.innerHTML = `
         <div class="confirm" role="dialog" aria-modal="true">
           <div class="body">
-            <div class="title">Delete slide?</div>
-            <div class="msg">This slide will be removed from the deck.</div>
+            <div class="title">Apagar slide?</div>
+            <div class="msg">Este slide sai do deck.</div>
           </div>
           <div class="footer">
-            <button type="button" class="cancel">Cancel</button>
-            <button type="button" class="danger">Delete</button>
+            <button type="button" class="cancel">Cancelar</button>
+            <button type="button" class="danger">Apagar</button>
           </div>
         </div>
       `;
@@ -2522,11 +2522,11 @@
         el.style.display = bulk ? 'none' : '';
       });
       const skip = slide && slide.hasAttribute('data-deck-skip');
-      this._menu.querySelector('[data-act="skip"]').textContent = skip ? 'Unskip slide' : 'Skip slide';
+      this._menu.querySelector('[data-act="skip"]').textContent = skip ? 'Não pular slide' : 'Pular slide';
       this._menu.querySelector('[data-act="up"]').disabled = i <= 0;
       this._menu.querySelector('[data-act="down"]').disabled = i >= this._slides.length - 1;
       const del = this._menu.querySelector('[data-act="delete"]');
-      del.textContent = bulk ? 'Delete ' + sel.length + ' slides' : 'Delete slide';
+      del.textContent = bulk ? 'Apagar ' + sel.length + ' slides' : 'Apagar slide';
       del.disabled = bulk ? sel.length >= this._slides.length : this._slides.length <= 1;
       // Place, then clamp to viewport after it's measurable.
       this._menu.style.left = x + 'px';
@@ -2558,8 +2558,8 @@
       // rail whenever a skipped slide precedes the target).
       const lbl = list.length === 1 ? this._slideLabel(list[0]) : '';
       this._confirm.querySelector('.title').textContent = list.length === 1
-        ? (lbl ? 'Delete slide ' + lbl + '?' : 'Delete skipped slide?')
-        : 'Delete ' + list.length + ' slides?';
+        ? (lbl ? 'Apagar o slide ' + lbl + '?' : 'Apagar o slide pulado?')
+        : 'Apagar ' + list.length + ' slides?';
       this._confirm.querySelector('.msg').textContent = list.length === 1
         ? 'This slide will be removed from the deck.'
         : 'These slides will be removed from the deck.';

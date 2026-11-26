@@ -7,6 +7,15 @@ faça o commit e crie a tag `apresentacao-vx.y.z` (o GitHub Actions gera os arqu
 - **Menor** (1.1.0): layout novo, página de ícones nova, ajuste visual que não quebra slides existentes.
 - **Correção** (1.0.1): erro em texto, alinhamento, arquivo corrompido.
 
+## 2.0.1 · 2026-11-26
+
+Acessibilidade (WCAG 2.1 AA), sem mudança de layout.
+- Deck HTML com `<title>` (título da capa) e títulos dos slides anunciados como cabeçalho.
+- Texto alternativo nos logos (LINA, UFC, IAUD, parceiro) e nas imagens provisórias do exemplo; no .pptx e no
+  .potx, imagem decorativa fica sem descrição em vez de levar o caminho do arquivo.
+- Gráfico de duas séries: a segunda passa a turquesa, distinguível da ferro também em tons de cinza.
+- Janela do apresentador com idioma e título; controles do deck em português.
+
 ## 2.0.0 · 2026-11-26
 
 Layouts por quantidade de itens, notas do apresentador e pacote HTML offline. Maior porque alguns layouts foram

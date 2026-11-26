@@ -111,8 +111,9 @@
     win = window.open('', 'lina-apresentador-' + Date.now(), `popup=yes,width=${w},height=${h},left=40,top=40`);
     if (!win) return; // popup bloqueado
     const d = win.document;
-    d.title = 'Apresentador · ' + document.title;
     d.head.innerHTML = `<meta charset="utf-8"><link rel="stylesheet" href="${url('fonts.css')}"><style>${CSS}</style>`;
+    d.title = 'Apresentador · ' + document.title; // depois do head: o innerHTML apagaria o <title>
+    d.documentElement.lang = document.documentElement.lang || 'pt-BR';
     d.body.innerHTML = HTML;
     $('pp').onclick = toggle; $('rs').onclick = reset;
     $('pv').onclick = () => deck()?.prev(); $('nx').onclick = () => deck()?.next();
