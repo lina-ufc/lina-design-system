@@ -122,7 +122,7 @@ module.exports = function toHTML({ layouts, slides, out, C, F, W, FOOT_Y, M, R }
     const tr = L.bg.path && TRAMA[path.basename(L.bg.path)];
     // seed="capa": abertura e capa sorteiam a mesma semente e desenham o mesmo quadro, então a troca não salta.
     if (tr) body = `<lina-dither-field ${tr} seed="${path.basename(L.bg.path, '.png')}" density=".2" cell="12" design-width="1324" aria-hidden="true" style="position:absolute;inset:0;width:${W}px;height:1080px"></lina-dither-field>\n` + body;
-    const anim = /^1\.[2-4] /.test(sl.master) ? ' class="entra"' : sl.anim ? ` class="${sl.anim}"` : '';
+    const anim = /^1\.[23] /.test(sl.master) ? ' class="entra"' : sl.anim ? ` class="${sl.anim}"` : '';
     return `<section${anim} data-label="${esc(sl.master)}" data-screen-label="${String(i + 1).padStart(2, '0')} ${esc(sl.master)}" style="position:relative;overflow:hidden;${bg}">\n${body}\n</section>`;
   });
 

@@ -13,6 +13,7 @@ python3 post.py out/LINA-Apresentacao.pptx
 python3 vendor/office/validate.py out/LINA-Apresentacao.pptx | tail -1
 python3 vendor/office/validate.py out/LINA-Apresentacao.potx | tail -1
 python3 aspect.py out/LINA-Apresentacao.pptx  # falha se alguma imagem estiver distorcida
+node check.js
 
 T=..
 cp out/LINA-Apresentacao.potx $T/LINA-Apresentacao.potx

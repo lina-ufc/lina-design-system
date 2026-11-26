@@ -6,6 +6,7 @@ const sharp = require('sharp');
 const fs = require('fs');
 const path = require('path');
 const A = (f) => path.join(__dirname, f);
+const { resolve, pad } = require('./param.js');
 
 const X = (px) => px / 144;   // px para polegadas
 const P = (px) => px / 2;     // px para pt
@@ -57,6 +58,8 @@ async function assets() {
   // Imagem provisória: nata com hachura de fio forte (como o espaço vazio do deck HTML).
   const hatch = (w, h) => `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}"><defs><pattern id="p" width="28" height="28" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="28" stroke="#${C.fioForte}" stroke-width="2"/></pattern></defs><rect width="100%" height="100%" fill="#${C.nata}"/><rect width="100%" height="100%" fill="url(#p)"/></svg>`;
   await sharp(Buffer.from(hatch(1600, 1000))).png().toFile(A('gen/provisoria.png'));
+  // Espaço de logo de parceiro (3:1): retângulo creme vazado, como o da capa.
+  await sharp(Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="837" height="279"><rect x="3" y="3" width="831" height="273" fill="none" stroke="#${C.creme}" stroke-width="6" stroke-dasharray="24 14"/><text x="418.5" y="150" text-anchor="middle" font-family="JetBrains Mono" font-size="54" fill="#${C.creme}">Logo parceiro</text></svg>`)).png().toFile(A('gen/logo-parceiro.png'));
 }
 
 // ---------- peças de layout ----------
@@ -99,7 +102,28 @@ const LAYOUTS = [], HTML_LAYOUTS = {}, HTML_SLIDES = []; // nomes (pós-processa
 const PEND = [];
 const layout = (...a) => PEND.push(a);
 const num = (n) => n.split(' ')[0].split('.').map(Number);
-const flushLayouts = () => PEND.sort((a, b) => num(a[0])[0] - num(b[0])[0] || num(a[0])[1] - num(b[0])[1]).forEach((a) => defLayout(...a));
+// Famílias paramétricas (param.js): FAM[base] constrói o layout para N itens; ALIAS traduz nomes antigos.
+const FAM = {}, SLIDES = [];
+const semChave = (f, re) => Object.fromEntries(Object.entries(f).filter(([k]) => !re.test(k)));
+const ALIAS = {
+  '1.4 Capa · autores': { para: '1.2 Capa' },
+  '1.5 Sumário': { para: '1.4 Sumário', conv: ({ Itens, ...r }) => Itens === undefined ? r
+    : { ...r, itens: Array.isArray(Itens) ? Itens.filter((x) => !(x.options && x.options.fontFace === F.mono)).map((x) => x.text) : String(Itens).split('\n') } },
+  '1.6 Sumário · lista': { para: '1.4 Sumário', conv: (f) => ({ ...semChave(f, /^(Número|Item|Descrição) \d+$/),
+    itens: Array.from({ length: Object.keys(f).filter((k) => /^Item \d+$/.test(k)).length }, (_, i) =>
+      Object.fromEntries(['Número', 'Item', 'Descrição'].filter((k) => `${k} ${i + 1}` in f).map((k) => [k, f[`${k} ${i + 1}`]]))) }) },
+  '1.7 Seção': { para: '1.5 Seção' },
+};
+// Logos de parceiros da capa 1.2: à direita do IAUD, mesma linha e altura (93), proporção 3:1.
+const LOGO_P = (i) => [M - 11 + 356 + 281 + G + i * (279 + G), 1080 - M - 99 + 7, 279, 93];
+// Define no master, em ordem numérica e depois por N, os layouts antigos (PEND) e as variações de FAM que o deck usa.
+const flushLayouts = () => {
+  const usados = new Map();
+  SLIDES.forEach(({ name, base, n }) => FAM[base] && usados.set(name, { base, n }));
+  [...PEND.map((a) => ({ name: a[0], n: 0, def: () => defLayout(...a) })),
+    ...[...usados].map(([name, { base, n }]) => ({ name, n: FAM[base].faixa ? n : 0, def: () => defLayout(name, FAM[base].build(n), FAM[base].opts && FAM[base].opts(n)) }))]
+    .sort((a, b) => num(a.name)[0] - num(b.name)[0] || num(a.name)[1] - num(b.name)[1] || a.n - b.n).forEach((x) => x.def());
+};
 const defLayout = (name, objects, { bg = { color: 'FFFFFF' }, foot = true, bar } = {}) => {
   // pptxgenjs perde o tipo de espaços de imagem e tabela; post.py os restaura a partir deste registro.
   const all = [...(foot ? footer(bar) : []), ...objects];
@@ -120,63 +144,77 @@ function defineLayouts() {
     { image: { path: A('logo-ufc-branco.png'), x: X(x0), y: X(y), w: X(356), h: X(106) } },
     { image: { path: A('logo-iaud-branco.png'), x: X(x0 + 356), y: X(y + 7), w: X(281), h: X(93) } }];
 
+  // Família 1 · Abertura, paramétrica: build(n) devolve os objetos do layout com n itens (ver param.js).
+  const CAPA = () => ({ bg: { path: A('trama-capa.png') }, foot: false });
+  const nomes = (k) => Array(k).fill('Nome do Autor').join('\n');
+  // N a partir dos placeholders 'Autores c' do preenchimento (uma linha por nome); sem eles, o padrão da família.
+  const conta = (f) => Object.entries(f).filter(([k]) => /^Autores \d+$/.test(k)).reduce((a, [, v]) => a + String(v).split('\n').length, 0) || undefined;
+
+  // Abertura: só a trama da capa, antes dela. No HTML a trama anima e continua sem salto na capa seguinte.
+  FAM['1.1 Abertura'] = { build: () => [], opts: CAPA };
+
   // Capa na grade: evento no pé da linha 1, título nas linhas 2–3 (até três linhas de 72), autoria na linha 4, logos institucionais com o pé a 72 da borda inferior.
   // Logos: a parte visível do brasão UFC termina 99 px abaixo de y; o pé fica a 72 da borda, como o topo da logo LINA.
-  // Abertura: só a trama da capa, antes dela. No HTML a trama anima e continua sem salto na capa seguinte.
-  layout('1.1 Abertura', [], { bg: { path: A('trama-capa.png') }, foot: false });
-
-  layout('1.2 Capa', [ ...cover(M), ...insts(1080 - M - 99),
-    ph('Evento', 'body', [M, row(1)[0], col(0, 8)[1], RH], { fontFace: F.mono, fontSize: P(22), color: C.creme, valign: 'bottom' }, 'Evento · DD · MM · AAAA'),
-    ph('Título', 'title', [M, row(2)[0], col(0, 7)[1], row(0, 2)[1]], { ...S.title, fontSize: P(72), color: C.creme }, 'Título do trabalho em até três linhas'),
-    ph('Apresentador', 'body', [M, row(4)[0], col(0, 8)[1], 44], { ...S.sub, color: C.creme }, 'Nome do Apresentador'),
-    ph('Coautores', 'body', [M, row(4)[0] + 52, col(0, 8)[1], 40], { fontFace: F.light, fontSize: P(24), color: C.creme }, 'Coautores · Orientação'),
-  ], { bg: { path: A('trama-capa.png') }, foot: false });
+  // Um autor: apresentador e coautores. De 2 a 9: nomes em Medium 32, até 3 por coluna, colunas de 4 módulos. Logo 1 e 2: parceiros à direita do IAUD.
+  FAM['1.2 Capa'] = { faixa: [1, 9], unidade: 'autores', padrao: 1, campo: 'Autor', opts: CAPA,
+    n: (f) => { const c = conta(f); return c && Math.max(2, c); },
+    itens: (it, n) => n === 1 ? { Apresentador: it[0] }
+      : Object.fromEntries(Array.from({ length: Math.ceil(n / 3) }, (_, c) => [`Autores ${c + 1}`, it.slice(c * 3, c * 3 + 3).join('\n')])),
+    build: (n) => [ ...cover(M), ...insts(1080 - M - 99),
+      ...[0, 1].map((i) => ph(`Logo ${i + 1}`, 'pic', LOGO_P(i), { color: C.creme }, 'Logo parceiro')),
+      ph('Evento', 'body', [M, row(1)[0], col(0, 8)[1], RH], { fontFace: F.mono, fontSize: P(22), color: C.creme, valign: 'bottom' }, 'Evento · DD · MM · AAAA'),
+      ph('Título', 'title', [M, row(2)[0], col(0, 7)[1], row(0, 2)[1]], { ...S.title, fontSize: P(72), color: C.creme }, 'Título do trabalho em até três linhas'),
+      ...(n === 1 ? [
+        ph('Apresentador', 'body', [M, row(4)[0], col(0, 8)[1], 44], { ...S.sub, color: C.creme }, 'Nome do Apresentador'),
+        ph('Coautores', 'body', [M, row(4)[0] + 52, col(0, 8)[1], 40], { fontFace: F.light, fontSize: P(24), color: C.creme }, 'Coautores · Orientação')]
+        : Array.from({ length: Math.ceil(n / 3) }, (_, c) => ph(`Autores ${c + 1}`, 'body', [col(c * 4)[0], row(4)[0], col(0, 4)[1], RH], { ...S.sub, color: C.creme }, nomes(Math.min(3, n - c * 3))))),
+    ] };
 
   // Variação da capa com imagem: a imagem ocupa as colunas 1–5 (margem a margem na altura); logo, evento, título,
-  // autores e logos institucionais deslocados para a coluna 6. Autores em Medium 28, entrelinha 1,0, colunas de 3 e 4 módulos.
+  // autores e logos institucionais deslocados para a coluna 6. Autores em Medium 28, entrelinha 1,0, colunas de 3 e 4 módulos (a segunda só acima de 3).
   const IX = col(5)[0], AUT = { ...S.sub, fontSize: P(28), lineSpacingMultiple: 1.0, color: C.creme };
-  layout('1.3 Capa · imagem', [
-    pic('Imagem', [M, M, col(0, 5)[1], 1080 - 2 * M]),
-    { image: { path: A('logo-h-creme.png'), x: X(IX), y: X(M), w: X(200), h: X(68.6) } },
-    ...insts(1080 - M - 99, IX - 11),
-    ph('Evento', 'body', [IX, row(1)[0], col(0, 7)[1], RH], { fontFace: F.mono, fontSize: P(22), color: C.creme, valign: 'bottom' }, 'Evento · DD · MM · AAAA'),
-    ph('Título', 'title', [IX, row(2)[0], col(0, 5)[1], row(0, 2)[1]], { ...S.title, fontSize: P(72), color: C.creme }, 'Título do trabalho em até três linhas'),
-    ph('Autores 1', 'body', [IX, row(4)[0], col(0, 3)[1], RH], AUT, 'Nome do Autor\nNome do Autor\nNome do Autor'),
-    ph('Autores 2', 'body', [col(8)[0], row(4)[0], col(0, 4)[1], RH], AUT, 'Nome do Autor\nNome do Autor\nNome do Autor'),
-  ], { bg: { path: A('trama-capa.png') }, foot: false });
+  FAM['1.3 Capa · imagem'] = { faixa: [1, 6], unidade: 'autores', padrao: 3, campo: 'Autor', opts: CAPA, n: conta,
+    itens: (it, n) => ({ 'Autores 1': it.slice(0, 3).join('\n'), ...(n > 3 && { 'Autores 2': it.slice(3).join('\n') }) }),
+    build: (n) => [
+      pic('Imagem', [M, M, col(0, 5)[1], 1080 - 2 * M]),
+      { image: { path: A('logo-h-creme.png'), x: X(IX), y: X(M), w: X(200), h: X(68.6) } },
+      ...insts(1080 - M - 99, IX - 11),
+      ph('Evento', 'body', [IX, row(1)[0], col(0, 7)[1], RH], { fontFace: F.mono, fontSize: P(22), color: C.creme, valign: 'bottom' }, 'Evento · DD · MM · AAAA'),
+      ph('Título', 'title', [IX, row(2)[0], col(0, 5)[1], row(0, 2)[1]], { ...S.title, fontSize: P(72), color: C.creme }, 'Título do trabalho em até três linhas'),
+      ph('Autores 1', 'body', [IX, row(4)[0], col(0, 3)[1], RH], AUT, nomes(Math.min(3, n))),
+      ...(n > 3 ? [ph('Autores 2', 'body', [col(8)[0], row(4)[0], col(0, 4)[1], RH], AUT, nomes(n - 3))] : []),
+    ] };
 
-  // Variação da capa para vários autores com a mesma hierarquia: nomes em Medium 32 (como o apresentador), duas colunas de 4 módulos
-  // na linha 4, um nome por linha (até três por coluna).
-  layout('1.4 Capa · autores', [ ...cover(M), ...insts(1080 - M - 99),
-    ph('Evento', 'body', [M, row(1)[0], col(0, 8)[1], RH], { fontFace: F.mono, fontSize: P(22), color: C.creme, valign: 'bottom' }, 'Evento · DD · MM · AAAA'),
-    ph('Título', 'title', [M, row(2)[0], col(0, 7)[1], row(0, 2)[1]], { ...S.title, fontSize: P(72), color: C.creme }, 'Título do trabalho em até três linhas'),
-    ...[0, 4].map((c, i) => ph(`Autores ${i + 1}`, 'body', [col(c)[0], row(4)[0], col(0, 4)[1], RH], { ...S.sub, color: C.creme }, 'Nome do Autor\nNome do Autor\nNome do Autor')),
-  ], { bg: { path: A('trama-capa.png') }, foot: false });
+  // Sumário: até 6 partes, faixas que repartem a altura útil (132 a 972); cada faixa abre com um fio, número em mono, nome e (até 5) uma linha de descrição.
+  // 7–12 partes em duas colunas, 13–18 em três, sob o cabeçalho de largura total.
+  FAM['1.4 Sumário'] = { faixa: [1, 18], unidade: 'itens', campo: 'Item', numera: true,
+    build: (n) => {
+      if (n <= 6) {
+        const bh = (CB - TY) / n, big = n <= 4;
+        return [ label(col(0, 4)[1]), title([M, TY, col(0, 4)[1], 200]),
+          ...Array.from({ length: n }, (_, i) => { const y = TY + i * bh; return [
+            rule(col(5)[0], y, col(5, 7)[1]),
+            ph(`Número ${i + 1}`, 'body', [col(5)[0], y + 30, 80, 40], { ...S.label, fontSize: P(24) }, pad(i + 1)),
+            ph(`Item ${i + 1}`, 'body', [col(6)[0], y + (big ? 22 : 16), col(0, 6)[1], 64], { ...S.sub, fontSize: P(big ? 48 : 40) }, 'Parte da apresentação'),
+            ...(n <= 5 ? [ph(`Descrição ${i + 1}`, 'body', [col(6)[0], y + (big ? 94 : 72), col(0, 6)[1], 44], { ...S.body, fontSize: P(28) }, 'Uma linha sobre esta parte')] : []),
+          ]; }).flat() ];
+      }
+      const nc = n <= 12 ? 2 : 3, per = Math.ceil(n / nc), s = 12 / nc, step = Math.min(120, (CB - CT) / per);
+      return [ ...header(), ...Array.from({ length: n }, (_, i) => { const x = col(Math.floor(i / per) * s)[0], y = CT + (i % per) * step; return [
+        rule(x, y, col(0, s)[1]),
+        ph(`Número ${i + 1}`, 'body', [x, y + 26, 80, 40], { ...S.label, fontSize: P(24) }, pad(i + 1)),
+        ph(`Item ${i + 1}`, 'body', [x + 96, y + 18, col(0, s)[1] - 96, 50], { ...S.sub, fontSize: P(36) }, 'Parte da apresentação'),
+      ]; }).flat() ];
+    } };
 
-  layout('1.5 Sumário', [ label(col(0, 4)[1]), title([M, TY, col(0, 4)[1], 200]),
-    ph('Itens', 'body', [col(5)[0], TY, col(0, 7)[1], CB - TY], { ...S.body, fontSize: P(32), paraSpaceAfter: 18 }, 'Partes da apresentação, uma por linha'),
-  ]);
-
-  // Variação do sumário para listas curtas (como no deck UNIPG): até 4 partes repartem a altura útil (132 a 972) em faixas
-  // de 210; cada faixa abre com um fio, número em mono, nome da parte e uma linha de descrição.
-  const SB = (CB - TY) / 4;
-  layout('1.6 Sumário · lista', [
-    label(col(0, 4)[1]), title([M, TY, col(0, 4)[1], 200]),
-    ...[0, 1, 2, 3].flatMap((i) => { const y = TY + i * SB; return [
-      rule(col(5)[0], y, col(5, 7)[1]),
-      ph(`Número ${i + 1}`, 'body', [col(5)[0], y + 30, CW, 40], { ...S.label, fontSize: P(24) }, `0${i + 1}`),
-      ph(`Item ${i + 1}`, 'body', [col(6)[0], y + 22, col(0, 6)[1], 64], { ...S.sub, fontSize: P(48) }, 'Parte da apresentação'),
-      ph(`Descrição ${i + 1}`, 'body', [col(6)[0], y + 94, col(0, 6)[1], 44], { ...S.body, fontSize: P(28) }, 'Uma linha sobre esta parte'),
-    ]; }),
-  ]);
-
-  layout('1.7 Seção', [
-    // Seção na grade (medido no render): desenho do número ocupa as linhas 2–3 (420 a 684) e começa na margem;
-    // título e descrição dentro da linha 4 (708 a 828).
-    ph('Número', 'body', [M - 15, row(2)[0] - 54, col(0, 4)[1], 415], { fontFace: F.bold, fontSize: P(371), color: C.damasco, lineSpacingMultiple: 0.85 }, '01'),
-    ph('Título', 'title', [M, row(4)[0] - 21, col(0, 10)[1], 94], { ...S.title, fontSize: P(82), color: C.creme }, 'Nome da seção'),
-    ph('Descrição', 'body', [M, row(4)[0] + 72, col(0, 7)[1], 60], { ...S.body, fontSize: P(32), color: C.creme }, 'Uma frase sobre o que esta seção vai mostrar.'),
-  ], { bg: { path: A('trama-secao.png') }, foot: false });
+  // Seção na grade (medido no render): desenho do número ocupa as linhas 2–3 (420 a 684) e começa na margem;
+  // título e descrição dentro da linha 4 (708 a 828).
+  FAM['1.5 Seção'] = { opts: () => ({ bg: { path: A('trama-secao.png') }, foot: false }),
+    build: () => [
+      ph('Número', 'body', [M - 15, row(2)[0] - 54, col(0, 4)[1], 415], { fontFace: F.bold, fontSize: P(371), color: C.damasco, lineSpacingMultiple: 0.85 }, '01'),
+      ph('Título', 'title', [M, row(4)[0] - 21, col(0, 10)[1], 94], { ...S.title, fontSize: P(82), color: C.creme }, 'Nome da seção'),
+      ph('Descrição', 'body', [M, row(4)[0] + 72, col(0, 7)[1], 60], { ...S.body, fontSize: P(32), color: C.creme }, 'Uma frase sobre o que esta seção vai mostrar.'),
+    ] };
 
   layout('2.1 Texto', [ label(), title([M, TY, col(0, 5)[1], 560]),
     ph('Texto', 'body', [col(6)[0], TY, col(0, 6)[1], CB - TY], S.body, 'Até três parágrafos curtos sustentam a afirmação do título.') ]);
@@ -321,40 +359,32 @@ function defineLayouts() {
 async function examples() {
   const IMG = A('gen/provisoria.png');
   const icon = (n, tag) => A(`gen/${n}-${tag}.png`);
+  // s() só registra: os layouts usados são definidos depois (flushLayouts) e os slides criados em criaSlides.
   const s = (m, fill = {}, extra) => {
-    const real = pres.addSlide({ masterName: m }), rec = { master: m, fill, charts: [], tables: [], images: [], media: [], texts: [] };
-    HTML_SLIDES.push(rec);
-    const sl = { addChart: (t, d, o) => (rec.charts.push({ type: t, series: d, opts: o }), real.addChart(t, d, o)),
-      addTable: (r, o) => (rec.tables.push({ rows: r, opts: o }), real.addTable(r, structuredClone(o))),
-      addImage: (o) => (o.placeholder || o.pptOnly || rec.images.push(o), real.addImage(o)), addText: (v, o) => (o.placeholder || rec.texts.push([v, o]), real.addText(v, o)),
-      addMedia: (o) => (rec.media.push(o), real.addMedia(o)),
-      anim: (a) => { rec.anim = a; }, html: (h) => { rec.html = (rec.html || '') + h; } }; // anim: efeito de entrada no deck HTML (ex.: 'aleatorio'); html: marcação crua, só no deck HTML; imagem com pptOnly: só no .pptx
-    for (const [k, v] of Object.entries(fill)) {
-      if (typeof v === 'object' && v && v.img) sl.addImage({ placeholder: k, path: v.img, ...v.box, ...v.ppt });
-      else sl.addText(v, { placeholder: k });
-    }
-    extra && extra(sl);
-    return sl;
+    const r = !ALIAS[m] && PEND.some((x) => x[0] === m) ? { base: m, name: m, fill } : resolve(m, fill, FAM, ALIAS);
+    SLIDES.push({ ...r, extra });
   };
   // pptxgenjs: no 'cover', w/h devem ter a proporção da imagem (1600 × 1000), senão ela é esticada; sizing leva a caixa.
   const img = (box) => ({ img: IMG, box: { x: X(box[0]), y: X(box[1]), w: X(box[2]), h: X(box[3]), sizing: { type: 'cover', w: X(box[2]), h: X(box[3]) } }, ppt: { w: X(1600), h: X(1000) } });
   const ic = (n, tag, box) => ({ img: icon(n, tag), box: { x: X(box[0]), y: X(box[1]), w: X(box[2]), h: X(box[3]) } });
   const SW = col(0, 4)[1], SX = M + SW + G, IW = col(6)[0];
   // Outro deck com os mesmos layouts: DECK=arquivo.js node build.js (o módulo recebe as peças e monta os slides).
-  if (process.env.DECK) return require(path.resolve(process.env.DECK))({ pres, s, ic, icon, A, C, F, P, X, col, row, CT, CB, TY, M, W, G, FW, FOOT_Y, sharp });
+  if (process.env.DECK) return require(path.resolve(process.env.DECK))({ pres, s, ic, icon, A, C, F, P, X, col, row, CT, CB, TY, M, W, G, FW, FOOT_Y, sharp, FAM, pad });
 
+  const EV = 'Seminário de pesquisa · 15 · 10 · 2026', TT = 'Título do trabalho em até três linhas, com subtítulo após dois-pontos';
+  const AUTORES = ['Ana Beatriz Lima', 'Carlos Eduardo Rocha', 'Daniela Moura', 'Eduardo Pinheiro', 'Fernanda Sales', 'Gabriel Nogueira'];
+  const logo = (i) => ({ img: A('gen/logo-parceiro.png'), box: { x: X(LOGO_P(i)[0]), y: X(LOGO_P(i)[1]), w: X(LOGO_P(i)[2]), h: X(LOGO_P(i)[3]) } });
+  const PARTES = ['Contexto e problema', 'Método', 'Levantamento', 'Resultados', 'Discussão', 'Conclusões', 'Trabalhos futuros', 'Referências', 'Anexo A', 'Anexo B', 'Anexo C', 'Anexo D', 'Anexo E', 'Anexo F', 'Anexo G', 'Anexo H', 'Anexo I', 'Anexo J'];
+  const sumario = (n) => ({ 'Rótulo': 'Sumário', 'Título': 'O que vamos ver',
+    itens: PARTES.slice(0, n).map((t) => (n <= 5 ? { Item: t, Descrição: 'Uma linha sobre esta parte' } : t)) });
   s('1.1 Abertura', {});
-  s('1.2 Capa', { 'Evento': 'Seminário de pesquisa · 15 · 10 · 2026', 'Título': 'Título do trabalho em até três linhas, com subtítulo após dois-pontos', 'Apresentador': 'Nome do Apresentador', 'Coautores': 'Coautora Sobrenome · Coautor Sobrenome · Orientadora Sobrenome' });
-  s('1.4 Capa · autores', { 'Evento': 'Seminário de pesquisa · 15 · 10 · 2026', 'Título': 'Título do trabalho em até três linhas, com subtítulo após dois-pontos',
-    'Autores 1': 'Nome do Autor\nNome da Autora\nNome do Autor', 'Autores 2': 'Nome da Autora\nNome do Autor' });
-  s('1.3 Capa · imagem', { 'Imagem': img([M, M, col(0, 5)[1], 1080 - 2 * M]), 'Evento': 'Seminário de pesquisa · 15 · 10 · 2026', 'Título': 'Título do trabalho em até três linhas',
-    'Autores 1': 'Nome do Autor\nNome da Autora\nNome do Autor', 'Autores 2': 'Nome da Autora\nNome do Autor' });
-  s('1.5 Sumário', { 'Rótulo': 'Sumário', 'Título': 'O que vamos ver',
-    'Itens': ['Contexto', 'Problema', 'Método', 'Resultados', 'Próximos passos'].flatMap((t, i, a) => [
-      { text: `0${i + 1}    `, options: { fontFace: F.mono, color: C.ferro, fontSize: P(24) } }, { text: t, options: { breakLine: i < a.length - 1 } }]) });
-  s('1.6 Sumário · lista', Object.assign({ 'Título': 'O que vamos ver' },
-    ...['Contexto', 'Método', 'Resultados', 'Próximos passos'].map((t, i) => ({ [`Número ${i + 1}`]: `0${i + 1}`, [`Item ${i + 1}`]: t, [`Descrição ${i + 1}`]: 'Uma linha sobre esta parte' }))));
-  s('1.7 Seção', { 'Número': '01', 'Título': 'Contexto', 'Descrição': 'Uma frase sobre o que esta seção vai mostrar.' });
+  s('1.2 Capa', { 'Evento': EV, 'Título': TT, 'Apresentador': 'Nome do Apresentador', 'Coautores': 'Coautora Sobrenome · Coautor Sobrenome · Orientadora Sobrenome' });
+  s('1.2 Capa', { 'Evento': EV, 'Título': TT, itens: AUTORES, 'Logo 1': logo(0) });
+  s('1.2 Capa', { 'Evento': EV, 'Título': 'Título longo do trabalho, que precisa de quatro linhas para caber inteiro na capa, com subtítulo após dois-pontos e ainda uma explicação',
+    'Apresentador': 'Nome do Apresentador', 'Coautores': 'Coautora Sobrenome · Coautor Sobrenome · Orientadora Sobrenome', 'Logo 1': logo(0), 'Logo 2': logo(1) });
+  s('1.3 Capa · imagem', { 'Imagem': img([M, M, col(0, 5)[1], 1080 - 2 * M]), 'Evento': EV, 'Título': 'Título do trabalho em até três linhas', itens: AUTORES });
+  for (const n of [4, 6, 12, 18]) s('1.4 Sumário', sumario(n));
+  s('1.5 Seção', { 'Número': '01', 'Título': 'Contexto', 'Descrição': 'Uma frase sobre o que esta seção vai mostrar.' });
   s('2.1 Texto', { 'Rótulo': '02 · Problema', 'Título': 'Uma afirmação por slide, escrita como frase completa',
     'Texto': [{ text: 'Até três parágrafos curtos à direita sustentam a afirmação do título.', options: { breakLine: true } },
       { text: 'Cada um com uma ideia; nada de listas com mais de quatro itens.', options: { breakLine: true } },
@@ -434,6 +464,29 @@ async function examples() {
     'Subtítulo 2': 'Regras', 'Coluna 2': 'Instale a Outfit e a JetBrains Mono (livres, em assets/fonts e Google Fonts). Ao salvar, marque “Incorporar fontes”.\nÍcones Phosphor, peso regular, um tratamento por slide: sólido, simples ou claro.\nSem emoji. Mono só para datas, números, rótulos e legendas.' });
 }
 
+// Cria os slides registrados por s(); preenchimento com chave que não é espaço do layout resolvido é erro.
+function criaSlides() {
+  for (const { name, base, fill: f0, extra } of SLIDES) {
+    const fill = { ...f0 };
+    const L = LAYOUTS.find((l) => l.name === name);
+    for (const k of Object.keys(fill)) if (!L.ph.some((p) => p.name === k)) throw new Error(`'${k}' não é espaço de '${name}'`);
+    // Capa com título longo (mais de 60 caracteres): 56 em vez de 72, para caber nas linhas 2–3.
+    if (base === '1.2 Capa' && typeof fill['Título'] === 'string' && fill['Título'].length > 60) fill['Título'] = [{ text: fill['Título'], options: { fontSize: P(56) } }];
+    const real = pres.addSlide({ masterName: name }), rec = { master: name, fill, charts: [], tables: [], images: [], media: [], texts: [] };
+    HTML_SLIDES.push(rec);
+    const sl = { addChart: (t, d, o) => (rec.charts.push({ type: t, series: d, opts: o }), real.addChart(t, d, o)),
+      addTable: (r, o) => (rec.tables.push({ rows: r, opts: o }), real.addTable(r, structuredClone(o))),
+      addImage: (o) => (o.placeholder || o.pptOnly || rec.images.push(o), real.addImage(o)), addText: (v, o) => (o.placeholder || rec.texts.push([v, o]), real.addText(v, o)),
+      addMedia: (o) => (rec.media.push(o), real.addMedia(o)),
+      anim: (a) => { rec.anim = a; }, html: (h) => { rec.html = (rec.html || '') + h; } }; // anim: efeito de entrada no deck HTML (ex.: 'aleatorio'); html: marcação crua, só no deck HTML; imagem com pptOnly: só no .pptx
+    for (const [k, v] of Object.entries(fill)) {
+      if (typeof v === 'object' && v && v.img) sl.addImage({ placeholder: k, path: v.img, ...v.box, ...v.ppt });
+      else sl.addText(v, { placeholder: k });
+    }
+    extra && extra(sl);
+  }
+}
+
 // Páginas de ícones aplicados: um bloco de 2 linhas × 11 por tratamento, ou 1 linha por par duotone; nome na coluna 0.
 function iconPages() {
   TRAT.forEach((blocos, p) => {
@@ -454,8 +507,9 @@ function iconPages() {
 
 (async () => {
   await assets();
-  defineLayouts(); flushLayouts();
+  defineLayouts();
   await examples();
+  flushLayouts(); criaSlides();
   if (!process.env.DECK) iconPages();
   fs.writeFileSync(A('out/layouts.json'), JSON.stringify(LAYOUTS));
   console.log('html', require('./html.js')({ layouts: HTML_LAYOUTS, slides: HTML_SLIDES, out: A('out/html/Apresentacao.dc.html'), C, F, W, FOOT_Y, M, R }), 'slides');
