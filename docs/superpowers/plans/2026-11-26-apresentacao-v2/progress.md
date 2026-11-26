@@ -13,15 +13,15 @@
 
 ## Resumo
 
-`[█████░░░░░]` planos 01–03 concluídos; 04 escrito.
+`[███████░░░]` planos 01–04 concluídos; 05 escrito.
 
 | Plano | Progresso | Tarefas | Estado |
 | --- | --- | --- | --- |
 | 01 — base-e-abertura | `[██████████]` | 2/2 | Concluído 2026-11-26 |
 | 02 — texto-e-icones | `[██████████]` | 4/4 | Concluído 2026-11-26 |
 | 03 — imagem | `[██████████]` | 3/3 | Concluído 2026-11-26 |
-| 04 — dados-e-fim | `[░░░░░░░░░░]` | 0/3 | Escrito |
-| 05 — deck-html | `[░░░░░░░░░░]` | — | Não escrito |
+| 04 — dados-e-fim | `[██████████]` | 3/3 | Concluído 2026-11-26 |
+| 05 — deck-html | `[░░░░░░░░░░]` | 0/3 | Escrito |
 | 06 — site-e-versao | `[░░░░░░░░░░]` | — | Não escrito |
 
 ## Plano 01 — base-e-abertura
@@ -56,11 +56,21 @@ Desvios: exemplo 4.4 com imagem (sem mp4 no repo); `fit` e vídeo soltos, placeh
 
 ## Plano 04 — dados-e-fim
 
+`[██████████]` 100% — 3 de 3 tarefas.
+
+- [x] **Task 1** — Família 5 e bugs de gráfico e tabela — `3a46ef8`, validate ok, distorcidas 0, check ok, prancha vista; HTML: 2 séries, tabela destacada e seta conferidos
+- [x] **Task 2** — Família 6 (encerramentos) — `e32992e`, idem; deck descartável com 1, 12 autores e 4 logos; HTML conferido pelo orquestrador
+- [x] **Task 3** — Páginas de ícones 7.1 e 7.2 no exemplo (HTML, PDF e .pptx) — `cd489b2`, idem; 63 slides
+
+Desvios: `html.js` lia `labels` embrulhado pelo pptxgenjs (`labels.flat()`); só `5.3` virou FAM; `comp.tabela` com `box`; seta do antes e depois é PNG (`gen/seta-ferro.png`); `6.1` mantém exemplo de 2 logos; N do `6.2` pelo maior entre linhas e chaves `Autores i`; páginas de ícones usam `2.6 Só título`; ícones faltantes não baixados; PowerPoint não conferido.
+
+## Plano 05 — deck-html
+
 `[░░░░░░░░░░]` 0% — 0 de 3 tarefas.
 
-- [ ] **Task 1** — Família 5 e bugs de gráfico e tabela
-- [ ] **Task 2** — Família 6 (encerramentos)
-- [ ] **Task 3** — Páginas de ícones 7.1 e 7.2 no exemplo (HTML, PDF e .pptx)
+- [ ] **Task 1** — Notas e idioma
+- [ ] **Task 2** — Apresentador e transições
+- [ ] **Task 3** — Pacote offline
 
 ## Changelog
 
@@ -68,3 +78,4 @@ Desvios: exemplo 4.4 com imagem (sem mp4 no repo); `fit` e vídeo soltos, placeh
 - 2026-11-26 — plano 01 concluído (`60e3fcb`, `bb4a62e`); plano 02 escrito.
 - 2026-11-26 — plano 02 concluído (`941842b`…`5b4c1ec`); plano 03 escrito.
 - 2026-11-26 — plano 03 concluído (`9dfd301`, `e86e474`, `8eae1de`); plano 04 escrito.
+- 2026-11-26 — plano 04 concluído (`3a46ef8`, `e32992e`, `cd489b2`); plano 05 escrito.
