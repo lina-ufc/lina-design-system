@@ -8,8 +8,8 @@ Ordem de leitura e execução:
 
 | Plano | Assunto | Estado |
 | --- | --- | --- |
-| [01 — base-e-abertura](01-base-e-abertura.md) | API paramétrica, aliases, família 1 | Escrito |
-| 02 — texto-e-icones | Famílias 2 e 3, componentes | Não escrito. Escrito quando o 01 terminar |
+| [01 — base-e-abertura](01-base-e-abertura.md) | API paramétrica, aliases, família 1 | Concluído |
+| [02 — texto-e-icones](02-texto-e-icones.md) | Famílias 2 e 3, componentes | Escrito |
 | 03 — imagem | Família 4, `cover`/`fit`/`linha`/vídeo, degradês da 4.7 | Não escrito |
 | 04 — dados-e-fim | Famílias 5–7, bugs de gráfico e tabela, ícones do DS | Não escrito |
 | 05 — deck-html | Notas, apresentador, transições, `dist/`, `lang` e `alt` | Não escrito |
