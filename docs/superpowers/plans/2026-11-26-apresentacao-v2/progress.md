@@ -13,7 +13,7 @@
 
 ## Resumo
 
-`[████████░░]` planos 01–05 concluídos; 06 escrito.
+`[█████████░]` planos 01–05 concluídos; 06 em 3/4 (falta publicar).
 
 | Plano | Progresso | Tarefas | Estado |
 | --- | --- | --- | --- |
@@ -22,7 +22,7 @@
 | 03 — imagem | `[██████████]` | 3/3 | Concluído 2026-11-26 |
 | 04 — dados-e-fim | `[██████████]` | 3/3 | Concluído 2026-11-26 |
 | 05 — deck-html | `[██████████]` | 3/3 | Concluído 2026-11-26 |
-| 06 — site-e-versao | `[░░░░░░░░░░]` | 0/4 | Escrito |
+| 06 — site-e-versao | `[████████░░]` | 3/4 | Aguardando aval para push e tag |
 
 ## Plano 01 — base-e-abertura
 
@@ -76,12 +76,14 @@ Desvios: interface do apresentador em português; `prepara()` passa `alt` adiant
 
 ## Plano 06 — site-e-versao
 
-`[░░░░░░░░░░]` 0% — 0 de 4 tarefas.
+`[████████░░]` 75% — 3 de 4 tarefas.
 
-- [ ] **Task 1** — Regressão local CNR e Vision
-- [ ] **Task 2** — README do template e CHANGELOG 2.0.0
-- [ ] **Task 3** — Página 8.1 do site e print do apresentador
-- [ ] **Task 4** — Revisão e pedido de publicação
+- [x] **Task 1** — Regressão local CNR e Vision — `f56b38c`, 6 decks geram com a mesma contagem de slides; 3 quebras corrigidas no `build.js`; make ok; registro em [`records/06-regressao.md`](records/06-regressao.md)
+- [x] **Task 2** — README do template e CHANGELOG 2.0.0 — `61e5098`
+- [x] **Task 3** — Página 8.1 do site e print do apresentador — `63790b2` + ajuste de texto do orquestrador; `sistema.py` 27 links ok; 375 px sem rolagem lateral; print em `capitulos/8-templates/img/apresentador.png`
+- [ ] **Task 4** — Revisão e pedido de publicação — revisão manual feita (desktop e 375 px; skills de crítica não rodadas); push e tag aguardam o usuário
+
+Desvios: `1.1 Abertura` continua no template (só a variação "logo" saiu; Review Focus do plano estava errado); `pres` do `DECK` virou Proxy para o `notes()` do Vision; letreiro grande no slide 4 do CNR vem de SVG refeito em `1a4cf6c` (peça do deck, não do gerador); hora do print em formato do Chrome headless.
 
 ## Changelog
 
@@ -91,3 +93,4 @@ Desvios: interface do apresentador em português; `prepara()` passa `alt` adiant
 - 2026-11-26 — plano 03 concluído (`9dfd301`, `e86e474`, `8eae1de`); plano 04 escrito.
 - 2026-11-26 — plano 04 concluído (`3a46ef8`, `e32992e`, `cd489b2`); plano 05 escrito.
 - 2026-11-26 — plano 05 concluído (`9d7f27b`, `59ca189`, `0f912e5`); plano 06 escrito.
+- 2026-11-26 — plano 06 tarefas 1–3 concluídas (`f56b38c`, `61e5098`, `63790b2`); publicação aguarda o usuário.
