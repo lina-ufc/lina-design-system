@@ -30,8 +30,8 @@ assert.equal(R('9.2 Fixo', { Título: 't' }).name, '9.2 Fixo');
 const f = require('path').join(__dirname, 'out/layouts.json');
 if (fs.existsSync(f)) {
   const nomes = JSON.parse(fs.readFileSync(f)).map((l) => l.name);
-  for (const n of ['1.1 Abertura', '1.2 Capa', '1.4 Sumário · 4 itens', '1.5 Seção']) assert(nomes.includes(n), `falta ${n}`);
-  for (const n of ['1.4 Capa · autores', '1.6 Sumário · lista', '1.7 Seção']) assert(!nomes.includes(n), `sobrou ${n}`);
+  for (const n of ['1.1 Abertura', '1.2 Capa', '1.4 Sumário · 4 itens', '1.5 Seção', '2.2 Colunas · 2 colunas', '2.4 Linha do tempo · 10 marcos', '2.5 Equação']) assert(nomes.includes(n), `falta ${n}`);
+  for (const n of ['1.4 Capa · autores', '1.6 Sumário · lista', '1.7 Seção', '2.3 Três colunas', '2.5 Conclusões', '2.2 Duas colunas', '2.4 Equação']) assert(!nomes.includes(n), `sobrou ${n}`);
   const chave = (n) => [...n.split(' ')[0].split('.').map(Number), Number((/ · (\d+) /.exec(n) || [0, 0])[1])];
   const ord = [...nomes].sort((a, b) => { const x = chave(a), y = chave(b); return x[0] - y[0] || x[1] - y[1] || x[2] - y[2]; });
   assert.deepEqual(nomes, ord, 'layouts fora de ordem numérica');

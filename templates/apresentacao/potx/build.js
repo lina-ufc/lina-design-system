@@ -83,7 +83,8 @@ const title = (box = [M, TY, FW, 90], size = 60, color = C.umbro) =>
 const header = (w = FW) => [label(w), title([M, TY, w, 90])];
 const pic = (name, box, prompt = 'Imagem') => ph(name, 'pic', box, {}, prompt);
 const rule = (x, y, w, color = C.fioForte, width = 1.5) => ({ line: { x: X(x), y: X(y), w: X(w), h: 0, line: { color, width } } });
-const tile = (x, y, s, color) => ({ text: { text: '', options: { shape: 'roundRect', x: X(x), y: X(y), w: X(s), h: X(s), rectRadius: X(s / 4), fill: { color }, line: { type: 'none' } } } });
+const tile = (x, y, s, color, borda) => ({ text: { text: '', options: { shape: 'roundRect', x: X(x), y: X(y), w: X(s), h: X(s), rectRadius: X(s / 4), fill: { color }, line: borda ? { color: borda, width: 1.5 } : { type: 'none' } } } });
+const dot = (x, y, s, color = C.ferro) => ({ text: { text: '', options: { shape: 'ellipse', x: X(x), y: X(y), w: X(s), h: X(s), fill: { color }, line: { type: 'none' } } } });
 const footer = (bar = C.ferro) => [
   { rect: { x: 0, y: X(FOOT_Y), w: X(W), h: X(84), fill: { color: bar } } },
   { image: { path: A('marca-creme.png'), x: X(M), y: X(FOOT_Y + 25), w: X(34 * 267 / 400), h: X(34) } }, // proporção do PNG
@@ -104,6 +105,7 @@ const layout = (...a) => PEND.push(a);
 const num = (n) => n.split(' ')[0].split('.').map(Number);
 // Famílias paramétricas (param.js): FAM[base] constrói o layout para N itens; ALIAS traduz nomes antigos.
 const FAM = {}, SLIDES = [];
+const renomeia = (f, re, novo) => Object.fromEntries(Object.entries(f).map(([k, v]) => [k.replace(re, novo), v]));
 const semChave = (f, re) => Object.fromEntries(Object.entries(f).filter(([k]) => !re.test(k)));
 const ALIAS = {
   '1.4 Capa · autores': { para: '1.2 Capa' },
@@ -113,6 +115,10 @@ const ALIAS = {
     itens: Array.from({ length: Object.keys(f).filter((k) => /^Item \d+$/.test(k)).length }, (_, i) =>
       Object.fromEntries(['Número', 'Item', 'Descrição'].filter((k) => `${k} ${i + 1}` in f).map((k) => [k, f[`${k} ${i + 1}`]]))) }) },
   '1.7 Seção': { para: '1.5 Seção' },
+  '2.2 Duas colunas': { para: '2.2 Colunas', conv: (f) => renomeia(f, /^Coluna /, 'Texto ') },
+  '2.3 Três colunas': { para: '2.2 Colunas' },
+  '2.5 Conclusões': { para: '2.2 Colunas · ícones' },
+  '2.4 Equação': { para: '2.5 Equação' },
 };
 // Logos de parceiros da capa 1.2: à direita do IAUD, mesma linha e altura (93), proporção 3:1.
 const LOGO_P = (i) => [M - 11 + 356 + 281 + G + i * (279 + G), 1080 - M - 99 + 7, 279, 93];
@@ -219,17 +225,64 @@ function defineLayouts() {
   layout('2.1 Texto', [ label(), title([M, TY, col(0, 5)[1], 560]),
     ph('Texto', 'body', [col(6)[0], TY, col(0, 6)[1], CB - TY], S.body, 'Até três parágrafos curtos sustentam a afirmação do título.') ]);
 
-  layout('2.2 Duas colunas', [ ...header(),
-    rule(col(0)[0], CT, col(0, 6)[1]), rule(col(6)[0], CT, col(0, 6)[1]),
-    ph('Subtítulo 1', 'body', [col(0)[0], CT + 24, col(0, 6)[1], 50], S.sub, 'Subtítulo'),
-    ph('Coluna 1', 'body', [col(0)[0], CT + 96, col(0, 6)[1], CB - CT - 96], S.body, 'Texto da primeira coluna.'),
-    ph('Subtítulo 2', 'body', [col(6)[0], CT + 24, col(0, 6)[1], 50], S.sub, 'Subtítulo'),
-    ph('Coluna 2', 'body', [col(6)[0], CT + 96, col(0, 6)[1], CB - CT - 96], S.body, 'Texto da segunda coluna.') ]);
+  // Família 2 · Texto, paramétrica. Colunas: N de 2 a 4, largura igual; marcador nenhum, número ou ícone + número.
+  const colunas = (mk) => (n) => { const s = 12 / n, w = col(0, s)[1];
+    return [ ...header(), ...Array.from({ length: n }, (_, i) => { const x = col(i * s)[0]; let y = CT + 24;
+      const o = [rule(x, CT, w, mk === 'ico' ? C.umbro : C.fioForte, mk === 'ico' ? 2 : 1.5)];
+      if (mk === 'ico') { o.push(pic(`Ícone ${i + 1}`, [x, y + 12, 56, 56], 'Ícone')); y += 96; }
+      if (mk) { o.push(ph(`Número ${i + 1}`, 'body', [x, y, w, 36], S.label, pad(i + 1))); y += 46; }
+      return [...o, ph(`Subtítulo ${i + 1}`, 'body', [x, y, w, 50], S.sub, 'Subtítulo'),
+        ph(`Texto ${i + 1}`, 'body', [x, y + 72, w, CB - y - 72], n > 3 ? { ...S.body, fontSize: P(26) } : S.body, 'Texto curto da coluna.')];
+    }).flat() ]; };
+  const COLS = { faixa: [2, 4], unidade: 'colunas', campo: 'Texto' };
+  FAM['2.2 Colunas'] = { ...COLS, build: colunas() };
+  FAM['2.2 Colunas · numeradas'] = { ...COLS, numera: true, build: colunas('num') };
+  FAM['2.2 Colunas · ícones'] = { ...COLS, numera: true, build: colunas('ico') };
 
-  layout('2.3 Três colunas', [ ...header(),
-    ...[0, 4, 8].flatMap((c, i) => [ rule(col(c)[0], CT, col(0, 4)[1]),
-      ph(`Subtítulo ${i + 1}`, 'body', [col(c)[0], CT + 24, col(0, 4)[1], 50], S.sub, 'Subtítulo'),
-      ph(`Texto ${i + 1}`, 'body', [col(c)[0], CT + 96, col(0, 4)[1], CB - CT - 96], S.body, 'Texto curto.') ]) ]);
+  // Lista: marcador tile numerado, tile com ícone ou ponto. Com imagem: 1 coluna, imagem sangrada à direita. Sem: 2 colunas acima de 5.
+  const lista = (mk, img) => (n) => {
+    const nc = img || n <= 5 ? 1 : 2, per = Math.ceil(n / nc), w0 = img ? col(6)[0] - G - M : nc === 1 ? col(0, 10)[1] : col(0, 6)[1] - G, step = Math.min(144, (CB - CT) / per);
+    return [ ...header(img ? w0 : FW), ...Array.from({ length: n }, (_, i) => { const x = col(Math.floor(i / per) * 6)[0], y = CT + (i % per) * step;
+      const m = mk === 'num' ? [tile(x, y, 72, C.ferro), ph(`Número ${i + 1}`, 'body', [x, y, 72, 72], { fontFace: F.mono, fontSize: P(29), color: C.creme, align: 'center', valign: 'middle' }, pad(i + 1))]
+        : mk === 'ico' ? [tile(x, y, 72, C.damasco), pic(`Ícone ${i + 1}`, [x + 16, y + 16, 40, 40], 'Ícone')] : [dot(x + 26, y + 14, 18)];
+      return [...m, ph(`Item ${i + 1}`, 'body', [x + 96, y - 2, w0 - 96, 40], S.sub, 'Item da lista'),
+        ...(mk === 'dot' ? [] : [ph(`Texto ${i + 1}`, 'body', [x + 96, y + 42, w0 - 96, step - 52], { ...S.body, fontSize: P(26) }, 'Uma frase sobre o item.')])];
+    }).flat(), ...(img ? [pic('Imagem', [col(6)[0], 0, W - col(6)[0], FOOT_Y])] : []) ]; };
+  FAM['2.3 Lista'] = { faixa: [1, 10], unidade: 'itens', campo: 'Item', numera: true, build: lista('num') };
+  FAM['2.3 Lista · ícones'] = { faixa: [1, 10], unidade: 'itens', campo: 'Item', build: lista('ico') };
+  FAM['2.3 Lista · marcador'] = { faixa: [1, 10], unidade: 'itens', campo: 'Item', build: lista('dot') };
+  FAM['2.3 Lista · imagem'] = { faixa: [1, 5], unidade: 'itens', campo: 'Item', numera: true, build: lista('num', true) };
+  FAM['2.3 Lista · ícones e imagem'] = { faixa: [1, 5], unidade: 'itens', campo: 'Item', build: lista('ico', true) };
+
+  // Linha do tempo: marco = célula LINA (vazada no master; `desenha` enche a dos itens com feito: true).
+  // Horizontal: 1 linha até 6 marcos, 2 acima. Vertical: eixo na coluna estreita, imagem à direita.
+  const SWV = col(0, 4)[1], CEL = 28, celula = (x, y) => tile(x, y, CEL, 'FFFFFF', C.ferro);
+  const tempoH = (n) => { const rows = n <= 6 ? 1 : 2, per = Math.ceil(n / rows), w = (FW - (per - 1) * G) / per;
+    return Array.from({ length: n }, (_, i) => { const c = i % per, y0 = CT + Math.floor(i / per) * 360; return { c, x: M + c * (w + G), w, y0, cx: M + c * (w + G), cy: y0 + 84 }; }); };
+  const tempoV = (n) => { const step = (CB - CT) / n; return Array.from({ length: n }, (_, i) => ({ step, cx: M, cy: CT + i * step })); };
+  const enche = (cels) => (sl, itens) => cels.forEach(({ cx, cy }, i) => itens && itens[i] && itens[i].feito &&
+    sl.addText('', { shape: 'roundRect', x: X(cx), y: X(cy), w: X(CEL), h: X(CEL), rectRadius: X(CEL / 4), fill: { color: C.ferro }, line: { color: C.ferro, width: 1.5 } }));
+  const semFeito = (itens) => Object.fromEntries(itens.flatMap((it, i) => Object.entries(typeof it === 'string' ? { Marco: it } : it)
+    .filter(([k]) => k !== 'feito').map(([k, v]) => [`${k} ${i + 1}`, v])));
+  const TEMPO = { faixa: [2, 12], unidade: 'marcos', campo: 'Marco', itens: semFeito };
+  FAM['2.4 Linha do tempo'] = { ...TEMPO, desenha: (sl, it, n) => enche(tempoH(n))(sl, it),
+    build: (n) => [ ...header(), ...tempoH(n).flatMap(({ c, x, w, y0, cy }, i) => [
+      ...(c === 0 ? [rule(M, cy + 13, FW, C.ferro, 2)] : []),
+      ph(`Data ${i + 1}`, 'body', [x, y0, w, 40], S.label, '2026'), celula(x, cy),
+      ph(`Marco ${i + 1}`, 'body', [x, cy + 56, w, 40], { ...S.sub, fontSize: P(28) }, 'Marco'),
+      ph(`Texto ${i + 1}`, 'body', [x, cy + 98, w, 120], { ...S.body, fontSize: P(24) }, 'O que aconteceu.')]) ] };
+  FAM['2.4 Linha do tempo · vertical'] = { ...TEMPO, faixa: [2, 6], desenha: (sl, it, n) => enche(tempoV(n))(sl, it),
+    build: (n) => [ label(SWV), title([M, TY, SWV, 120], 52),
+      { line: { x: X(M + 13), y: X(CT + 14), w: 0, h: X((CB - CT) / n * (n - 1)), line: { color: C.ferro, width: 2 } } },
+      ...tempoV(n).flatMap(({ step, cx, cy }, i) => [celula(cx, cy),
+        ph(`Data ${i + 1}`, 'body', [M + 56, cy - 8, 140, 40], S.label, '2026'),
+        ph(`Marco ${i + 1}`, 'body', [M + 200, cy - 8, SWV - 200, 36], { ...S.sub, fontSize: P(28) }, 'Marco'),
+        ph(`Texto ${i + 1}`, 'body', [M + 200, cy + 30, SWV - 200, step - 40], { ...S.body, fontSize: P(24), lineSpacingMultiple: 1.2 }, 'Uma linha sobre ele.')]),
+      pic('Imagem', [M + SWV + G, 0, W - M - SWV - G, FOOT_Y]) ] };
+
+  FAM['2.5 Equação'] = { build: () => [ ...header(),
+    ph('Equação', 'body', [M, row(2)[0], FW, row(0, 2)[1]], { fontFace: F.math, fontSize: P(64), color: C.umbro, align: 'center', valign: 'middle' }, 'Inserir › Equação'),
+    ph('Nota', 'body', [col(2)[0], row(4)[0], col(0, 8)[1], 120], { ...S.body, fontSize: P(24), align: 'center' }, 'O que cada termo representa.') ] };
 
   // Ícones: tratamento sólido (ícone creme sobre ladrilho ferro).
   layout('3.1 Ícones · recursos', [ ...header(),
@@ -306,10 +359,6 @@ function defineLayouts() {
     rule(col(8)[0], CT, col(0, 4)[1], C.umbro, 2),
     ph('Leituras', 'body', [col(8)[0], CT + 24, col(0, 4)[1], CB - CT - 24], { ...S.body, fontSize: P(26) }, 'Três leituras do gráfico, uma por parágrafo.') ]);
 
-  layout('2.4 Equação', [ ...header(),
-    ph('Equação', 'body', [M, row(2)[0], FW, row(0, 2)[1]], { fontFace: F.math, fontSize: P(64), color: C.umbro, align: 'center', valign: 'middle' }, 'Inserir › Equação'),
-    ph('Nota', 'body', [col(2)[0], row(4)[0], col(0, 8)[1], 120], { ...S.body, fontSize: P(24), align: 'center' }, 'O que cada termo representa.') ]);
-
   layout('5.3 Números-chave', [ ...header(),
     ...[0, 4, 8].flatMap((c, i) => [ rule(col(c)[0], CT + 40, col(0, 4)[1], C.ferro, 3),
       ph(`Número ${i + 1}`, 'body', [col(c)[0], CT + 70, col(0, 4)[1], 170], { fontFace: F.bold, fontSize: P(140), color: C.ferro, valign: 'bottom', lineSpacingMultiple: 0.9 }, '00'),
@@ -326,13 +375,6 @@ function defineLayouts() {
   layout('5.5 Tabela', [ ...header(),
     ph('Tabela', 'tbl', [M, CT, FW, CB - CT - 50], {}, 'Tabela'),
     ph('Fonte', 'body', [M, CB - 30, FW, 30], S.cap, 'Fonte: autor, ano.') ]);
-
-  layout('2.5 Conclusões', [ ...header(),
-    ...[0, 4, 8].flatMap((c, i) => [ rule(col(c)[0], CT, col(0, 4)[1], C.umbro, 2),
-      pic(`Ícone ${i + 1}`, [col(c)[0], CT + 36, 56, 56], 'Ícone'),
-      ph(`Número ${i + 1}`, 'body', [col(c)[0], CT + 120, col(0, 4)[1], 36], S.label, `0${i + 1}`),
-      ph(`Subtítulo ${i + 1}`, 'body', [col(c)[0], CT + 166, col(0, 4)[1], 50], S.sub, 'Conclusão'),
-      ph(`Texto ${i + 1}`, 'body', [col(c)[0], CT + 232, col(0, 4)[1], CB - CT - 232], { ...S.body, fontSize: P(26) }, 'Uma ou duas frases.') ]) ]);
 
   layout('2.6 Só título', [ ...header() ]);
 
@@ -366,7 +408,7 @@ async function examples() {
   };
   // pptxgenjs: no 'cover', w/h devem ter a proporção da imagem (1600 × 1000), senão ela é esticada; sizing leva a caixa.
   const img = (box) => ({ img: IMG, box: { x: X(box[0]), y: X(box[1]), w: X(box[2]), h: X(box[3]), sizing: { type: 'cover', w: X(box[2]), h: X(box[3]) } }, ppt: { w: X(1600), h: X(1000) } });
-  const ic = (n, tag, box) => ({ img: icon(n, tag), box: { x: X(box[0]), y: X(box[1]), w: X(box[2]), h: X(box[3]) } });
+  const ic = (n, tag, box = [0, 0, 0, 0]) => ({ img: icon(n, tag), box: { x: X(box[0]), y: X(box[1]), w: X(box[2]), h: X(box[3]) } });
   const SW = col(0, 4)[1], SX = M + SW + G, IW = col(6)[0];
   // Outro deck com os mesmos layouts: DECK=arquivo.js node build.js (o módulo recebe as peças e monta os slides).
   if (process.env.DECK) return require(path.resolve(process.env.DECK))({ pres, s, ic, icon, A, C, F, P, X, col, row, CT, CB, TY, M, W, G, FW, FOOT_Y, sharp, FAM, pad });
@@ -389,9 +431,24 @@ async function examples() {
     'Texto': [{ text: 'Até três parágrafos curtos à direita sustentam a afirmação do título.', options: { breakLine: true } },
       { text: 'Cada um com uma ideia; nada de listas com mais de quatro itens.', options: { breakLine: true } },
       { text: 'A conclusão do slide vem por último, em Medium e ferro.', options: { fontFace: F.medium, color: C.ferro } }] });
-  s('2.2 Duas colunas', { 'Rótulo': '02 · Problema', 'Título': 'Duas ideias lado a lado', 'Subtítulo 1': 'O que se sabe', 'Coluna 1': 'Duas ou três frases sobre o estado atual.', 'Subtítulo 2': 'O que falta', 'Coluna 2': 'Duas ou três frases sobre a lacuna.' });
-  s('2.3 Três colunas', { 'Rótulo': '02 · Problema', 'Título': 'Três escalas do mesmo problema',
-    'Subtítulo 1': 'Território', 'Texto 1': 'Uma ou duas frases.', 'Subtítulo 2': 'Edifício', 'Texto 2': 'Uma ou duas frases.', 'Subtítulo 3': 'Elemento', 'Texto 3': 'Uma ou duas frases.' });
+  const RT = { 'Rótulo': '02 · Problema' }, UF = 'Uma ou duas frases.';
+  s('2.2 Colunas', { ...RT, 'Título': 'Duas ideias lado a lado', itens: [{ 'Subtítulo': 'O que se sabe', 'Texto': 'Duas ou três frases sobre o estado atual.' }, { 'Subtítulo': 'O que falta', 'Texto': 'Duas ou três frases sobre a lacuna.' }] });
+  s('2.2 Colunas · numeradas', { ...RT, 'Título': 'Três escalas do mesmo problema', itens: ['Território', 'Edifício', 'Elemento'].map((t) => ({ 'Subtítulo': t, 'Texto': UF })) });
+  const conc = [['chart-line', 'Modelo'], ['bell', 'Alerta'], ['monitor', 'Painel'], ['database', 'Dados']];
+  s('2.2 Colunas · ícones', { 'Rótulo': '05 · Próximos passos', 'Título': 'O que vem a seguir', itens: conc.map(([n, t]) => ({ 'Ícone': ic(n, 'ferro'), 'Subtítulo': t, 'Texto': UF })) });
+  const lst = (nomes, ico) => nomes.map((t, i) => ({ ...(ico && { 'Ícone': ic(ico[i], 'ferro') }), 'Item': t, 'Texto': 'Uma frase sobre o item.' }));
+  const ITENS = ['Território', 'Patrimônio', 'Comunidade', 'Clima', 'Mobilidade', 'Energia', 'Água', 'Dados', 'Governança'], ICL = ['map', 'landmark', 'users', 'atom', 'ruler', 'cpu', 'layers', 'database', 'building-2'];
+  s('2.3 Lista · imagem', { 'Rótulo': '01 · Contexto', 'Título': 'Quatro dimensões do caso', 'Imagem': img([IW, 0, W - IW, FOOT_Y]), itens: lst(ITENS.slice(0, 4)) });
+  s('2.3 Lista · ícones', { 'Rótulo': '01 · Contexto', 'Título': 'Nove dimensões do caso', itens: lst(ITENS, ICL) });
+  s('2.3 Lista · marcador', { 'Rótulo': '01 · Contexto', 'Título': 'Cinco pontos do argumento', itens: ITENS.slice(0, 5).map((t) => ({ 'Item': t })) });
+  s('2.3 Lista', { 'Rótulo': '01 · Contexto', 'Título': 'Seis etapas do trabalho', itens: lst(ITENS.slice(0, 6)) });
+  s('2.3 Lista · ícones e imagem', { 'Rótulo': '01 · Contexto', 'Título': 'Três dimensões do caso', 'Imagem': img([IW, 0, W - IW, FOOT_Y]), itens: lst(ITENS.slice(0, 3), ICL) });
+  const marcos = (n, feitos) => Array.from({ length: n }, (_, i) => ({ 'Data': String(2016 + i * 2), 'Marco': 'Marco', 'Texto': 'O que aconteceu.', feito: i < feitos }));
+  s('2.4 Linha do tempo', { 'Rótulo': '02 · Trajetória', 'Título': 'Dez anos de trabalho', itens: marcos(5, 2) });
+  s('2.4 Linha do tempo', { 'Rótulo': '02 · Trajetória', 'Título': 'Dos primeiros testes à plataforma', itens: marcos(10, 6) });
+  s('2.4 Linha do tempo · vertical', { 'Rótulo': '02 · Trajetória', 'Título': 'Trajetória', 'Imagem': img([SX, 0, W - SX, FOOT_Y]), itens: marcos(5, 4).map((m) => ({ ...m, 'Texto': 'Uma linha sobre o marco.' })) });
+  s('2.5 Equação', { 'Rótulo': '03 · Método', 'Título': 'O modelo', 'Equação': '𝜃(𝑡) = 𝑇(𝑡) + 𝑆(𝑡) + 𝐷(𝑡) + 𝜀(𝑡)', 'Nota': 'Tendência, ciclo sazonal, ciclo diário e resíduo.' });
+  s('2.6 Só título', { 'Rótulo': '03 · Método', 'Título': 'Diagrama livre: monte com ícones e pictogramas' });
   const feat = [['scan-line', 'Levantamento'], ['layers', 'Modelagem'], ['database', 'Dados'], ['chart-line', 'Análise']];
   s('3.1 Ícones · recursos', Object.assign({ 'Rótulo': '03 · Método', 'Título': 'Quatro frentes de trabalho' },
     ...feat.map(([n, t], i) => ({ [`Ícone ${i + 1}`]: ic(n, 'creme', [col(i * 3)[0] + 20, CT + 30, 56, 56]), [`Subtítulo ${i + 1}`]: t, [`Texto ${i + 1}`]: 'Uma ou duas frases sobre esta frente.' }))));
@@ -437,7 +494,6 @@ async function examples() {
         catAxisLabelFontFace: '+mn-lt', catAxisLabelFontSize: 14, catAxisLabelColor: C.umbro, valAxisHidden: true,
         valGridLine: { style: 'none' }, catGridLine: { style: 'none' }, catAxisLineColor: C.fioForte, showLegend: false });
   });
-  s('2.4 Equação', { 'Rótulo': '03 · Método', 'Título': 'O modelo', 'Equação': '𝜃(𝑡) = 𝑇(𝑡) + 𝑆(𝑡) + 𝐷(𝑡) + 𝜀(𝑡)', 'Nota': 'Tendência, ciclo sazonal, ciclo diário e resíduo.' });
   s('5.3 Números-chave', { 'Rótulo': '04 · Resultados', 'Título': 'Em números',
     'Número 1': '76', 'Rótulo 1': 'estações monitoradas', 'Nota 1': 'Entre 2018 e 2026.',
     'Número 2': '3×', 'Rótulo 2': 'mais rápido', 'Nota 2': 'Comparado ao processo manual.',
@@ -453,20 +509,16 @@ async function examples() {
     sl.addTable([[h('Material'), h([m('𝜌'), { text: ' (kg/m³)' }]), h([m('𝐸'), { text: ' (GPa)' }]), h([m('𝜈')])], ...rows.map((r) => r.map((v, i) => c(v, i > 0)))],
       { placeholder: 'Tabela', x: X(M), y: X(CT), w: X(FW), colW: [X(FW * .4), X(FW * .2), X(FW * .2), X(FW * .2)], fontSize: P(28), rowH: X(72), valign: 'middle', margin: [0, 0, 0, 0] });
   });
-  const conc = [['chart-line', 'Modelo'], ['bell', 'Alerta'], ['monitor', 'Painel']];
-  s('2.5 Conclusões', Object.assign({ 'Rótulo': '05 · Próximos passos', 'Título': 'O que vem a seguir' },
-    ...conc.map(([n, t], i) => ({ [`Ícone ${i + 1}`]: ic(n, 'ferro', [col(i * 4)[0], CT + 36, 56, 56]), [`Número ${i + 1}`]: `0${i + 1}`, [`Subtítulo ${i + 1}`]: t, [`Texto ${i + 1}`]: 'Uma ou duas frases.' }))));
-  s('2.6 Só título', { 'Rótulo': '03 · Método', 'Título': 'Diagrama livre: monte com ícones e pictogramas' });
   s('6.1 Encerramento', { 'Título': 'Obrigado', 'Apresentador': 'Nome do Apresentador', 'Contato': 'nome@ufc.br · lina.ufc.br' });
   s('6.2 Encerramento · autores', { 'Título': 'Obrigado', 'Autores 1': 'Nome do Autor\nNome da Autora\nNome do Autor', 'Autores 2': 'Nome da Autora\nNome do Autor' });
-  s('2.2 Duas colunas', { 'Rótulo': 'Guia do template · apague este slide antes de apresentar', 'Título': 'Como usar',
-    'Subtítulo 1': 'Montar', 'Coluna 1': 'Novo slide: Página Inicial › Novo Slide › escolha um layout LINA.\nRodapé: Inserir › Cabeçalho e Rodapé › Rodapé › “Título abreviado” › Aplicar a Todos.\nImagens e ícones: clique no ícone do espaço; a imagem recorta sozinha.',
-    'Subtítulo 2': 'Regras', 'Coluna 2': 'Instale a Outfit e a JetBrains Mono (livres, em assets/fonts e Google Fonts). Ao salvar, marque “Incorporar fontes”.\nÍcones Phosphor, peso regular, um tratamento por slide: sólido, simples ou claro.\nSem emoji. Mono só para datas, números, rótulos e legendas.' });
+  s('2.2 Colunas', { 'Rótulo': 'Guia do template · apague este slide antes de apresentar', 'Título': 'Como usar', itens: [
+    { 'Subtítulo': 'Montar', 'Texto': 'Novo slide: Página Inicial › Novo Slide › escolha um layout LINA.\nRodapé: Inserir › Cabeçalho e Rodapé › Rodapé › “Título abreviado” › Aplicar a Todos.\nImagens e ícones: clique no ícone do espaço; a imagem recorta sozinha.' },
+    { 'Subtítulo': 'Regras', 'Texto': 'Instale a Outfit e a JetBrains Mono (livres, em assets/fonts e Google Fonts). Ao salvar, marque “Incorporar fontes”.\nÍcones Phosphor, peso regular, um tratamento por slide: sólido, simples ou claro.\nSem emoji. Mono só para datas, números, rótulos e legendas.' }] });
 }
 
 // Cria os slides registrados por s(); preenchimento com chave que não é espaço do layout resolvido é erro.
 function criaSlides() {
-  for (const { name, base, fill: f0, extra } of SLIDES) {
+  for (const { name, base, n, itens, fill: f0, extra } of SLIDES) {
     const fill = { ...f0 };
     const L = LAYOUTS.find((l) => l.name === name);
     for (const k of Object.keys(fill)) if (!L.ph.some((p) => p.name === k)) throw new Error(`'${k}' não é espaço de '${name}'`);
@@ -488,6 +540,7 @@ function criaSlides() {
       if (typeof v === 'object' && v && v.img) sl.addImage({ placeholder: k, path: v.img, ...v.box, ...v.ppt });
       else sl.addText(v, { placeholder: k });
     }
+    FAM[base] && FAM[base].desenha && FAM[base].desenha(sl, itens, n);
     extra && extra(sl);
   }
 }
