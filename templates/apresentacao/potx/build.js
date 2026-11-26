@@ -6,7 +6,7 @@ const sharp = require('sharp');
 const fs = require('fs');
 const path = require('path');
 const A = (f) => path.join(__dirname, f);
-const { resolve, pad } = require('./param.js');
+const { resolve, pad, contido } = require('./param.js');
 
 const X = (px) => px / 144;   // px para polegadas
 const P = (px) => px / 2;     // px para pt
@@ -587,6 +587,47 @@ async function examples() {
     { 'Subtítulo': 'Regras', 'Texto': 'Instale a Outfit e a JetBrains Mono (livres, em assets/fonts e Google Fonts). Ao salvar, marque “Incorporar fontes”.\nÍcones Phosphor, peso regular, um tratamento por slide: sólido, simples ou claro.\nSem emoji. Mono só para datas, números, rótulos e legendas.' }] });
 }
 
+// ---------- imagem e vídeo no fill ----------
+// Valor de fill sem caixa: { img, modo?: 'cover' | 'fit', posicao? } ou { video, poster }; o formato antigo { img, box, ppt } segue valendo.
+// cover: recorta na proporção da caixa e preenche o espaço. fit: imagem inteira, centrada, solta (espaço vazio). Vídeo: solto, em loop, na proporção do poster.
+const novo = (v) => v && typeof v === 'object' && !Array.isArray(v) && ((v.img && !v.box) || v.video);
+const hash = (...a) => require('crypto').createHash('md5').update(a.join('|')).digest('hex').slice(0, 10);
+const dimensoes = async (f) => { const m = await sharp(f).metadata(); return (m.orientation || 1) > 4 ? [m.height, m.width] : [m.width, m.height]; };
+async function cobre(f, w, h, posicao = 'centre') {
+  const out = A(`gen/cover-${hash(f, fs.statSync(f).mtimeMs, w, h, posicao)}${/\.jpe?g$/i.test(f) ? '.jpg' : '.png'}`);
+  if (!fs.existsSync(out)) await sharp(f).rotate().resize(w, h, { fit: 'cover', position: posicao }).toFile(out);
+  return out;
+}
+// Imagem inteira na caixa já contida [x, y, w, h], em 2×; cantos de 22 quando não sangra (mesma regra do post.py).
+async function inteira(f, [x, y, w, h]) {
+  const [pw, ph] = [Math.round(w * 2), Math.round(h * 2)], r = x <= 0 || y <= 0 || x + w >= W - 1 || Math.min(w, h) <= 120 ? 0 : R * 2;
+  const out = A(`gen/fit-${hash(f, fs.statSync(f).mtimeMs, pw, ph, r)}.png`);
+  if (!fs.existsSync(out)) {
+    let im = sharp(f).rotate().resize(pw, ph, { fit: 'fill' });
+    if (r) im = im.composite([{ input: Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${pw}" height="${ph}"><rect width="${pw}" height="${ph}" rx="${r}"/></svg>`), blend: 'dest-in' }]);
+    await im.png().toFile(out);
+  }
+  return out;
+}
+// Resolve os fills novos de cada slide, com a caixa do espaço no layout (ou a de `arranja`, para arranjos pela proporção de cada imagem).
+// Resultado: cover vira { img, box } (preenche o espaço); fit, vídeo e legendas de `arranja` viram { solto } (desenhados soltos em criaSlides).
+async function prepara() {
+  for (const sl of SLIDES) {
+    const f = sl.fill, L = LAYOUTS.find((l) => l.name === sl.name), fam = FAM[sl.base] || {};
+    const ks = Object.keys(f).filter((k) => novo(f[k]));
+    if (!ks.length) continue;
+    const dim = {}; for (const k of ks) dim[k] = await dimensoes(f[k].video ? f[k].poster : f[k].img);
+    const ov = (fam.arranja && fam.arranja((k) => dim[k], sl.n)) || {};
+    for (const k of ks) {
+      const v = f[k], box = ov[k] || L.ph.find((p) => p.name === k).box;
+      if (v.video) f[k] = { solto: { video: v.video, poster: v.poster, cover: (await sharp(v.poster).resize(1280).jpeg({ quality: 80 }).toBuffer()).toString('base64'), box: contido(box, ...dim[k]) } };
+      else if (ov[k] || v.modo === 'fit') { const c = contido(box, ...dim[k]); f[k] = { solto: { img: await inteira(v.img, c), box: c } }; }
+      else f[k] = { img: await cobre(v.img, Math.round(box[2] * 2), Math.round(box[3] * 2), v.posicao || fam.posicao), box: { x: X(box[0]), y: X(box[1]), w: X(box[2]), h: X(box[3]) } };
+    }
+    for (const k of Object.keys(ov)) if (typeof f[k] === 'string' || Array.isArray(f[k])) f[k] = { solto: { texto: f[k], box: ov[k] } };
+  }
+}
+
 // Cria os slides registrados por s(); preenchimento com chave que não é espaço do layout resolvido é erro.
 function criaSlides() {
   for (const { name, base, n, itens, fill: f0, extra } of SLIDES) {
@@ -600,7 +641,7 @@ function criaSlides() {
     }
     // Capa com título longo (mais de 60 caracteres): 56 em vez de 72, para caber nas linhas 2–3.
     if (base === '1.2 Capa' && typeof fill['Título'] === 'string' && fill['Título'].length > 60) fill['Título'] = [{ text: fill['Título'], options: { fontSize: P(56) } }];
-    const real = pres.addSlide({ masterName: name }), rec = { master: name, fill, charts: [], tables: [], images: [], media: [], texts: [] };
+    const real = pres.addSlide({ masterName: name }), rec = { master: name, fill: Object.fromEntries(Object.entries(fill).filter(([, v]) => !(v && v.solto))), charts: [], tables: [], images: [], media: [], texts: [] };
     HTML_SLIDES.push(rec);
     const sl = { addChart: (t, d, o) => (rec.charts.push({ type: t, series: d, opts: o }), real.addChart(t, d, o)),
       addTable: (r, o) => (rec.tables.push({ rows: r, opts: o }), real.addTable(r, structuredClone(o))),
@@ -608,7 +649,12 @@ function criaSlides() {
       addMedia: (o) => (rec.media.push(o), real.addMedia(o)),
       anim: (a) => { rec.anim = a; }, html: (h) => { rec.html = (rec.html || '') + h; } }; // anim: efeito de entrada no deck HTML (ex.: 'aleatorio'); html: marcação crua, só no deck HTML; imagem com pptOnly: só no .pptx
     for (const [k, v] of Object.entries(fill)) {
-      if (typeof v === 'object' && v && v.img) sl.addImage({ placeholder: k, path: v.img, ...v.box, ...v.ppt });
+      if (v && v.solto) {
+        const { img, video, poster, cover, texto, box: [x, y, w, h] } = v.solto, b = { x: X(x), y: X(y), w: X(w), h: X(h) };
+        if (img) sl.addImage({ path: img, ...b });
+        else if (video) sl.addMedia({ type: 'video', path: video, cover: 'data:image/jpeg;base64,' + cover, poster, loop: true, bg: '#000000', ...b });
+        else sl.addText(texto, { ...b, margin: 0, align: 'left', valign: 'top', ...S.cap });
+      } else if (typeof v === 'object' && v && v.img) sl.addImage({ placeholder: k, path: v.img, ...v.box, ...v.ppt });
       else sl.addText(v, { placeholder: k });
     }
     FAM[base] && FAM[base].desenha && FAM[base].desenha(sl, itens, n);
@@ -638,7 +684,7 @@ function iconPages() {
   await assets();
   defineLayouts();
   await examples();
-  flushLayouts(); criaSlides();
+  flushLayouts(); await prepara(); criaSlides();
   if (!process.env.DECK) iconPages();
   fs.writeFileSync(A('out/layouts.json'), JSON.stringify(LAYOUTS));
   console.log('html', require('./html.js')({ layouts: HTML_LAYOUTS, slides: HTML_SLIDES, out: A('out/html/Apresentacao.dc.html'), C, F, W, FOOT_Y, M, R }), 'slides');

@@ -1,7 +1,7 @@
 // Checagem do núcleo paramétrico (param.js) e da lista de layouts gerada. Uso: node check.js
 const assert = require('node:assert/strict');
 const fs = require('fs');
-const { resolve } = require('./param.js');
+const { resolve, contido } = require('./param.js');
 
 const FAM = {
   '9.1 Teste': { faixa: [1, 6], unidade: 'itens', campo: 'Item', numera: true },
@@ -25,6 +25,9 @@ assert.throws(() => R('9.1 Teste', { itens: Array(7).fill('x') }), /aceita 1–6
 assert.equal(R('9.1 Teste', { 'Item 1': 'a', 'Item 2': 'b', 'Item 3': 'c' }).n, 3);
 assert.deepEqual(R('9.1 Teste', { itens: ['a'] }).itens, ['a']);
 assert.equal(R('9.2 Fixo', { Título: 't' }).name, '9.2 Fixo');
+
+assert.deepEqual(contido([0, 0, 200, 100], 100, 100), [50, 0, 100, 100]);
+assert.deepEqual(contido([0, 0, 100, 200], 200, 100), [0, 75, 100, 50]);
 
 // Lista de layouts gerada pelo build (se já existir): família 1 nova, nomes antigos fora, ordem numérica.
 const f = require('path').join(__dirname, 'out/layouts.json');

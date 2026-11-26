@@ -41,4 +41,10 @@ function resolve(m, fill, FAM, ALIAS) {
   return { base, n, itens, name: nomeLayout(base, n, fam), fill: itens ? { ...resto, ...expande(itens, n, fam) } : resto };
 }
 
-module.exports = { resolve, nomeLayout, pad };
+// Maior retângulo da proporção iw:ih que cabe na caixa [x, y, w, h], centrado.
+const contido = ([x, y, w, h], iw, ih) => {
+  const k = Math.min(w / iw, h / ih), cw = iw * k, ch = ih * k;
+  return [x + (w - cw) / 2, y + (h - ch) / 2, cw, ch];
+};
+
+module.exports = { resolve, nomeLayout, pad, contido };
