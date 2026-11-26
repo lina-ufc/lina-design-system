@@ -8,6 +8,7 @@
 - [logos-pendencias](logos-pendencias.md) — Logos novos (vazados, selo, assinaturas em bloco) aguardam aprovação; avatar e assinatura simples apagados; decisões abertas
 - [runtime-descarta-atributos-video](runtime-descarta-atributos-video.md) — HTML do deck perde loop/muted/controls do vídeo; laço em html.js toca
 - [python-313-checagens](python-313-checagens.md) — validate/aspect quebram no python3 3.9; usar 3.13 do anaconda no PATH
+- [texto-de-exemplo-nao-e-regra](texto-de-exemplo-nao-e-regra.md) — Frase dentro de PDF de exemplo não é regra; Declaração sem limite de quantidade
 - [deck-fora-do-browser-vscode](deck-fora-do-browser-vscode.md) — Deck no browser integrado do VS Code vaza memória e derruba o VS Code; usar Chrome
 - [pptx-videos-fontes](pptx-videos-fontes.md) — post.py embute fontes (EOT) e põe vídeos em autoplay/loop/mudo; falta testar no PowerPoint
 - [ds-fonte-local](ds-fonte-local.md) — Sem sync com Claude Design; artefatos _ds_* só na pasta arquivada do Drive

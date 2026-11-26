@@ -39,7 +39,7 @@
   {
    "id": "7",
    "nome": "Componentes",
-   "desc": "Peças reutilizáveis: logo, campo pontilhado, ladrilho de ¼, rodapé, layouts."
+   "desc": "Peças de conteúdo para slides e documentos: declaração, tabela, legenda, número, passos, nota, cabeçalho e rodapé, cartão e tile."
   },
   {
    "id": "8",
@@ -257,6 +257,12 @@
    "nome": "6.5 Arquivos e regras",
    "sub": "Onde ficam, como trazer novos, como pintar",
    "secao": "capitulos/6-icones/5-arquivos.html"
+  },
+  {
+   "cap": "7",
+   "nome": "7.1 Declaração",
+   "sub": "Frase a guardar no slide, aviso no documento",
+   "secao": "capitulos/7-componentes/1-declaracao.html"
   },
   {
    "cap": "8",
