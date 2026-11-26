@@ -13,7 +13,7 @@
 
 ## Resumo
 
-`[███████░░░]` planos 01–04 concluídos; 05 escrito.
+`[████████░░]` planos 01–05 concluídos; 06 escrito.
 
 | Plano | Progresso | Tarefas | Estado |
 | --- | --- | --- | --- |
@@ -21,8 +21,8 @@
 | 02 — texto-e-icones | `[██████████]` | 4/4 | Concluído 2026-11-26 |
 | 03 — imagem | `[██████████]` | 3/3 | Concluído 2026-11-26 |
 | 04 — dados-e-fim | `[██████████]` | 3/3 | Concluído 2026-11-26 |
-| 05 — deck-html | `[░░░░░░░░░░]` | 0/3 | Escrito |
-| 06 — site-e-versao | `[░░░░░░░░░░]` | — | Não escrito |
+| 05 — deck-html | `[██████████]` | 3/3 | Concluído 2026-11-26 |
+| 06 — site-e-versao | `[░░░░░░░░░░]` | 0/4 | Escrito |
 
 ## Plano 01 — base-e-abertura
 
@@ -66,11 +66,22 @@ Desvios: `html.js` lia `labels` embrulhado pelo pptxgenjs (`labels.flat()`); só
 
 ## Plano 05 — deck-html
 
-`[░░░░░░░░░░]` 0% — 0 de 3 tarefas.
+`[██████████]` 100% — 3 de 3 tarefas.
 
-- [ ] **Task 1** — Notas e idioma
-- [ ] **Task 2** — Apresentador e transições
-- [ ] **Task 3** — Pacote offline
+- [x] **Task 1** — Notas e idioma — `9d7f27b`, validate ok, distorcidas 0, check ok (lang, `#speaker-notes` 63 = 63 seções); `notesSlide` no .pptx
+- [x] **Task 2** — Apresentador e transições — `59ca189`, idem; N com stub de `window.open` (nota, começo da próxima, miniaturas, cronômetro); transições sem `scale(` em texto; orquestrador confirmou `window.open` no navegador
+- [x] **Task 3** — Pacote offline — `0f912e5`, idem; zip servido por HTTP com `local()` removido: cinco fontes `loaded`
+
+Desvios: interface do apresentador em português; `prepara()` passa `alt` adiante; `site.yml` copia `fonts.css`, `fonts/`, `apresentador.js` e `transicao.js` da release, e o passo falha até sair release nova (plano 06); `LINA-Fontes.zip` passa a levar STIX; não testados: popup real, `prefers-reduced-motion`, trama no Chrome headless, PowerPoint.
+
+## Plano 06 — site-e-versao
+
+`[░░░░░░░░░░]` 0% — 0 de 4 tarefas.
+
+- [ ] **Task 1** — Regressão local CNR e Vision
+- [ ] **Task 2** — README do template e CHANGELOG 2.0.0
+- [ ] **Task 3** — Página 8.1 do site e print do apresentador
+- [ ] **Task 4** — Revisão e pedido de publicação
 
 ## Changelog
 
@@ -79,3 +90,4 @@ Desvios: `html.js` lia `labels` embrulhado pelo pptxgenjs (`labels.flat()`); só
 - 2026-11-26 — plano 02 concluído (`941842b`…`5b4c1ec`); plano 03 escrito.
 - 2026-11-26 — plano 03 concluído (`9dfd301`, `e86e474`, `8eae1de`); plano 04 escrito.
 - 2026-11-26 — plano 04 concluído (`3a46ef8`, `e32992e`, `cd489b2`); plano 05 escrito.
+- 2026-11-26 — plano 05 concluído (`9d7f27b`, `59ca189`, `0f912e5`); plano 06 escrito.
