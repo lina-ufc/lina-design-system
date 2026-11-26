@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Layouts da apresentação · proposta</title>
+<!-- Rascunho para decisão (2026-11-26). Cada layout é uma função da quantidade de itens; as miniaturas mostram variações de N. -->
+<link rel="stylesheet" href="../../../tokens/fonts.css">
+<script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+<style>
+@font-face { font-family: "JetBrains Mono"; font-weight: 400; src: url("../../../assets/fonts/JetBrainsMono-Regular.ttf"); }
+@font-face { font-family: "JetBrains Mono"; font-weight: 500; src: url("../../../assets/fonts/JetBrainsMono-Medium.ttf"); }
+:root { --ferro:#A81F0D; --umbro:#2A1A12; --creme:#FAF5C6; --nata:#FDF1CF; --fio:#E6DFA2; --fioForte:#C9B87A; --turq:#64B6AC; --turqF:#2F6A62; --damasco:#FDD692; --areia:#E1CE7A; --ferroF:#6E1408; }
+* { box-sizing: border-box; }
+body { margin: 0; background: #F3EEDF; color: var(--umbro); font: 300 16px/1.45 Outfit, sans-serif; }
+header.pg { padding: 40px 48px 8px; max-width: 1400px; }
+header.pg h1 { font: 800 40px/1 Outfit; margin: 0 0 12px; }
+header.pg p { margin: 6px 0; max-width: 900px; }
+.leg { display: flex; flex-wrap: wrap; gap: 14px; margin: 16px 0 4px; font: 400 13px "JetBrains Mono"; }
+.b { display: inline-block; padding: 2px 8px; border-radius: 4px; font: 500 12px "JetBrains Mono"; }
+.b.igual { background: var(--fio); } .b.gen { background: var(--turqF); color: #fff; } .b.novo { background: var(--ferro); color: #fff; } .b.comp { background: var(--umbro); color: var(--creme); }
+details.fund { margin: 12px 0 0; max-width: 900px; } details.fund li { margin: 2px 0; }
+section.fam { padding: 8px 48px 24px; }
+section.fam h2 { font: 800 26px Outfit; margin: 24px 0 12px; border-top: 2px solid var(--umbro); padding-top: 12px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(384px, 1fr)); gap: 28px 24px; }
+figure { margin: 0; }
+.th { width: 384px; height: 216px; overflow: hidden; cursor: zoom-in; box-shadow: 0 1px 3px rgba(42,26,18,.25); }
+.th .slide { transform: scale(.2); transform-origin: 0 0; }
+figcaption { margin-top: 8px; font-size: 14px; width: 384px; }
+figcaption strong { font-weight: 500; }
+figcaption .v { font: 400 12px "JetBrains Mono"; color: var(--ferro); }
+figcaption .n { display: block; color: #6b5a4c; font-size: 13px; }
+#zoom { position: fixed; inset: 0; background: rgba(42,26,18,.85); display: none; align-items: center; justify-content: center; z-index: 9; cursor: zoom-out; }
+#zoom.on { display: flex; }
+#zoom .slide { position: absolute; left: 50%; top: 50%; transform-origin: center; }
+
+/* slide 1920 × 1080 */
+.slide { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: #fff; color: var(--umbro); }
+.slide.capa { background: var(--ferro) url("../../../templates/apresentacao/img/trama-capa.png") center/cover; }
+.slide.secao { background: var(--ferro) url("../../../templates/apresentacao/img/trama-secao.png") center/cover; }
+.a { position: absolute; margin: 0; }
+.lbl { font: 400 25px/1.9 "JetBrains Mono"; color: var(--ferro); }
+.tit { font: 800 60px/.95 Outfit; }
+.sub { font: 500 32px/1.1 Outfit; }
+.body { font: 300 28px/1.3 Outfit; }
+.cap { font: 400 18px/1.3 "JetBrains Mono"; }
+.mono { font: 400 22px/1.3 "JetBrains Mono"; }
+.big { font: 800 140px/.9 Outfit; color: var(--ferro); }
+.c { color: var(--creme); }
+.im { background: var(--nata) repeating-linear-gradient(45deg, transparent 0 18px, var(--fioForte) 18px 20px); display: flex; align-items: center; justify-content: center; }
+.im span { font: 400 22px "JetBrains Mono"; background: var(--nata); padding: 4px 10px; }
+.tile { display: flex; align-items: center; justify-content: center; }
+.ico { display: flex; color: var(--ferro); }
+.foot { background: var(--ferro); }
+.foot img { position: absolute; left: 72px; top: 25px; height: 34px; }
+.foot .ft { position: absolute; left: 140px; top: 26px; font: 400 20px "JetBrains Mono"; color: var(--creme); }
+.foot .fn { position: absolute; right: 72px; top: 26px; font: 400 20px "JetBrains Mono"; color: var(--creme); }
+.lgx { width: 250px; height: 86px; border: 2px dashed var(--creme); color: var(--creme); font: 400 18px "JetBrains Mono"; display: flex; align-items: center; justify-content: center; }
+.lgrow { display: flex; align-items: center; gap: 28px; }
+table.tb { border-collapse: collapse; width: 100%; font: 300 26px Outfit; }
+table.tb th { font: 400 20px "JetBrains Mono"; text-align: left; padding: 10px 14px; border-bottom: 2px solid var(--umbro); }
+table.tb td { padding: 12px 14px; border-bottom: 1.5px solid var(--fio); }
+table.tb .hl { background: var(--nata); color: var(--ferro); font-weight: 500; }
+.duo i::before { color: var(--dt) !important; opacity: 1 !important; }
+</style>
+</head>
+<body>
+<header class="pg">
+  <h1>Layouts da apresentação · proposta</h1>
+  <p>Todos os layouts do template final, na ordem em que entrariam no deck de exemplo do site, no .pptx e no .pdf. Cada layout é uma função da quantidade de itens: as miniaturas mostram valores pequenos e grandes de N, e o layout muda de arranjo (colunas, linhas, tamanho) quando o conteúdo passa de um limite. Clique numa miniatura para ampliar.</p>
+  <div class="leg"><span><span class="b igual">igual</span> como hoje</span><span><span class="b gen">generalizado</span> aceita N itens ou variações</span><span><span class="b novo">novo</span> vindo do CNR e do Vision</span><span><span class="b comp">componente</span> peça para usar dentro de qualquer layout</span></div>
+  <details class="fund"><summary>Layouts atuais que somem por fusão (7)</summary><ul>
+    <li>1.4 Capa · autores → <b>1.2 Capa</b> (autores 1–9)</li>
+    <li>1.6 Sumário · lista → <b>1.4 Sumário</b> (o arranjo depende de N)</li>
+    <li>2.3 Três colunas e 2.5 Conclusões → <b>2.2 Colunas</b> (N 2–4, marcador: nenhum, número, ícone)</li>
+    <li>3.3 Ícones · lista e imagem → <b>2.3 Lista</b></li>
+    <li>4.5 Duas imagens e 4.6 Três imagens → <b>4.5 Imagens em linha</b> (N 2–4, largura pela proporção)</li>
+    <li>4.9 Vídeo → qualquer espaço de imagem aceita vídeo (resolve a caixa cinza no PDF)</li>
+  </ul></details>
+</header>
+<main id="cat"></main>
+<div id="zoom"></div>
+<script>
+// ---------- grade (px na referência 1920 × 1080) ----------
+const M = 72, G = 24, CW = 126, RH = 120, W = 1920, H = 1080, FY = 996, FW = W - 2 * M;
+const cx = (i) => M + i * (CW + G), cw = (s) => s * CW + (s - 1) * G;
+const ry = (i) => 132 + i * (RH + G), rh = (s) => s * RH + (s - 1) * G;
+const TY = 132, CT = 276, CB = 972, SW = cw(4), SX = M + SW + G;
+const C = { ferro:'A81F0D', umbro:'2A1A12', creme:'FAF5C6', nata:'FDF1CF', fio:'E6DFA2', fioForte:'C9B87A', turq:'64B6AC', turqF:'2F6A62', damasco:'FDD692', areia:'E1CE7A', ferroF:'6E1408' };
+const IMG = '../../../templates/apresentacao/img/';
+const pad = (i) => String(i).padStart(2, '0');
+
+// ---------- peças ----------
+const st = (x, y, w, h) => `left:${x}px;top:${y}px;width:${w}px;height:${h}px`;
+const t = (x, y, w, h, s, c = 'body', css = '') => `<div class="a ${c}" style="${st(x, y, w, h)};${css}">${s}</div>`;
+const im = (x, y, w, h, s = 'Imagem') => `<div class="a im" style="${st(x, y, w, h)}"><span>${s}</span></div>`;
+const ln = (x, y, w, c = C.fioForte, th = 1.5) => `<div class="a" style="${st(x, y, w, th)};background:#${c}"></div>`;
+const vl = (x, y, h, c = C.fioForte, th = 1.5) => `<div class="a" style="${st(x, y, th, h)};background:#${c}"></div>`;
+const ic = (n, w = 'ph') => `<i class="${w} ph-${n}"></i>`;
+const icon = (x, y, s, n, c = C.ferro, w = 'ph') => `<div class="a ico" style="${st(x, y, s, s)};font-size:${s}px;color:#${c}">${ic(n, w)}</div>`;
+const tile = (x, y, s, bg, inner, fg = C.creme, fs = s * .56, css = '') => `<div class="a tile" style="${st(x, y, s, s)};border-radius:${s / 4}px;background:${bg ? '#' + bg : 'none'};color:#${fg};font-size:${fs}px;${css}">${inner}</div>`;
+const numTile = (x, y, s, i, bg = C.ferro) => tile(x, y, s, bg, `<span style="font:500 ${s * .4}px 'JetBrains Mono'">${pad(i)}</span>`);
+const hdr = (w = FW, tit = 'Título do slide', size = 60, lab = '02 · Nome da seção') => t(M, 67, w, 48, lab, 'lbl') + t(M, TY, w, size * 2.2, tit, 'tit', `font-size:${size}px`);
+const logoLina = (x, y) => `<img class="a" src="${IMG}logo-h-creme.png" style="left:${x}px;top:${y}px;width:200px">`;
+// Logos institucionais: UFC e IAUD reais; as demais são espaço de logo parceiro. n de 2 a 4.
+const logos = (n, y, x0, center) => {
+  const it = [`<img src="${IMG}logo-ufc-branco.png" style="width:356px">`, `<img src="${IMG}logo-iaud-branco.png" style="width:281px">`];
+  for (let k = 2; k < n; k++) it.push(`<div class="lgx">Logo parceiro</div>`);
+  return `<div class="a lgrow" style="top:${y}px;${center ? 'left:0;width:1920px;justify-content:center' : `left:${x0}px`}">${it.join('')}</div>`;
+};
+const LOREM = ['Introdução', 'Contexto e problema', 'Método', 'Levantamento', 'Resultados', 'Discussão', 'Conclusões', 'Trabalhos futuros', 'Referências', 'Anexo A', 'Anexo B', 'Anexo C', 'Anexo D', 'Anexo E', 'Anexo F', 'Anexo G', 'Anexo H', 'Anexo I'];
+const NOMES = ['Ana Beatriz Lima', 'Carlos Eduardo Rocha', 'Daniela Moura', 'Eduardo Pinheiro', 'Fernanda Sales', 'Gabriel Nogueira', 'Helena Castro', 'Igor Matos', 'Júlia Araújo', 'Lucas Ferreira', 'Mariana Teles', 'Nicolas Prado', 'Olívia Campos', 'Pedro Alencar'];
+const ICS = ['atom', 'buildings', 'scan', 'map-trifold', 'cube', 'database', 'camera', 'ruler', 'stack', 'users', 'chart-line', 'thermometer'];
+
+// ---------- layouts paramétricos ----------
+function capa({ autores = 1, nlogos = 2, linhas = 2, titulo } = {}) {
+  const tt = titulo || (linhas > 3 ? 'Título longo do trabalho que precisa de quatro linhas para caber inteiro na capa' : 'Título do trabalho em até três linhas');
+  const sz = linhas > 3 ? 56 : 72; // ponytail: acima de 3 linhas a fonte cai para caber nas linhas 2–3 (264 px)
+  let h = logoLina(M, M) + t(M, ry(1), cw(8), RH, 'Evento · DD · MM · AAAA', 'mono c', 'display:flex;align-items:flex-end')
+    + t(M, ry(2), cw(7), rh(2), tt, 'tit c', `font-size:${sz}px`);
+  if (autores === 1) h += t(M, ry(4), cw(8), 44, 'Nome do Apresentador', 'sub c') + t(M, ry(4) + 52, cw(8), 40, 'Coautores · Orientação', 'body c', 'font-size:24px');
+  else { // até 3 nomes por coluna; colunas de 4 módulos
+    const per = 3, nc = Math.ceil(autores / per);
+    for (let c = 0; c < nc; c++) h += t(cx(c * 4), ry(4), cw(4), RH, NOMES.slice(c * per, Math.min(autores, (c + 1) * per)).join('<br>'), 'sub c');
+  }
+  return { bg: 'capa', html: h + logos(nlogos, 1080 - M - 99, M - 11) };
+}
+function capaImagem({ autores = 6 } = {}) {
+  const IX = cx(5), A = 'font:500 28px/1.0 Outfit';
+  const n1 = Math.min(3, autores);
+  return { bg: 'capa', html: im(M, M, cw(5), 1080 - 2 * M) + logoLina(IX, M)
+    + t(IX, ry(1), cw(7), RH, 'Evento · DD · MM · AAAA', 'mono c', 'display:flex;align-items:flex-end')
+    + t(IX, ry(2), cw(5), rh(2), 'Título do trabalho em até três linhas', 'tit c', 'font-size:72px')
+    + t(IX, ry(4), cw(3), RH, NOMES.slice(0, n1).join('<br>'), 'c', A)
+    + (autores > 3 ? t(cx(8), ry(4), cw(4), RH, NOMES.slice(3, autores).join('<br>'), 'c', A) : '')
+    + logos(2, 1080 - M - 99, IX - 11) };
+}
+// Sumário: até 6 partes, faixas que repartem a altura (com descrição até 5); 7–12 em duas colunas; 13–18 em três.
+function sumario(n) {
+  let h = '';
+  if (n <= 6) {
+    h += t(M, 67, cw(4), 48, 'Sumário', 'lbl') + t(M, TY, cw(4), 200, 'O que vamos ver', 'tit');
+    const bh = (CB - TY) / n, big = n <= 4, x = cx(5), w = cw(7);
+    for (let i = 0; i < n; i++) { const y = TY + i * bh;
+      h += ln(x, y, w) + t(x, y + 30, CW, 40, pad(i + 1), 'lbl', 'font-size:24px;line-height:1')
+        + t(cx(6), y + (big ? 22 : 16), cw(6), 64, LOREM[i], 'sub', `font-size:${big ? 48 : 40}px`)
+        + (n <= 5 ? t(cx(6), y + (big ? 94 : 72), cw(6), 44, 'Uma linha sobre esta parte', 'body') : ''); }
+  } else {
+    h += hdr(FW, 'Sumário', 60, 'Sumário');
+    const nc = n <= 12 ? 2 : 3, per = Math.ceil(n / nc), s = 12 / nc, step = Math.min(120, (CB - CT) / per);
+    for (let i = 0; i < n; i++) { const c = Math.floor(i / per), r = i % per, x = cx(c * s), y = CT + r * step;
+      h += ln(x, y, cw(s)) + t(x, y + 26, CW, 40, pad(i + 1), 'lbl', 'font-size:24px;line-height:1') + t(x + 96, y + 18, cw(s) - 96, 50, LOREM[i], 'sub', 'font-size:36px'); }
+  }
+  return { html: h };
+}
+const secao = () => ({ bg: 'secao', html: t(M - 15, ry(2) - 54, cw(4), 415, '01', '', "font:800 371px/.85 Outfit;color:#FDD692")
+  + t(M, ry(4) - 21, cw(10), 94, 'Nome da seção', 'tit c', 'font-size:82px') + t(M, ry(4) + 72, cw(7), 60, 'Uma frase sobre o que esta seção vai mostrar.', 'body c', 'font-size:32px') });
+const texto = () => ({ html: t(M, 67, FW, 48, '02 · Nome da seção', 'lbl') + t(M, TY, cw(5), 560, 'Uma afirmação que o slide sustenta', 'tit')
+  + t(cx(6), TY, cw(6), CB - TY, 'Até três parágrafos curtos sustentam a afirmação do título.<br><br>O segundo parágrafo traz o dado ou o exemplo que convence.<br><br>O terceiro amarra a conclusão.', 'body') });
+// Colunas: N de 2 a 4; marcador nenhum, número ou ícone+número (antigo Conclusões).
+function colunas(n, mk) {
+  const s = 12 / n; let h = hdr();
+  for (let i = 0; i < n; i++) { const x = cx(i * s), w = cw(s); let y = CT + 24;
+    h += ln(x, CT, w, mk === 'conc' ? C.umbro : C.fioForte, mk === 'conc' ? 2 : 1.5);
+    if (mk === 'conc') { h += icon(x, y + 12, 56, ICS[i]); y += 96; }
+    if (mk) { h += t(x, y, w, 36, pad(i + 1), 'lbl', 'line-height:1.2'); y += 46; }
+    h += t(x, y, w, 50, mk === 'conc' ? 'Conclusão' : 'Subtítulo', 'sub') + t(x, y + 72, w, CB - y - 72, 'Texto curto da coluna, em uma ou duas frases.', 'body', n > 3 ? 'font-size:26px' : ''); }
+  return { html: h };
+}
+// Lista: itens empilhados com marcador (tile numerado, ícone em tile ou ponto). Com imagem: 1 coluna, até 5. Sem: 2 colunas acima de 5.
+function lista(n, { mk = 'num', img = false } = {}) {
+  const nc = img ? 1 : n <= 5 ? 1 : 2, per = Math.ceil(n / nc), w0 = img ? SX + cw(2) - M : nc === 1 ? cw(10) : cw(6) - G;
+  const step = Math.min(144, (CB - CT) / per);
+  let h = hdr(img ? w0 : FW);
+  for (let i = 0; i < n; i++) { const c = Math.floor(i / per), r = i % per, x = cx(c * 6), y = CT + r * step;
+    h += mk === 'num' ? numTile(x, y, 72, i + 1) : mk === 'ico' ? tile(x, y, 72, C.damasco, ic(ICS[i]), C.ferro) : `<div class="a" style="${st(x + 26, y + 18, 18, 18)};border-radius:5px;background:#${C.ferro}"></div>`;
+    h += t(x + 96, y - 2, w0 - 96, 40, 'Item da lista', 'sub') + t(x + 96, y + 42, w0 - 96, 40, 'Uma frase sobre o item.', 'body', 'font-size:26px'); }
+  if (img) h += im(cx(6), 0, W - cx(6), FY);
+  return { html: h };
+}
+// Linha do tempo: horizontal até 6 marcos numa linha; acima disso, duas linhas. Marco = célula LINA; passado cheio, futuro vazado.
+function tempo(n) {
+  let h = hdr(); const rows = n <= 6 ? 1 : 2, per = Math.ceil(n / rows), w = (FW - (per - 1) * G) / per;
+  for (let i = 0; i < n; i++) { const r = Math.floor(i / per), c = i % per, x = M + c * (w + G), y0 = CT + r * 360, ax = y0 + 84, fut = i >= n - 2;
+    if (c === 0) h += ln(M, ax + 13, FW, C.ferro, 2);
+    h += t(x, y0, w, 40, String(2016 + i * 2), 'lbl', 'line-height:1.2')
+      + `<div class="a" style="${st(x, ax, 28, 28)};border-radius:7px;background:#${fut ? 'fff' : C.ferro};border:3px solid #${C.ferro}"></div>`
+      + t(x, ax + 56, w, 40, 'Marco', 'sub', 'font-size:28px') + t(x, ax + 98, w, 120, 'O que aconteceu.', 'body', 'font-size:24px'); }
+  return { html: h };
+}
+function tempoVertical(n) {
+  let h = t(M, 67, SW, 48, '02 · Nome da seção', 'lbl') + t(M, TY, SW, 120, 'Trajetória', 'tit', 'font-size:52px');
+  const y0 = CT, step = (CB - y0) / n;
+  h += vl(M + 13, y0 + 14, step * (n - 1), C.ferro, 2);
+  for (let i = 0; i < n; i++) { const y = y0 + i * step, fut = i >= n - 1;
+    h += `<div class="a" style="${st(M, y, 28, 28)};border-radius:7px;background:#${fut ? 'fff' : C.ferro};border:3px solid #${C.ferro}"></div>`
+      + t(M + 56, y - 8, 140, 40, String(2016 + i * 2), 'lbl', 'line-height:1.6') + t(M + 200, y - 4, SW - 200, 80, 'Marco e uma linha sobre ele', 'body', 'font-size:24px;line-height:1.2'); }
+  return { html: h + im(SX, 0, W - SX, FY) };
+}
+const equacao = () => ({ html: hdr() + t(M, ry(2), FW, rh(2), '𝑇(𝑡) = 𝑇₀ + 𝛼 · ln(𝑡)', '', "font:400 64px 'STIX Two Math',serif;display:flex;align-items:center;justify-content:center")
+  + t(cx(2), ry(4), cw(8), 120, 'O que cada termo representa.', 'body', 'font-size:24px;text-align:center') });
+const soTitulo = () => ({ html: hdr() + t(cx(3), ry(2) + 40, cw(6), 180, 'Tela livre abaixo do título para diagramas, componentes e montagens', 'cap', 'text-align:center;color:#C9B87A;font-size:22px') });
+// Ícones · recursos: até 4 numa linha; 6 e 8 em duas linhas.
+function recursos(n) {
+  const rows = n <= 4 ? 1 : 2, per = Math.ceil(n / rows), s = 12 / per, ts = rows === 1 ? 96 : 72; let h = hdr();
+  for (let i = 0; i < n; i++) { const r = Math.floor(i / per), c = i % per, x = cx(c * s), w = cw(s), y = CT + 10 + r * 360;
+    h += tile(x, y, ts, C.ferro, ic(ICS[i]), C.creme) + t(x, y + ts + 34, w, 50, 'Recurso', 'sub')
+      + t(x, y + ts + 96, w, rows === 1 ? 300 : 90, rows === 1 ? 'Uma ou duas frases sobre o recurso.' : 'Uma frase.', 'body', 'font-size:26px'); }
+  return { html: h };
+}
+// Ícones · processo: N que não divide 12 reparte a largura útil por igual; acima de 6 passos, duas linhas.
+function processo(n) {
+  const rows = n <= 6 ? 1 : 2, per = Math.ceil(n / rows), w = (FW - (per - 1) * G) / per; let h = hdr();
+  for (let i = 0; i < n; i++) { const r = Math.floor(i / per), c = i % per, x = M + c * (w + G), y = CT + 10 + r * 360;
+    if (c < per - 1 && i < n - 1) h += ln(x + 96, y + 36, w + G - 120, C.fioForte, 2);
+    h += icon(x, y, 72, ICS[i]) + t(x, y + 110, w, 36, pad(i + 1), 'lbl', 'line-height:1.2') + t(x, y + 156, w, 50, 'Etapa', 'sub')
+      + t(x, y + 210, w, 120, 'O que acontece.', 'body', 'font-size:26px'); }
+  return { html: h };
+}
+function ilustracoes(n) {
+  const s = 12 / n; let h = hdr();
+  for (let i = 0; i < n; i++) { const x = cx(i * s), w = cw(s);
+    h += im(x, CT, w, 380, 'Ilustração') + t(x, CT + 404, w, 80, 'Subtítulo em até duas linhas', 'sub', 'font-size:30px') + t(x, CT + 496, w, 200, 'Uma ou duas frases.', 'body', 'font-size:26px'); }
+  return { html: h };
+}
+// Imagem lateral: lado (dir/esq), imagem sangrada ou figura recuada com legenda; a coluna aceita texto, números ou lista.
+function lateral({ lado = 'dir', fig = 'sangra', col = 'texto' } = {}) {
+  const x0 = lado === 'dir' ? M : W - M - SW, ix = lado === 'dir' ? SX : 0, iw = W - SX;
+  let h = t(x0, 67, SW, 48, '02 · Nome da seção', 'lbl') + t(x0, TY, SW, 170, 'Título em até duas linhas', 'tit', 'font-size:52px');
+  if (col === 'texto') h += t(x0, ry(2), SW, rh(2), 'Duas ou três frases sobre a imagem.', 'body', 'font-size:26px') + im(x0, ry(4), SW, CB - ry(4), 'Legenda');
+  if (col === 'num') ['38%', '4,2 h', '120'].forEach((v, i) => { const y = ry(2) + i * 184; h += t(x0, y, SW, 90, v, 'big', 'font-size:80px') + t(x0, y + 96, SW, 40, 'o que o número mede', 'body', 'font-size:24px'); });
+  if (col === 'lista') for (let i = 0; i < 3; i++) { const y = ry(2) + i * 168; h += numTile(x0, y, 64, i + 1) + t(x0 + 88, y - 2, SW - 88, 120, 'Item com uma frase curta.', 'body', 'font-size:26px'); }
+  h += fig === 'sangra' ? im(ix, 0, iw, FY) : im(SX, TY, W - M - SX, CB - 56 - TY, 'Figura inteira, sem sangrar') + t(SX, CB - 30, W - M - SX, 30, 'Fonte: autor, ano. Legenda logo abaixo da figura.', 'cap');
+  return { html: h };
+}
+// Texto e grade: 2 (empilhadas), 4 (2×2) ou 6 (3×2) imagens sangradas à direita.
+function grade(n) {
+  const nc = n === 2 ? 1 : n === 4 ? 2 : 3, nr = Math.ceil(n / nc), gw = (W - SX - 8 * (nc - 1)) / nc, gh = (FY - 8 * (nr - 1)) / nr;
+  let h = t(M, 67, SW, 48, '02 · Nome da seção', 'lbl') + t(M, TY, SW, 170, 'Título em até duas linhas', 'tit', 'font-size:52px') + t(M, ry(2), SW, CB - ry(2), 'Duas ou três frases sobre as imagens.', 'body', 'font-size:26px');
+  for (let i = 0; i < n; i++) h += im(SX + (i % nc) * (gw + 8), Math.floor(i / nc) * (gh + 8), gw, gh);
+  return { html: h };
+}
+function imagemTexto(lado = 'esq') {
+  const ix = lado === 'esq' ? M : cx(5), tx = lado === 'esq' ? cx(7) : M;
+  return { html: t(M, 67, FW, 48, '02 · Nome da seção', 'lbl') + im(ix, TY, cw(7), CB - TY) + t(tx, TY, cw(5), 220, 'Título em até duas linhas', 'tit', 'font-size:52px')
+    + t(tx, ry(2), cw(5), CB - ry(2), 'Uma ou duas frases sobre o que observar na imagem.', 'body') };
+}
+const figLarga = () => ({ html: hdr() + im(M, CT, FW, CB - CT - 50, 'Imagem, diagrama ou vídeo') + t(M, CB - 30, FW, 30, 'Fonte: autor, ano.', 'cap') });
+// Imagens em linha: mesma altura, largura pela proporção de cada imagem; legenda sob cada uma.
+function emLinha(rs) {
+  const n = rs.length, sum = rs.reduce((a, b) => a + b, 0), hh = Math.min(CB - CT - 60, (FW - (n - 1) * G) / sum);
+  let x = M + (FW - (sum * hh + (n - 1) * G)) / 2, h = hdr();
+  rs.forEach((r, i) => { const w = r * hh; h += im(x, CT, w, hh, r.toFixed(2).replace('.', ',') + ' : 1') + t(x, CT + hh + 16, w, 40, 'Legenda curta · fonte', 'cap'); x += w + G; });
+  return { html: h };
+}
+function mosaico(n) {
+  let h = hdr(), ht = CB - CT;
+  if (n === 3) h += im(cx(0), CT, cw(8), ht) + im(cx(8), CT, cw(4), (ht - G) / 2) + im(cx(8), CT + (ht + G) / 2, cw(4), (ht - G) / 2);
+  else { h += im(cx(0), CT, cw(6), ht); for (let i = 0; i < 4; i++) h += im(cx(6 + (i % 2) * 3), CT + Math.floor(i / 2) * (ht + G) / 2, cw(3), (ht - G) / 2); }
+  return { html: h };
+}
+// Com título: degradê de cima até logo após o título (1 linha, termina em ~280) e de baixo só sob a fonte, rente ao rodapé.
+const cheia = (titulo) => ({ html: im(0, 0, W, FY, 'Imagem ou vídeo') + (titulo
+  ? `<div class="a" style="${st(0, 0, W, 300)};background:linear-gradient(180deg,rgba(110,20,8,.9) 0%,rgba(110,20,8,.6) 60%,transparent 100%)"></div>`
+    + `<div class="a" style="${st(0, FY - 110, W, 110)};background:linear-gradient(0deg,rgba(110,20,8,.85) 0%,rgba(110,20,8,.4) 55%,transparent 100%)"></div>`
+    + t(M, 67, cw(8), 48, '02 · Nome da seção', 'lbl c') + t(M, TY, cw(8), 80, 'Título sobre a imagem', 'tit c') + t(M, FY - 24 - 24, FW, 24, 'Fonte: autor, ano.', 'cap c') : '') });
+// Equipe: retratos na mesma escala (olhos numa linha); 1 linha até 6, 2 linhas até 16, 3 acima.
+function equipe(n) {
+  const rows = n <= 6 ? 1 : n <= 16 ? 2 : 3, nc = Math.ceil(n / rows), w = (FW - (nc - 1) * G) / nc, ph = Math.min(w * 1.25, (CB - CT - rows * 84 - (rows - 1) * G) / rows);
+  let h = hdr();
+  for (let i = 0; i < n; i++) { const r = Math.floor(i / nc), c = i % nc, x = M + c * (w + G), y = CT + r * (ph + 84 + G);
+    h += im(x, y, w, ph, 'Retrato') + t(x, y + ph + 12, w, 36, NOMES[i].split(' ').slice(0, 2).join(' '), 'sub', `font-size:${nc > 6 ? 22 : 28}px`) + t(x, y + ph + 50, w, 30, 'Função', 'cap'); }
+  return { html: h };
+}
+// Gráfico de duas séries (desenho provisório, só para a miniatura).
+const chartSvg = (w, h) => { const v = [[42, 30], [55, 38], [61, 52], [48, 60], [70, 66]]; const bw = (w - 80) / v.length;
+  let s = `<svg class="a" style="${st(0, 0, w, h)}" viewBox="0 0 ${w} ${h}"><g font-family="JetBrains Mono" font-size="18" fill="#2A1A12">`;
+  s += `<rect x="0" y="0" width="22" height="22" fill="#A81F0D"/><text x="32" y="18">Série A</text><rect x="160" y="0" width="22" height="22" fill="#2F6A62"/><text x="192" y="18">Série B</text>`;
+  v.forEach(([a, b], i) => { const x = 60 + i * bw, k = (h - 110) / 80; s += `<rect x="${x}" y="${h - 50 - a * k}" width="${bw * .34}" height="${a * k}" fill="#A81F0D"/><rect x="${x + bw * .38}" y="${h - 50 - b * k}" width="${bw * .34}" height="${b * k}" fill="#2F6A62"/><text x="${x}" y="${h - 18}">${2020 + i}</text>`; });
+  return s + `<line x1="40" x2="${w}" y1="${h - 50}" y2="${h - 50}" stroke="#2A1A12" stroke-width="2"/></g></svg>`; };
+const chartBox = (x, y, w, h) => `<div class="a" style="${st(x, y, w, h)}">${chartSvg(w, h)}</div>`;
+const grafico = () => ({ html: hdr() + chartBox(M, CT, FW, CB - CT - 50) + t(M, CB - 30, FW, 30, 'Fonte: autor, ano.', 'cap') });
+const leituras = () => ({ html: hdr() + chartBox(cx(0), CT, cw(8), CB - CT) + ln(cx(8), CT, cw(4), C.umbro, 2)
+  + t(cx(8), CT + 24, cw(4), CB - CT - 24, 'Primeira leitura do gráfico.<br><br>Segunda leitura.<br><br>Terceira leitura.', 'body', 'font-size:26px') });
+// Números-chave: N de 2 a 4; tamanho cai com N; seta antes → depois opcional.
+function numeros(n, seta) {
+  const s = 12 / n, fs = n <= 3 ? 140 : 110; let h = hdr();
+  const V = seta ? ['4,2<span style="font-weight:300;color:#2A1A12"> → </span>1,1', '18<span style="font-weight:300;color:#2A1A12"> → </span>3'] : ['38%', '120', '4,2', '7'];
+  for (let i = 0; i < n; i++) { const x = cx(i * s), w = cw(s);
+    h += ln(x, CT + 40, w, C.ferro, 3) + t(x, CT + 70, w, 170, V[i], 'big', `font-size:${seta ? 110 : fs}px;display:flex;align-items:flex-end`)
+      + t(x, CT + 270, w, 50, seta ? 'horas por fachada' : 'O que o número mede', 'sub') + t(x, CT + 336, w, 200, 'Recorte, unidade, fonte.', 'body', 'font-size:24px'); }
+  return { html: h };
+}
+const comparacao = () => { let h = hdr() + vl(W / 2, CT, CB - CT);
+  [[0, C.ferro, 'Antes'], [6, C.turqF, 'Depois']].forEach(([c, cor, nm], i) => { const x = cx(c) + (i ? 20 : 0), w = cw(6) - 20;
+    h += t(x, CT, w, 50, nm, 'sub', `color:#${cor}`) + im(x, CT + 70, w, 380) + t(x, CT + 480, w, 200, 'O que muda deste lado.', 'body', 'font-size:26px'); });
+  return { html: h }; };
+const TB = (cols, rows, hl) => `<table class="tb"><tr>${cols.map((c, i) => `<th class="${i === hl ? 'hl' : ''}">${c}</th>`).join('')}</tr>${rows.map((r) => `<tr>${r.map((v, i) => `<td class="${i === hl ? 'hl' : ''}">${v}</td>`).join('')}</tr>`).join('')}</table>`;
+const tabela = (lado) => { const cols = ['Amostra', 'Método', 'Área (m²)', 'Temp. (°C)', 'Erro'], rows = [['A1', 'Laser', '120', '31,4', '0,8%'], ['A2', 'Foto', '96', '29,9', '1,2%'], ['A3', 'Laser', '210', '33,1', '0,6%'], ['A4', 'Foto', '75', '28,2', '1,9%'], ['A5', 'Laser', '160', '32,0', '0,7%']];
+  if (!lado) return { html: hdr() + `<div class="a" style="${st(M, CT, FW, CB - CT - 50)}">${TB(cols, rows, 3)}</div>` + t(M, CB - 30, FW, 30, 'Fonte: autor, ano. Coluna destacada: a que o slide discute.', 'cap') };
+  return { html: hdr() + t(M, CT, cw(4), CB - CT, 'Uma frase grande que diz o que a tabela prova.', 'sub', 'font-size:40px;line-height:1.15') + `<div class="a" style="${st(cx(5), CT, cw(7), CB - CT - 50)}">${TB(cols.slice(0, 4), rows.map((r) => r.slice(0, 4)), 3)}</div>` + t(cx(5), CB - 30, cw(7), 30, 'Fonte: autor, ano.', 'cap') }; };
+// Encerramento: logos 2–4 centradas; autores 1–3 numa coluna, 4–8 em duas (calha no centro), 9–12 em três.
+const ENC = (h) => logoLina((W - 200) / 2, M) + t(M, ry(2) - 42, FW, 200, 'Obrigado', 'tit c', 'font-size:171px;text-align:center') + h;
+const encerramento = (nl = 2) => ({ bg: 'capa', html: ENC(t(M, ry(3) + 47, FW, 44, 'Nome do Apresentador', 'lbl c', 'text-align:center') + t(M, ry(3) + 99, FW, 36, 'nome@ufc.br · lina.ufc.br', 'mono c', 'text-align:center') + logos(nl, 1080 - M - 99, 0, true)) });
+function encAutores(n) {
+  const nc = n <= 3 ? 1 : n <= 8 ? 2 : 3, per = Math.ceil(n / nc); let h = '';
+  for (let c = 0; c < nc; c++) { const names = NOMES.slice(c * per, Math.min(n, (c + 1) * per)).join('<br>');
+    if (nc === 1) h += t(M, ry(3) + 47, FW, 200, names, 'lbl c', 'text-align:center;line-height:1.35');
+    else if (nc === 2) h += t(cx(c * 6), ry(3) + 47, cw(6), 200, names, 'lbl c', `text-align:${c ? 'left' : 'right'};line-height:1.35`);
+    else h += t(cx(c * 4), ry(3) + 47, cw(4), 200, names, 'lbl c', 'text-align:center;line-height:1.35;font-size:22px'); }
+  return { bg: 'capa', html: ENC(h + logos(2, 1080 - M - 99, 0, true)) };
+}
+// Ícones: tratamentos (ladrilho, traço, plano do duotone) e biblioteca de amostra.
+const TRAT = [['Sólido', 'ph', C.ferro, C.creme], ['Cheio', 'ph-fill', C.ferro, C.creme], ['Claro', 'ph', C.damasco, C.ferro], ['Simples', 'ph', null, C.ferro],
+  ['Quente', 'ph-duotone', C.creme, C.ferro, C.damasco], ['Terra', 'ph-duotone', C.creme, C.umbro, C.areia], ['Frio', 'ph-duotone', C.creme, C.turqF, C.turq], ['Painel', 'ph-duotone', C.damasco, C.ferro, C.creme],
+  ['Capa', 'ph-duotone', C.ferro, C.creme, C.ferroF], ['Dado', 'ph-duotone', C.turq, '14322E', C.creme], ['Noturno', 'ph-duotone', C.umbro, C.areia, C.ferroF]];
+function tratamentos() {
+  let h = hdr(FW, 'Ícones · tratamentos', 60, 'Ícones');
+  TRAT.forEach(([nm, w, bg, fg, dt], i) => { const c = i % 6, r = Math.floor(i / 6), x = cx(c * 2), y = CT + 20 + r * 330;
+    h += tile(x, y, 200, bg, ic('buildings', w), fg, 112, dt ? `--dt:#${dt}` : '').replace('class="a tile"', `class="a tile${dt ? ' duo' : ''}"`) + t(x, y + 226, cw(2), 30, nm, 'cap', 'font-size:22px'); });
+  return { html: h + t(cx(10), CT + 350, cw(2), 200, 'Phosphor, seis pesos. Cores só do DS.', 'cap') };
+}
+const BIB = ['atom', 'bank', 'bell', 'books', 'buildings', 'camera', 'chart-line', 'compass-tool', 'cpu', 'cube', 'database', 'flask', 'graduation-cap', 'lightbulb', 'magnifying-glass', 'map-trifold', 'monitor', 'plant', 'robot', 'ruler', 'stack', 'users', 'warning', 'arrow-right', 'wave-sine', 'broadcast', 'thermometer', 'code', 'terminal-window', 'app-window', 'drone', 'scan'];
+function biblioteca() {
+  let h = hdr(FW, 'Ícones · biblioteca', 60, 'Ícones');
+  BIB.forEach((n, i) => { const c = i % 8, r = Math.floor(i / 8), x = M + c * (FW / 8), y = CT + 10 + r * 170;
+    h += icon(x, y, 80, n) + t(x, y + 96, FW / 8 - 12, 30, n, 'cap'); });
+  return { html: h + t(M, CB - 30, FW, 30, 'Amostra. Mais de 1 500 ícones em phosphoricons.com; os do DS ficam em assets/icons/phosphor.', 'cap') };
+}
+// ---------- componentes (dentro de 2.6 Só título) ----------
+// Preenchido: três cores fora do vermelho, todas disponíveis (decisão 2026-11-26). [fundo, texto, rótulo, nome]
+const DECL = [[C.turqF, C.creme, C.turq, 'A · turquesa fundo, texto creme'], [C.damasco, C.umbro, C.ferro, 'B · damasco, texto umbro'], [C.turq, C.umbro, C.umbro, 'C · turquesa, texto umbro']];
+const FRASE = 'A inspeção por drone reduziu o tempo de campo em 70%.';
+const compDeclaracao = () => { let h = hdr(FW, 'Declaração-chave · padrão e preenchido', 60, 'Componentes');
+  const box = (x, y, w, ht) => [x, y, w, ht];
+  h += ln(M, CT, cw(6) - G, C.ferro, 3) + t(M, CT + 20, cw(6), 40, 'Achado', 'lbl') + t(M, CT + 70, cw(6) - G, 200, FRASE, 'sub', 'font-size:40px') + t(M, CT + 280, cw(6), 30, 'Padrão: fio + rótulo mono.', 'cap');
+  DECL.forEach(([bg, fg, lb, nm], i) => { const [x, y, w, ht] = [[cx(6), CT], [M, ry(3) + 30], [cx(6), ry(3) + 30]].map(([x, y]) => box(x, y, cw(6), 260))[i];
+    h += `<div class="a" style="${st(x, y, w, ht - 50)};background:#${bg};border-radius:22px"></div>` + t(x + 40, y + 26, w - 80, 40, 'Achado', 'lbl', `color:#${lb}`)
+      + t(x + 40, y + 74, w - 80, 140, FRASE, 'sub', `font-size:36px;color:#${fg}`) + t(x, y + ht - 36, w, 30, 'Preenchido ' + nm, 'cap'); });
+  return { html: h }; };
+const compCartoes = () => { let h = hdr(FW, 'Cartão · tiles · número com seta', 60, 'Componentes');
+  [0, 4].forEach((c, i) => { h += `<div class="a" style="${st(cx(c), CT, cw(4), 300)};background:#${C.nata};border-radius:22px"></div>` + numTile(cx(c) + 32, CT + 32, 64, i + 1) + t(cx(c) + 32, CT + 120, cw(4) - 64, 50, 'Cartão', 'sub') + t(cx(c) + 32, CT + 172, cw(4) - 64, 120, 'Altura pelo conteúdo, não fixa.', 'body', 'font-size:26px'); });
+  h += tile(cx(8), CT, 96, C.ferro, ic('drone'), C.creme) + tile(cx(9), CT, 96, C.turqF, ic('thermometer'), C.creme) + tile(cx(10), CT, 96, C.umbro, ic('ruler'), C.creme) + t(cx(8), CT + 116, cw(4), 60, 'Tile de ícone na cor do papel (foco · resultado · referência).', 'cap');
+  h += t(cx(8), CT + 220, cw(4), 120, '4,2<span style="font-weight:300;color:#2A1A12"> → </span>1,1', 'big', 'font-size:96px') + t(cx(8), CT + 330, cw(4), 40, 'antes → depois', 'cap');
+  return { html: h }; };
+const compLegendas = () => { let h = hdr(FW, 'Legendas · lista com marcador', 60, 'Componentes') + im(M, CT, cw(6), 420, 'Figura') + t(M, CT + 436, cw(6), 30, 'Fonte: autor, ano. Legenda colada à figura.', 'cap');
+  [[C.ferro, 'Foco'], [C.turqF, 'Resultado'], [C.umbro, 'Referência']].forEach(([c, nm], i) => { h += `<div class="a" style="${st(M + i * 220, CT + 500, 20, 20)};background:#${c}"></div>` + t(M + i * 220 + 32, CT + 496, 180, 30, nm, 'cap'); });
+  ['Primeiro ponto da lista', 'Segundo ponto, mais longo, que quebra a linha e mostra o recuo', 'Terceiro ponto'].forEach((s, i) => { const y = CT + i * 120;
+    h += `<div class="a" style="${st(cx(7), y + 14, 16, 16)};border-radius:4px;background:#${C.ferro}"></div>` + t(cx(7) + 40, y, cw(5) - 40, 110, s, 'body'); });
+  return { html: h }; };
+
+// ---------- catálogo ----------
+const CAT = [
+  ['1 Abertura', [
+    ['1.1 Abertura', 'trama', 'igual', 'Só a trama; anima no HTML e continua sem salto na capa.', { bg: 'capa', html: '' }],
+    ['1.2 Capa', 'apresentador + coautores', 'gen', 'Funde 1.2 e 1.4: autores de 1 a 9, logos de 2 a 4.', capa()],
+    ['1.2 Capa', '6 autores · 3 logos', 'gen', 'Até 3 nomes por coluna de 4 módulos.', capa({ autores: 6, nlogos: 3 })],
+    ['1.2 Capa', 'título de 4 linhas', 'gen', 'Acima de 3 linhas a fonte cai (72 → 56) para caber nas linhas 2–3.', capa({ linhas: 4, nlogos: 4 })],
+    ['1.3 Capa · imagem', '6 autores', 'gen', 'Imagem à esquerda; autores em 1 ou 2 colunas.', capaImagem()],
+    ['1.4 Sumário', 'N = 3', 'gen', 'Até 4: faixas altas com descrição (antigo 1.6).', sumario(3)],
+    ['1.4 Sumário', 'N = 5', 'gen', '5–6: faixas mais baixas; descrição só até 5.', sumario(5)],
+    ['1.4 Sumário', 'N = 9', 'gen', '7–12: título em cima, duas colunas.', sumario(9)],
+    ['1.4 Sumário', 'N = 15', 'gen', '13–18: três colunas.', sumario(15)],
+    ['1.5 Seção', '', 'igual', '', secao()],
+  ]],
+  ['2 Texto', [
+    ['2.1 Texto', '', 'igual', '', texto()],
+    ['2.2 Colunas', 'N = 2', 'gen', 'Funde 2.2, 2.3 e 2.5: N de 2 a 4.', colunas(2)],
+    ['2.2 Colunas', 'N = 3 · numeradas', 'gen', 'Marcador: nenhum, número ou ícone + número.', colunas(3, 'num')],
+    ['2.2 Colunas', 'N = 4 · conclusões', 'gen', 'Antigo 2.5 Conclusões, agora com 2 a 4.', colunas(4, 'conc')],
+    ['2.3 Lista', 'N = 4 · com imagem', 'novo', 'Antigo 3.3; marcador tile numerado. Com imagem, até 5 itens.', lista(4, { img: true })],
+    ['2.3 Lista', 'N = 9 · ícones', 'novo', 'Sem imagem: duas colunas acima de 5 (Vision 02–05).', lista(9, { mk: 'ico' })],
+    ['2.3 Lista', 'N = 5 · marcador', 'novo', 'Lista com marcador simples (Vision 02).', lista(5, { mk: 'ponto' })],
+    ['2.4 Linha do tempo', 'N = 5', 'novo', 'Marco = célula LINA; passado cheio, futuro vazado.', tempo(5)],
+    ['2.4 Linha do tempo', 'N = 10', 'novo', 'Acima de 6 marcos: duas linhas.', tempo(10)],
+    ['2.4 Linha do tempo', 'vertical · imagem', 'novo', 'Como no CNR: eixo vertical na coluna, imagem à direita.', tempoVertical(5)],
+    ['2.5 Equação', '', 'igual', '', equacao()],
+    ['2.6 Só título', '', 'igual', 'Tela livre para os componentes do fim desta página.', soTitulo()],
+  ]],
+  ['3 Ícones', [
+    ['3.1 Ícones · recursos', 'N = 4', 'gen', 'Até 4 numa linha.', recursos(4)],
+    ['3.1 Ícones · recursos', 'N = 6', 'gen', '6 e 8: duas linhas, tile menor.', recursos(6)],
+    ['3.1 Ícones · recursos', 'N = 8', 'gen', '', recursos(8)],
+    ['3.2 Ícones · processo', 'N = 5', 'gen', 'N que não divide 12: largura útil repartida por igual.', processo(5)],
+    ['3.2 Ícones · processo', 'N = 8', 'gen', 'Acima de 6 passos: duas linhas.', processo(8)],
+    ['3.3 Ícones · ilustrações', 'N = 4', 'novo', 'Ilustração de 380 px no lugar do ícone (CNR, 4 frentes).', ilustracoes(4)],
+  ]],
+  ['4 Imagem', [
+    ['4.1 Imagem lateral', 'sangrada · texto', 'igual', '', lateral()],
+    ['4.1 Imagem lateral', 'figura recuada · números', 'gen', 'Figura de artigo inteira com legenda embaixo; coluna com números (Vision 01, 04, 05).', lateral({ fig: 'recuada', col: 'num' })],
+    ['4.1 Imagem lateral', 'espelhada · lista', 'gen', 'Imagem à esquerda; coluna com lista numerada.', lateral({ lado: 'esq', col: 'lista' })],
+    ['4.2 Texto e grade', 'N = 2', 'gen', 'Antigo 2×2: agora 2, 4 ou 6 imagens.', grade(2)],
+    ['4.2 Texto e grade', 'N = 4', 'gen', '', grade(4)],
+    ['4.2 Texto e grade', 'N = 6', 'gen', '', grade(6)],
+    ['4.3 Imagem e texto', '', 'gen', 'Imagem passa para a direita (pedido no Vision); a versão à esquerda sai.', imagemTexto('dir')],
+    ['4.4 Figura larga', '', 'igual', 'Aceita vídeo (substitui 4.9).', figLarga()],
+    ['4.5 Imagens em linha', 'N = 2', 'gen', 'Funde 4.5 e 4.6: mesma altura, largura pela proporção (CNR).', emLinha([1.5, 1.5])],
+    ['4.5 Imagens em linha', 'N = 4 · proporções mistas', 'gen', 'Sem recorte: cada imagem inteira.', emLinha([1.33, .75, 1.5, 1])],
+    ['4.6 Mosaico', 'N = 3', 'igual', '', mosaico(3)],
+    ['4.6 Mosaico', 'N = 5', 'gen', '1 grande + 4 pequenas.', mosaico(5)],
+    ['4.7 Imagem cheia', '', 'igual', 'Imagem ou vídeo até o rodapé.', cheia()],
+    ['4.7 Imagem cheia', 'com título e fonte', 'gen', 'Dois degradês verticais: de cima, até logo após o título; de baixo, só sob a fonte (CNR, Vision 05).', cheia(true)],
+    ['4.8 Equipe', 'N = 6', 'novo', 'Retratos na mesma escala, olhos numa linha (CNR, Vision 01).', equipe(6)],
+    ['4.8 Equipe', 'N = 14', 'novo', 'Até 16 em duas linhas.', equipe(14)],
+  ]],
+  ['5 Dados', [
+    ['5.1 Gráfico', 'duas séries', 'igual', 'Conserto: hoje o HTML desenha só a 1ª série.', grafico()],
+    ['5.2 Gráfico e leituras', '', 'igual', '', leituras()],
+    ['5.3 Números-chave', 'N = 2 · antes → depois', 'gen', 'Seta opcional (Vision 04).', numeros(2, true)],
+    ['5.3 Números-chave', 'N = 3', 'igual', '', numeros(3)],
+    ['5.3 Números-chave', 'N = 4', 'gen', 'Fonte cai para 110.', numeros(4)],
+    ['5.4 Comparação', '', 'igual', '', comparacao()],
+    ['5.5 Tabela', 'coluna destacada', 'gen', 'Destaque de coluna (Vision 03 fez com 49 caixas).', tabela()],
+    ['5.5 Tabela', 'texto + tabela', 'gen', 'Frase grande à esquerda (CNR).', tabela(true)],
+  ]],
+  ['6 Encerramento', [
+    ['6.1 Encerramento', '3 logos', 'gen', 'Logos de 2 a 4, centradas.', encerramento(3)],
+    ['6.2 Encerramento · autores', 'N = 3', 'gen', 'Até 3: uma coluna centrada.', encAutores(3)],
+    ['6.2 Encerramento · autores', 'N = 8', 'gen', '4–8: duas colunas com a calha no centro; 9–12: três.', encAutores(8)],
+  ]],
+  ['7 Ícones (páginas finais do exemplo)', [
+    ['7.1 Ícones · tratamentos', '', 'novo', 'Hoje só no .pptx; passa a estar no HTML e no PDF.', tratamentos()],
+    ['7.2 Ícones · biblioteca', '', 'novo', 'Amostra com os ícones que faltavam (warning, arrow-right, thermometer…).', biblioteca()],
+  ]],
+  ['Componentes (dentro de qualquer layout)', [
+    ['Declaração-chave', 'padrão + preenchido em 3 cores', 'comp', 'Preenchido fora do vermelho; as três cores ficam como opção.', compDeclaracao()],
+    ['Cartão · tiles · seta', '', 'comp', 'Cartão em 4 palestras; tile de ícone em 3.', compCartoes()],
+    ['Legendas · marcador', '', 'comp', 'Legenda colada à figura; legenda de cores; lista com marcador.', compLegendas()],
+  ]],
+];
+const BADGE = { igual: 'igual', gen: 'generalizado', novo: 'novo', comp: 'componente' };
+const footer = (n) => `<div class="a foot" style="${st(0, FY, W, 84)}"><img src="${IMG}marca-creme.png" alt=""><span class="ft">Título abreviado do trabalho</span><span class="fn">${n}</span></div>`;
+const slideHTML = (s, n) => `<div class="slide ${s.bg || ''}">${s.html}${s.bg ? '' : footer(n)}</div>`;
+let n = 0, out = '';
+for (const [fam, items] of CAT) {
+  out += `<section class="fam"><h2>${fam}</h2><div class="grid">`;
+  for (const [nm, v, b, note, s] of items) { n++;
+    out += `<figure><div class="th">${slideHTML(s, n)}</div><figcaption><strong>${nm}</strong> <span class="v">${v}</span> <span class="b ${b}">${BADGE[b]}</span><span class="n">${note}</span></figcaption></figure>`; }
+  out += '</div></section>';
+}
+document.getElementById('cat').innerHTML = out;
+const zoom = document.getElementById('zoom');
+document.querySelectorAll('.th').forEach((th) => th.onclick = () => { zoom.innerHTML = th.innerHTML; const k = Math.min(innerWidth / 1920, innerHeight / 1080) * .94; zoom.firstChild.style.transform = `translate(-50%, -50%) scale(${k})`; zoom.classList.add('on'); });
+zoom.onclick = () => zoom.classList.remove('on');
+</script>
+</body>
+</html>
