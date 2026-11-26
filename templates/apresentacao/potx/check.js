@@ -22,6 +22,8 @@ assert.equal(R('9.0 Velho', { Itens: 'a\nb\nc' }).name, '9.1 Teste · 3 itens');
 assert.throws(() => R('9.9 Morto', {}), /use '9.2 Fixo'/);
 assert.throws(() => R('9.3 Nada', {}), /não existe/);
 assert.throws(() => R('9.1 Teste', { itens: Array(7).fill('x') }), /aceita 1–6 itens, recebeu 7/);
+assert.equal(R('9.1 Teste', { 'Item 1': 'a', 'Item 2': 'b', 'Item 3': 'c' }).n, 3);
+assert.deepEqual(R('9.1 Teste', { itens: ['a'] }).itens, ['a']);
 assert.equal(R('9.2 Fixo', { Título: 't' }).name, '9.2 Fixo');
 
 // Lista de layouts gerada pelo build (se já existir): família 1 nova, nomes antigos fora, ordem numérica.

@@ -33,10 +33,12 @@ function resolve(m, fill, FAM, ALIAS) {
   const fam = FAM[base];
   if (!fam) throw new Error(`layout '${m}' não existe`);
   const { itens, ...resto } = fill;
-  const n = fixo ?? itens?.length ?? fam.n?.(fill) ?? fam.padrao ?? 1;
+  const re = fam.campo && new RegExp(`^${fam.campo} \\d+$`); // sem itens: conta as chaves 'Campo i' do preenchimento
+  const cont = re ? Object.keys(resto).filter((k) => re.test(k)).length : 0;
+  const n = fixo ?? itens?.length ?? fam.n?.(fill) ?? (cont || undefined) ?? fam.padrao ?? 1;
   if (fam.faixa && (n < fam.faixa[0] || n > fam.faixa[1]))
     throw new Error(`'${base}' aceita ${fam.faixa[0]}–${fam.faixa[1]} ${fam.unidade}, recebeu ${n}`);
-  return { base, n, name: nomeLayout(base, n, fam), fill: itens ? { ...resto, ...expande(itens, n, fam) } : resto };
+  return { base, n, itens, name: nomeLayout(base, n, fam), fill: itens ? { ...resto, ...expande(itens, n, fam) } : resto };
 }
 
 module.exports = { resolve, nomeLayout, pad };

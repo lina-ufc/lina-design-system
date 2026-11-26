@@ -470,6 +470,11 @@ function criaSlides() {
     const fill = { ...f0 };
     const L = LAYOUTS.find((l) => l.name === name);
     for (const k of Object.keys(fill)) if (!L.ph.some((p) => p.name === k)) throw new Error(`'${k}' não é espaço de '${name}'`);
+    // Imagem do preenchimento ocupa a caixa do espaço do layout resolvido (a do exemplo pode ser de outro arranjo).
+    for (const [k, v] of Object.entries(fill)) if (v && v.img) {
+      const [x, y, w, h] = L.ph.find((p) => p.name === k).box.map(X);
+      fill[k] = { ...v, box: { ...v.box, x, y, w, h, ...(v.box.sizing && { sizing: { ...v.box.sizing, w, h } }) } };
+    }
     // Capa com título longo (mais de 60 caracteres): 56 em vez de 72, para caber nas linhas 2–3.
     if (base === '1.2 Capa' && typeof fill['Título'] === 'string' && fill['Título'].length > 60) fill['Título'] = [{ text: fill['Título'], options: { fontSize: P(56) } }];
     const real = pres.addSlide({ masterName: name }), rec = { master: name, fill, charts: [], tables: [], images: [], media: [], texts: [] };

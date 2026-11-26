@@ -36,7 +36,7 @@ module.exports = function toHTML({ layouts, slides, out, C, F, W, FOOT_Y, M, R }
     const jc = { top: 'flex-start', middle: 'center', bottom: 'flex-end' }[o.valign || 'top'];
     const pad = o.margin ? o.margin * 2 : 0;
     const bg = o.fill ? `background:${hex(o.fill.color)};` : '';
-    const sh = (o.rectRadius ? `border-radius:${PX(o.rectRadius)}px;` : '') + (o.line && o.line.color ? `border:${o.line.width * 2}px solid ${hex(o.line.color)};` : ''); // formas (célula da linha do tempo)
+    const sh = (o.shape === 'ellipse' ? 'border-radius:50%;' : o.rectRadius ? `border-radius:${PX(o.rectRadius)}px;` : '') + (o.line && o.line.color ? `border:${o.line.width * 2}px solid ${hex(o.line.color)};` : ''); // formas (célula da linha do tempo)
     const ps = paras(v).map((p) => `<p style="margin:0 0 ${after}px">${p.map(run).join('')}</p>`).join('');
     // Entrelinha menor que 1: o DeckCraft sobe a primeira linha mais que o navegador. Calibrado no número da seção
     // (371 px, 0,85): sem isto o HTML desce 21 px. ponytail: fator empírico, refazer se mudar fonte ou renderizador.
@@ -83,7 +83,7 @@ module.exports = function toHTML({ layouts, slides, out, C, F, W, FOOT_Y, M, R }
     if (o.image) return `<img src="${img(o.image.path)}" alt="" style="position:absolute;${box(o.image)}">`;
     if (o.line) { const l = o.line; return l.w ? `<div style="position:absolute;left:${PX(l.x)}px;top:${PX(l.y) - l.line.width}px;width:${PX(l.w)}px;border-top:${l.line.width * 2}px solid ${hex(l.line.color)}"></div>`
       : `<div style="position:absolute;left:${PX(l.x) - l.line.width}px;top:${PX(l.y)}px;height:${PX(l.h)}px;border-left:${l.line.width * 2}px solid ${hex(l.line.color)}"></div>`; }
-    if (o.text) { const t = o.text.options; return `<div style="position:absolute;${box(t)};border-radius:${PX(t.rectRadius)}px;background:${hex(t.fill.color)}"></div>`; }
+    if (o.text) { const t = o.text.options; return `<div style="position:absolute;${box(t)};box-sizing:border-box;border-radius:${t.shape === 'ellipse' ? '50%' : PX(t.rectRadius) + 'px'};background:${hex(t.fill.color)};${t.line && t.line.color ? `border:${t.line.width * 2}px solid ${hex(t.line.color)}` : ''}"></div>`; }
     return '';
   };
 
