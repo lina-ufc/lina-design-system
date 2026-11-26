@@ -1,0 +1,32 @@
+<h2>Tabela</h2>
+<p class="lead">Organiza valores em linhas e colunas, só com fios horizontais. Os números vão em mono e o título fica acima da tabela, no documento.</p>
+<div style="display:grid;gap:24px;margin:0 0 14px">
+  <figure class="fig" style="margin:0">
+    <img src="capitulos/7-componentes/img/tabela-slide.png" alt="Tabela no slide com cabeçalho e três linhas de dados, em quatro colunas: Material, ρ (kg/m³), E (GPa) e ν. Os cabeçalhos Material, ρ, E e ν ficam sobre um fio umbro: Material em Outfit Medium, os símbolos em fonte matemática. Os nomes dos materiais estão em Light e os números em mono, com um fio dourado fino sob cada linha e nenhum fio vertical. A terceira coluna tem fundo nata, texto ferro e cabeçalho ferro." width="1824" height="326" style="display:block;width:100%;max-width:912px;height:auto">
+    <figcaption class="cap">Slide</figcaption>
+  </figure>
+  <figure class="fig" style="margin:0">
+    <img src="capitulos/7-componentes/img/tabela-a4.png" alt="Tabela do POP no documento A4. Acima dela, o título &quot;Tabela 1. Parâmetros por escala do objeto.&quot; em Medium. A tabela tem três colunas (Escala, Resolução, Distância) e três linhas. Um fio umbro fecha a tabela em cima e um fio dourado fino passa sob o cabeçalho e sob cada linha, sem fios verticais. O cabeçalho está em Medium, os nomes das escalas em texto normal e os valores de exemplo, em mm e m, em mono." width="1012" height="290" style="display:block;width:100%;max-width:506px;height:auto">
+    <figcaption class="cap">Documento A4</figcaption>
+  </figure>
+</div>
+<h3>Regra</h3>
+<ul class="regras">
+  <li>Só fios horizontais, nenhuma borda lateral e nenhum fio entre colunas. Um fio na cor fio-forte separa as linhas; um fio umbro marca o cabeçalho.</li>
+  <li>Cabeçalho em Outfit Medium. Valores numéricos em mono.</li>
+  <li>Slide: fio umbro de 1 pt sob o cabeçalho e fio na cor fio-forte de 0,75 pt sob cada linha. Células em Light, linhas de 72 px, texto de 28 px. Da segunda coluna em diante o texto é mono com recuo de 20 px à esquerda.</li>
+  <li>Slide, coluna destacada: fundo nata, texto ferro, cabeçalho incluído.</li>
+  <li>A4: fio umbro acima do cabeçalho e fio na cor fio-forte sob cada linha, o cabeçalho incluído. Texto de 14 px (10,5 pt), com 9 px de margem acima e abaixo de cada célula.</li>
+  <li>A4: o título vem acima da tabela, em Medium de 9 pt, no formato "Tabela n. Título.".</li>
+  <li>A4, tabela de registro: 13 px, com linhas vazias de 31 px para preencher à mão.</li>
+</ul>
+<h3>Não fazer</h3>
+<ul class="regras">
+  <li>Fio vertical ou moldura em volta da tabela.</li>
+</ul>
+<h3>Como pedir</h3>
+<dl class="spec">
+  <dt>Slide</dt><dd>Layout "5.5 Tabela" (tabela larga) ou "5.5 Tabela · texto" (frase grande ao lado). Ao gerar pelo código: <code class="mono">comp.tabela(sl, { cab, linhas, destaque, colW })</code>, com <code class="mono">destaque</code> igual ao índice da coluna a destacar.</dd>
+  <dt>Word</dt><dd>Tabela no estilo <code class="mono">LINA Tabela</code>, com os valores no estilo de parágrafo <code class="mono">LINA Mono Célula</code>. O título vai antes, no estilo <code class="mono">LINA Título de Tabela</code>. Para registro com linhas em branco, o estilo de tabela <code class="mono">LINA Tabela Registro</code>.</dd>
+  <dt>LaTeX</dt><dd><code class="mono">\titulotabela{Título.}</code> e depois <code class="mono">\begin{tabela}{colunas} cabeçalho \\ linhas \\ \end{tabela}</code>. Valores com <code class="mono">\numero{...}</code>. Para registro: <code class="mono">\registro{n}</code> acrescenta n linhas vazias, só em tabela de 4 colunas.</dd>
+</dl>

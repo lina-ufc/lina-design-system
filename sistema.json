@@ -265,6 +265,36 @@
    "secao": "capitulos/7-componentes/1-declaracao.html"
   },
   {
+   "cap": "7",
+   "nome": "7.2 Tabela",
+   "sub": "Fios horizontais, números em mono",
+   "secao": "capitulos/7-componentes/2-tabela.html"
+  },
+  {
+   "cap": "7",
+   "nome": "7.3 Legenda e fonte",
+   "sub": "Abaixo da figura, fonte em mono",
+   "secao": "capitulos/7-componentes/3-legenda-e-fonte.html"
+  },
+  {
+   "cap": "7",
+   "nome": "7.5 Passos",
+   "sub": "Número de dois dígitos em mono ferro",
+   "secao": "capitulos/7-componentes/5-passos.html"
+  },
+  {
+   "cap": "7",
+   "nome": "7.6 Nota",
+   "sub": "Observação curta, abaixo do que comenta",
+   "secao": "capitulos/7-componentes/6-nota.html"
+  },
+  {
+   "cap": "7",
+   "nome": "7.7 Cabeçalho e rodapé",
+   "sub": "Identificação à esquerda, página à direita",
+   "secao": "capitulos/7-componentes/7-cabecalho-e-rodape.html"
+  },
+  {
    "cap": "8",
    "nome": "8.1 Apresentação",
    "sub": "PowerPoint e deck HTML, 32 layouts em seis famílias",

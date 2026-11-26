@@ -1,0 +1,30 @@
+<h2>Legenda e fonte</h2>
+<p class="lead">Texto curto colado abaixo da figura, que diz o que ela mostra e de onde vem. Fica alinhado à esquerda e a fonte vai em mono.</p>
+<div style="display:grid;gap:24px;margin:0 0 14px">
+  <figure class="fig" style="margin:0">
+    <img src="capitulos/7-componentes/img/legenda-slide.png" alt="Parte inferior de uma figura provisória, de fundo nata com listras diagonais finas. Logo abaixo, alinhada à esquerda e em mono, a linha &quot;Fonte: autor, ano. Legenda colada à figura.&quot;" width="624" height="112" style="display:block;width:100%;max-width:312px;height:auto">
+    <figcaption class="cap">Slide</figcaption>
+  </figure>
+  <figure class="fig" style="margin:0">
+    <img src="capitulos/7-componentes/img/legenda-a4.png" alt="Parte inferior de uma figura de fundo nata com cantos arredondados. Logo abaixo, alinhada à esquerda, uma linha com &quot;Figura 1.&quot; em negrito, a legenda em texto normal e, no fim, &quot;Fonte: LINA, 2026.&quot; em mono, mais clara que o resto." width="1012" height="135" style="display:block;width:100%;max-width:506px;height:auto">
+    <figcaption class="cap">Documento A4</figcaption>
+  </figure>
+</div>
+<h3>Regra</h3>
+<ul class="regras">
+  <li>A legenda vem logo abaixo da figura, alinhada à esquerda. A fonte é o crédito de onde a imagem ou o dado vem e fica em mono.</li>
+  <li>Slide: texto em JetBrains Mono de 18 px, cor umbro, com a largura da figura. Legenda e fonte têm o mesmo estilo. Pelo código (<code class="mono">comp.legenda</code>), fica a 12 px da figura; os layouts de imagem trazem o campo Legenda ou Fonte pronto, na posição do layout.</li>
+  <li>Slide, legenda de cores: quadrado de 24 px sem canto, com o rótulo em mono de 18 px ao lado. Cada par ocupa 220 px na horizontal.</li>
+  <li>A4: legenda em Outfit de 9 pt (12 px), com entrelinha de 17,4 px e 10 px de espaço acima. O rótulo "Figura n." vem em destaque: Medium no Word, negrito no LaTeX.</li>
+  <li>A4: a fonte fica em JetBrains Mono de 8,5 pt, em umbro a 75%, mais clara que a legenda. No exemplo ela fecha a mesma linha da legenda.</li>
+</ul>
+<h3>Não fazer</h3>
+<ul class="regras">
+  <li>Legenda acima da figura. O título de tabela é a exceção.</li>
+</ul>
+<h3>Como pedir</h3>
+<dl class="spec">
+  <dt>Slide</dt><dd>Use o campo Legenda ou Fonte do layout, por exemplo "4.4 Figura larga" ou "4.1 Imagem lateral · recuada". O slide 26 do exemplo mostra a legenda solta. Ao gerar pelo código: <code class="mono">comp.legenda(sl, [x, y, w, h], texto)</code>, com a caixa da figura, e <code class="mono">comp.legendaCores(sl, x, y, [[cor, 'rótulo'], ...])</code> para as cores.</dd>
+  <dt>Word</dt><dd>Parágrafo no estilo <code class="mono">LINA Legenda</code>. O rótulo "Figura n." é digitado no estilo de caractere <code class="mono">LINA Destaque</code> e a fonte vai no estilo de caractere <code class="mono">LINA Fonte</code>.</dd>
+  <dt>LaTeX</dt><dd><code class="mono">\legenda{Texto. \fonte{Fonte: autor, ano.}}</code>. O rótulo "Figura n." e a numeração saem sozinhos.</dd>
+</dl>
