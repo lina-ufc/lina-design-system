@@ -34,14 +34,14 @@ module.exports = function toHTML({ layouts, slides, out, C, F, W, FOOT_Y, M, R }
   const textBox = (o, v) => {
     const lh = (o.lineSpacingMultiple || 1) * 1.2, after = (o.paraSpaceAfter || 0) * 2;
     const jc = { top: 'flex-start', middle: 'center', bottom: 'flex-end' }[o.valign || 'top'];
-    const pad = o.margin ? o.margin * 2 : 0;
-    const bg = o.fill ? `background:${hex(o.fill.color)};` : '';
+    const pad = Array.isArray(o.margin) ? `${o.margin[3] * 2}px ${o.margin[1] * 2}px ${o.margin[2] * 2}px ${o.margin[0] * 2}px` : `${o.margin ? o.margin * 2 : 0}px`; // pt [esq, dir, baixo, topo] → CSS [topo dir baixo esq]
+    const bg = o.fill ? `background:${hex(o.fill.color)};` : o.degrade ? `background:linear-gradient(${o.degrade === 'cima' ? '180deg,rgba(110,20,8,.9),rgba(110,20,8,0)' : '0deg,rgba(110,20,8,.85),rgba(110,20,8,0)'});` : ''; // degradê da imagem cheia (ferro fundo)
     const sh = (o.shape === 'ellipse' ? 'border-radius:50%;' : o.rectRadius ? `border-radius:${PX(o.rectRadius)}px;` : '') + (o.line && o.line.color ? `border:${o.line.width * 2}px solid ${hex(o.line.color)};` : ''); // formas (célula da linha do tempo)
     const ps = paras(v).map((p) => `<p style="margin:0 0 ${after}px">${p.map(run).join('')}</p>`).join('');
     // Entrelinha menor que 1: o DeckCraft sobe a primeira linha mais que o navegador. Calibrado no número da seção
     // (371 px, 0,85): sem isto o HTML desce 21 px. ponytail: fator empírico, refazer se mudar fonte ou renderizador.
     const dy = (o.lineSpacingMultiple || 1) < 1 ? (1 - o.lineSpacingMultiple) * 0.38 * o.fontSize * 2 : 0;
-    return `<div style="position:absolute;${box(o)};margin-top:${-dy.toFixed(1)}px;box-sizing:border-box;padding:${pad}px;${bg}${sh}display:flex;flex-direction:column;justify-content:${jc};` +
+    return `<div style="position:absolute;${box(o)};margin-top:${-dy.toFixed(1)}px;box-sizing:border-box;padding:${pad};${bg}${sh}display:flex;flex-direction:column;justify-content:${jc};` +
       `text-align:${o.align || 'left'};${font(o)};line-height:${lh}">${ps}</div>`;
   };
   // Mesma regra de post.py: espaços de imagem que não sangram têm cantos de 22 px.

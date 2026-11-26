@@ -17,10 +17,21 @@ XFRM = f'<a:xfrm><a:off x="{132*EMU}" y="{(FOOT_Y+22)*EMU}"/><a:ext cx="{1480*EM
 LST = ('<a:lstStyle><a:lvl1pPr><a:defRPr sz="1000"><a:solidFill><a:srgbClr val="FAF5C6"/></a:solidFill>'
        '<a:latin typeface="Outfit Medium"/></a:defRPr></a:lvl1pPr></a:lstStyle>')
 
+# Degradê ferro fundo sobre a imagem (4.7 · título): 'cima' opaco 90% → 0, 'baixo' 0 → 85%, no preenchimento do espaço de texto.
+def grad(a0, a1):
+    c = lambda a: f'<a:srgbClr val="6E1408"><a:alpha val="{a}"/></a:srgbClr>'
+    return f'<a:gradFill rotWithShape="1"><a:gsLst><a:gs pos="0">{c(a0)}</a:gs><a:gs pos="100000">{c(a1)}</a:gs></a:gsLst><a:lin ang="5400000" scaled="0"/></a:gradFill>'
+GRAD = {'cima': grad(90000, 0), 'baixo': grad(0, 85000)}
+def poe_grad(x, idx, kind):
+    i = x.find(f'idx="{idx}"')
+    if i < 0: return x
+    a = x.rfind('<p:sp>', 0, i); b = x.find('</p:sp>', i) + 7
+    return x[:a] + x[a:b].replace('<a:noFill/>', GRAD[kind], 1) + x[b:]
+
 def fix_layout(x):
     name = re.search(r'<p:cSld name="([^"]*)"', x).group(1)
     L = LAYOUTS.get(name)
-    if not L: return x, None
+    if not L: return x, None, None
     for p in L['ph']:
         i = x.find(f'idx="{p["idx"]}"')
         a = x.rfind('<p:sp>', 0, i); b = x.find('</p:sp>', i) + 7
@@ -38,17 +49,18 @@ def fix_layout(x):
             if p['name'].startswith(('Imagem', 'Ilustração')):
                 sp = sp.replace('<a:noFill/>', '<a:solidFill><a:srgbClr val="FDF1CF"/></a:solidFill>', 1)
         x = x[:a] + sp + x[b:]
+        if p.get('degrade'): x = poe_grad(x, p['idx'], p['degrade'])
     if L['foot']:
         x = x.replace('</p:spTree>', FTR.format(id=900, xfrm=XFRM, lst=LST, run='<a:endParaRPr lang="pt-BR"/>') + '</p:spTree>', 1)
-    return x, L['foot']
+    return x, L['foot'], name
 
 with zipfile.ZipFile(SRC) as z:
     files = {n: z.read(n) for n in z.namelist()}
-foot_layout = {}
+foot_layout, nome_layout = {}, {}
 for n in list(files):
     if re.match(r'ppt/slideLayouts/slideLayout\d+\.xml$', n):
-        x, foot = fix_layout(files[n].decode())
-        files[n] = x.encode(); foot_layout[n.split('/')[-1]] = foot
+        x, foot, nome = fix_layout(files[n].decode())
+        files[n] = x.encode(); foot_layout[n.split('/')[-1]] = foot; nome_layout[n.split('/')[-1]] = nome
 m = files['ppt/slideMasters/slideMaster1.xml'].decode()
 m = m.replace('<p:hf sldNum="0" hdr="0" ftr="0" dt="0"/>', '<p:hf hdr="0" dt="0"/>')  # rodapé e número ligados
 files['ppt/slideMasters/slideMaster1.xml'] = m.encode()
@@ -58,6 +70,8 @@ for n in list(files):
     if re.match(r'ppt/slides/slide\d+\.xml$', n):
         rel = files[n.replace('slides/', 'slides/_rels/') + '.rels'].decode()
         lay = re.search(r'slideLayouts/(slideLayout\d+\.xml)', rel).group(1)
+        for p in LAYOUTS.get(nome_layout.get(lay), {'ph': []})['ph']:  # o preenchimento do layout não vale se o slide traz <a:noFill/>
+            if p.get('degrade'): files[n] = poe_grad(files[n].decode(), p['idx'], p['degrade']).encode()
         if foot_layout.get(lay):
             run = f'<a:r><a:rPr lang="pt-BR"/><a:t>{escape(FOOT_TEXT)}</a:t></a:r>'
             files[n] = files[n].decode().replace('</p:spTree>', FTR.format(id=901, xfrm=XFRM, lst=LST, run=run) + '</p:spTree>', 1).encode()
