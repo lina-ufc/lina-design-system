@@ -58,6 +58,7 @@ async function assets() {
   // Imagem provisória: nata com hachura de fio forte (como o espaço vazio do deck HTML).
   const hatch = (w, h) => `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}"><defs><pattern id="p" width="28" height="28" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="28" stroke="#${C.fioForte}" stroke-width="2"/></pattern></defs><rect width="100%" height="100%" fill="#${C.nata}"/><rect width="100%" height="100%" fill="url(#p)"/></svg>`;
   await sharp(Buffer.from(hatch(1600, 1000))).png().toFile(A('gen/provisoria.png'));
+  for (const r of [150, 133, 75, 100]) await sharp(Buffer.from(hatch(1200, Math.round(120000 / r)))).png().toFile(A(`gen/prov-${r}.png`)); // proporção r/100 (largura/altura)
   // Espaço de logo de parceiro (3:1): retângulo creme vazado, como o da capa.
   await sharp(Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="837" height="279"><rect x="3" y="3" width="831" height="273" fill="none" stroke="#${C.creme}" stroke-width="6" stroke-dasharray="24 14"/><text x="418.5" y="150" text-anchor="middle" font-family="JetBrains Mono" font-size="54" fill="#${C.creme}">Logo parceiro</text></svg>`)).png().toFile(A('gen/logo-parceiro.png'));
 }
@@ -173,6 +174,12 @@ const ALIAS = {
   '2.5 Conclusões': { para: '2.2 Colunas · ícones' },
   '2.4 Equação': { para: '2.5 Equação' },
   '3.3 Ícones · lista e imagem': { para: '2.3 Lista · ícones e imagem', conv: (f) => renomeia(f, /^Subtítulo /, 'Item ') },
+  '4.2 Texto e grade 2×2': { para: '4.2 Texto e grade · 4 imagens' },
+  '4.5 Duas imagens': { para: '4.5 Imagens em linha · 2 imagens' },
+  '4.6 Três imagens': { para: '4.5 Imagens em linha · 3 imagens' },
+  '4.7 Mosaico': { para: '4.6 Mosaico · 3 imagens' },
+  '4.8 Imagem cheia': { para: '4.7 Imagem cheia' },
+  '4.9 Vídeo': { para: '4.4 Figura larga', conv: (f) => renomeia(renomeia(f, /^Vídeo$/, 'Imagem'), /^Legenda$/, 'Fonte') },
 };
 // Logos de parceiros da capa 1.2: à direita do IAUD, mesma linha e altura (93), proporção 3:1.
 const LOGO_P = (i) => [M - 11 + 356 + 281 + G + i * (279 + G), 1080 - M - 99 + 7, 279, 93];
@@ -188,7 +195,7 @@ const defLayout = (name, objects, { bg = { color: 'FFFFFF' }, foot = true, bar }
   // pptxgenjs perde o tipo de espaços de imagem e tabela; post.py os restaura a partir deste registro.
   const all = [...(foot ? footer(bar) : []), ...objects];
   const ph = all.flatMap((o, i) => o.placeholder ? [{ idx: 100 + i, name: o.placeholder.options.name, type: o.placeholder.options.type,
-    box: ['x', 'y', 'w', 'h'].map((k) => Math.round(o.placeholder.options[k] * 144)) }] : []);
+    box: ['x', 'y', 'w', 'h'].map((k) => Math.round(o.placeholder.options[k] * 144)), degrade: o.placeholder.options.degrade }] : []);
   LAYOUTS.push({ name, foot, ph }); HTML_LAYOUTS[name] = { objects: all, bg, foot };
   pres.defineSlideMaster({ title: name, background: bg, ...(foot ? { slideNumber } : {}),
     objects: all });
@@ -363,46 +370,85 @@ function defineLayouts() {
         ph(`Subtítulo ${i + 1}`, 'body', [x, CT + 404, w, 80], { ...S.sub, fontSize: P(30) }, 'Subtítulo em até duas linhas'),
         ph(`Texto ${i + 1}`, 'body', [x, CT + 496, w, 200], { ...S.body, fontSize: P(26) }, 'Uma ou duas frases.')]; }).flat() ]; } };
 
+  // Família 4 · Imagem, paramétrica. Imagem do fill: { img, modo?: 'cover' | 'fit', posicao? } ou { video, poster } (ver prepara()).
+  // `arranja(dim, n)`: quando o arranjo depende da proporção de cada imagem, devolve { espaço: caixa } (imagens inteiras e legendas soltas).
+  const SW = col(0, 4)[1], SX = M + SW + G, FIG = [SX, TY, W - M - SX, CB - 56 - TY];
   // Imagem sangrada pelo topo e pela direita; texto e legenda na coluna estreita (mapas, fotos).
-  const SW = col(0, 4)[1], SX = M + SW + G;
-  layout('4.1 Imagem lateral', [ label(SW), title([M, TY, SW, 170], 52),
+  FAM['4.1 Imagem lateral'] = { build: () => [ label(SW), title([M, TY, SW, 170], 52),
     ph('Texto', 'body', [M, row(2)[0], SW, row(0, 2)[1]], { ...S.body, fontSize: P(26) }, 'Duas ou três frases sobre a imagem.'),
     pic('Legenda', [M, row(4)[0], SW, CB - row(4)[0]], 'Legenda (imagem ou texto)'),
-    pic('Imagem', [SX, 0, W - SX, FOOT_Y]) ]);
+    pic('Imagem', [SX, 0, W - SX, FOOT_Y]) ] };
+  // Figura de artigo inteira (fit) com legenda colada embaixo; coluna com 1 a 3 números.
+  FAM['4.1 Imagem lateral · recuada'] = { faixa: [1, 3], unidade: 'números', campo: 'Número',
+    build: (n) => [ label(SW), title([M, TY, SW, 170], 52),
+      ...Array.from({ length: n }, (_, i) => { const y = row(2)[0] + i * 184; return [
+        ph(`Número ${i + 1}`, 'body', [M, y, SW, 90], { fontFace: F.bold, fontSize: P(80), color: C.ferro, valign: 'bottom', lineSpacingMultiple: 0.9 }, '00'),
+        ph(`Nota ${i + 1}`, 'body', [M, y + 96, SW, 40], { ...S.body, fontSize: P(24) }, 'O que o número mede')]; }).flat(),
+      pic('Imagem', FIG, 'Figura inteira, sem sangrar'),
+      ph('Legenda', 'body', [SX, CB - 30, W - M - SX, 30], S.cap, 'Fonte: autor, ano.') ],
+    arranja: (dim) => { const d = dim('Imagem'); if (!d) return {}; const [x, y, w, h] = contido(FIG, ...d);
+      return { Imagem: FIG, Legenda: [x, y + h + 12, w, 30] }; } };
+  // Espelhada: imagem sangrada à esquerda; coluna da direita com lista numerada de 1 a 5 itens.
+  FAM['4.1 Imagem lateral · esquerda'] = { faixa: [1, 5], unidade: 'itens', campo: 'Item', numera: true,
+    build: (n) => { const x0 = W - M - SW, step = Math.min(168, (CB - row(2)[0]) / n);
+      return [ pic('Imagem', [0, 0, x0 - G, FOOT_Y]), label(SW, C.ferro, x0), title([x0, TY, SW, 170], 52),
+        ...Array.from({ length: n }, (_, i) => { const y = row(2)[0] + i * step; return [
+          tile(x0, y, 64, C.ferro), ph(`Número ${i + 1}`, 'body', [x0, y, 64, 64], { fontFace: F.mono, fontSize: P(26), color: C.creme, align: 'center', valign: 'middle' }, pad(i + 1)),
+          ph(`Item ${i + 1}`, 'body', [x0 + 88, y - 2, SW - 88, 36], { ...S.sub, fontSize: P(28) }, 'Item da lista'),
+          ph(`Texto ${i + 1}`, 'body', [x0 + 88, y + 36, SW - 88, step - 44], { ...S.body, fontSize: P(22) }, 'Uma frase curta.')]; }).flat() ]; } };
 
-  layout('4.2 Texto e grade 2×2', [ label(SW), title([M, TY, SW, 170], 52),
-    ph('Texto', 'body', [M, row(2)[0], SW, CB - row(2)[0]], { ...S.body, fontSize: P(26) }, 'Duas ou três frases sobre as imagens.'),
-    ...[0, 1, 2, 3].map((i) => { const gw = (W - SX - 8) / 2, gh = (FOOT_Y - 8) / 2;
-      return pic(`Imagem ${i + 1}`, [SX + (i % 2) * (gw + 8), Math.floor(i / 2) * (gh + 8), gw, gh]); }) ]);
+  // Texto e grade: 2 (empilhadas), 4 (2×2) ou 6 (3×2) imagens sangradas à direita.
+  FAM['4.2 Texto e grade'] = { faixa: [2, 6], unidade: 'imagens', campo: 'Imagem',
+    build: (n) => { if (n % 2) throw new Error(`'4.2 Texto e grade' aceita 2, 4 ou 6 imagens, recebeu ${n}`);
+      const nc = n === 2 ? 1 : n === 4 ? 2 : 3, nr = n / nc, gw = (W - SX - 8 * (nc - 1)) / nc, gh = (FOOT_Y - 8 * (nr - 1)) / nr;
+      return [ label(SW), title([M, TY, SW, 170], 52),
+        ph('Texto', 'body', [M, row(2)[0], SW, CB - row(2)[0]], { ...S.body, fontSize: P(26) }, 'Duas ou três frases sobre as imagens.'),
+        ...Array.from({ length: n }, (_, i) => pic(`Imagem ${i + 1}`, [SX + (i % nc) * (gw + 8), Math.floor(i / nc) * (gh + 8), gw, gh])) ]; } };
 
-  layout('4.3 Imagem e texto', [ label(),
-    pic('Imagem', [M, TY, col(0, 7)[1], CB - TY]),
-    title([col(7)[0], TY, col(0, 5)[1], 220], 52),
-    ph('Texto', 'body', [col(7)[0], row(2)[0], col(0, 5)[1], CB - row(2)[0]], S.body, 'Uma ou duas frases sobre o que observar na imagem.') ]);
+  // Imagem à direita (mudou de lado em relação à versão 1; o CHANGELOG avisa).
+  FAM['4.3 Imagem e texto'] = { build: () => [ label(),
+    pic('Imagem', [col(5)[0], TY, col(0, 7)[1], CB - TY]),
+    title([M, TY, col(0, 5)[1], 220], 52),
+    ph('Texto', 'body', [M, row(2)[0], col(0, 5)[1], CB - row(2)[0]], S.body, 'Uma ou duas frases sobre o que observar na imagem.') ] };
 
-  layout('4.4 Figura larga', [ ...header(),
-    pic('Imagem', [M, CT, FW, CB - CT - 50], 'Imagem, mapa, diagrama ou gráfico'),
-    ph('Fonte', 'body', [M, CB - 30, FW, 30], S.cap, 'Fonte: autor, ano.') ]);
+  // 'obj' (espaço de conteúdo, sem tipo) aceita imagem ou vídeo.
+  FAM['4.4 Figura larga'] = { build: () => [ ...header(),
+    ph('Imagem', 'obj', [M, CT, FW, CB - CT - 50], {}, 'Imagem, vídeo, mapa, diagrama ou gráfico'),
+    ph('Fonte', 'body', [M, CB - 30, FW, 30], S.cap, 'Fonte: autor, ano.') ] };
 
-  layout('4.5 Duas imagens', [ ...header(),
-    ...[0, 6].flatMap((c, i) => [ pic(`Imagem ${i + 1}`, [col(c)[0], CT, col(0, 6)[1], CB - CT - 60]),
-      ph(`Legenda ${i + 1}`, 'body', [col(c)[0], CB - 40, col(0, 6)[1], 40], S.cap, 'Legenda curta · fonte') ]) ]);
+  // Master: espaços iguais. Com imagens do fill, `arranja` põe todas na mesma altura, larguras pela proporção, legenda sob cada uma.
+  FAM['4.5 Imagens em linha'] = { faixa: [2, 4], unidade: 'imagens', campo: 'Imagem',
+    build: (n) => { const s = 12 / n, w = col(0, s)[1];
+      return [ ...header(), ...Array.from({ length: n }, (_, i) => [ pic(`Imagem ${i + 1}`, [col(i * s)[0], CT, w, CB - CT - 60]),
+        ph(`Legenda ${i + 1}`, 'body', [col(i * s)[0], CB - 40, w, 40], S.cap, 'Legenda curta · fonte')]).flat() ]; },
+    arranja: (dim, n) => { const d = Array.from({ length: n }, (_, i) => dim(`Imagem ${i + 1}`)); if (!d.every(Boolean)) return {};
+      const rs = d.map(([iw, ih]) => iw / ih), soma = rs.reduce((a, b) => a + b), hh = Math.min(CB - CT - 60, (FW - (n - 1) * G) / soma), o = {};
+      let x = M + (FW - (soma * hh + (n - 1) * G)) / 2;
+      rs.forEach((r, i) => { o[`Imagem ${i + 1}`] = [x, CT, r * hh, hh]; o[`Legenda ${i + 1}`] = [x, CT + hh + 16, r * hh, 40]; x += r * hh + G; });
+      return o; } };
 
-  layout('4.6 Três imagens', [ ...header(),
-    ...[0, 4, 8].flatMap((c, i) => [ pic(`Imagem ${i + 1}`, [col(c)[0], CT, col(0, 4)[1], CB - CT - 60]),
-      ph(`Legenda ${i + 1}`, 'body', [col(c)[0], CB - 40, col(0, 4)[1], 40], S.cap, 'Legenda curta') ]) ]);
+  // Mosaico: 3 = 1 grande + 2; 5 = 1 grande + 4 pequenas.
+  FAM['4.6 Mosaico'] = { faixa: [3, 5], unidade: 'imagens', campo: 'Imagem',
+    build: (n) => { if (n === 4) throw new Error("'4.6 Mosaico' aceita 3 ou 5 imagens, recebeu 4");
+      const ht = CB - CT, q = (ht - G) / 2;
+      return [ ...header(), ...(n === 3 ? [ pic('Imagem 1', [col(0)[0], CT, col(0, 8)[1], ht]), pic('Imagem 2', [col(8)[0], CT, col(0, 4)[1], q]), pic('Imagem 3', [col(8)[0], CT + q + G, col(0, 4)[1], q]) ]
+        : [ pic('Imagem 1', [col(0)[0], CT, col(0, 6)[1], ht]), ...[0, 1, 2, 3].map((i) => pic(`Imagem ${i + 2}`, [col(6 + (i % 2) * 3)[0], CT + Math.floor(i / 2) * (q + G), col(0, 3)[1], q])) ]) ]; } };
 
-  layout('4.7 Mosaico', [ ...header(),
-    pic('Imagem 1', [col(0)[0], CT, col(0, 8)[1], CB - CT]),
-    pic('Imagem 2', [col(8)[0], CT, col(0, 4)[1], (CB - CT - G) / 2]),
-    pic('Imagem 3', [col(8)[0], CT + (CB - CT + G) / 2, col(0, 4)[1], (CB - CT - G) / 2]) ]);
+  // Sem título: imagem ou vídeo ocupa tudo acima do rodapé.
+  FAM['4.7 Imagem cheia'] = { build: () => [ ph('Imagem', 'obj', [0, 0, W, FOOT_Y], {}, 'Imagem ou vídeo') ] };
+  // Com título: dois degradês ferro fundo sobre a imagem (de cima, até logo após o título; de baixo, só sob a fonte), no preenchimento dos espaços de texto.
+  FAM['4.7 Imagem cheia · título'] = { build: () => [ ph('Imagem', 'obj', [0, 0, W, FOOT_Y], {}, 'Imagem ou vídeo'),
+    ph('Título', 'title', [0, 0, W, 300], { ...S.title, color: C.creme, margin: [P(M), P(M), 0, P(TY)], degrade: 'cima' }, 'Título sobre a imagem'),
+    label(FW, C.creme),
+    ph('Fonte', 'body', [0, FOOT_Y - 110, W, 110], { ...S.cap, color: C.creme, valign: 'bottom', margin: [P(M), P(M), P(24), 0], degrade: 'baixo' }, 'Fonte: autor, ano.') ] };
 
-  // Sem título: imagem ou vídeo ocupa tudo acima do rodapé. 'obj' (espaço de conteúdo, sem tipo) aceita os dois.
-  layout('4.8 Imagem cheia', [ ph('Imagem', 'obj', [0, 0, W, FOOT_Y], {}, 'Imagem ou vídeo') ]);
-
-  layout('4.9 Vídeo', [ ...header(),
-    ph('Vídeo', 'media', [M, CT, FW, CB - CT - 50], {}, 'Vídeo'),
-    ph('Legenda', 'body', [M, CB - 30, FW, 30], S.cap, 'Legenda do vídeo · duração') ]);
+  // Equipe: retratos do mesmo tamanho (olhos numa linha); 1 linha até 6, 2 até 16, 3 até 24. Cover, centrado no alto.
+  FAM['4.8 Equipe'] = { faixa: [1, 24], unidade: 'pessoas', campo: 'Nome', posicao: 'north',
+    build: (n) => { const rows = n <= 6 ? 1 : n <= 16 ? 2 : 3, nc = Math.ceil(n / rows), w = (FW - (nc - 1) * G) / nc, h = Math.min(w * 1.25, (CB - CT - rows * 84 - (rows - 1) * G) / rows);
+      return [ ...header(), ...Array.from({ length: n }, (_, i) => { const x = M + (i % nc) * (w + G), y = CT + Math.floor(i / nc) * (h + 84 + G); return [
+        pic(`Retrato ${i + 1}`, [x, y, w, h], 'Retrato'),
+        ph(`Nome ${i + 1}`, 'body', [x, y + h + 12, w, 36], { ...S.sub, fontSize: P(nc > 6 ? 22 : 28) }, 'Nome Sobrenome'),
+        ph(`Papel ${i + 1}`, 'body', [x, y + h + 50, w, 30], S.cap, 'Função')]; }).flat() ]; } };
 
   layout('5.1 Gráfico', [ ...header(),
     ph('Gráfico', 'chart', [M, CT, FW, CB - CT - 50], {}, 'Gráfico'),
@@ -460,10 +506,8 @@ async function examples() {
     const r = !ALIAS[m] && PEND.some((x) => x[0] === m) ? { base: m, name: m, fill } : resolve(m, fill, FAM, ALIAS);
     SLIDES.push({ ...r, extra });
   };
-  // pptxgenjs: no 'cover', w/h devem ter a proporção da imagem (1600 × 1000), senão ela é esticada; sizing leva a caixa.
-  const img = (box) => ({ img: IMG, box: { x: X(box[0]), y: X(box[1]), w: X(box[2]), h: X(box[3]), sizing: { type: 'cover', w: X(box[2]), h: X(box[3]) } }, ppt: { w: X(1600), h: X(1000) } });
+  const PROV = (r) => ({ img: A(`gen/prov-${r}.png`) }); // provisória na proporção r/100 (largura/altura)
   const ic = (n, tag, box = [0, 0, 0, 0]) => ({ img: icon(n, tag), box: { x: X(box[0]), y: X(box[1]), w: X(box[2]), h: X(box[3]) } });
-  const SW = col(0, 4)[1], SX = M + SW + G, IW = col(6)[0];
   // Outro deck com os mesmos layouts: DECK=arquivo.js node build.js (o módulo recebe as peças e monta os slides).
   if (process.env.DECK) return require(path.resolve(process.env.DECK))({ pres, s, ic, icon, A, C, F, P, X, col, row, CT, CB, TY, M, W, G, FW, FOOT_Y, sharp, FAM, pad, comp });
 
@@ -478,7 +522,7 @@ async function examples() {
   s('1.2 Capa', { 'Evento': EV, 'Título': TT, itens: AUTORES, 'Logo 1': logo(0) });
   s('1.2 Capa', { 'Evento': EV, 'Título': 'Título longo do trabalho, que precisa de quatro linhas para caber inteiro na capa, com subtítulo após dois-pontos e ainda uma explicação',
     'Apresentador': 'Nome do Apresentador', 'Coautores': 'Coautora Sobrenome · Coautor Sobrenome · Orientadora Sobrenome', 'Logo 1': logo(0), 'Logo 2': logo(1) });
-  s('1.3 Capa · imagem', { 'Imagem': img([M, M, col(0, 5)[1], 1080 - 2 * M]), 'Evento': EV, 'Título': 'Título do trabalho em até três linhas', itens: AUTORES });
+  s('1.3 Capa · imagem', { 'Imagem': { img: IMG }, 'Evento': EV, 'Título': 'Título do trabalho em até três linhas', itens: AUTORES });
   for (const n of [4, 6, 12, 18]) s('1.4 Sumário', sumario(n));
   s('1.5 Seção', { 'Número': '01', 'Título': 'Contexto', 'Descrição': 'Uma frase sobre o que esta seção vai mostrar.' });
   s('2.1 Texto', { 'Rótulo': '02 · Problema', 'Título': 'Uma afirmação por slide, escrita como frase completa',
@@ -492,15 +536,15 @@ async function examples() {
   s('2.2 Colunas · ícones', { 'Rótulo': '05 · Próximos passos', 'Título': 'O que vem a seguir', itens: conc.map(([n, t]) => ({ 'Ícone': ic(n, 'ferro'), 'Subtítulo': t, 'Texto': UF })) });
   const lst = (nomes, ico) => nomes.map((t, i) => ({ ...(ico && { 'Ícone': ic(ico[i], 'ferro') }), 'Item': t, 'Texto': 'Uma frase sobre o item.' }));
   const ITENS = ['Território', 'Patrimônio', 'Comunidade', 'Clima', 'Mobilidade', 'Energia', 'Água', 'Dados', 'Governança'], ICL = ['map', 'landmark', 'users', 'atom', 'ruler', 'cpu', 'layers', 'database', 'building-2'];
-  s('2.3 Lista · imagem', { 'Rótulo': '01 · Contexto', 'Título': 'Quatro dimensões do caso', 'Imagem': img([IW, 0, W - IW, FOOT_Y]), itens: lst(ITENS.slice(0, 4)) });
+  s('2.3 Lista · imagem', { 'Rótulo': '01 · Contexto', 'Título': 'Quatro dimensões do caso', 'Imagem': { img: IMG }, itens: lst(ITENS.slice(0, 4)) });
   s('2.3 Lista · ícones', { 'Rótulo': '01 · Contexto', 'Título': 'Nove dimensões do caso', itens: lst(ITENS, ICL) });
   s('2.3 Lista · marcador', { 'Rótulo': '01 · Contexto', 'Título': 'Cinco pontos do argumento', itens: ITENS.slice(0, 5).map((t) => ({ 'Item': t })) });
   s('2.3 Lista', { 'Rótulo': '01 · Contexto', 'Título': 'Seis etapas do trabalho', itens: lst(ITENS.slice(0, 6)) });
-  s('2.3 Lista · ícones e imagem', { 'Rótulo': '01 · Contexto', 'Título': 'Três dimensões do caso', 'Imagem': img([IW, 0, W - IW, FOOT_Y]), itens: lst(ITENS.slice(0, 3), ICL) });
+  s('2.3 Lista · ícones e imagem', { 'Rótulo': '01 · Contexto', 'Título': 'Três dimensões do caso', 'Imagem': { img: IMG }, itens: lst(ITENS.slice(0, 3), ICL) });
   const marcos = (n, feitos) => Array.from({ length: n }, (_, i) => ({ 'Data': String(2016 + i * 2), 'Marco': 'Marco', 'Texto': 'O que aconteceu.', feito: i < feitos }));
   s('2.4 Linha do tempo', { 'Rótulo': '02 · Trajetória', 'Título': 'Dez anos de trabalho', itens: marcos(5, 2) });
   s('2.4 Linha do tempo', { 'Rótulo': '02 · Trajetória', 'Título': 'Dos primeiros testes à plataforma', itens: marcos(10, 6) });
-  s('2.4 Linha do tempo · vertical', { 'Rótulo': '02 · Trajetória', 'Título': 'Trajetória', 'Imagem': img([SX, 0, W - SX, FOOT_Y]), itens: marcos(5, 4).map((m) => ({ ...m, 'Texto': 'Uma linha sobre o marco.' })) });
+  s('2.4 Linha do tempo · vertical', { 'Rótulo': '02 · Trajetória', 'Título': 'Trajetória', 'Imagem': { img: IMG }, itens: marcos(5, 4).map((m) => ({ ...m, 'Texto': 'Uma linha sobre o marco.' })) });
   s('2.5 Equação', { 'Rótulo': '03 · Método', 'Título': 'O modelo', 'Equação': '𝜃(𝑡) = 𝑇(𝑡) + 𝑆(𝑡) + 𝐷(𝑡) + 𝜀(𝑡)', 'Nota': 'Tendência, ciclo sazonal, ciclo diário e resíduo.' });
   s('2.6 Só título', { 'Rótulo': '03 · Método', 'Título': 'Diagrama livre: monte com ícones e pictogramas' });
   const FRASE = 'A inspeção por drone reduziu o tempo de campo em 70%.';
@@ -528,23 +572,24 @@ async function examples() {
   const por3 = (k, tag, t) => REC.slice(0, k).map(([n, nome]) => ({ 'Ícone': ic(n, tag), 'Subtítulo': nome, 'Texto': t }));
   for (const k of [4, 6, 8]) s('3.1 Ícones · recursos', { 'Rótulo': '03 · Método', 'Título': `${['Quatro', 'Seis', 'Oito'][[4, 6, 8].indexOf(k)]} frentes de trabalho`, itens: por3(k, 'creme', k > 4 ? 'Uma frase.' : 'Uma ou duas frases sobre esta frente.') });
   for (const k of [5, 8]) s('3.2 Ícones · processo', { 'Rótulo': '03 · Método', 'Título': 'Do levantamento ao painel', itens: [...REC.slice(6), ...REC.slice(0, 6)].slice(0, k).map(([n, nome]) => ({ 'Ícone': ic(n, 'ferro'), 'Subtítulo': nome, 'Texto': 'O que acontece nesta etapa.' })) });
-  s('3.3 Ícones · ilustrações', { 'Rótulo': '03 · Método', 'Título': 'Quatro frentes, quatro cenas', itens: REC.slice(0, 4).map(([, nome]) => ({ 'Ilustração': img([0, 0, 1600, 1000]), 'Subtítulo': nome, 'Texto': 'Uma ou duas frases.' })) });
-  s('4.1 Imagem lateral', { 'Rótulo': '01 · Contexto', 'Título': 'Área de estudo', 'Texto': 'Duas ou três frases sobre o recorte e a escala do mapa.', 'Imagem': img([SX, 0, W - SX, FOOT_Y]) });
-  s('4.2 Texto e grade 2×2', Object.assign({ 'Rótulo': '01 · Contexto', 'Título': 'O lugar hoje', 'Texto': 'Duas ou três frases sobre as fotos.' },
-    ...[0, 1, 2, 3].map((i) => { const gw = (W - SX - 8) / 2, gh = (FOOT_Y - 8) / 2;
-      return { [`Imagem ${i + 1}`]: img([SX + (i % 2) * (gw + 8), Math.floor(i / 2) * (gh + 8), gw, gh]) }; })));
-  s('4.3 Imagem e texto', { 'Rótulo': '03 · Método', 'Imagem': img([M, 160, col(0, 7)[1], CB - 160]), 'Título': 'Título curto da imagem', 'Texto': 'Uma ou duas frases sobre o que observar na imagem.' });
-  s('4.4 Figura larga', { 'Rótulo': '03 · Método', 'Título': 'Uma figura larga com título curto', 'Imagem': img([M, CT, FW, CB - CT - 50]), 'Fonte': 'Fonte: LINA, 2026.' });
-  s('4.5 Duas imagens', { 'Rótulo': '03 · Método', 'Título': 'Antes e depois do levantamento',
-    'Imagem 1': img([col(0)[0], CT, col(0, 6)[1], CB - CT - 60]), 'Legenda 1': 'Nuvem de pontos · 2018',
-    'Imagem 2': img([col(6)[0], CT, col(0, 6)[1], CB - CT - 60]), 'Legenda 2': 'Modelo · 2026' });
-  s('4.6 Três imagens', Object.assign({ 'Rótulo': '03 · Método', 'Título': 'Três vistas do mesmo objeto' },
-    ...[0, 4, 8].map((c, i) => ({ [`Imagem ${i + 1}`]: img([col(c)[0], CT, col(0, 4)[1], CB - CT - 60]), [`Legenda ${i + 1}`]: `Vista ${i + 1}` }))));
-  s('4.7 Mosaico', { 'Rótulo': '03 · Método', 'Título': 'Uma imagem principal e dois detalhes',
-    'Imagem 1': img([col(0)[0], CT, col(0, 8)[1], CB - CT]), 'Imagem 2': img([col(8)[0], CT, col(0, 4)[1], (CB - CT - G) / 2]),
-    'Imagem 3': img([col(8)[0], CT + (CB - CT + G) / 2, col(0, 4)[1], (CB - CT - G) / 2]) });
-  s('4.8 Imagem cheia', { 'Imagem': img([0, 0, W, FOOT_Y]) });
-  s('4.9 Vídeo', { 'Rótulo': '03 · Método', 'Título': 'Demonstração da plataforma', 'Legenda': 'Clique no ícone do espaço para inserir o vídeo · 1 min 20 s' });
+  s('3.3 Ícones · ilustrações', { 'Rótulo': '03 · Método', 'Título': 'Quatro frentes, quatro cenas', itens: REC.slice(0, 4).map(([, nome]) => ({ 'Ilustração': { img: IMG }, 'Subtítulo': nome, 'Texto': 'Uma ou duas frases.' })) });
+  const NR = ([n, t]) => ({ 'Número': n, 'Nota': t });
+  s('4.1 Imagem lateral', { 'Rótulo': '01 · Contexto', 'Título': 'Área de estudo', 'Texto': 'Duas ou três frases sobre o recorte e a escala do mapa.', 'Imagem': { img: IMG } });
+  s('4.1 Imagem lateral · recuada', { 'Rótulo': '01 · Contexto', 'Título': 'Três números do estudo', 'Imagem': PROV(133), 'Legenda': 'Fonte: LINA, 2026. Legenda logo abaixo da figura.',
+    itens: [['38%', 'da área construída'], ['4,2 h', 'de campo por fachada'], ['120', 'imagens térmicas']].map(NR) });
+  s('4.1 Imagem lateral · esquerda', { 'Rótulo': '01 · Contexto', 'Título': 'Quatro frentes do estudo', 'Imagem': { img: IMG },
+    itens: lst(ITENS.slice(0, 4)) });
+  for (const n of [2, 4, 6]) s('4.2 Texto e grade', { 'Rótulo': '01 · Contexto', 'Título': 'O lugar hoje', 'Texto': 'Duas ou três frases sobre as fotos.', itens: Array.from({ length: n }, () => ({ 'Imagem': { img: IMG } })) });
+  s('4.3 Imagem e texto', { 'Rótulo': '03 · Método', 'Imagem': PROV(75), 'Título': 'Título curto da imagem', 'Texto': 'Uma ou duas frases sobre o que observar na imagem.' });
+  // Vídeo: { video: 'arquivo.mp4', poster: 'quadro.jpg' } no lugar da imagem. Sem mp4 no repositório, o exemplo usa imagem.
+  s('4.4 Figura larga', { 'Rótulo': '03 · Método', 'Título': 'Uma figura larga com título curto', 'Imagem': { img: IMG }, 'Fonte': 'Fonte: LINA, 2026.' });
+  s('4.5 Imagens em linha', { 'Rótulo': '03 · Método', 'Título': 'Antes e depois do levantamento', itens: [PROV(150), PROV(150)].map((p, i) => ({ 'Imagem': p, 'Legenda': ['Nuvem de pontos · 2018', 'Modelo · 2026'][i] })) });
+  s('4.5 Imagens em linha', { 'Rótulo': '03 · Método', 'Título': 'Quatro proporções, uma altura', itens: [133, 75, 150, 100].map((r, i) => ({ 'Imagem': PROV(r), 'Legenda': `Vista ${i + 1}` })) });
+  for (const n of [3, 5]) s('4.6 Mosaico', { 'Rótulo': '03 · Método', 'Título': n === 3 ? 'Uma imagem principal e dois detalhes' : 'Uma imagem principal e quatro detalhes', itens: Array.from({ length: n }, () => ({ 'Imagem': { img: IMG } })) });
+  s('4.7 Imagem cheia', { 'Imagem': { img: IMG } });
+  s('4.7 Imagem cheia · título', { 'Imagem': { img: IMG }, 'Título': 'Título sobre a imagem', 'Rótulo': '03 · Método', 'Fonte': 'Fonte: LINA, 2026.' });
+  const EQ = ['Ana Lima', 'Carlos Rocha', 'Daniela Moura', 'Eduardo Pinheiro', 'Fernanda Sales', 'Gabriel Nogueira', 'Helena Castro', 'Igor Matos', 'Júlia Araújo', 'Lucas Ferreira', 'Mariana Teles', 'Nicolas Prado', 'Olívia Campos', 'Pedro Alves'];
+  for (const n of [6, 14]) s('4.8 Equipe', { 'Rótulo': '06 · Equipe', 'Título': 'Quem fez o trabalho', itens: EQ.slice(0, n).map((nm, i) => ({ 'Retrato': { img: IMG }, 'Nome': nm, 'Papel': ['Coordenação', 'Pesquisa', 'Campo', 'Dados'][i % 4] })) });
   s('5.1 Gráfico', { 'Rótulo': '04 · Resultados', 'Título': 'Série medida ao longo do ano', 'Fonte': 'Fonte: LINA, 2026.' }, (sl) => {
     const meses = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
     sl.addChart(pres.charts.LINE, [{ name: 'Medido', labels: meses, values: [3, 4, 6, 8, 11, 14, 16, 15, 12, 9, 6, 4] },
@@ -570,8 +615,8 @@ async function examples() {
     'Número 2': '3×', 'Rótulo 2': 'mais rápido', 'Nota 2': 'Comparado ao processo manual.',
     'Número 3': '0,8', 'Rótulo 3': 'correlação', 'Nota 3': 'Entre modelo e medição.' });
   s('5.4 Comparação', { 'Rótulo': '04 · Resultados', 'Título': 'Dois cenários',
-    'Lado 1': 'Antes', 'Imagem 1': img([col(0)[0], CT + 70, col(0, 6)[1] - 20, 380]), 'Texto 1': 'O que se via antes da intervenção.',
-    'Lado 2': 'Depois', 'Imagem 2': img([col(6)[0] + 20, CT + 70, col(0, 6)[1] - 20, 380]), 'Texto 2': 'O que muda com a intervenção.' });
+    'Lado 1': 'Antes', 'Imagem 1': { img: IMG }, 'Texto 1': 'O que se via antes da intervenção.',
+    'Lado 2': 'Depois', 'Imagem 2': { img: IMG }, 'Texto 2': 'O que muda com a intervenção.' });
   s('5.5 Tabela', { 'Rótulo': '03 · Método', 'Título': 'Materiais', 'Fonte': 'Fonte: literatura.' }, (sl) => {
     const h = (t) => ({ text: t, options: { fontFace: F.medium, color: C.umbro, border: [{ type: 'none' }, { type: 'none' }, { pt: 1, color: C.umbro }, { type: 'none' }] } });
     const c = (t, mono) => ({ text: t, options: { fontFace: mono ? F.mono : F.light, color: C.umbro, border: [{ type: 'none' }, { type: 'none' }, { pt: 0.75, color: C.fioForte }, { type: 'none' }] } });
