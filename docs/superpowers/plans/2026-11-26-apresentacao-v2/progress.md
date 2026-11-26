@@ -13,13 +13,13 @@
 
 ## Resumo
 
-`[██░░░░░░░░]` plano 01 concluído; 02 escrito.
+`[███░░░░░░░]` planos 01 e 02 concluídos; 03 escrito.
 
 | Plano | Progresso | Tarefas | Estado |
 | --- | --- | --- | --- |
 | 01 — base-e-abertura | `[██████████]` | 2/2 | Concluído 2026-11-26 |
-| 02 — texto-e-icones | `[░░░░░░░░░░]` | 0/4 | Escrito |
-| 03 — imagem | `[░░░░░░░░░░]` | — | Não escrito. Escrito quando o 02 terminar |
+| 02 — texto-e-icones | `[██████████]` | 4/4 | Concluído 2026-11-26 |
+| 03 — imagem | `[░░░░░░░░░░]` | 0/3 | Escrito |
 | 04 — dados-e-fim | `[░░░░░░░░░░]` | — | Não escrito |
 | 05 — deck-html | `[░░░░░░░░░░]` | — | Não escrito |
 | 06 — site-e-versao | `[░░░░░░░░░░]` | — | Não escrito |
@@ -35,14 +35,25 @@ Desvios: `1.2 Capa` com `Autores *` vale no mínimo 2 autores; título longo vai
 
 ## Plano 02 — texto-e-icones
 
-`[░░░░░░░░░░]` 0% — 0 de 4 tarefas.
+`[██████████]` 100% — 4 de 4 tarefas.
 
-- [ ] **Task 1** — Ajustes do núcleo: N pelas chaves, `itens` devolvido, imagem do fill na caixa do placeholder
-- [ ] **Task 2** — Família 2 (2.1–2.6) e aliases
-- [ ] **Task 3** — Família 3 (3.1–3.3) e aliases
-- [ ] **Task 4** — Componentes e slides de componentes
+- [x] **Task 1** — Ajustes do núcleo: N pelas chaves, `itens` devolvido, imagem do fill na caixa do placeholder — `941842b`, check ok
+- [x] **Task 2** — Família 2 (2.1–2.6) e aliases — `b29b46e`, validate ok, distorcidas 0, check ok, prancha vista
+- [x] **Task 3** — Família 3 (3.1–3.3) e aliases — `40fd4e0`, idem; deck descartável com 12 marcos, 7 etapas e lista de 7 sem sobreposição
+- [x] **Task 4** — Componentes e slides de componentes — `5b4c1ec`, idem; HTML visto pelo orquestrador no plano 05
+
+Desvios: rótulo da declaração A em damasco (turquesa sobre turquesa fundo dava 2,6:1); `2.1` e `2.6` continuam em `layout()`; formas redondas e vazadas também no `obj()` do `html.js`; `post.py` dá fundo nata a `Ilustração i`; `comp` vai ao `DECK`.
+
+## Plano 03 — imagem
+
+`[░░░░░░░░░░]` 0% — 0 de 3 tarefas.
+
+- [ ] **Task 1** — Imagem no fill: `cover`, `fit`, vídeo
+- [ ] **Task 2** — Família 4 (4.1–4.8) e aliases
+- [ ] **Task 3** — Degradês da 4.7 · título
 
 ## Changelog
 
 - 2026-11-26 — conjunto criado; plano 01 escrito.
 - 2026-11-26 — plano 01 concluído (`60e3fcb`, `bb4a62e`); plano 02 escrito.
+- 2026-11-26 — plano 02 concluído (`941842b`…`5b4c1ec`); plano 03 escrito.
