@@ -1,0 +1,6 @@
+/* Fontes do deck HTML: usa a instalada no computador (local) e, sem ela, o arquivo em fonts/. Nomes iguais aos de F em build.js. */
+@font-face { font-family: 'Outfit Light'; src: local('Outfit Light'), url(fonts/Outfit-Light.ttf); }
+@font-face { font-family: 'Outfit Medium'; src: local('Outfit Medium'), url(fonts/Outfit-Medium.ttf); }
+@font-face { font-family: 'Outfit ExtraBold'; src: local('Outfit ExtraBold'), url(fonts/Outfit-ExtraBold.ttf); }
+@font-face { font-family: 'JetBrains Mono'; src: local('JetBrains Mono'), url(fonts/JetBrainsMono-Regular.ttf); }
+@font-face { font-family: 'STIX Two Math'; src: local('STIX Two Math'), url(fonts/STIXTwoMath.otf); }

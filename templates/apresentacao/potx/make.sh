@@ -20,7 +20,10 @@ cp out/LINA-Apresentacao.potx $T/LINA-Apresentacao.potx
 cp out/LINA-Apresentacao.pptx $T/LINA-Apresentacao-exemplo.pptx
 rm -rf $T/img && cp -R out/html/img $T/img && cp out/html/Apresentacao.dc.html $T/
 cp ../../../assets/lina-geometry.js ../../../assets/lina-dither-field.js $T/  # fonte única em assets/
-cp apresentador.js transicao.js $T/
+cp apresentador.js transicao.js fonts.css $T/
+# Fontes junto do deck HTML (abre offline em computador sem elas): as cinco que fonts.css nomeia, cada uma com a sua OFL.
+FD=../../../assets/fonts; rm -rf $T/fonts && mkdir $T/fonts
+cp $FD/Outfit-Light.ttf $FD/Outfit-Medium.ttf $FD/Outfit-ExtraBold.ttf $FD/JetBrainsMono-Regular.ttf $FD/STIXTwoMath.otf $FD/OFL.txt $FD/OFL-JetBrainsMono.txt $FD/OFL-STIXTwoMath.txt $T/fonts/
 python3 embed-deck-stage.py $T/Apresentacao.dc.html $T/deck-stage.js
 soffice --headless --convert-to pdf --outdir out $T/LINA-Apresentacao-exemplo.pptx >/dev/null && cp out/LINA-Apresentacao-exemplo.pdf $T/
 # Miniaturas do apresentador (slide atual e próximo): img/miniaturas/s-NN.jpg, 960 px de largura.

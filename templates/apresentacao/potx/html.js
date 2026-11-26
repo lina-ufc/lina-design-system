@@ -142,6 +142,7 @@ module.exports = function toHTML({ layouts, slides, out, opcoes = { lang: 'pt-BR
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="./fonts.css">
 <script src="./support.js"></script>
 ${notas}<script src="./lina-geometry.js"></script>
 <script src="./lina-dither-field.js"></script>

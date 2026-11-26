@@ -29,3 +29,5 @@ templates/documento-a4/latex/out/
 templates/documento-a4/*.pdf
 templates/apresentacao/apresentador.js
 templates/apresentacao/transicao.js
+templates/apresentacao/fonts.css
+templates/apresentacao/fonts/
