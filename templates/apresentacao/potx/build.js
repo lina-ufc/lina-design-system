@@ -92,6 +92,59 @@ const footer = (bar = C.ferro) => [
 const slideNumber = { x: X(W - M - 120), y: X(FOOT_Y + 22), w: X(120), h: X(40), fontFace: F.mono,
   fontSize: P(20), color: C.creme, align: 'right', valign: 'middle', margin: 0 };
 
+// ---------- componentes ----------
+// Funções que desenham no slide só com sl.addText (formas com `shape`) e sl.addImage, para o .pptx e o HTML saírem iguais.
+// Medidas em px de referência; caixa = [x, y, w, h].
+const forma = (sl, shape, [x, y, w, h], color, r, opts = {}, texto = '') => sl.addText(texto, { shape, x: X(x), y: X(y), w: X(w), h: X(h), margin: 0,
+  fill: { color }, line: { type: 'none' }, ...(r && { rectRadius: X(r) }), ...opts });
+const txt = (sl, texto, [x, y, w, h], st, opts = {}) => sl.addText(texto, { x: X(x), y: X(y), w: X(w), h: X(h), margin: 0, align: 'left', valign: 'top', ...st, ...opts });
+const DECL = { A: [C.turquesaFundo, C.creme, C.damasco], B: [C.damasco, C.umbro, C.ferro], C: [C.turquesa, C.umbro, C.umbro] }; // [fundo, texto, rótulo]
+const comp = {
+  // cor indefinida: fio ferro + rótulo mono + frase Medium; 'A' | 'B' | 'C': painel preenchido, fora do vermelho.
+  declaracao(sl, [x, y, w, h], { rotulo, texto, cor }) {
+    if (!cor) {
+      forma(sl, 'rect', [x, y, w, 3], C.ferro);
+      txt(sl, rotulo, [x, y + 20, w, 40], S.label);
+      return txt(sl, texto, [x, y + 70, w, h - 70], { ...S.sub, fontSize: P(40) });
+    }
+    if (!DECL[cor]) throw new Error(`declaracao: cor '${cor}' não existe (A, B ou C)`);
+    const [bg, fg, lb] = DECL[cor];
+    forma(sl, 'roundRect', [x, y, w, h], bg, R);
+    txt(sl, rotulo, [x + 40, y + 26, w - 80, 40], { ...S.label, color: lb });
+    txt(sl, texto, [x + 40, y + 74, w - 80, h - 100], { ...S.sub, fontSize: P(36), color: fg });
+  },
+  cartao(sl, [x, y, w, h], { titulo, texto, icone }) {
+    forma(sl, 'roundRect', [x, y, w, h], C.nata, R);
+    let dy = 32;
+    if (icone) { comp.tileIcone(sl, x + 32, y + 32, 64, icone); dy = 120; }
+    txt(sl, titulo, [x + 32, y + dy, w - 64, 50], S.sub);
+    txt(sl, texto, [x + 32, y + dy + 52, w - 64, h - dy - 76], { ...S.body, fontSize: P(26) });
+  },
+  tileNumero: (sl, x, y, s, i, cor = C.ferro) => forma(sl, 'roundRect', [x, y, s, s], cor, s / 4,
+    { align: 'center', valign: 'middle', fontFace: F.mono, fontSize: P(s * 0.4), color: C.creme }, pad(i)),
+  // Ícone ferro sobre damasco; creme sobre ferro, turquesa fundo ou umbro. Só ícones de ICONS (PNG em gen/).
+  tileIcone(sl, x, y, s, icone, cor = C.damasco) {
+    const f = A(`gen/${icone}-${[C.ferro, C.turquesaFundo, C.umbro].includes(cor) ? 'creme' : 'ferro'}.png`);
+    if (!fs.existsSync(f)) throw new Error(`tileIcone: ícone '${icone}' sem PNG; use um de ICONS`);
+    forma(sl, 'roundRect', [x, y, s, s], cor, s / 4);
+    sl.addImage({ path: f, x: X(x + s * 0.22), y: X(y + s * 0.22), w: X(s * 0.56), h: X(s * 0.56) });
+  },
+  numeroSeta(sl, [x, y, w, h], antes, depois, unidade) {
+    const n = { fontFace: F.bold, fontSize: P(96), color: C.ferro };
+    txt(sl, [{ text: antes, options: n }, { text: ' → ', options: { ...n, fontFace: F.light, color: C.umbro } }, { text: depois, options: n }], [x, y, w, h - 40], { valign: 'bottom' });
+    txt(sl, unidade, [x, y + h - 30, w, 30], S.cap);
+  },
+  legenda: (sl, [x, y, w, h], texto) => txt(sl, texto, [x, y + h + 12, w, 30], S.cap),
+  legendaCores: (sl, x, y, pares) => pares.forEach(([cor, rotulo], i) => {
+    forma(sl, 'rect', [x + i * 220, y, 24, 24], cor);
+    txt(sl, rotulo, [x + i * 220 + 36, y, 170, 24], S.cap, { valign: 'middle' });
+  }),
+  marcador(sl, x, y, texto, w = 700) {
+    forma(sl, 'ellipse', [x, y + 14, 16, 16], C.ferro);
+    txt(sl, texto, [x + 40, y, w - 40, 110], S.body);
+  },
+};
+
 const pres = new pptxgen();
 pres.layout = 'LAYOUT_WIDE';
 pres.author = 'LINA'; pres.company = 'LINA · IAUD · UFC'; pres.title = 'Apresentação LINA';
@@ -412,7 +465,7 @@ async function examples() {
   const ic = (n, tag, box = [0, 0, 0, 0]) => ({ img: icon(n, tag), box: { x: X(box[0]), y: X(box[1]), w: X(box[2]), h: X(box[3]) } });
   const SW = col(0, 4)[1], SX = M + SW + G, IW = col(6)[0];
   // Outro deck com os mesmos layouts: DECK=arquivo.js node build.js (o módulo recebe as peças e monta os slides).
-  if (process.env.DECK) return require(path.resolve(process.env.DECK))({ pres, s, ic, icon, A, C, F, P, X, col, row, CT, CB, TY, M, W, G, FW, FOOT_Y, sharp, FAM, pad });
+  if (process.env.DECK) return require(path.resolve(process.env.DECK))({ pres, s, ic, icon, A, C, F, P, X, col, row, CT, CB, TY, M, W, G, FW, FOOT_Y, sharp, FAM, pad, comp });
 
   const EV = 'Seminário de pesquisa · 15 · 10 · 2026', TT = 'Título do trabalho em até três linhas, com subtítulo após dois-pontos';
   const AUTORES = ['Ana Beatriz Lima', 'Carlos Eduardo Rocha', 'Daniela Moura', 'Eduardo Pinheiro', 'Fernanda Sales', 'Gabriel Nogueira'];
@@ -450,6 +503,27 @@ async function examples() {
   s('2.4 Linha do tempo · vertical', { 'Rótulo': '02 · Trajetória', 'Título': 'Trajetória', 'Imagem': img([SX, 0, W - SX, FOOT_Y]), itens: marcos(5, 4).map((m) => ({ ...m, 'Texto': 'Uma linha sobre o marco.' })) });
   s('2.5 Equação', { 'Rótulo': '03 · Método', 'Título': 'O modelo', 'Equação': '𝜃(𝑡) = 𝑇(𝑡) + 𝑆(𝑡) + 𝐷(𝑡) + 𝜀(𝑡)', 'Nota': 'Tendência, ciclo sazonal, ciclo diário e resíduo.' });
   s('2.6 Só título', { 'Rótulo': '03 · Método', 'Título': 'Diagrama livre: monte com ícones e pictogramas' });
+  const FRASE = 'A inspeção por drone reduziu o tempo de campo em 70%.';
+  s('2.6 Só título', { 'Rótulo': 'Componentes', 'Título': 'Declaração-chave · padrão e preenchido' }, (sl) => {
+    const dc = (b, cor, nome) => { comp.declaracao(sl, b, { rotulo: 'Achado', texto: FRASE, cor }); comp.legenda(sl, b, nome); };
+    dc([M, CT, col(0, 6)[1] - G, 210], undefined, 'Padrão: fio + rótulo mono.');
+    dc([col(6)[0], CT, col(0, 6)[1], 210], 'A', 'Preenchido A · turquesa fundo, texto creme');
+    dc([M, row(3)[0] + 30, col(0, 6)[1], 210], 'B', 'Preenchido B · damasco, texto umbro');
+    dc([col(6)[0], row(3)[0] + 30, col(0, 6)[1], 210], 'C', 'Preenchido C · turquesa, texto umbro');
+  });
+  s('2.6 Só título', { 'Rótulo': 'Componentes', 'Título': 'Cartão · tiles · número com seta · legendas' }, (sl) => {
+    comp.cartao(sl, [col(0)[0], CT, col(0, 4)[1], 240], { titulo: 'Cartão com ícone', texto: 'Altura pelo conteúdo, não fixa.', icone: 'camera' });
+    comp.cartao(sl, [col(4)[0], CT, col(0, 4)[1], 240], { titulo: 'Cartão', texto: 'Sem ícone: o título sobe.' });
+    comp.tileIcone(sl, col(8)[0], CT, 96, 'camera', C.ferro); comp.tileIcone(sl, col(9)[0], CT, 96, 'chart-line', C.turquesaFundo);
+    comp.tileIcone(sl, col(10)[0], CT, 96, 'ruler', C.umbro); comp.tileNumero(sl, col(11)[0], CT, 96, 3);
+    txt(sl, 'Tiles de ícone e de número.', [col(8)[0], CT + 112, col(0, 4)[1], 60], S.cap);
+    comp.numeroSeta(sl, [col(8)[0], CT + 176, col(0, 4)[1], 130], '4,2', '1,1', 'antes → depois');
+    const fig = [M, row(3)[0], col(0, 4)[1], 360];
+    sl.addImage({ path: A('gen/provisoria.png'), x: X(fig[0]), y: X(fig[1]), w: X(fig[2]), h: X(fig[3]) });
+    comp.legenda(sl, fig, 'Fonte: autor, ano. Legenda colada à figura.');
+    comp.legendaCores(sl, col(5)[0], row(3)[0] + 330, [[C.ferro, 'Foco'], [C.turquesaFundo, 'Resultado'], [C.umbro, 'Referência']]);
+    ['Primeiro ponto da lista', 'Segundo ponto, mais longo, que quebra a linha e mostra o recuo', 'Terceiro ponto'].forEach((t, i) => comp.marcador(sl, col(5)[0], row(3)[0] + 4 + i * 100, t, col(0, 7)[1]));
+  });
   const REC = [['scan-line', 'Levantamento'], ['layers', 'Modelagem'], ['database', 'Dados'], ['chart-line', 'Análise'], ['cpu', 'Simulação'], ['users', 'Equipe'], ['camera', 'Captura'], ['monitor', 'Painel']];
   const por3 = (k, tag, t) => REC.slice(0, k).map(([n, nome]) => ({ 'Ícone': ic(n, tag), 'Subtítulo': nome, 'Texto': t }));
   for (const k of [4, 6, 8]) s('3.1 Ícones · recursos', { 'Rótulo': '03 · Método', 'Título': `${['Quatro', 'Seis', 'Oito'][[4, 6, 8].indexOf(k)]} frentes de trabalho`, itens: por3(k, 'creme', k > 4 ? 'Uma frase.' : 'Uma ou duas frases sobre esta frente.') });
