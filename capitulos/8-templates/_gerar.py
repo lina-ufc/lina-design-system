@@ -15,19 +15,23 @@ for i, n in slides:
     rel = z.read(n.replace('slides/', 'slides/_rels/') + '.rels').decode()
     lay[i] = nome_lay('ppt/slideLayouts/' + re.search(r'slideLayouts/(slideLayout\d+\.xml)', rel).group(1))
 
-FAM = [('Abertura', 'Capa, sumário e aberturas de seção.'), ('Texto', 'Argumento em uma a três colunas, equação, conclusões e o slide livre.'),
-       ('Ícones', 'Recursos, etapas de processo e lista com imagem.'), ('Imagem', 'Fotos, figuras, mosaico e vídeo.'),
-       ('Dados', 'Gráficos, números-chave, comparação e tabela.'), ('Encerramento', 'Agradecimento e contato.')]
+FAM = [('Abertura', 'Capa, sumário e abertura de seção.'), ('Texto', 'Colunas, lista, linha do tempo, equação e o slide livre.'),
+       ('Ícones', 'Recursos, etapas de processo e ilustrações.'), ('Imagem', 'Fotos, figuras, mosaico, equipe e vídeo.'),
+       ('Dados', 'Gráficos, números-chave, comparação e tabela.'), ('Encerramento', 'Agradecimento, contato e autores.')]
 CSS = '<style>.passos{margin:8px 0 20px;padding-left:1.4em;display:grid;gap:6px}</style>'
-LAYS = sorted(set(lay.values()), key=lambda l: [int(x) for x in l.split()[0].split('.')])
+# Layouts do .potx: o que se distribui. Cada variação por N é um layout (`1.4 Sumário · 12 itens`); a lista mostra o nome sem o N.
+zp = zipfile.ZipFile(os.path.join(R, f'{T}/LINA-Apresentacao.potx'))
+LAYS = sorted({m for m in (re.search(r'<p:cSld name="([^"]+)"', zp.read(n).decode()).group(1) for n in zp.namelist() if re.fullmatch(r'ppt/slideLayouts/slideLayout\d+\.xml', n)) if re.match(r'\d+\.\d+ ', m)},
+              key=lambda l: [int(x) for x in l.split()[0].split('.')] + [l])
+BASES = sorted({re.sub(r' · \d+ [^·]+$', '', l) for l in LAYS}, key=lambda l: [int(x) for x in l.split()[0].split('.')] + [l])
 
 def tam(p):
     b = os.path.getsize(os.path.join(R, p))
     return f'{b / 1e6:.1f} MB'.replace('.', ',') if b > 1e6 else f'{b // 1000} kB'
-DL = [(f'{T}/LINA-Apresentacao.potx', 'Modelo · .potx', 'Só os 32 layouts, sem slides. Abre como apresentação nova no PowerPoint.'),
-      (PPTX, 'Exemplo · .pptx', f'{len(slides)} slides: um por layout, o guia e as páginas de ícones. Abre no Keynote, Google Slides e Impress.'),
+DL = [(f'{T}/LINA-Apresentacao.potx', 'Modelo · .potx', f'Só os {len(LAYS)} layouts, sem slides. Abre como apresentação nova no PowerPoint.'),
+      (PPTX, 'Exemplo · .pptx', f'{len(slides)} slides: variações dos layouts, componentes, notas do apresentador, o guia e duas páginas de ícones. Abre no Keynote, Google Slides e Impress.'),
       (PDF, 'Exemplo · .pdf', 'Para consultar sem abrir um editor.'),
-      ('downloads/LINA-Apresentacao-HTML.zip', 'Deck HTML · .zip', 'Os mesmos layouts para apresentar no navegador, sem internet.')]
+      ('downloads/LINA-Apresentacao-HTML.zip', 'Deck HTML · .zip', 'Os mesmos layouts para apresentar no navegador, sem internet, com as fontes e a janela do apresentador.')]
 # No site (GitHub Actions), os arquivos da release saem da página da release.
 REL = os.environ.get('RELEASE_URL', '')
 VER = re.search(r'^## (\d[\d.]*)', open(os.path.join(R, T, 'CHANGELOG.md'), encoding='utf-8').read(), re.M).group(1)
@@ -36,7 +40,7 @@ hist = REL.replace('/download/', '/tag/').rstrip('/') if REL else f'{T}/CHANGELO
 cards = ''.join(f'<a href="{escape(href(p))}" download><b>{t}</b><span class="p" style="margin:0">{d}</span><span class="mono cap">{os.path.basename(p)} · {tam(p)}</span></a>' for p, t, d in DL)
 
 fams = ''.join(f'<li><b>{k} · {fam}</b> <span class="cap">{desc}</span><br><span class="mono cap">'
-               + ' · '.join(escape(l) for l in LAYS if l.startswith(f'{k}.')) + '</span></li>' for k, (fam, desc) in enumerate(FAM, 1))
+               + ' · '.join(escape(l) for l in BASES if l.startswith(f'{k}.')) + '</span></li>' for k, (fam, desc) in enumerate(FAM, 1))
 H = '<h2 class="h" style="font-size:18px;margin:26px 0 6px">'
 # Os seis fundos de capa com a trama (pontilhado de uma cor, vizinha do fundo).
 TRAMA = '''<div id="apresentacao-trama" style="display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px;margin:12px 0 20px"></div>
@@ -51,7 +55,7 @@ apres = f'''<style>.fam{{margin:8px 0 20px;padding:0;list-style:none;display:gri
 <p class="p">Grade de 12 colunas e 6 linhas sobre a área modular, com margens de 72 px. O rótulo da seção ocupa a faixa do topo; o título começa na primeira linha e o conteúdo na segunda. O rodapé traz o ícone L, o título abreviado e o número do slide. Slides de conteúdo têm fundo branco.</p>
 <p class="p">Capa, aberturas de seção e encerramento têm fundo de cor coberto por um <a href="3-padroes.html#s-monocromaticos">pontilhado de uma cor só</a>, vizinha do fundo (<a href="2-cores.html#s-estudo-de-contraste">contraste de 1,2 a 1,8 : 1</a>). O pontilhado some antes da faixa de logos. O logotipo completo aparece só na capa e no encerramento; nos outros slides, o ícone no rodapé. Seis fundos possíveis:</p>
 {TRAMA}
-<p class="p">São {len(LAYS)} layouts em seis famílias. O nome é numerado, <span class="mono">família.variação</span>, e é nessa ordem que aparecem na lista de layouts do editor.</p>
+<p class="p">São {len(LAYS)} layouts em seis famílias. O nome é numerado, <span class="mono">família.variação</span>, e é nessa ordem que aparecem na lista de layouts do editor. Cada layout muda de arranjo com a quantidade de itens: o sumário, a lista, a equipe e os autores têm uma variação por faixa, com o número no nome (<span class="mono">1.4 Sumário · 12 itens</span>). A lista abaixo mostra os {len(BASES)} desenhos de base.</p>
 <ul class="fam p">{fams}</ul>
 {H}Exemplo</h2>
 <p class="p">O exemplo no deck HTML: setas passam os slides. <a href="{T}/Apresentacao.dc.html" target="_blank">Abrir em tela cheia ↗</a></p>
@@ -60,13 +64,18 @@ apres = f'''<style>.fam{{margin:8px 0 20px;padding:0;list-style:none;display:gri
 <ol class="passos p">
 <li>Instale as fontes (<a href="5-tipografia.html#s-composicoes">5.5</a>) antes de abrir os arquivos.</li>
 <li>PowerPoint: abra o <span class="mono">.potx</span>, que cria uma apresentação nova. Keynote, Google Slides e Impress: abra o <span class="mono">.pptx</span> de exemplo e apague os slides que não usar.</li>
-<li>Novo slide: escolha o layout pelo número. O primeiro algarismo é a família, o segundo a variação (<span class="mono">4.5 Duas imagens</span>).</li>
+<li>Novo slide: escolha o layout pelo número. O primeiro algarismo é a família, o segundo a variação (<span class="mono">4.5 Imagens em linha · 2 imagens</span>). Quando o conteúdo tem mais ou menos itens, escolha a variação com o número certo; no gerador, a lista <span class="mono">itens</span> escolhe sozinha.</li>
 <li>Preencha os espaços sem mover nem redimensionar as caixas. Se a composição não couber, troque de layout; para diagramas livres, use <span class="mono">2.6 Só título</span>.</li>
-<li>Ícones: copie das quatro páginas no fim do exemplo e cole no slide, um tratamento por slide.</li>
+<li>Ícones: copie das duas páginas no fim do exemplo (tratamentos e biblioteca) e cole no slide, um tratamento por slide.</li>
+<li>Notas: escreva no campo de notas do PowerPoint (ou em <span class="mono">notas</span> no gerador). Ver Notas do apresentador, abaixo.</li>
 <li>Rodapé: Inserir › Cabeçalho e Rodapé › Rodapé, com o título abreviado, em todos os slides.</li>
 <li>Antes de apresentar, apague o guia e as páginas de ícones. Ao salvar, incorpore as fontes.</li>
 </ol>
-<p class="p">Para o deck HTML, descompacte o zip e abra <span class="mono">Apresentacao.dc.html</span> no navegador. Setas passam os slides; G mostra a grade. Cada slide é uma <span class="mono">&lt;section&gt;</span> no arquivo: edite os textos num editor de texto e troque as imagens na pasta <span class="mono">img/</span>, mantendo os nomes.</p>
+<p class="p">Para o deck HTML, descompacte o zip e abra <span class="mono">Apresentacao.dc.html</span> no navegador. Setas passam os slides; G mostra a grade, F alterna a tela cheia e N abre a janela do apresentador. Cada slide é uma <span class="mono">&lt;section&gt;</span> no arquivo: edite os textos num editor de texto e troque as imagens na pasta <span class="mono">img/</span>, mantendo os nomes.</p>
+{H}Notas do apresentador</h2>
+<p class="p">As notas são o texto que só o apresentador vê. No PowerPoint, escreva no campo de notas de cada slide e use o Modo de Apresentação. Com o gerador, passe <span class="mono">notas: '…'</span> no <span class="mono">s()</span> do slide (<span class="mono">\\n</span> separa parágrafos); as notas vão para o .pptx e para o deck HTML.</p>
+<p class="p">No deck HTML, a tecla N abre a janela do apresentador: nota do slide atual, começo da nota seguinte, miniaturas do slide atual e do próximo, cronômetro e relógio. P inicia ou pausa o cronômetro, R zera, as setas passam os slides e F ocupa a tela toda. O navegador precisa permitir pop-up para o site. Arraste a janela para a tela do notebook e deixe o deck no projetor.</p>
+<div class="fig"><img src="capitulos/8-templates/img/apresentador.png" alt="Janela do apresentador: à esquerda a nota do slide 6, &quot;Quatro blocos. Cite cada um em uma frase e diga quanto tempo leva.&quot;; à direita as miniaturas do slide atual e do próximo, e no topo o cronômetro, os botões e a hora." width="1440" height="904" style="display:block;width:100%;height:auto;border-radius:6px"><p class="cap">Janela do apresentador no slide 6 do exemplo.</p></div>
 {H}Baixar</h2>
 <p class="p mono">Versão {VER} · <a href="{escape(hist)}">histórico de versões</a> · <a href="https://github.com/lina-ufc/lina-design-system/releases">versões anteriores</a></p>
 <div class="dl">{cards}</div>
