@@ -1,0 +1,8 @@
+<h2>Formas derivadas</h2>
+<p class="regra">Cada forma derivada traz a própria geometria de fundo.</p>
+<p class="p">Vazados: o arranjo recortado de uma placa de cantos arredondados. Selo experimental: células recortadas por um círculo. Assinaturas: o horizontal com o nome do laboratório em Outfit Black e a linha Arte · Arquitetura · Ambiente em JetBrains Mono, em bloco (nome abaixo) ou lateral (nome ao lado), em português e inglês. Arquivos em <span class="dado">assets/logos/sand/</span>.</p>
+<div id="variacoes-f" class="prancha"></div>
+<script>{
+const F=[['Horizontal vazado','horizontal-vazado-ferro'],['Vertical vazado','vertical-vazado-ferro'],['Símbolo vazado','marca-vazada-ferro'],['Selo experimental','selo-experimental-ferro'],['Assinatura em bloco · PT','assinatura-pt-bloco-ferro'],['Assinatura em bloco · EN','assinatura-en-bloco-ferro'],['Assinatura lateral · PT','assinatura-pt-lateral-ferro'],['Assinatura lateral · EN','assinatura-en-lateral-ferro']];
+document.getElementById('variacoes-f').innerHTML=F.map(f=>'<div class="fig"><div style="height:96px;display:flex;align-items:center;justify-content:center"><img src="assets/logos/sand/lina-'+f[1]+'.svg" alt="'+f[0]+'" style="max-height:88px;max-width:90%;display:block"></div><p class="cap"><b>'+f[0]+'</b><br><span class="dado">lina-'+f[1].replace(/-ferro$/,'')+'-*</span></p></div>').join('');
+}</script>

@@ -152,14 +152,27 @@
   {
    "cap": "logotipo",
    "nome": "Variações",
-   "sub": "Horizontal, vertical e símbolo em ferro; formas derivadas",
+   "sub": "Horizontal, vertical e símbolo em ferro",
    "secao": "capitulos/logotipo/7-variacoes.html"
+  },
+  {
+   "cap": "logotipo",
+   "nome": "Formas derivadas",
+   "sub": "Vazados, selo experimental e assinaturas, cada um com a própria geometria de fundo",
+   "secao": "capitulos/logotipo/8-formas-derivadas.html"
   },
   {
    "cap": "logotipo",
    "nome": "Combinações de cores",
    "sub": "Pares recomendados e não recomendáveis, com o símbolo sobre a placa",
-   "secao": "capitulos/logotipo/8-combinacoes-de-cores.html"
+   "secao": "capitulos/logotipo/9-combinacoes-de-cores.html"
+  },
+  {
+   "cap": "logotipo",
+   "nome": "Baixar",
+   "sub": "Logos em SVG, PNG e PDF, arquivo de marca e logos institucionais",
+   "secao": "capitulos/logotipo/10-baixar-logotipo.html",
+   "livre": true
   },
   {
    "cap": "cores",
