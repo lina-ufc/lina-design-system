@@ -27,6 +27,10 @@ for (const [w, h] of [[100, 13], [100, 77]]) for (const mode of ['dither', 'bitm
     const sampled = rows * w / 20;                           // altura amostrada, na mesma escala da largura
     assert.ok(sampled <= h + 1e-6 && sampled > h - w / 20, `amostrou ${sampled} de ${h}`);
   });
+test('imagem baixa demais recusa em vez de esticar', () => {
+  for (const mode of ['dither', 'bitmap'])
+    assert.throws(() => LinaImage.render(grad(100, 1), { mode, detail: 0, colors: ['creme', 'umbro'], width: 400 }), /baixa demais/);
+});
 test('PNG com transparência renderiza com a proporção', () => {
   const m = dims(LinaImage.render(grad(60, 90, 0), { mode: 'dither', colors: ['creme', 'umbro'], width: 600 }));
   assert.equal(m[3], '600'); assert.ok(Math.abs(Number(m[4]) - 900) < 600 / 84);

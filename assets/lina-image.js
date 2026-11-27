@@ -116,7 +116,7 @@
   function dither(src, p) {
     const SOLID = 0.9, BRIDGE = 0.72, LINE = 0.62;
     const nx = Math.max(4, Math.round(p.detail));
-    const ny = Math.max(1, Math.floor((nx * src.h) / src.w + 1e-9));
+    const ny = rows(nx, src, 1);
     const U = nx * CELL, V = ny * CELL, N = nx * ny;
     const sample = sampler(src, U, V, p);
     const tone = new Float32Array(N);
@@ -168,7 +168,7 @@
   // Bitmap is one mass, so it works on the half-cell grid and is drawn at quarter resolution.
   function bitmap(src, p) {
     const cw = Math.max(4, Math.round(p.detail));
-    const ch = Math.max(2, Math.floor((cw * src.h) / src.w + 1e-9));
+    const ch = rows(cw, src, 2);
     const hw = cw * 2, hh = ch * 2;
     const tone = sampler(src, hw, hh, p);
     const half = new Uint8Array(hw * hh);
@@ -200,6 +200,13 @@
         bits[k] = bits[k + 1] = bits[k + U] = bits[k + U + 1] = 1;
       }
     return { bits, U, V, label: `${cw} × ${ch} células` };
+  }
+
+  // Whole rows that fit the image at `cols` across; too flat for `min` rows would mean stretching.
+  function rows(cols, src, min) {
+    const n = Math.floor((cols * src.h) / src.w + 1e-9);
+    if (n < min) throw new Error('Imagem baixa demais para este detalhe: aumente detail ou use imagem mais alta.');
+    return n;
   }
 
   const FILTERS = { dither, bitmap };
