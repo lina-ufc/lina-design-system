@@ -24,7 +24,7 @@
 | 03 — fonte única | `[██████████]` | 4/4 | Completo (mesclado na main) |
 | 04 — estrutura | `[██████████]` | 5/5 | Completo (mesclado na main) |
 | 05 — visual em tudo | `[██████████]` | 6/6 | Completo (mesclado na main) |
-| 06 — ferramentas no site | `[██████████]` | 9/9 | Concluído, aprovado pelo dono em 2026-11-27; branch `revisao-site/06-ferramentas` aguarda merge |
+| 06 — ferramentas no site | `[██████████]` | 9/9 | Completo, aprovado pelo dono em 2026-11-27 (mesclado na main) |
 | 07 — conteúdo novo | `[░░░░░░░░░░]` | — | Não escrito |
 | 08 — arquivar visual-code | `[░░░░░░░░░░]` | — | Não escrito |
 

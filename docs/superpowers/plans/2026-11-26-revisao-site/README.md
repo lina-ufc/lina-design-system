@@ -15,7 +15,7 @@ Estado vivo: [`progress.md`](progress.md). Um subplano escrito por vez (`CLAUDE.
 | 03 | [Fonte única de tokens, `SKILL.md` índice, `llms.txt`](03-fonte-unica.md) | 01 | Completo (mesclado na main) |
 | 04 | [Estrutura em quatro partes, molde único de seção, redirecionamentos](04-estrutura.md) | 02 aprovado | Completo (mesclado na main) |
 | 05 | [Visual B1 em todas as páginas, molde nos capítulos, acessibilidade](05-visual.md) | 02, 04 | Completo (mesclado na main) |
-| 06 | [Ferramentas no site: padrões (Padrões), filtro (Imagem), editor de células (Logotipo)](06-ferramentas.md) | 01, 05 | Escrito |
+| 06 | [Ferramentas no site: padrões (Padrões), filtro (Imagem), editor de células (Logotipo)](06-ferramentas.md) | 01, 05 | Completo (mesclado na main) |
 | 07 | Conteúdo novo: uso do logo, grid e espaço, imagem, voz (rascunhos para o dono decidir) | 04 | Não escrito |
 | 08 | Arquivar `lina-ufc/lina-visual-code` com link para cá | 06 | Não escrito |
 

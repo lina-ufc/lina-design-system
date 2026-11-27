@@ -1,6 +1,6 @@
 # Feedback do site · design
 
-Data: 2026-11-27. Aprovação do dono: pendente.
+Data: 2026-11-27. Aprovado pelo dono em 2026-11-27.
 
 ## Intenção
 
