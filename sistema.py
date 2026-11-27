@@ -1,6 +1,7 @@
 """Gera o documento do sistema LINA a partir de sistema.json.
 
-- Cada capítulo vira uma página: <n>-<nome>.html. O capítulo 0 (Preâmbulo) é index.html, com o mapa do documento.
+- Cada capítulo vira uma página: <id>.html. A ordem dos capítulos dá o número; "partes" os agrupa no sumário e no mapa.
+- index.html é a porta de entrada (capitulos/inicio.html + mapa). Páginas velhas (sistema.json "antigos") viram redirecionamentos.
 - Links entre seções (href="<página>#s-<seção>") são conferidos; cada seção ganha "Citado em" com quem aponta para ela.
 - Entrada com "secao" (fragmento HTML em capitulos/) entra no corpo da página;
   entrada com "arquivo" (+ "vista") entra num quadro (decks, documentos inteiros).
@@ -11,59 +12,59 @@ Falha se alguma entrada apontar para arquivo inexistente.
 import json
 import re
 import sys
-import unicodedata
 from html import escape
 from pathlib import Path
 from urllib.parse import quote
 
 RAIZ = Path(__file__).parent
 S = json.loads((RAIZ / 'sistema.json').read_text())
-CAPS, ENTS = S['capitulos'], S['entradas']
+CAPS, ENTS, PARTES = S['capitulos'], S['entradas'], {p['id']: p['nome'] for p in S['partes']}
 
 faltam = [e.get('secao') or e['arquivo'] for e in ENTS if not (RAIZ / (e.get('secao') or e['arquivo'])).exists()]
+if not (RAIZ / S['inicio']).exists():
+    faltam.append(S['inicio'])
 if faltam:
     sys.exit('arquivos inexistentes:\n  ' + '\n  '.join(faltam))
-
-
-def slug(t):
-    t = unicodedata.normalize('NFKD', t).encode('ascii', 'ignore').decode().lower()
-    return re.sub(r'[^a-z0-9]+', '-', t).strip('-')
 
 
 def entradas(c):
     return [e for e in ENTS if e['cap'] == c['id']]
 
 
-def pagina_de(c):  # o capítulo 0 (Preâmbulo) é a home
-    return 'index.html' if c['id'] == '0' else f'{c["id"]}-{slug(c["nome"])}.html'
+def pagina_de(c):
+    return f'{c["id"]}.html'
 
 
-# Endereço de cada entrada: âncora na página do capítulo ou quadro no índice.
+def rot(e):  # "1.3 Nome"
+    return f'{e["num"]} {e["nome"]}'
+
+
+def rotulo_parte(p):  # "I · Princípios"
+    return f'{p} · {PARTES[p]}'
+
+
+# Número do capítulo = posição; da seção = <cap>.<posição no capítulo>. Endereço: âncora na página do capítulo.
 n = 0
-for c in CAPS:
-    for e in entradas(c):
-        if 'secao' in e:
-            e['id'] = 's-' + Path(e['secao']).stem.split('-', 1)[1]
-            e['href'] = f'{pagina_de(c)}#{e["id"]}'
-        else:
-            e['id'] = f'e{n}'
-            e['href'] = f'{pagina_de(c)}#{e["id"]}'
+for i, c in enumerate(CAPS, 1):
+    c['n'] = i
+    for j, e in enumerate(entradas(c), 1):
+        e['num'] = f'{i}.{j}'
+        e['id'] = 's-' + Path(e['secao']).stem.split('-', 1)[1] if 'secao' in e else f'e{n}'
+        e['href'] = f'{pagina_de(c)}#{e["id"]}'
         n += 1
 
 
-def num_nome(e):
-    m = re.match(r'([\d.]+)\s+(.*)', e['nome'])
-    return m.groups() if m else ('', e['nome'])
-
-
 def nav(atual):
-    itens = ''
+    itens, parte = '', None
     for c in CAPS:
-        sub = ''.join(f'<li><a href="{e["href"]}">{escape(e["nome"])}</a></li>' for e in entradas(c))
+        if c['parte'] != parte:
+            parte = c['parte']
+            itens += f'<li class="rotulo">{escape(rotulo_parte(parte))}</li>'
+        sub = ''.join(f'<li><a href="{e["href"]}">{escape(rot(e))}</a></li>' for e in entradas(c))
         href = pagina_de(c)
         cls = ' class="atual"' if c is atual else ''
         breve = '' if sub else '<small class="breve">em breve</small>'
-        itens += f'<li{cls}><a class="cap" href="{href}"><span>{c["id"]}</span>{escape(c["nome"])}{breve}</a><ol>{sub}</ol></li>'
+        itens += f'<li{cls}><a class="cap" href="{href}"><span>{c["n"]}</span>{escape(c["nome"])}{breve}</a><ol>{sub}</ol></li>'
     return (f'<aside><a class="logo" href="index.html"><img src="assets/logos/sand/lina-horizontal-ferro.svg" alt="LINA"></a>'
             f'<p class="tit">Sistema de design</p><details class="sum"><summary>Sumário</summary><ol>{itens}</ol></details></aside>')
 
@@ -89,7 +90,7 @@ if (matchMedia('(min-width:821px)').matches) document.querySelector('details.sum
 # ---- quadro (arquivo inteiro em iframe) ----
 def quadro(e):
     url = quote(e['arquivo'])
-    cab = (f'<header><p class="k">{escape(e["nome"])}</p>'
+    cab = (f'<header><p class="k">{escape(rot(e))}</p>'
            f'<p class="sub">{escape(e["sub"])}</p>'
            f'<p class="arq"><a href="{url}" target="_blank">{escape(e["arquivo"])} ↗</a></p></header>')
     if not e.get('vista'):
@@ -143,6 +144,9 @@ for c in CAPS:
                 quebrados.append(f'{e["secao"]}: {pag}#{ancora}')
             elif alvo is not e and e not in citado.setdefault(id(alvo), []):
                 citado[id(alvo)].append(e)
+        # texto de link que é só número de seção ("5.5") vira o número do alvo
+        frags[e['id']] = re.sub(r'(<a href="([\w.-]*\.html)?#(s-[\w-]+)"[^>]*>)\d+\.\d+(</a>)',
+                                lambda m: m[1] + POR_ID[k]['num'] + m[4] if (k := (m[2] or pagina_de(c), m[3])) in POR_ID else m[0], f)
 if quebrados:
     sys.exit('links quebrados:\n  ' + '\n  '.join(quebrados))
 
@@ -151,16 +155,20 @@ def citado_em(e):
     fontes = citado.get(id(e))
     if not fontes:
         return ''
-    return '<p class="citado">Citado em ' + ' · '.join(f'<a href="{f["href"]}">{escape(f["nome"])}</a>' for f in fontes) + '</p>'
+    return '<p class="citado">Citado em ' + ' · '.join(f'<a href="{f["href"]}">{escape(rot(f))}</a>' for f in fontes) + '</p>'
 
 
-# ---- mapa (na home) ----
+# ---- mapa (na home), por parte ----
 mapa = ''
-for c in CAPS[1:]:
-    lista = ''.join(f'<li><a href="{e["href"]}">{escape(e["nome"])}</a></li>' for e in entradas(c))
-    mapa += (f'<li><a class="cap" href="{pagina_de(c)}"><span class="num">{c["id"]}</span>{escape(c["nome"])}</a>'
-             f'<p>{escape(c["desc"])}</p><ol>{lista}</ol></li>')
-mapa = f'<section class="mapa"><h2>O documento</h2><ol>{mapa}</ol></section>\n'
+for p in PARTES:
+    lis = ''
+    for c in (c for c in CAPS if c['parte'] == p):
+        lista = ''.join(f'<li><a href="{e["href"]}">{escape(rot(e))}</a></li>' for e in entradas(c))
+        breve = '' if lista else '<small class="breve">em breve</small>'
+        lis += (f'<li><a class="cap" href="{pagina_de(c)}"><span class="num">{c["n"]}</span>{escape(c["nome"])}{breve}</a>'
+                f'<p>{escape(c["desc"])}</p><ol>{lista}</ol></li>')
+    mapa += f'<p class="rotulo">{escape(rotulo_parte(p))}</p><ol>{lis}</ol>'
+mapa = f'<section class="mapa"><h2>O documento</h2>{mapa}</section>\n'
 
 # ---- páginas de capítulo ----
 for c in CAPS:
@@ -174,25 +182,39 @@ for c in CAPS:
 
     for e in entradas(c):
         if 'secao' in e:
-            num, _ = num_nome(e)
             frag = re.sub(r'<script src="([^"]+)"></script>', uma_vez, frags[e['id']])
             frag = re.sub(r'<!--quadro (\S+) (\d+x\d+)-->', lambda m: moldura(m[1], m[2], e['nome']), frag)
-            corpo += f'<section id="{e["id"]}"><p class="num">{num}</p>{frag}{citado_em(e)}</section>\n'
+            corpo += f'<section id="{e["id"]}"><p class="num">{e["num"]}</p>{frag}{citado_em(e)}</section>\n'
         else:
             corpo += f'<section class="quadro">{quadro(e)}</section>\n'
     corpo = corpo or '<p class="vazio">Em breve.</p>'
-    if c['id'] == '0':
-        corpo += mapa
     i = CAPS.index(c)
     ant = CAPS[i - 1] if i else None
     prox = CAPS[i + 1] if i + 1 < len(CAPS) else None
-    link = lambda k, seta: (f'<a href="{pagina_de(k)}">{seta} {k["id"]} · {escape(k["nome"])}</a>'
+    link = lambda k, seta: (f'<a href="{pagina_de(k)}">{seta} {k["n"]} · {escape(k["nome"])}</a>'
                             if k else '<span></span>')
-    titulo = 'Sistema LINA' if c['id'] == '0' else f'{c["nome"]} · Sistema LINA'
-    main = (f'<main class="capitulo"><header><p class="num">{c["id"]}</p><h1>{escape(c["nome"])}</h1>'
+    titulo = f'{c["nome"]} · Sistema LINA'
+    main = (f'<main class="capitulo"><header><p class="num">{c["n"]}</p><h1>{escape(c["nome"])}</h1>'
             f'<p class="desc">{escape(c["desc"])}</p></header>\n{corpo}'
             f'<nav class="vizinhos">{link(ant, "←")}{link(prox, "→")}</nav></main>')
     (RAIZ / pagina_de(c)).write_text(html(titulo, c, main, AJUSTA))
+
+# ---- home: porta de entrada + mapa; âncora velha (index.html#s-…) sem alvo na home vai para os Princípios ----
+HOME = '''
+if (location.hash && !document.getElementById(location.hash.slice(1))) location.replace('principios.html' + location.hash);
+'''
+main = f'<main class="capitulo"><section>{(RAIZ / S["inicio"]).read_text()}</section>\n{mapa}</main>'
+(RAIZ / 'index.html').write_text(html('Sistema LINA', None, main, HOME))
+
+# ---- redirecionamentos das páginas velhas ----
+for velha, nova in S['antigos'].items():
+    (RAIZ / velha).write_text(f'''<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><title>Página movida · Sistema LINA</title>
+<meta http-equiv="refresh" content="0;url={nova}"><link rel="canonical" href="{nova}">
+<script>location.replace('{nova}' + location.hash);</script>
+</head><body><p>Esta página mudou: <a href="{nova}">{nova}</a>.</p></body></html>
+''')
+print(f'{len(S["antigos"])} redirecionamentos')
 
 n_links = sum(map(len, citado.values()))
 print(f'{len(CAPS)} capítulos ({", ".join(pagina_de(c) for c in CAPS)}); {len(ENTS)} entradas; {n_links} links entre seções')
@@ -211,9 +233,9 @@ llms = ['# Sistema de design LINA', '',
         'documentado neste site e pronto para consulta por agentes.']
 n_llms = 0
 for c in CAPS:
-    llms += ['', f'## {c["id"]} · {c["nome"]}', c['desc'], '']
+    llms += ['', f'## {c["n"]} · {c["nome"]}', c['desc'] + ('' if entradas(c) else ' (em breve)'), '']
     for e in entradas(c):
-        llms.append(f'- [{e["nome"]}]({BASE}{quote(e["href"], safe="#/")})' + (f': {e["sub"]}' if e.get('sub') else ''))
+        llms.append(f'- [{rot(e)}]({BASE}{quote(e["href"], safe="#/")})' + (f': {e["sub"]}' if e.get('sub') else ''))
         n_llms += 1
 llms += ['', '## Para agentes', ''] + [f'- [{a}]({BASE}{a}): {d}' for a, d in AGENTES]
 (RAIZ / 'llms.txt').write_text('\n'.join(llms) + '\n')

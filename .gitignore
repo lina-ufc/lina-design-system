@@ -12,11 +12,10 @@ templates/apresentacao/*.pptx
 templates/apresentacao/*.pdf
 downloads/*.zip
 
-# Gerados pelo site (sistema.py e capitulos/8-templates/_gerar.py); o GitHub Actions gera de novo.
-/index.html
-/[0-9]-*.html
+# Gerados pelo site (sistema.py e capitulos/templates/_gerar.py); o GitHub Actions gera de novo.
+/*.html
 /llms.txt
-capitulos/8-templates/1-apresentacao.html
+capitulos/templates/1-apresentacao.html
 templates/apresentacao/potx/npm.log
 .serena/
 .claude/.headroom_*
@@ -32,5 +31,4 @@ templates/apresentacao/apresentador.js
 templates/apresentacao/transicao.js
 templates/apresentacao/fonts.css
 templates/apresentacao/fonts/
-/prototipo-*.html
 prototipo/render/

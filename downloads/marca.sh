@@ -25,7 +25,7 @@ for s in assets/logos/sand/*.svg; do
   rsvg-convert -f pdf "$s" -o "$T/logos/pdf/$n.pdf"
 done
 cat > "$T/logos/LEIA-ME.txt" <<EOF
-Logos LINA, versão $V. Regras de uso: https://lina-ufc.github.io/lina-design-system/1-logotipo.html
+Logos LINA, versão $V. Regras de uso: https://lina-ufc.github.io/lina-design-system/logotipo.html
 
 svg/  para web, Figma, VectorCraft, Inkscape, PowerPoint (Inserir > Imagens).
 png/  fundo transparente, 2000 px no lado maior: Word, Google Docs, Canva, redes sociais.

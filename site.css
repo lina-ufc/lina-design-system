@@ -14,7 +14,7 @@ body>aside ol{list-style:none;margin:0;padding:0}
 body>aside li li a{display:block;padding:5px 0 5px 26px;font-size:12.5px;text-decoration:none;opacity:.75}
 body>aside li li a:hover,body>aside .cap:hover{color:var(--ferro);opacity:1}
 body>aside .cap{display:flex;gap:12px;margin:10px 0 0;padding:4px 0;font-weight:500;text-decoration:none}
-body>aside .cap span{font:500 13px var(--font-mono);color:var(--ferro);width:14px}
+body>aside .cap span{font:500 13px var(--font-mono);color:var(--ferro);width:20px}
 body>aside .atual>.cap{color:var(--ferro)}
 main{margin-left:260px;padding:48px 56px 120px;max-width:1240px;box-sizing:border-box}
 @media (max-width:820px){
@@ -109,6 +109,10 @@ main{margin-left:260px;padding:48px 56px 120px;max-width:1240px;box-sizing:borde
 /* paletas 2.1 e 2.7: no celular, uma cor por linha */
 @media (max-width:600px){.paleta{grid-template-columns:1fr!important}.paleta>div{height:auto!important;min-height:96px}}
 .breve{font:300 12px var(--font-mono);opacity:.62;margin-left:6px}
+
+/* ---- rótulo de parte (sumário e mapa) ---- */
+.rotulo{font:500 11px var(--font-mono);letter-spacing:.12em;text-transform:uppercase;opacity:.62;margin:28px 0 8px}
+body>aside .rotulo{margin:20px 0 2px}
 
 /* ---- home: mapa do documento; "citado em" ---- */
 .mapa>ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1px;background:var(--fio);border:1px solid var(--fio);border-radius:var(--radius-xl);overflow:hidden}

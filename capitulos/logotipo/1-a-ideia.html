@@ -1,0 +1,18 @@
+<h2>A ideia</h2>
+<p class="p">O LINA estuda a informação que descreve o espaço; a marca é, ela mesma, uma pequena informação espacial. Uma única unidade, a <b>célula</b> (um quadrado), é posta sobre uma grade de meia célula. Toda letra é uma união de células, e todo canto dessa união recebe o mesmo <a href="logotipo.html#s-tres-medidas">arco de ¼ de célula</a>. A forma final resulta dessa regra.</p>
+<div id="a-ideia-d" style="margin-top:22px"></div>
+<script src="assets/lina-geometry.js"></script><script src="assets/lina-draw.js"></script><script>{
+const {G,shape,grid,rects,path,outline,text,svg,mount}=LD,s=22,Lb=LinaGeometry.LETTERS.L.blocks;
+let o='',x=10;const oy=10;
+['a célula','células na grade','união','cantos de ¼','o L'].forEach((lab,n)=>{const ox=x;
+if(n<4)o+=grid(ox,oy,4*s,6*s,s,G.faint);
+if(n===0)o+=path(shape([[0,0,2]],s,ox,oy,0),G.dark);
+if(n===1)o+=rects(Lb.map(([a,b,c])=>({x:ox+a*s,y:oy+b*s,w:c*s,h:c*s})),G.dark,1.2,'',G.line);
+if(n===2)o+=path(shape(Lb,s,ox,oy,0),G.dark);
+if(n===3)o+=path(shape(Lb,s,ox,oy),G.dark)+outline(shape(Lb,s,ox,oy,0),G.mid,1);
+if(n===4)o+=path(shape(Lb,s,ox,oy),G.ink);
+o+=text(ox+2*s,oy+6*s+28,(n+1)+' · '+lab,{fill:G.dark,size:12});
+if(n<4)o+=text(ox+4*s+40,oy+3*s+6,'→',{size:18,fill:G.soft});
+x+=4*s+80;});
+mount('a-ideia-d',svg(x-70,6*s+50,o));
+}</script>
