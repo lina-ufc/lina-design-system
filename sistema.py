@@ -196,3 +196,25 @@ for c in CAPS:
 
 n_links = sum(map(len, citado.values()))
 print(f'{len(CAPS)} capítulos ({", ".join(pagina_de(c) for c in CAPS)}); {len(ENTS)} entradas; {n_links} links entre seções')
+
+# ---- llms.txt ----
+BASE = 'https://lina-ufc.github.io/lina-design-system/'
+AGENTES = [
+    ('SKILL.md', 'Índice por assunto: onde está cada regra do sistema.'),
+    ('tokens/lina.tokens.json', 'Cores e tokens em JSON, gerado de assets/lina-palette.js.'),
+    ('assets/lina-palette.js', 'Fonte única da paleta.'),
+    ('sistema.json', 'Índice do site: capítulos e entradas.'),
+    ('README.md', 'Visão geral do repositório e da marca.'),
+]
+llms = ['# Sistema de design LINA', '',
+        '> Sistema de design do LINA (UFC): logotipo, cores, padrões, tipografia, ícones, componentes e templates, '
+        'documentado neste site e pronto para consulta por agentes.']
+n_llms = 0
+for c in CAPS:
+    llms += ['', f'## {c["id"]} · {c["nome"]}', c['desc'], '']
+    for e in entradas(c):
+        llms.append(f'- [{e["nome"]}]({BASE}{quote(e["href"], safe="#/")})' + (f': {e["sub"]}' if e.get('sub') else ''))
+        n_llms += 1
+llms += ['', '## Para agentes', ''] + [f'- [{a}]({BASE}{a}): {d}' for a, d in AGENTES]
+(RAIZ / 'llms.txt').write_text('\n'.join(llms) + '\n')
+print(f'llms.txt: {n_llms + len(AGENTES)} links')

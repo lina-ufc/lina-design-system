@@ -15,6 +15,7 @@ downloads/*.zip
 # Gerados pelo site (sistema.py e capitulos/8-templates/_gerar.py); o GitHub Actions gera de novo.
 /index.html
 /[0-9]-*.html
+/llms.txt
 capitulos/8-templates/1-apresentacao.html
 templates/apresentacao/potx/npm.log
 .serena/
