@@ -27,4 +27,4 @@
 - [builder-sem-terminal](builder-sem-terminal.md) — cavecrew-builder não roda código; gerador/script novo vai para general-purpose sonnet com Bash
 - [a-do-logo](a-do-logo.md) — "A" do logo sempre em cor ligeiramente diferente (sobreposição arte/arquitetura/ambiente); em ferro, umbro; monocromáticos e vazados são exceção
 - [visual-b1](visual-b1.md) — Visual B1 aprovado (2026-11-27): creme em tudo, número de seção pequeno acima do título, margem única, pranchas lisas (sem retícula)
-- [moldura-9-faixas](moldura-9-faixas.md) — Teste da moldura de 9 faixas (site-lina) nos capítulos: regras do dono, ainda não aplicada
+- [moldura-9-faixas](moldura-9-faixas.md) — Moldura de 9 faixas (site-lina) em todos os capítulos: regras do dono
