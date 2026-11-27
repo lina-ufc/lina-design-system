@@ -31,7 +31,7 @@ os estados acima já são com a correção.
 
 De `localhost:8765/feedback.html?pagina=cores.html%23s-x`, `fetch` verdadeiro: tipo `Erro`, mensagem
 `Teste do plano 08`, nome `Teste plano 08`, e-mail `lina.pesquisa@iaud.ufc.br`. Resposta `{ok:true}`: form escondido,
-agradecimento com foco. Redirecionamento e CORS do Apps Script passam no navegador. Linha na planilha: espera o dono.
+agradecimento com foco. Redirecionamento e CORS do Apps Script passam no navegador. Dono confirmou a linha na planilha.
 
 ## Revisão final do branch (2026-11-27)
 
