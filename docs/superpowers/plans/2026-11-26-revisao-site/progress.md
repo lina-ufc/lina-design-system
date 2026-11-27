@@ -29,7 +29,7 @@
 | 08 — feedback: página e envio | `[██████████]` | 3/3 | Completo (mesclado na main) |
 | 09 — feedback: entradas na home e no menu | `[██████████]` | 2/2 | Completo (mesclado na main) |
 | 10 — feedback: texto, acessibilidade, aprovação | `[██████████]` | 3/3 | Completo, aprovado pelo dono em 2026-11-28 (branch `revisao-site/10-feedback-final`) |
-| 11 — conteúdo novo | `[░░░░░░░░░░]` | 0/6 | Escrito |
+| 11 — conteúdo novo | `[████████░░]` | 5/6 | Tarefas 1–5 feitas; aguarda decisões do dono (branch `revisao-site/11-conteudo-novo`) |
 | 12 — arquivar visual-code | `[░░░░░░░░░░]` | — | Não escrito |
 
 ## Plano 01 — motores
@@ -134,14 +134,14 @@ Herança para o 05: hex das 12 cores seguem em `capitulos/` (2.x, 3.x, 4.x, 8.2)
 
 ## Plano 11 — conteúdo novo
 
-`[░░░░░░░░░░]` 0% — 0 de 6 tarefas. Plano: [`11-conteudo-novo.md`](11-conteudo-novo.md).
+`[████████░░]` 83% — 5 de 6 tarefas. Plano: [`11-conteudo-novo.md`](11-conteudo-novo.md).
 
-- [ ] **Tarefa 1** — uso do logo: área de proteção e tamanho mínimo (Logotipo)
-- [ ] **Tarefa 2** — Grid e espaço: célula, margens, espaçamento
-- [ ] **Tarefa 3** — Imagem: fotografia
-- [ ] **Tarefa 4** — capítulo novo Voz e texto; renumeração conferida
-- [ ] **Tarefa 5** — Princípios: acessibilidade
-- [ ] **Tarefa 6** — verificação, renders, decisões do dono
+- [x] **Tarefa 1** — uso do logo: área de proteção e tamanho mínimo (Logotipo). `6f51f15`, `d229eaa`; review após 1 rodada
+- [x] **Tarefa 2** — Grid e espaço: célula, margens, espaçamento. `f0021d8`, `ebb4cc1`; review limpo
+- [x] **Tarefa 3** — Imagem: fotografia. `2a51295`, `8c23ddf`; review após 1 rodada
+- [x] **Tarefa 4** — capítulo novo Voz e texto; renumeração conferida (Templates 10→11 em memórias). `5114a73`, `855362e`; review após 1 rodada
+- [x] **Tarefa 5** — Princípios: acessibilidade. `ad8d0ae`, `4380aa0`; review após 1 rodada
+- [ ] **Tarefa 6** — verificação, renders, decisões do dono. Passos 1–4 feitos: checagens ok (95/95, tokens 0), `SKILL.md` sem "em breve" (`534fb78`), revisão final com 18 ajustes (`2e0b64c`), renders em `records/11-render/`. Falta o passo 5: dono responde as Perguntas do [record](records/11-conteudo-novo.md).
 
 ## Estado herdado
 
@@ -201,3 +201,4 @@ Herança para o 05: hex das 12 cores seguem em `capitulos/` (2.x, 3.x, 4.x, 8.2)
 - 2026-11-28 — Dono fez envio real e VoiceOver; pediu Página como lista de seções (feito). Falta aprovação.
 - 2026-11-28 — Feedback (07–10) aprovado pelo dono. Plano 10 completo; próximo: escrever o 11.
 - 2026-11-28 — 10 mesclado na main (`6707280`). Plano 11 escrito. Dono: voz e texto vira capítulo novo depois de Tipografia; acessibilidade entra em Princípios.
+- 2026-11-28 — Tarefas 1–5 do 11 concluídas (subagentes, review por tarefa); revisão final e renders feitos. Aguarda o dono: Perguntas e Gosto no record 11.
