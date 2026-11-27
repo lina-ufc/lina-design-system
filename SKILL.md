@@ -1,23 +1,48 @@
 ---
 name: lina-design
-description: Use esta habilidade para gerar peças e interfaces do LINA (Laboratório de Design da Informação — Arte · Arquitetura · Ambiente, IAUD/UFC). Contém logotipo, cores, padrões, animação, tipografia, ícones e templates. Use this skill to generate well-branded assets for LINA.
+description: Use esta habilidade para gerar peças e interfaces do LINA (Laboratório de Design da Informação — Arte · Arquitetura · Ambiente, IAUD/UFC). Índice do sistema: logotipo, cores e tokens, padrões e imagens pontilhadas, animação, tipografia, ícones, componentes (declaração, tabela, nota, cartão…), templates de apresentação e documento A4, e as ferramentas de linha de comando que os geram. Use this skill to generate well-branded assets for LINA.
 user-invocable: true
 ---
 
-Leia o README.md desta habilidade e explore os outros arquivos.
+Este arquivo é um índice: diz onde está cada regra, não a repete. Os valores moram nos arquivos citados. Visão geral e fluxo de trabalho: `README.md`. Textos públicos em português do Brasil; código e identificadores em inglês. Nenhum emoji.
 
-O sistema inteiro está catalogado em `sistema.json` (capítulos e entradas, cada uma com seu arquivo)
-e visível no site, gerado por `python3 sistema.py`. O que está publicado vale, mesmo que seja revisado depois. Elemento novo: crie o arquivo, acrescente a entrada em
-`sistema.json` e gere de novo o `index.html`.
+## Fonte da verdade
 
-A identidade do LINA é uma regra de construção: toda forma é uma união de células com cantos de ¼ de célula, e
-`assets/lina-geometry.js` é o traçador que a executa. Use-o em vez de desenhar formas à mão. Logotipos prontos
-(horizontal, vertical, símbolo, vazados, selo, assinatura em bloco PT/EN) em `assets/logos/sand/`, tabela no
-README §1; logos institucionais em `assets/logos-institutions/`. Ícones: só Phosphor
-(`assets/icons/phosphor/`, seis pesos, duotone com segunda cor da paleta; regras no README de lá). Nenhum emoji.
+- Paleta (12 cores, famílias, pares a evitar): `assets/lina-palette.js`. Única fonte dos valores de cor.
+- Tokens: `tokens/*.css` (cores semânticas em `colors.css`; tipografia, espaço, raio, elevação, movimento, fontes). `tokens/lina.tokens.json` é o espelho das cores em formato DTCG, gerado por `node ferramentas/tokens.mjs`; não editar à mão.
+- Catálogo do sistema: `sistema.json` (capítulos 0 a 8 e entradas). Site gerado por `python3 sistema.py`: uma página por capítulo (`<n>-<nome>.html`, o preâmbulo é `index.html`) e o índice para agentes `llms.txt`, publicados em https://lina-ufc.github.io/lina-design-system/. O que está publicado vale, mesmo que seja revisado depois.
+- Elemento novo: crie o arquivo, acrescente a entrada em `sistema.json` e gere o site de novo.
 
-Para peças visuais, copie os ativos e gere HTML estático. Para código de produção, copie os ativos e siga as
-regras do README. Textos públicos em português do Brasil; código e identificadores em inglês.
+## Logotipo e geometria
+
+Toda forma do LINA é uma união de células com cantos de ¼ de célula; `assets/lina-geometry.js` é o traçador que executa a regra. Use-o em vez de desenhar formas à mão. Regra e construção: capítulo 1 do site (`1-logotipo.html`). Arquivos prontos (horizontal, vertical, símbolo, vazados, selo, assinaturas PT/EN): `assets/logos/sand/`, tabela no `README.md` §1. Logos institucionais: `assets/logos-institutions/`. Pacotes para baixar: `downloads/` (`marca.sh`, `institucionais.sh`).
+
+## Cores e combinações
+
+Capítulo 2 do site (`2-cores.html`): paleta, estudo de contraste (2.4), pares a usar (2.5) e a evitar (2.6), auxiliares (2.7). Resumo em `README.md` §2. Antes de combinar cores em peça nova, rode `node ferramentas/textura.mjs --list-colors`.
+
+## Padrões, imagens e animação
+
+Capítulo 3 (`3-padroes.html`): regra do pontilhado, mono, duo e trio. Motores: `assets/lina-texture.js` e `assets/lina-image.js`. Animação (capítulo 4, `4-animacao.html`): `assets/lina-dither-field.js`. Comandos na seção "Gerar padrões e imagens", abaixo.
+
+## Tipografia
+
+Capítulo 5 (`5-tipografia.html`) e `tokens/typography.css`. Fontes auto-hospedadas em `assets/fonts/` (Outfit e JetBrains Mono, ambas OFL); `tokens/fonts.css` as declara. Símbolos matemáticos usam STIX Two Math (`assets/fonts/STIXTwoMath.otf`; motivo em `memoria/simbolos-matematicos.md`). A Outfit substituiu a Neometric: `memoria/fonte-outfit.md`. Pacote: `downloads/LINA-Fontes.zip`.
+
+## Ícones
+
+Só Phosphor, seis pesos, em `assets/icons/phosphor/<peso>/`. Regras de peso, tamanho e duotone: `assets/icons/README.md` e capítulo 6 (`6-icones.html`).
+
+## Componentes
+
+Capítulo 7 (`7-componentes.html`); fragmentos em `capitulos/7-componentes/`, um por componente (declaração, tabela, legenda e fonte, número em destaque, passos, nota, cabeçalho e rodapé, cartão, tile de ícone). Cada um segue o molde Regra / Não fazer / Como pedir: leia o fragmento do componente antes de usá-lo.
+
+## Templates
+
+Capítulo 8 (`8-templates.html`).
+- Apresentação: `templates/apresentacao/README.md` (layouts, regras, como gerar). Gerar: `sh templates/apresentacao/potx/make.sh`. Versões em `templates/apresentacao/CHANGELOG.md`.
+- Documento A4 (relatório, artigo, POP; Word, LaTeX e HTML): gerar com `sh templates/documento-a4/make.sh`. Versões em `templates/documento-a4/CHANGELOG.md`.
+- Gerados (`.potx`, `.pptx`, `.pdf`, `.zip`) ficam fora do git; versões saem por tag no GitHub Actions (`.github/workflows/`).
 
 ## Gerar padrões e imagens
 

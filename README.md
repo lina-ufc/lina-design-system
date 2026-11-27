@@ -79,13 +79,13 @@ Nome na assinatura: PT "Laboratório de Modelagem da Informação"; EN "Laborato
 
 ## 2 · Cores
 
-**Principal** — ferro oxidado `#A81F0D`, areia `#E1CE7A`, creme `#FAF5C6`, damasco `#FDD692`, turquesa `#64B6AC`. Quatro quentes num arco de 7° a 54°; a turquesa (173°) é o único frio, quase complementar ao ferro e de saturação contida.
+**Principal** — ferro oxidado, areia, creme, damasco e turquesa. Quatro quentes num arco de 7° a 54°; a turquesa (173°) é o único frio, quase complementar ao ferro e de saturação contida.
 
 Referências: terra vermelha do sertão e telha (ferro); dunas e palha de carnaúba (areia); cal, algodão cru e renda de bilro (creme); caju, manga e luz de fim de tarde (damasco); mar raso, lagoas e portas pintadas (turquesa).
 
-**Auxiliar** — umbro `#2A1A12` (texto), ferro fundo `#6E1408`, turquesa fundo `#2F6A62` (turquesa como texto), turquesa tinta `#14322E` (texto sobre turquesa), nata `#FDF1CF` (painéis), fio `#E6DFA2`, fio forte `#C9B87A`. Nenhum cinza.
+**Auxiliar** — umbro (texto), ferro fundo, turquesa fundo (turquesa como texto), turquesa tinta (texto sobre turquesa), nata (painéis), fio e fio forte. Nenhum cinza.
 
-**Contraste** — usar: umbro/creme 15,1 · ferro/creme 6,6 · umbro/damasco 12,1 · umbro/areia 10,6 · turquesa tinta/turquesa 5,8 · turquesa fundo/creme 5,6. Evitar para texto: ferro/turquesa (vibra), turquesa/creme, areia/creme, damasco/areia, ferro/umbro, turquesa fundo/ferro.
+**Valores e contraste** — os valores estão em `tokens/lina.tokens.json` (gerado de `assets/lina-palette.js`, a fonte única). Os pares a usar e a evitar, com as razões de contraste, estão em 2.4 a 2.6 do site e em `node ferramentas/textura.mjs --list-colors`.
 
 Tokens em `tokens/colors.css`.
 
