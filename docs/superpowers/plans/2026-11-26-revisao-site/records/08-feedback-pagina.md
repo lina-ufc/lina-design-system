@@ -27,6 +27,12 @@ Render: [`08-render/feedback-desktop.png`](08-render/feedback-desktop.png) (1280
 A revisão da Tarefa 2 achou `#fb{display:flex}` anulando `hidden` (form não escondia). Corrigido em `f6374c3`;
 os estados acima já são com a correção.
 
+## Envio real (2026-11-27)
+
+De `localhost:8765/feedback.html?pagina=cores.html%23s-x`, `fetch` verdadeiro: tipo `Erro`, mensagem
+`Teste do plano 08`, nome `Teste plano 08`, e-mail `lina.pesquisa@iaud.ufc.br`. Resposta `{ok:true}`: form escondido,
+agradecimento com foco. Redirecionamento e CORS do Apps Script passam no navegador. Linha na planilha: espera o dono.
+
 ## Revisão final do branch (2026-11-27)
 
 Sem Critical nem Important. Menores deixados para o 10 (`design:accessibility-review`):
