@@ -1,6 +1,6 @@
 # Revisão do site — Progresso da implementação
 
-**Última atualização:** 2026-11-27. Branch `revisao-site/02-prototipo`.
+**Última atualização:** 2026-11-27. Branch `main`.
 
 Índice: [`README.md`](README.md).
 
@@ -20,7 +20,7 @@
 | Plano | Progresso | Tarefas | Status |
 | --- | --- | --- | --- |
 | 01 — motores | `[██████████]` | 5/5 | Completo (branch `revisao-site/01-motores`, não mesclada) |
-| 02 — protótipo visual | `[██████████]` | 4/4 | Completo (branch `revisao-site/02-prototipo`, não mesclada) (branch `revisao-site/02-prototipo`) |
+| 02 — protótipo visual | `[██████████]` | 4/4 | Completo (mesclado na main) (branch `revisao-site/02-prototipo`) |
 | 03 — fonte única | `[░░░░░░░░░░]` | — | Não escrito. Escrito quando o 01 terminar |
 | 04 — estrutura | `[░░░░░░░░░░]` | — | Não escrito. Espera o 02 aprovado |
 | 05 — visual em tudo | `[░░░░░░░░░░]` | — | Não escrito |

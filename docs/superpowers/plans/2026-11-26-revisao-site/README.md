@@ -11,7 +11,7 @@ Estado vivo: [`progress.md`](progress.md). Um subplano escrito por vez (`CLAUDE.
 | # | Subplano | Depende de | Status |
 | --- | --- | --- | --- |
 | 01 | [Motores e linha de comando](01-motores.md) | — | Completo (branch `revisao-site/01-motores`) |
-| 02 | [Protótipo visual B1 da página Logotipo](02-prototipo-visual.md) | — | Completo (branch `revisao-site/02-prototipo`) |
+| 02 | [Protótipo visual B1 da página Logotipo](02-prototipo-visual.md) | — | Completo (mesclado na main) |
 | 03 | Fonte única de tokens a partir de `assets/lina-palette.js`; `SKILL.md` índice; `llms.txt` | 01 | Não escrito |
 | 04 | Estrutura em quatro partes, molde único de seção, redirecionamentos | 02 aprovado | Não escrito |
 | 05 | Aplicar o visual aprovado a todas as páginas; revisão de acessibilidade | 02, 04 | Não escrito |
