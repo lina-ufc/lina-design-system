@@ -48,6 +48,13 @@
    "molde": true
   },
   {
+   "id": "voz-e-texto",
+   "parte": "II",
+   "nome": "Voz e texto",
+   "desc": "Tom, tratamento, números e nomes nos textos do LINA.",
+   "molde": true
+  },
+  {
    "id": "grid-e-espaco",
    "parte": "II",
    "nome": "Grid e espaço",
@@ -304,6 +311,30 @@
    "sub": "Outfit, JetBrains Mono e STIX Two Math, com as licenças OFL",
    "secao": "capitulos/tipografia/6-baixar-tipografia.html",
    "livre": true
+  },
+  {
+   "cap": "voz-e-texto",
+   "nome": "Tom",
+   "sub": "Direto, frases curtas, no presente, sem exclamação (proposta)",
+   "secao": "capitulos/voz-e-texto/1-tom.html"
+  },
+  {
+   "cap": "voz-e-texto",
+   "nome": "Tratamento",
+   "sub": "Você para o leitor, \"o LINA\" para o laboratório (proposta)",
+   "secao": "capitulos/voz-e-texto/2-tratamento.html"
+  },
+  {
+   "cap": "voz-e-texto",
+   "nome": "Números e datas",
+   "sub": "Vírgula decimal, dia/mês/ano e espaço antes da unidade (proposta)",
+   "secao": "capitulos/voz-e-texto/3-numeros-e-datas.html"
+  },
+  {
+   "cap": "voz-e-texto",
+   "nome": "Nomes e siglas",
+   "sub": "Nome por extenso na primeira vez, LINA depois (proposta)",
+   "secao": "capitulos/voz-e-texto/4-nomes-e-siglas.html"
   },
   {
    "cap": "grid-e-espaco",

@@ -47,6 +47,34 @@ Capítulo `imagem` ganhou `"molde": true` e a seção `s-fotografia` (`2-fotogra
 | Luz natural | proposta nova |
 | Sem filtro de cor; tratamento gráfico é o filtro de pontilhado | proposta nova; links para `cores.html#s-paleta-principal` e `imagem.html#s-filtro-de-pontilhado` |
 
+## Voz e texto
+
+Capítulo novo `voz-e-texto` (parte II, entre Tipografia e Grid, número 5; Grid passou a 6), com `"molde": true` e quatro
+seções: `s-tom` (`1-tom.html`), `s-tratamento` (`2-tratamento.html`), `s-numeros-e-datas` (`3-numeros-e-datas.html`) e
+`s-nomes-e-siglas` (`4-nomes-e-siglas.html`). Cada uma com `Faça e não faça` e `Como pedir` só com `Agente` (não há peça
+de slide, Word ou LaTeX para texto). Pontuação, caixa e escolha de fonte para número ficam em Tipografia, `Detalhes`, com link.
+
+| Valor | Origem |
+| --- | --- |
+| Tom direto, sem exclamação, "você", frases curtas | tom que o próprio site já usa; regra posta por escrito. Sem número novo |
+| Pontuação de título, rótulo e botão; vírgula decimal | `tipografia.html#s-detalhes`; citado |
+| "O LINA" em terceira pessoa, no masculino | uso da página inicial e do restante do site; o resto da regra (sem "nós") é proposta |
+| Voz impessoal em documento formal; termo neutro em vez de flexão dupla | proposta nova |
+| Ponto de milhar a partir de 5 algarismos; datas "22 de novembro de 2026" em texto e "22/11/2026" em dado; ano-mês-dia em nome de arquivo; espaço antes da unidade | proposta nova (`<b>proposta:</b>` no texto) |
+| Nome oficial: Laboratório de Modelagem da Informação: Arte · Arquitetura · Ambiente | `README.md` (linha de abertura); `SKILL.md` escreve o mesmo nome com travessão em vez de dois-pontos |
+| Nome por extenso na primeira menção; sigla comum dispensa; plural da sigla sem "s" | proposta nova |
+
+### Renumeração (Passo 3)
+
+Com o capítulo novo, Tipografia ficou em 4, Voz e texto em 5, Grid em 6, Padrões em 7, Imagem em 8, Ícones em 9,
+Componentes em 10 e Templates em 11. Conferido com o grep do passo 3 e checagem do `*.html` gerado: nenhuma referência
+de seção ficou com número velho (`stale 0`). Número escrito à mão dentro de `<a href="…#s-…">` (ex.: `5.5`, `8.1`, `9.5` em
+Tipografia, Componentes e Templates) é reescrito pelo `sistema.py`. As demais ocorrências do grep não são seções do site:
+nomes de layout de slide ("5.3 Números-chave", "1.1"), `doi`, números dentro de código SVG. `SKILL.md`, `README.md`: nenhuma
+ocorrência. `llms.txt` é regenerado. Corrigido à mão, por apontar para o número antigo de Templates (10 para 11):
+`memoria/README.md`, `memoria/padrao-explicacao-download.md`, `memoria/templates-downloads.md` e os comentários de
+`capitulos/templates/_gerar.py` (linhas 1 e 87).
+
 ## Perguntas
 
 - Logotipo, Área de proteção: a área livre do logo sem fundo é 1 célula em cada lado? A memória `margem-meia-celula` diz que versões sem fundo "não têm margem"; o texto trata a área livre como espaço fora do logo, não como margem. (proposta)
@@ -60,3 +88,12 @@ Capítulo `imagem` ganhou `"molde": true` e a seção `s-fotografia` (`2-fotogra
 - Imagem, Fotografia: luz natural é regra para toda foto, ou há exceção (palco, evento, ambiente fechado)? (proposta)
 - Imagem, Fotografia: "filtro de cor que brigue com a paleta" proíbe também correção de cor e conversão para preto e branco? O texto não diz; o critério é brigar ou não com a paleta. (proposta)
 - Imagem, Fotografia: quais fotos servem de exemplo? Espera a curadoria do dono; a seção não traz imagem.
+- Voz e texto, Tratamento: documento formal (relatório, ofício, artigo) usa voz impessoal, sem "você"? Hoje o template A4 não fixa isso. (proposta)
+- Voz e texto, Tratamento: preferir termo neutro ("a equipe", "quem lê") à flexão dupla ("pesquisador/a")? (proposta)
+- Voz e texto, Tratamento: o laboratório nunca fala em "nós" em peça institucional, ou só no site e nos documentos? (proposta)
+- Voz e texto, Números e datas: data em texto por extenso ("22 de novembro de 2026") e em dado como "22/11/2026"; nome de arquivo e registro em ano-mês-dia. Serve? (proposta)
+- Voz e texto, Números e datas: ponto de milhar só a partir de cinco algarismos ("1250", "12.500")? (proposta)
+- Voz e texto, Números e datas: espaço antes da unidade e do "%" ("44 px", "50 %")? O site hoje escreve "20%" em alguns lugares. (proposta)
+- Voz e texto, Nomes e siglas: o nome oficial leva dois-pontos (README) ou travessão (SKILL.md)? O texto usa dois-pontos. (proposta)
+- Voz e texto, Nomes e siglas: nome por extenso na primeira menção em todo texto, ou só em documento que chega a quem não conhece o LINA? (proposta)
+- Voz e texto, Nomes e siglas: siglas de uso geral (PDF, IFC, A4) dispensam o nome por extenso, e o plural da sigla não leva "s"? (proposta)

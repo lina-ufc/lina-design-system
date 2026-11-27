@@ -1,4 +1,4 @@
-"""Gera a seção Apresentação do capítulo 10 (10.1): estrutura, exemplo, uso e downloads; e o Baixar da 10.2 (Documentos A4).
+"""Gera a seção Apresentação do capítulo 11 (11.1): estrutura, exemplo, uso e downloads; e o Baixar da 11.2 (Documentos A4).
 Rodar depois de publicar o template e os pacotes (downloads/empacotar.py): python3 capitulos/templates/_gerar.py"""
 import os, re, sys, zipfile
 from html import escape
@@ -84,7 +84,7 @@ apres = f'''<style>.fam{{margin:8px 0 20px;padding:0;list-style:none;display:gri
 open(os.path.join(AQUI, '1-apresentacao.html'), 'w').write(apres + '\n')
 print('layouts', len(LAYS))
 
-# 8.2 Documentos A4: só o bloco Baixar (o resto da página é escrito à mão).
+# 11.2 Documentos A4: só o bloco Baixar (o resto da página é escrito à mão).
 TD = 'templates/documento-a4'
 VER_D = re.search(r'^## (\d[\d.]*)', open(os.path.join(R, TD, 'CHANGELOG.md'), encoding='utf-8').read(), re.M).group(1)
 REL_D = os.environ.get('RELEASE_URL_DOCUMENTOS', '')

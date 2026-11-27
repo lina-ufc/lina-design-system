@@ -6,7 +6,7 @@ type: regra
 
 Decisões do usuário em 2026-11-22:
 
-- O capítulo Templates (hoje o 10; `templates.html`) mostra só templates (apresentação PowerPoint e HTML, documento A4) e serve para baixar. Aplicações não aparecem: o capítulo Aplicações saiu do `sistema.json` (página `9-aplicacoes.html`, número da época, na Lixeira; os arquivos de exploração `Aplicações*.html` ficaram só na pasta arquivada do Drive).
+- O capítulo Templates (hoje o 11; `templates.html`) mostra só templates (apresentação PowerPoint e HTML, documento A4) e serve para baixar. Aplicações não aparecem: o capítulo Aplicações saiu do `sistema.json` (página `9-aplicacoes.html`, número da época, na Lixeira; os arquivos de exploração `Aplicações*.html` ficaram só na pasta arquivada do Drive).
 - Layouts com nome `família.variação` (1 Abertura, 2 Texto, 3 Ícones, 4 Imagem, 5 Dados, 6 Encerramento). `build.js` ordena o master pelo número.
 - O .potx tem só master e layouts, sem slides (pedido do usuário); o exemplo .pptx traz os slides. `post.py` gera os dois.
 - Downloads da apresentação: .potx, exemplo .pptx e .pdf, deck HTML em .zip editável. Fontes e ícones saíram daqui (2026-11-22): cada um na página do seu capítulo, com referência cruzada (ver [[padrao-explicacao-download]]).
