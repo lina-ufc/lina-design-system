@@ -121,7 +121,8 @@
    "cap": "logotipo",
    "nome": "Três medidas",
    "sub": "Célula, meia célula e quarto de célula — e o que cada uma governa",
-   "secao": "capitulos/logotipo/2-tres-medidas.html"
+   "secao": "capitulos/logotipo/2-tres-medidas.html",
+   "livre": true
   },
   {
    "cap": "logotipo",
@@ -145,7 +146,8 @@
    "cap": "logotipo",
    "nome": "Logotipo com a grade",
    "sub": "O logotipo principal com a grade de construção sobreposta",
-   "secao": "capitulos/logotipo/6-logotipo-com-a-grade.html"
+   "secao": "capitulos/logotipo/6-logotipo-com-a-grade.html",
+   "livre": true
   },
   {
    "cap": "logotipo",

@@ -132,12 +132,20 @@ document.querySelectorAll('.fr iframe').forEach((i) => { i.addEventListener('loa
 '''
 # ---- fragmentos, links e "citado em" ----
 POR_ID = {(pagina_de(c), e['id']): e for c in CAPS for e in entradas(c)}
-frags, citado, quebrados = {}, {}, []
+frags, citado, quebrados, fora_do_molde = {}, {}, [], []
+MOLDE_H3 = ['Por quê', 'Medidas', 'Faça e não faça', 'Como pedir']  # ver docs/guidelines/molde-de-secao.md
 for c in CAPS:
     for e in entradas(c):
         if 'secao' not in e:
             continue
         f = frags[e['id']] = (RAIZ / e['secao']).read_text()
+        if c.get('molde') and not e.get('livre'):
+            h3 = re.findall(r'<h3[^>]*>(.*?)</h3>', f)
+            n_regra = len(re.findall(r'<p class="regra">', f))
+            if n_regra != 1:
+                fora_do_molde.append(f'molde: {e["secao"]}: esperado um <p class="regra">, achei {n_regra}')
+            if [x for x in MOLDE_H3 if x in h3] != h3 or len(set(h3)) != len(h3):
+                fora_do_molde.append(f'molde: {e["secao"]}: h3 {h3} fora de {MOLDE_H3}, nessa ordem')
         for pag, ancora in re.findall(r'href="([\w.-]*\.html)?#(s-[\w-]+)"', f):
             alvo = POR_ID.get((pag or pagina_de(c), ancora))
             if not alvo:
@@ -147,6 +155,12 @@ for c in CAPS:
         # texto de link que é só número de seção ("5.5") vira o número do alvo
         frags[e['id']] = re.sub(r'(<a href="([\w.-]*\.html)?#(s-[\w-]+)"[^>]*>)\d+\.\d+(</a>)',
                                 lambda m: m[1] + POR_ID[k]['num'] + m[4] if (k := (m[2] or pagina_de(c), m[3])) in POR_ID else m[0], f)
+# home: só confere os links (a home não entra em "Citado em")
+for pag, ancora in re.findall(r'href="([\w.-]*\.html)?#(s-[\w-]+)"', (RAIZ / S['inicio']).read_text()):
+    if (pag, ancora) not in POR_ID:
+        quebrados.append(f'{S["inicio"]}: {pag or ""}#{ancora}')
+if fora_do_molde:
+    sys.exit('\n'.join(fora_do_molde))
 if quebrados:
     sys.exit('links quebrados:\n  ' + '\n  '.join(quebrados))
 

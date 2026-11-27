@@ -1,8 +1,9 @@
 <h2>Combinações de cores</h2>
-<p class="p">As cores do logotipo seguem os mesmos pares do texto (<a href="cores.html#s-contrastes-a-usar">2.5</a> e <a href="cores.html#s-contrastes-a-evitar">2.6</a>). Aqui, o símbolo sobre a placa de cantos arredondados, a aplicação mais comum: quatro células de lado, o L a uma célula da borda.</p>
-<div id="comb-usar" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px 14px;margin-top:16px"></div>
-<h2 class="h" style="font-size:18px;margin:26px 0 6px">Não recomendáveis</h2>
-<div id="comb-evitar" style="display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:18px 14px;margin-top:16px"></div>
+<p class="regra">As cores do logotipo seguem os mesmos pares do texto (<a href="cores.html#s-contrastes-a-usar">2.5</a> e <a href="cores.html#s-contrastes-a-evitar">2.6</a>).</p>
+<p class="p">Aqui, o símbolo sobre a placa de cantos arredondados, a aplicação mais comum: quatro células de lado, o L a uma célula da borda.</p>
+<h3>Faça e não faça</h3>
+<div class="faca-nao"><div class="faca"><div id="comb-usar" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:18px 14px"></div></div>
+<div class="nao"><div id="comb-evitar" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:18px 14px"></div></div></div>
 <script>{
 const L=LD.letter('L',1,2,1);
 const card=(c)=>'<div class="fig"><svg viewBox="0 0 8 8" style="width:100%;max-width:150px;height:auto;display:block" role="img" aria-label="'+c[2]+'"><rect width="8" height="8" rx="1.25" fill="var(--'+c[0]+')" stroke="rgba(42,26,18,.14)" stroke-width=".04"/><path d="'+L+'" fill="var(--'+c[1]+')" fill-rule="evenodd"/></svg><p class="cap"><b>'+c[2]+'</b>'+(c[3]?'<br>'+c[3]:'')+'</p></div>';
