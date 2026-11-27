@@ -58,4 +58,15 @@ Data: 2026-11-27. Branch `revisao-site/06-ferramentas`.
 | 2 | Sem modo `glyphs`, raio fixo em ¼ | pendente |
 | 3 | Filtro sem foto de exemplo | Recusada (2026-11-27): usar foto de exemplo. Filtro abre com o retrato `capitulos/imagem/img/exemplo.jpg` (do `lina-sample.js`) e tem botão "Usar exemplo"; SVG idêntico ao do comando |
 | 4 | Editor: cor entre os 12 tokens; estado só no `localStorage` | pendente |
-| 5 | Posições 6.9, 7.1, 2.10 (Baixar em 2.11) e 11.3 | pendente |
+| 5 | Posições 6.9, 7.1, 2.10 (Baixar em 2.11) e 11.3 | Substituída (2026-11-27): ferramentas em páginas próprias, no menu e na página inicial; 6.9, 7.1 e 2.10 viram chamada curta |
+| 6 | Foto com mais de 1600 px | 2026-11-27: comando reduz a 1600 px no lado maior, como o site (`lerFoto` em `ferramentas/_carregar.mjs`) |
+| 7 | Botão de envio do navegador em inglês | 2026-11-27: botão próprio "Escolher foto" |
+
+## Tarefa 9 — verificação final (2026-11-27)
+
+- `node --test "ferramentas/test/*.test.mjs"`: 82/82. `python3 sistema.py`: 69 links, sem link quebrado.
+- Três páginas próprias: um h1, SVG na prancha, sem rolagem lateral em 390 px e 1024 px, console sem erro.
+- Corrigido no celular: margem lateral dupla (botões do filtro passavam 2 px da tela) e vão de 3 células sob o cabeçalho.
+- Foto de 3200 × 2000 px pelo comando sai reduzida a 1600 px.
+- Fora do escopo: `index.html` não tem h1 (já era assim antes do plano 06).
+- Não testado: VoiceOver e toque real no editor.

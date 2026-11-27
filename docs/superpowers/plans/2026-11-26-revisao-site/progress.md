@@ -95,7 +95,7 @@ Herança para o 05: hex das 12 cores seguem em `capitulos/` (2.x, 3.x, 4.x, 8.2)
 - [x] **Tarefa 6** — motor de imagem: Pontilhado, Dispersão, Campo; cores por tom (spec 2026-11-27). `038d72f`, `1270d37`; review após 1 rodada (faixa igual ao fundo recusada; divisa sem costura); 82/82
 - [x] **Tarefa 7** — interface do filtro com os três padrões e as faixas de tom. `0123e80`, `8f45a6f`; review após 1 rodada (troca de cor sem duplicar); SVG = CLI nos três modos
 - [x] **Tarefa 8** — ferramentas em páginas próprias; índice e menu. `c44ec49`, `130fde2`, `0ab7511`; review limpo (menores: f-string só em Python 3.12 corrigido; texto de abertura repete o subtítulo e links antigos `#s-gerador` sem redirecionar ficam para a tarefa 9); cores logo abaixo de Filtro; 82/82
-- [ ] **Tarefa 9** — verificação e aprovação do dono
+- [ ] **Tarefa 9** — verificação e aprovação do dono. `fa84684`; checagens e navegador ok ([record](records/06-ferramentas.md)); falta aprovação do dono
 
 ## Estado herdado
 
