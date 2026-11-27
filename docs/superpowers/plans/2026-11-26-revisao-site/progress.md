@@ -1,6 +1,6 @@
 # Revisão do site — Progresso da implementação
 
-**Última atualização:** 2026-11-27. Branch `revisao-site/03-fonte-unica`.
+**Última atualização:** 2026-11-27. Branch `main`.
 
 Índice: [`README.md`](README.md).
 
@@ -21,7 +21,7 @@
 | --- | --- | --- | --- |
 | 01 — motores | `[██████████]` | 5/5 | Completo (branch `revisao-site/01-motores`, não mesclada) |
 | 02 — protótipo visual | `[██████████]` | 4/4 | Completo (mesclado na main) (branch `revisao-site/02-prototipo`) |
-| 03 — fonte única | `[██████████]` | 4/4 | Completo (branch `revisao-site/03-fonte-unica`, não mesclada) |
+| 03 — fonte única | `[██████████]` | 4/4 | Completo (mesclado na main) |
 | 04 — estrutura | `[░░░░░░░░░░]` | — | Não escrito. Espera o 02 aprovado |
 | 05 — visual em tudo | `[░░░░░░░░░░]` | — | Não escrito |
 | 06 — ferramentas no site | `[░░░░░░░░░░]` | — | Não escrito |
