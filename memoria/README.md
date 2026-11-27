@@ -26,3 +26,4 @@
 - [planos-em-pasta](planos-em-pasta.md) — Plano longo em pasta com progress.md; guias em docs/guidelines/
 - [builder-sem-terminal](builder-sem-terminal.md) — cavecrew-builder não roda código; gerador/script novo vai para general-purpose sonnet com Bash
 - [a-do-logo](a-do-logo.md) — "A" do logo sempre em cor ligeiramente diferente (sobreposição arte/arquitetura/ambiente); em ferro, umbro; monocromáticos e vazados são exceção
+- [visual-b1](visual-b1.md) — Visual B1 aprovado (2026-11-27): creme em tudo, número de seção pequeno acima do título, margem única, pranchas com retícula

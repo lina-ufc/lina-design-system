@@ -20,7 +20,7 @@
 | Plano | Progresso | Tarefas | Status |
 | --- | --- | --- | --- |
 | 01 — motores | `[██████████]` | 5/5 | Completo (branch `revisao-site/01-motores`, não mesclada) |
-| 02 — protótipo visual | `[████████░░]` | 3/4 | Espera aprovação do dono (branch `revisao-site/02-prototipo`) |
+| 02 — protótipo visual | `[██████████]` | 4/4 | Completo (branch `revisao-site/02-prototipo`, não mesclada) (branch `revisao-site/02-prototipo`) |
 | 03 — fonte única | `[░░░░░░░░░░]` | — | Não escrito. Escrito quando o 01 terminar |
 | 04 — estrutura | `[░░░░░░░░░░]` | — | Não escrito. Espera o 02 aprovado |
 | 05 — visual em tudo | `[░░░░░░░░░░]` | — | Não escrito |
@@ -42,12 +42,12 @@ Verificação: `node --test "ferramentas/test/*.test.mjs"` 51/51 (o diretório s
 
 ## Plano 02 — protótipo visual
 
-`[████████░░]` 75% — 3 de 4 tarefas. Espera aprovação do dono.
+`[██████████]` 100% — 4 de 4 tarefas. Aprovado pelo dono.
 
 - [x] **Tarefa 1** — montagem (`prototipo/montar.sh`) e render (`prototipo/render.sh`). `9e4c7a5`; antes = b1 com folha vazia
 - [x] **Tarefa 2** — folha `prototipo/b1.css`. `dc1d0c4`; 14 `!important` contra inline de fragmento; render do celular corrigido (iframe de 390 px)
 - [x] **Tarefa 3** — revisão de design e acessibilidade. `335b97f`; 11 achados de critério corrigidos, 8 perguntas de gosto ao dono; página atual idêntica ao pixel. Record: [`records/02-revisao.md`](records/02-revisao.md)
-- [ ] **Tarefa 4** — aprovação do dono
+- [x] **Tarefa 4** — aprovação do dono. Rodada 2 (`b3cd16c`), creme (`4a59347`), 1.3 a 1,5× em 3 colunas; memória `visual-b1`
 
 ## Estado herdado
 
@@ -62,7 +62,7 @@ Verificação: `node --test "ferramentas/test/*.test.mjs"` 51/51 (o diretório s
 
 1. Conferir as chamadas minhas listadas no spec (fundo branco do site, famílias de matiz,
    regra de contraste dos padrões). Não bloqueiam o 01.
-2. Aprovar o protótipo do 02. Bloqueia 04 e 05.
+2. ~~Aprovar o protótipo do 02.~~ Aprovado em 2026-11-27 (creme, não branco).
 
 ## Changelog
 
@@ -77,3 +77,4 @@ Verificação: `node --test "ferramentas/test/*.test.mjs"` 51/51 (o diretório s
 - 2026-11-27 — Tarefa 2 do 02 concluída. Chrome sem janela não abre com menos de 500 px: `render.sh` põe o celular num iframe de 390 px.
 - 2026-11-27 — Tarefa 3 do 02 concluída. Protótipo pronto para o dono.
 - 2026-11-27 — Rodada 2 do 02: número de seção com metade do título, acima dele, margem única; ladrilhos; folga de 2 células. Dono escolheu creme em tudo (página, barra, pranchas), contra o branco do spec. Pendente: 1.3 em 2× quebra em 3+2.
+- 2026-11-27 — 1.3 a 1,5× em três colunas iguais. Plano 02 completo; 04 e 05 desbloqueados.
