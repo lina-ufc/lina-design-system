@@ -1,6 +1,6 @@
 # Revisão do site — Progresso da implementação
 
-**Última atualização:** 2026-11-27. Branch `revisao-site/05-visual`.
+**Última atualização:** 2026-11-27. Branch `main` (05 e moldura mesclados).
 
 Índice: [`README.md`](README.md).
 
@@ -23,8 +23,8 @@
 | 02 — protótipo visual | `[██████████]` | 4/4 | Completo (mesclado na main) (branch `revisao-site/02-prototipo`) |
 | 03 — fonte única | `[██████████]` | 4/4 | Completo (mesclado na main) |
 | 04 — estrutura | `[██████████]` | 5/5 | Completo (mesclado na main) |
-| 05 — visual em tudo | `[██████████]` | 6/6 | Completo (branch `revisao-site/05-visual`, não mesclada) |
-| 06 — ferramentas no site | `[░░░░░░░░░░]` | — | Não escrito |
+| 05 — visual em tudo | `[██████████]` | 6/6 | Completo (mesclado na main) |
+| 06 — ferramentas no site | `[░░░░░░░░░░]` | 0/5 | Escrito |
 | 07 — conteúdo novo | `[░░░░░░░░░░]` | — | Não escrito |
 | 08 — arquivar visual-code | `[░░░░░░░░░░]` | — | Não escrito |
 
@@ -83,6 +83,16 @@ Herança para o 05: hex das 12 cores seguem em `capitulos/` (2.x, 3.x, 4.x, 8.2)
 - [x] **Tarefa 5** — Componentes: molde e pranchas; Templates sem `h2` inline. `cc57719`, blocos `site.css`/`sistema.json` em commit próprio; links para os Baixar `6ed393d`
 - [x] **Tarefa 6** — verificação, acessibilidade, aprovação do dono. Checagens ok, 0 rolagem lateral, 7 achados de critério corrigidos (`a03b584`, `d54ad2a`, último commit); visual aprovado pelo dono em 2026-11-27; 10 perguntas de conteúdo/gosto seguem abertas no record. Record: [`records/05-visual.md`](records/05-visual.md)
 
+## Plano 06 — ferramentas no site
+
+`[░░░░░░░░░░]` 0% — 0 de 5 tarefas. Plano: [`06-ferramentas.md`](06-ferramentas.md). 5 chamadas minhas a conferir com o dono no topo do plano.
+
+- [ ] **Tarefa 1** — base comum: `assets/lina-ferramenta.js` (estado na URL, comando, baixar), CSS dos controles, testes
+- [ ] **Tarefa 2** — gerador de padrões em Padrões 6.9
+- [ ] **Tarefa 3** — filtro de pontilhado em Imagem 7.1
+- [ ] **Tarefa 4** — editor de células em Logotipo 2.10 (Baixar vira 2.11)
+- [ ] **Tarefa 5** — Recursos 11.3, verificação, acessibilidade, aprovação do dono
+
 ## Estado herdado
 
 - Base: `a76283c` (Capítulo 7 concluído).
@@ -122,3 +132,5 @@ Herança para o 05: hex das 12 cores seguem em `capitulos/` (2.x, 3.x, 4.x, 8.2)
 - 2026-11-27 — Tarefa 1 do 05 concluída. Baixar do Logotipo com id `s-baixar-logotipo` (`s-baixar` já é de Recursos).
 - 2026-11-27 — Tarefas 2–5 do 05 concluídas em paralelo; tarefa 6: verificação e revisão, 7 achados corrigidos. Aguarda o dono (10 perguntas no record).
 - 2026-11-27 — Visual do 05 aprovado. Plano 05 completo; 06 desbloqueado. Perguntas do record 05 abertas.
+- 2026-11-27 — Fora dos subplanos: moldura de 9 faixas em todos os capítulos (`c4e6560`, branch `revisao-site/06-moldura`, nome não ligado ao plano 06) e pranchas sem retícula (`65776e7`). Ambos mesclados (`fdc930d`, `a200c9b`).
+- 2026-11-27 — Plano 06 escrito (ferramentas no site). Tarefas 2–4 em paralelo depois da 1.
