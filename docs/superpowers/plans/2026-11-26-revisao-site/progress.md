@@ -22,7 +22,7 @@
 | 01 — motores | `[██████████]` | 5/5 | Completo (branch `revisao-site/01-motores`, não mesclada) |
 | 02 — protótipo visual | `[██████████]` | 4/4 | Completo (mesclado na main) (branch `revisao-site/02-prototipo`) |
 | 03 — fonte única | `[██████████]` | 4/4 | Completo (mesclado na main) |
-| 04 — estrutura | `[████████░░]` | 4/5 | Tarefa 5 espera o dono (branch `revisao-site/04-estrutura`) |
+| 04 — estrutura | `[██████████]` | 5/5 | Completo (branch `revisao-site/04-estrutura`, não mesclada) |
 | 05 — visual em tudo | `[░░░░░░░░░░]` | — | Não escrito |
 | 06 — ferramentas no site | `[░░░░░░░░░░]` | — | Não escrito |
 | 07 — conteúdo novo | `[░░░░░░░░░░]` | — | Não escrito |
@@ -64,13 +64,13 @@ Herança para o 05: hex das 12 cores seguem em `capitulos/` (2.x, 3.x, 4.x, 8.2)
 
 ## Plano 04 — estrutura
 
-`[████████░░]` 80% — 4 de 5 tarefas. Decisões do dono no topo de [`04-estrutura.md`](04-estrutura.md).
+`[██████████]` 100% — 5 de 5 tarefas. Decisões do dono no topo de [`04-estrutura.md`](04-estrutura.md).
 
 - [x] **Tarefa 1** — `sistema.json`/`sistema.py` em quatro partes, pastas sem número, redirecionamentos. `82a1907`, `0e2f334`; review: estrutura ok, números velhos roteados à 4
 - [x] **Tarefa 2** — home, Princípios (proposta), Recursos. `ecf2e67`; review limpo
 - [x] **Tarefa 3** — molde de seção e piloto no Logotipo. `e299f9e`, `61242a6`; review limpo após 1 correção; `h2` internos de 2.7/2.8 ao dono
 - [x] **Tarefa 4** — referências e números soltos. `53b441c`, `978c9e9` + título de teste; review limpo após 1 correção
-- [ ] **Tarefa 5** — verificação, revisão, aprovação do piloto. Checagens ok; espera o dono. Record: [`records/04-estrutura.md`](records/04-estrutura.md)
+- [x] **Tarefa 5** — verificação, revisão, aprovação do piloto. Checagens ok; molde aprovado pelo dono em 2026-11-27. Record: [`records/04-estrutura.md`](records/04-estrutura.md)
 
 ## Estado herdado
 
@@ -106,3 +106,4 @@ Herança para o 05: hex das 12 cores seguem em `capitulos/` (2.x, 3.x, 4.x, 8.2)
 - 2026-11-27 — Tarefas 3 e 4 do 03 concluídas. Plano 03 completo; branch aguarda merge.
 - 2026-11-27 — Plano 04 escrito. Dono: numeração contínua sem número no arquivo, molde com piloto no Logotipo, home porta de entrada, Recursos agora.
 - 2026-11-27 — Tarefas 1–4 do 04 concluídas (2, 3 e 4 em paralelo). Verificação final ok; piloto do molde e princípios esperam o dono.
+- 2026-11-27 — Molde do piloto aprovado. Plano 04 completo; 05 desbloqueado. Abertos ao dono: princípio "forma" x "letra", h2 internos de 2.7/2.8.

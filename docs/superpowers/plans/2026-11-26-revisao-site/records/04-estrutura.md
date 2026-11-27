@@ -20,7 +20,7 @@ Data: 2026-11-27. Branch `revisao-site/04-estrutura`.
 
 ## Para o dono decidir
 
-1. Molde no piloto: aprovar ou ajustar antes do 05 aplicar no resto.
+1. Molde no piloto: aprovado pelo dono (2026-11-27).
 2. Princípios (proposta em `capitulos/principios/1-principios.html`): o 1º diz "Toda forma é uma união de
    células"; a fonte (2.1) diz "Toda letra".
 3. `h2` internos escapam do molde: 2.7 "Formas derivadas" e 2.8 "Baixar". Opções: entrada própria para
