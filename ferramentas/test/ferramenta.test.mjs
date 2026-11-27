@@ -2,6 +2,8 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
 import { createRequire } from 'node:module';
+import { readFileSync } from 'node:fs';
+import vm from 'node:vm';
 import { sharp } from '../_carregar.mjs';
 
 const req = createRequire(import.meta.url);
@@ -53,10 +55,12 @@ test('hash adulterado: padrões e 4 avisos, sem lançar', () => {
 
 test('hash: faixas e tipos', () => {
   const E = F.ESQUEMAS.textura;
-  for (const h of ['seed=1.5', 'seed=-1', 'seed=1000000', 'cells=3', 'cells=121', 'width=0', 'width=99999',
+  for (const h of ['seed=1.5', 'seed=-1', 'cells=3', 'cells=7.5', 'width=0', 'height=-5', 'grain=0',
     'pinholes=talvez', 'edges=x', 'colors=creme', 'colors=turquesa,ferro', 'grain=', 'accent=2']) {
     assert.equal(F.lerHash(h, E).avisos.length, 1, h);
   }
+  // sem teto além do que o motor aceita
+  for (const h of ['seed=99999999', 'cells=500', 'width=20000', 'grain=0.5']) assert.deepEqual(F.lerHash(h, E).avisos, [], h);
   assert.equal(F.lerHash('colors=creme,ferro,turquesa', E).avisos.length, 0);
   assert.equal(F.lerHash('colors=creme,ferro,turquesa', F.ESQUEMAS.imagem).avisos.length, 1); // trio não vale na imagem
 });
@@ -85,4 +89,33 @@ test('comando de imagem reproduz o motor', async () => {
     assert.match(linha, /^node ferramentas\/imagem\.mjs assets\/\S+ /);
     assert.equal(rodar(linha), LinaImage.render(img, p), linha);
   }
+});
+
+test('comando põe a foto entre aspas simples quando preciso', () => {
+  const p = { colors: ['creme', 'umbro'] };
+  assert.match(F.comando('imagem', p, 'minha foto.jpg'), /^node ferramentas\/imagem\.mjs 'minha foto\.jpg' /);
+  assert.match(F.comando('imagem', p, "a'b;c.jpg"), /'a'\\''b;c\.jpg'/);
+  assert.match(F.comando('imagem', p, 'pasta/foto-1.jpg'), /imagem\.mjs pasta\/foto-1\.jpg /);
+});
+
+test('módulo carrega sem motores; baixar/copiar existem; lerHash de imagem sem texture', () => {
+  const fonte = (m) => readFileSync(new URL(`../../assets/lina-${m}.js`, import.meta.url), 'utf8');
+  const sozinho = { URLSearchParams };
+  vm.runInNewContext(fonte('ferramenta'), sozinho);
+  assert.equal(typeof sozinho.LinaFerramenta.baixar, 'function');
+  assert.equal(typeof sozinho.LinaFerramenta.copiar, 'function');
+  assert.equal(typeof sozinho.LinaFerramenta.ESQUEMAS.textura, 'object');
+  const ctx = { URLSearchParams };
+  for (const m of ['geometry', 'palette', 'image', 'ferramenta']) vm.runInNewContext(fonte(m), ctx);
+  assert.equal(ctx.LinaTexture, undefined);
+  const r = ctx.LinaFerramenta.lerHash('', ctx.LinaFerramenta.ESQUEMAS.imagem);
+  assert.equal(r.avisos.length, 0); assert.equal(r.params.colors.join(), 'creme,ferro'); // realm do vm: sem deepEqual
+});
+
+test('padrões do esquema batem com os do motor', async () => {
+  const E = F.ESQUEMAS;
+  assert.equal(LinaTexture.render(F.lerHash('', E.textura).params), LinaTexture.render({ colors: E.textura.colors.padrao }));
+  const { data, info } = await sharp()(raiz + FOTO).rotate().ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+  const img = { width: info.width, height: info.height, data: new Uint8ClampedArray(data) };
+  assert.equal(LinaImage.render(img, F.lerHash('', E.imagem).params), LinaImage.render(img, { colors: E.imagem.colors.padrao }));
 });

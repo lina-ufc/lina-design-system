@@ -454,5 +454,5 @@ body>aside .rotulo{margin:20px 0 2px}
   .ferramenta{grid-template-columns:minmax(0,1fr)}
   .ferramenta input[type=number],.ferramenta select,.ferramenta button{min-height:var(--cell)}
   .ferramenta input[type=range]{height:var(--cell)}
-  .ferramenta input[type=checkbox]{width:var(--cell-half);height:var(--cell-half)}
+  .ferramenta label:has(>input[type=checkbox]){display:flex;align-items:center;gap:12px;min-height:var(--cell)} /* alvo de toque = o rótulo inteiro */
 }

@@ -1,13 +1,18 @@
 /*
   Base comum das ferramentas do site: esquema de parâmetros, hash da URL, linha de comando
-  equivalente, download e cópia. Carregar depois de lina-palette, lina-texture e lina-image.
-  Funções de navegador só tocam o DOM quando chamadas.
+  equivalente, download e cópia. Nada é lido de outro módulo ao carregar; cada uso exige:
+    baixar, copiar        só o navegador (DOM, Blob, clipboard); nenhum motor.
+    ESQUEMAS, comando     nada (dados e texto).
+    escreverHash          URLSearchParams.
+    lerHash               URLSearchParams e, para validar `colors`, lina-geometry + lina-palette
+                          (lina-texture e lina-image só para renderizar, não para ler o hash).
 */
 (function (root) {
   'use strict';
 
-  const GRAIN = root.LinaTexture.DEFAULTS.grain;
-  const num = (padrao, min = 0, max = 1) => ({ tipo: 'num', min, max, padrao });
+  // Faixas do hash = as de fromParams/linha de comando (a UI estreita com os sliders).
+  // `excl`: o mínimo não vale (> min).
+  const num = (padrao, min = 0, max = 1, excl = false) => ({ tipo: 'num', min, max, excl, padrao });
   const int = (padrao, min, max) => ({ tipo: 'int', min, max, padrao });
   const str = (padrao, valores) => ({ tipo: 'str', valores, padrao });
   const bool = (padrao) => ({ tipo: 'bool', padrao });
@@ -17,13 +22,13 @@
   const ESQUEMAS = {
     textura: {
       mode: str('field', ['dither', 'scatter', 'field']),
-      seed: int(1, 0, 999999),
-      width: int(1080, 1, 8000),
-      height: int(1080, 1, 8000),
-      cells: int(36, 4, 120),
+      seed: int(1, 0, Infinity),
+      width: num(1080, 0, Infinity, true),
+      height: num(1080, 0, Infinity, true),
+      cells: int(36, 4, Infinity),
       colors: cores(2, 3),
       blank: num(0.5), steps: num(0.5), quarter: num(0.3), clump: num(0.6),
-      grain: num(GRAIN, 1, 20),
+      grain: num(5, 0, Infinity, true), // DEFAULTS.grain (o teste confere)
       stretch: num(0), accent: num(0.15),
       edges: str('bleed', ['bleed', 'seamless', 'cut']),
       pinholes: bool(true),
@@ -37,7 +42,7 @@
       cutoff: num(0.08), smooth: num(0.3),
       invert: bool(false),
       colors: cores(2, 2),
-      width: int(1080, 1, 8000),
+      width: num(1080, 0, Infinity, true),
     },
   };
 
@@ -65,7 +70,8 @@
     const n = Number(bruto);
     if (bruto.trim() === '' || !Number.isFinite(n)) throw new Error('precisa de número');
     if (e.tipo === 'int' && !Number.isInteger(n)) throw new Error('precisa de inteiro');
-    if (n < e.min || n > e.max) throw new Error(`fora da faixa ${e.min} a ${e.max}`);
+    if (e.min !== undefined && (e.excl ? n <= e.min : n < e.min)) throw new Error(`precisa ser ${e.excl ? 'maior que' : 'a partir de'} ${e.min}`);
+    if (e.max !== undefined && n > e.max) throw new Error(`precisa ser até ${e.max}`);
     return n;
   }
 
@@ -89,6 +95,9 @@
     return q.toString().replace(/%2C/g, ',');
   }
 
+  // Foto entre aspas simples se tiver espaço ou metacaractere de shell.
+  const aspas = (s) => (/^[\w@%+=:,./-]+$/.test(s) ? s : `'${s.replace(/'/g, `'\\''`)}'`);
+
   // Linha equivalente: só o que difere do padrão, mais mode e colors sempre.
   function comando(qual, params, foto = 'foto.jpg') {
     const esquema = ESQUEMAS[qual];
@@ -99,7 +108,7 @@
       if (k !== 'mode' && k !== 'colors' && igual(v, e.padrao)) continue;
       args.push(e.tipo === 'bool' ? (v ? `--${k}` : `--no-${k}`) : `--${k} ${v}`);
     }
-    return ['node', `ferramentas/${qual}.mjs`, ...(qual === 'imagem' ? [foto] : []), ...args,
+    return ['node', `ferramentas/${qual}.mjs`, ...(qual === 'imagem' ? [aspas(foto)] : []), ...args,
       '--out', `${qual}.svg`].join(' ');
   }
 
