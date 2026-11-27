@@ -18,7 +18,7 @@
 body{margin:0;background:var(--creme);color:var(--umbro);font:400 17px/1.55 var(--font-body);-webkit-font-smoothing:antialiased}
 a{color:inherit}
 a:focus-visible,summary:focus-visible,[tabindex="0"]:focus-visible{outline:2px solid var(--ferro);outline-offset:3px}
-.mono,.mono *{font-family:var(--font-mono);font-variant-ligatures:none}
+.mono,.mono *{font-family:var(--font-mono);font-variant-ligatures:none;overflow-wrap:anywhere}
 
 /* ---- leiaute ---- */
 body>aside{position:fixed;inset:0 auto 0 0;width:260px;overflow:auto;padding:32px 24px;box-sizing:border-box;border-right:1px solid var(--fio-b1);background:var(--creme)}
@@ -93,7 +93,7 @@ main.capitulo{position:relative;padding:var(--cell) calc(var(--cell) * 1.5) calc
 
 /* tabela de especificação: rótulo em mono, amostra ao lado */
 .spec{display:grid;grid-template-columns:190px minmax(0,1fr);max-width:960px;margin:0}
-.spec dt,.spec dd{margin:0;padding:11px 0;border-bottom:1px solid var(--fio);align-content:end}
+.spec dt,.spec dd{min-width:0;overflow-wrap:anywhere;margin:0;padding:11px 0;border-bottom:1px solid var(--fio);align-content:end}
 .spec dt{font:400 11px/1.45 var(--font-mono);color:var(--t2);padding-right:20px}
 @media (max-width:600px){.spec{grid-template-columns:1fr}.spec dt{border:0;padding-bottom:4px}}
 
