@@ -116,7 +116,7 @@ pesos (thin, light, regular, bold, fill, duotone). Um peso por peça; o regular 
 tamanho pequeno, o fill para estado ativo. No **duotone** o plano de 20% recebe uma segunda cor cheia da paleta,
 seguindo os pares de contraste (ex.: ferro sobre damasco). Tratamentos de slide: sólido (creme sobre ladrilho
 ferro), claro (ferro sobre ladrilho damasco), duotone e simples; o ladrilho tem cantos de ¼. Nenhum emoji.
-Arquivos em `assets/icons/phosphor/<peso>/`; capítulo 6 do documento.
+Arquivos em `assets/icons/phosphor/<peso>/`; capítulo 8 do documento.
 
 ---
 

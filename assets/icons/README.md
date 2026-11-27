@@ -15,12 +15,12 @@ unidades desenhada para 24 px, cantos e pontas redondos. Todos os SVGs usam `fil
 Um peso por peça; a exceção é o estado ativo (regular para fill).
 
 **Duotone em cor.** O plano vem com `opacity="0.2"`. No LINA ele recebe uma segunda cor cheia da paleta, com
-opacidade 1, seguindo os pares de contraste do capítulo 2 (ferro · damasco sobre creme é o par padrão). Evitar
+opacidade 1, seguindo os pares de contraste do capítulo 3 (ferro · damasco sobre creme é o par padrão). Evitar
 ferro com turquesa (vibra) e tons vizinhos como damasco com areia (some). Em uma cor só, manter os 20%.
 
 **Ícone novo.** Baixar o mesmo nome nos seis pesos de phosphoricons.com (ou do pacote `@phosphor-icons/core`,
 pasta `assets/<peso>/`) para `phosphor/<peso>/<nome>.svg`, sem alterar o desenho. Depois rodar
-`capitulos/6-icones/_gerar.py` se ele entrar no capítulo.
+`capitulos/icones/_gerar.py` se ele entrar no capítulo.
 
 **Tratamentos no slide** (um por slide): sólido (creme sobre ladrilho ferro), claro (ferro sobre ladrilho
 damasco), duotone (ferro e damasco sobre creme) e simples (ferro). O ladrilho é um quadrado de cantos de ¼ do
