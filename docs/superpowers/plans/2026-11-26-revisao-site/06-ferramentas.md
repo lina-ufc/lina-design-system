@@ -200,7 +200,7 @@ Verificação final: tudo acima e aprovação do dono registrada no `progress.md
 
 ## Tarefas 6 a 9 — pedido do dono de 2026-11-27
 
-Spec: `docs/superpowers/specs/2026-11-27-ferramentas-paginas-e-tons.md`. A Tarefa 5 fica
+Spec: `docs/superpowers/specs/done/2026-11-27-ferramentas-paginas-e-tons.md`. A Tarefa 5 fica
 aberta até a 9 (aprovação única no fim). Sequenciais: 6, 7, 8, 9.
 
 ### Task 6: motor de imagem com os três padrões e cores por tom
