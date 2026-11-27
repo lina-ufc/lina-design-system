@@ -333,6 +333,13 @@
    "livre": true
   },
   {
+   "cap": "imagem",
+   "nome": "Filtro de pontilhado",
+   "sub": "Envie uma foto, ajuste e baixe o SVG ou copie o comando",
+   "secao": "capitulos/imagem/1-filtro-de-pontilhado.html",
+   "livre": true
+  },
+  {
    "cap": "icones",
    "nome": "Phosphor",
    "sub": "O sistema de ícones: MIT, grade 256, traço 1,5",
