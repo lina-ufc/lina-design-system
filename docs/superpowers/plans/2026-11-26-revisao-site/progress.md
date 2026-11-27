@@ -76,3 +76,4 @@ Verificação: `node --test "ferramentas/test/*.test.mjs"` 51/51 (o diretório s
 - 2026-11-27 — Tarefa 1 do 02 concluída. Achado para o 05: em 1.8 o Baixar tem `<a>` dentro de `<a>` (link para 5.5 no cartão do .vectorcraft), o navegador parte o cartão.
 - 2026-11-27 — Tarefa 2 do 02 concluída. Chrome sem janela não abre com menos de 500 px: `render.sh` põe o celular num iframe de 390 px.
 - 2026-11-27 — Tarefa 3 do 02 concluída. Protótipo pronto para o dono.
+- 2026-11-27 — Rodada 2 do 02: número de seção com metade do título, acima dele, margem única; ladrilhos; folga de 2 células. Dono escolheu creme em tudo (página, barra, pranchas), contra o branco do spec. Pendente: 1.3 em 2× quebra em 3+2.

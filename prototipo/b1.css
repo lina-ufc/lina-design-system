@@ -3,7 +3,7 @@
    Grade da marca = grade da página: célula 44 px, meia célula 22 px. */
 
 :root{
-  --branco:#fff;                      /* fundo da interface (chamada do spec) */
+  --branco:var(--creme);              /* fundo de tudo: creme (dono, 2026-11-27) */
   --t2:rgba(42,26,18,.72);            /* texto secundário: umbro sobre branco */
   --fio-b1:rgba(42,26,18,.16);        /* fio de estrutura */
   --ret-1:rgba(42,26,18,.05);         /* retícula: meia célula */
