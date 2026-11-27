@@ -1,11 +1,11 @@
 ---
 name: moldura-9-faixas
-description: Teste da moldura de 9 faixas do site-lina nos capítulos (2026-11-27): decisões do dono; ainda não aplicada
+description: Moldura de 9 faixas do site-lina aplicada a todos os capítulos (2026-11-27): decisões do dono
 type: projeto
 ---
-Teste em `prototipo/moldura.css`, carregado só em páginas `_teste-<capitulo>.html` (cópia do capítulo com
-um `<link>` a mais; ignoradas pelo git). Origem: `~/Developer/site-lina`, `docs/design/prototype/Guia de linguagem.md`.
-Ainda não aplicado aos capítulos (2026-11-27).
+Aplicada em `site.css` (bloco "moldura de 9 faixas", só acima de 820 px; celular segue o B1) em 2026-11-27.
+Origem: `~/Developer/site-lina`, `docs/design/prototype/Guia de linguagem.md`. Mapa da home vira tabela;
+página "em breve" vira uma célula.
 
 Decisões do dono:
 - Estética de tabela: seções coladas, fio `--fio-forte` em volta; tudo dentro da célula é subdivisão dela
@@ -20,5 +20,5 @@ Decisões do dono:
 
 **Why:** pedidos do dono ao revisar renders do teste em Logotipo e Cores.
 
-**How to apply:** ao levar a moldura para `site.css`, seguir estas regras; renderizar com
-`prototipo/render.sh` e mostrar antes de aplicar em tudo.
+**How to apply:** peça nova dentro de seção: subdivisão com `--fio-forte` de ponta a ponta, nunca quadro.
+Conferir no navegador aberto; `prototipo/render.sh` leva ~50 s por página e trava em `templates.html`.
