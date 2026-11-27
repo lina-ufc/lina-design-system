@@ -210,7 +210,7 @@ const defLayout = (name, objects, { bg = { color: 'FFFFFF' }, foot = true, bar }
   // pptxgenjs perde o tipo de espaços de imagem e tabela; post.py os restaura a partir deste registro.
   const all = [...(foot ? footer(bar) : []), ...objects];
   const ph = all.flatMap((o, i) => o.placeholder ? [{ idx: 100 + i, name: o.placeholder.options.name, type: o.placeholder.options.type,
-    box: ['x', 'y', 'w', 'h'].map((k) => Math.round(o.placeholder.options[k] * 144)), degrade: o.placeholder.options.degrade }] : []);
+    box: ['x', 'y', 'w', 'h'].map((k) => Math.round(o.placeholder.options[k] * 144)), degrade: o.placeholder.options.degrade, fit: o.placeholder.options.fit }] : []);
   LAYOUTS.push({ name, foot, ph }); HTML_LAYOUTS[name] = { objects: all, bg, foot };
   pres.defineSlideMaster({ title: name, background: bg, ...(foot ? { slideNumber } : {}),
     objects: all });
@@ -246,7 +246,7 @@ function defineLayouts() {
     build: (n) => [ ...cover(M), ...insts(1080 - M - 99),
       ...[0, 1].map((i) => ph(`Logo ${i + 1}`, 'pic', LOGO_P(i), { color: C.creme }, 'Logo parceiro')),
       ph('Evento', 'body', [M, row(1)[0], col(0, 8)[1], RH], { fontFace: F.mono, fontSize: P(22), color: C.creme, valign: 'bottom' }, 'Evento · DD · MM · AAAA'),
-      ph('Título', 'title', [M, row(2)[0], col(0, 7)[1], row(0, 2)[1]], { ...S.title, fontSize: P(72), color: C.creme }, 'Título do trabalho em até três linhas'),
+      ph('Título', 'title', [M, row(2)[0], col(0, 7)[1], row(0, 2)[1]], { ...S.title, fontSize: P(72), color: C.creme, fit: 'shrink' }, 'Título do trabalho em até três linhas'),
       ...(n === 1 ? [
         ph('Apresentador', 'body', [M, row(4)[0], col(0, 8)[1], 44], { ...S.sub, color: C.creme }, 'Nome do Apresentador'),
         ph('Coautores', 'body', [M, row(4)[0] + 52, col(0, 8)[1], 40], { fontFace: F.light, fontSize: P(24), color: C.creme }, 'Coautores · Orientação')]
@@ -263,7 +263,7 @@ function defineLayouts() {
       { image: { path: A('logo-h-creme.png'), altText: 'LINA', x: X(IX), y: X(M), w: X(200), h: X(68.6) } },
       ...insts(1080 - M - 99, IX - 11),
       ph('Evento', 'body', [IX, row(1)[0], col(0, 7)[1], RH], { fontFace: F.mono, fontSize: P(22), color: C.creme, valign: 'bottom' }, 'Evento · DD · MM · AAAA'),
-      ph('Título', 'title', [IX, row(2)[0], col(0, 5)[1], row(0, 2)[1]], { ...S.title, fontSize: P(72), color: C.creme }, 'Título do trabalho em até três linhas'),
+      ph('Título', 'title', [IX, row(2)[0], col(0, 5)[1], row(0, 2)[1]], { ...S.title, fontSize: P(72), color: C.creme, fit: 'shrink' }, 'Título do trabalho em até três linhas'),
       ph('Autores 1', 'body', [IX, row(4)[0], col(0, 3)[1], RH], AUT, nomes(Math.min(3, n))),
       ...(n > 3 ? [ph('Autores 2', 'body', [col(8)[0], row(4)[0], col(0, 4)[1], RH], AUT, nomes(n - 3))] : []),
     ] };
@@ -556,7 +556,7 @@ async function examples() {
   opcoes.transicoes = true; // o deck de exemplo mostra as transições
   const EV = 'Seminário de pesquisa · 15 · 10 · 2026', TT = 'Título do trabalho em até três linhas, com subtítulo após dois-pontos';
   const AUTORES = ['Ana Beatriz Lima', 'Carlos Eduardo Rocha', 'Daniela Moura', 'Eduardo Pinheiro', 'Fernanda Sales', 'Gabriel Nogueira'];
-  const logo = (i) => ({ img: A('gen/logo-parceiro.png'), alt: 'Logo do parceiro (provisório)', box: { x: X(LOGO_P(i)[0]), y: X(LOGO_P(i)[1]), w: X(LOGO_P(i)[2]), h: X(LOGO_P(i)[3]) } });
+  const logo = () => ({ img: A('gen/logo-parceiro.png'), alt: 'Logo do parceiro (provisório)' }); // sem box: ocupa o espaço de logo do layout (capa ou encerramento)
   const PARTES = ['Contexto e problema', 'Método', 'Levantamento', 'Resultados', 'Discussão', 'Conclusões', 'Trabalhos futuros', 'Referências', 'Anexo A', 'Anexo B', 'Anexo C', 'Anexo D', 'Anexo E', 'Anexo F', 'Anexo G', 'Anexo H', 'Anexo I', 'Anexo J'];
   const sumario = (n) => ({ 'Rótulo': 'Sumário', 'Título': 'O que vamos ver',
     itens: PARTES.slice(0, n).map((t) => (n <= 5 ? { Item: t, Descrição: 'Uma linha sobre esta parte' } : t)) });

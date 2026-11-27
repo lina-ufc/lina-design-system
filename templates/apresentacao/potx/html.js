@@ -43,7 +43,7 @@ module.exports = function toHTML({ layouts, slides, out, opcoes = { lang: 'pt-BR
     // Entrelinha menor que 1: o DeckCraft sobe a primeira linha mais que o navegador. Calibrado no número da seção
     // (371 px, 0,85): sem isto o HTML desce 21 px. ponytail: fator empírico, refazer se mudar fonte ou renderizador.
     const dy = (o.lineSpacingMultiple || 1) < 1 ? (1 - o.lineSpacingMultiple) * 0.38 * o.fontSize * 2 : 0;
-    return `<div${h ? ' role="heading" aria-level="2"' : ''} style="position:absolute;${box(o)};margin-top:${-dy.toFixed(1)}px;box-sizing:border-box;padding:${pad};${bg}${sh}display:flex;flex-direction:column;justify-content:${jc};` +
+    return `<div${h ? ' role="heading" aria-level="2"' : ''}${o.fit === 'shrink' ? ' data-fit' : ''} style="position:absolute;${box(o)};margin-top:${-dy.toFixed(1)}px;box-sizing:border-box;padding:${pad};${bg}${sh}display:flex;flex-direction:column;justify-content:${jc};` +
       `text-align:${o.align || 'left'};${font(o)};line-height:${lh}">${ps}</div>`;
   };
   // Mesma regra de post.py: espaços de imagem que não sangram têm cantos de 22 px.
@@ -213,6 +213,9 @@ class Component extends DCLogic {
   renderVals() { return {}; }
 }
 </script>
+<script>// Título longo da capa: reduz a fonte até caber na caixa (como o ajuste automático do PowerPoint).
+const fit = () => document.querySelectorAll('[data-fit]').forEach((e) => { let s = parseFloat(e.style.fontSize); while (e.scrollHeight > e.clientHeight + 1 && s > 36) e.style.fontSize = (s -= 2) + 'px'; });
+document.fonts.ready.then(() => { fit(); new MutationObserver(fit).observe(document.body, { childList: true, subtree: true }); }); // o runtime do deck refaz os slides depois da carga</script>
 </body>
 </html>
 `;

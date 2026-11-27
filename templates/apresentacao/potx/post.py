@@ -49,6 +49,8 @@ def fix_layout(x):
                                 f'<a:prstGeom prst="roundRect"><a:avLst><a:gd name="adj" fmla="val {adj}"/></a:avLst></a:prstGeom>', 1)
             if p['name'].startswith(('Imagem', 'Ilustração')):
                 sp = sp.replace('<a:noFill/>', '<a:solidFill><a:srgbClr val="FDF1CF"/></a:solidFill>', 1)
+        if p.get('fit') == 'shrink':  # título longo da capa: ajuste automático do PowerPoint
+            sp = re.sub(r'(<a:bodyPr[^>]*?)(/>|>)', lambda m: m.group(1) + '><a:normAutofit/></a:bodyPr>' if m.group(2) == '/>' else m.group(0) + '<a:normAutofit/>', sp, count=1)
         x = x[:a] + sp + x[b:]
         if p.get('degrade'): x = poe_grad(x, p['idx'], p['degrade'])
     if L['foot']:
