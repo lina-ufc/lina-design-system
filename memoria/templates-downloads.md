@@ -1,6 +1,6 @@
 ---
 name: templates-downloads
-description: Capítulo Templates (10) é a página de downloads de templates; layouts numerados em 6 famílias; Aplicações fora da navegação
+description: Capítulo Templates (11) é a página de downloads de templates; layouts numerados em 6 famílias; Aplicações fora da navegação
 type: regra
 ---
 

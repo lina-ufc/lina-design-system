@@ -93,7 +93,7 @@ ocorrência. `llms.txt` é regenerado. Corrigido à mão, por apontar para o nú
 - Voz e texto, Tratamento: o laboratório nunca fala em "nós" em peça institucional, ou só no site e nos documentos? (proposta)
 - Voz e texto, Números e datas: data em texto por extenso ("22 de novembro de 2026") e em dado como "22/11/2026"; nome de arquivo e registro em ano-mês-dia. Serve? (proposta)
 - Voz e texto, Números e datas: ponto de milhar só a partir de cinco algarismos ("1250", "12.500")? (proposta)
-- Voz e texto, Números e datas: espaço antes da unidade e do "%" ("44 px", "50 %")? O site hoje escreve "20%" em alguns lugares. (proposta)
+- Voz e texto, Números e datas: espaço antes da unidade e do "%" ("44 px", "50 %")? O site hoje escreve "20%" em alguns lugares, e Tipografia, Detalhes, escreve "11px" e "0,12em" sem espaço: a regra proposta diverge dele. (proposta)
 - Voz e texto, Nomes e siglas: o nome oficial leva dois-pontos (README) ou travessão (SKILL.md)? O texto usa dois-pontos. (proposta)
 - Voz e texto, Nomes e siglas: nome por extenso na primeira menção em todo texto, ou só em documento que chega a quem não conhece o LINA? (proposta)
 - Voz e texto, Nomes e siglas: siglas de uso geral (PDF, IFC, A4) dispensam o nome por extenso, e o plural da sigla não leva "s"? (proposta)
