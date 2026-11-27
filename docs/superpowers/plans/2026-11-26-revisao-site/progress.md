@@ -24,7 +24,7 @@
 | 03 — fonte única | `[██████████]` | 4/4 | Completo (mesclado na main) |
 | 04 — estrutura | `[██████████]` | 5/5 | Completo (mesclado na main) |
 | 05 — visual em tudo | `[██████████]` | 6/6 | Completo (mesclado na main) |
-| 06 — ferramentas no site | `[██████░░░░]` | 6/9 | Em execução (branch `revisao-site/06-ferramentas`) |
+| 06 — ferramentas no site | `[███████░░░]` | 7/9 | Em execução (branch `revisao-site/06-ferramentas`) |
 | 07 — conteúdo novo | `[░░░░░░░░░░]` | — | Não escrito |
 | 08 — arquivar visual-code | `[░░░░░░░░░░]` | — | Não escrito |
 
@@ -94,7 +94,7 @@ Herança para o 05: hex das 12 cores seguem em `capitulos/` (2.x, 3.x, 4.x, 8.2)
 - [ ] **Tarefa 5** — Recursos 11.3, verificação, acessibilidade, aprovação do dono. `b82f0c1`, `c8aa1d2`; checagens e navegador ok ([record](records/06-ferramentas.md)); falta aprovação do dono e decisão sobre fotos > 1600 px
 - [x] **Tarefa 6** — motor de imagem: Pontilhado, Dispersão, Campo; cores por tom (spec 2026-11-27). `038d72f`, `1270d37`; review após 1 rodada (faixa igual ao fundo recusada; divisa sem costura); 82/82
 - [x] **Tarefa 7** — interface do filtro com os três padrões e as faixas de tom. `0123e80`, `8f45a6f`; review após 1 rodada (troca de cor sem duplicar); SVG = CLI nos três modos
-- [ ] **Tarefa 8** — ferramentas em páginas próprias; índice e menu
+- [x] **Tarefa 8** — ferramentas em páginas próprias; índice e menu. `c44ec49`, `130fde2`, `0ab7511`; review limpo (menores: f-string só em Python 3.12 corrigido; texto de abertura repete o subtítulo e links antigos `#s-gerador` sem redirecionar ficam para a tarefa 9); cores logo abaixo de Filtro; 82/82
 - [ ] **Tarefa 9** — verificação e aprovação do dono
 
 ## Estado herdado
