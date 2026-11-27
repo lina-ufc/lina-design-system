@@ -68,7 +68,7 @@ móveis, regra aplicada pelo traçador e não bloqueada.
 
 ---
 
-## Tarefa 1 — base comum: `lina-ferramenta.js` e estilo dos controles
+### Task 1: base comum: `lina-ferramenta.js` e estilo dos controles
 
 Sequencial (as outras dependem dela).
 
@@ -117,7 +117,7 @@ Cada uma: fragmento novo, script novo, entrada em `sistema.json`, um render de c
 (`sh prototipo/render.sh <pagina>.html 06-<cap>`) e o relatório com o que ficou de fora do
 original. O controlador confere no navegador (tarefa 5).
 
-### Tarefa 2 — gerador de padrões (Padrões 6.9)
+### Task 2: gerador de padrões (Padrões 6.9)
 
 **Arquivos:** criar `capitulos/padroes/9-gerador.html`, `assets/lina-ui-textura.js`;
 `sistema.json` (entrada `livre`).
@@ -138,7 +138,7 @@ original. O controlador confere no navegador (tarefa 5).
 - Erro de `render` (par recusado): `.status` com a mensagem do motor; ações desativadas;
   prévia anterior fica. Verificar à mão com `colors` de um par de `LinaPalette.AVOID`.
 
-### Tarefa 3 — filtro de pontilhado (Imagem 7.1)
+### Task 3: filtro de pontilhado (Imagem 7.1)
 
 **Arquivos:** criar `capitulos/imagem/1-filtro-de-pontilhado.html`, `assets/lina-ui-imagem.js`;
 `sistema.json` (primeira entrada do capítulo `imagem`, que sai de "em breve").
@@ -159,7 +159,7 @@ original. O controlador confere no navegador (tarefa 5).
   configurações), "Copiar comando".
 - Uma frase antes da ferramenta: a foto não sai do navegador.
 
-### Tarefa 4 — editor de células (Logotipo 2.10)
+### Task 4: editor de células (Logotipo 2.10)
 
 **Arquivos:** criar `capitulos/logotipo/10-editor-de-celulas.html`, `assets/lina-ui-celulas.js`;
 renomear `capitulos/logotipo/10-baixar-logotipo.html` para `11-baixar-logotipo.html`
@@ -179,7 +179,7 @@ renomear `capitulos/logotipo/10-baixar-logotipo.html` para `11-baixar-logotipo.h
 - Ações: "Baixar SVG" (`lina-celulas.svg`, recorte ao contorno dos blocos, sem fundo),
   "Copiar SVG".
 
-## Tarefa 5 — Recursos, verificação, acessibilidade, aprovação do dono
+### Task 5: Recursos, verificação, acessibilidade, aprovação do dono
 
 Sequencial, controlador.
 
