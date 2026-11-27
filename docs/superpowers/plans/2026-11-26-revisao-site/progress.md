@@ -22,7 +22,7 @@
 | 01 — motores | `[██████████]` | 5/5 | Completo (branch `revisao-site/01-motores`, não mesclada) |
 | 02 — protótipo visual | `[██████████]` | 4/4 | Completo (mesclado na main) (branch `revisao-site/02-prototipo`) |
 | 03 — fonte única | `[██████████]` | 4/4 | Completo (mesclado na main) |
-| 04 — estrutura | `[░░░░░░░░░░]` | — | Não escrito. Espera o 02 aprovado |
+| 04 — estrutura | `[░░░░░░░░░░]` | 0/5 | Em execução (branch `revisao-site/04-estrutura`) |
 | 05 — visual em tudo | `[░░░░░░░░░░]` | — | Não escrito |
 | 06 — ferramentas no site | `[░░░░░░░░░░]` | — | Não escrito |
 | 07 — conteúdo novo | `[░░░░░░░░░░]` | — | Não escrito |
@@ -62,6 +62,16 @@ Verificação: `python3 sistema.py` ok (53 links no `llms.txt`); `node --test "f
 
 Herança para o 05: hex das 12 cores seguem em `capitulos/` (2.x, 3.x, 4.x, 8.2), `assets/lina-draw.js`, `assets/lina-dither-field.js` e `templates/` (fora do escopo pelo spec).
 
+## Plano 04 — estrutura
+
+`[░░░░░░░░░░]` 0% — 0 de 5 tarefas. Decisões do dono no topo de [`04-estrutura.md`](04-estrutura.md).
+
+- [ ] **Tarefa 1** — `sistema.json`/`sistema.py` em quatro partes, pastas sem número, redirecionamentos
+- [ ] **Tarefa 2** — home, Princípios (proposta), Recursos
+- [ ] **Tarefa 3** — molde de seção e piloto no Logotipo
+- [ ] **Tarefa 4** — referências e números soltos
+- [ ] **Tarefa 5** — verificação, revisão, aprovação do piloto
+
 ## Estado herdado
 
 - Base: `a76283c` (Capítulo 7 concluído).
@@ -94,3 +104,4 @@ Herança para o 05: hex das 12 cores seguem em `capitulos/` (2.x, 3.x, 4.x, 8.2)
 - 2026-11-27 — Plano 03 escrito (fonte única, `SKILL.md` índice, `llms.txt`).
 - 2026-11-27 — Tarefas 1 e 2 do 03 concluídas (tokens DTCG, `llms.txt`), em paralelo.
 - 2026-11-27 — Tarefas 3 e 4 do 03 concluídas. Plano 03 completo; branch aguarda merge.
+- 2026-11-27 — Plano 04 escrito. Dono: numeração contínua sem número no arquivo, molde com piloto no Logotipo, home porta de entrada, Recursos agora.
