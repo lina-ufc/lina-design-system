@@ -64,3 +64,8 @@ Pergunta do texto (revisão da Tarefa 1): `feedback.sub` ("Aponte um erro ou dig
 - Valor enviado: texto da opção. Vazio = "Geral, sem seção específica"; "Página inicial"; "<n> <Capítulo>" (opção "<n> <Capítulo> (capítulo todo)", legível com a lista fechada); "<n.m> <Seção>"; nome da ferramenta.
 - Opções geradas em `sistema.py` (numeração de `sistema.json`, `rot(e)`) no marcador `<!--secoes-->` de `paginas/feedback.html`.
 - Link do menu (`?pagina=arquivo.html`): `lina-feedback.js` marca a opção cujo `data-arq` é o arquivo (capítulo, ferramenta ou `index.html`); sem par, fica "Geral". "Enviar outra mensagem" volta o select à primeira opção.
+
+## Dono
+
+- 2026-11-28: envio real (normal e com isca) e VoiceOver feitos pelo dono ("feito").
+- 2026-11-28: pediu o campo Página como lista de seções (seção acima). `6304986`, `18d3ad6`; review limpo; navegador: `?pagina=cores.html` marca "3 Cores (capítulo todo)", envio manda `pagina=3 Cores`, select 44 px e `scrollWidth` 390 em 390 px.

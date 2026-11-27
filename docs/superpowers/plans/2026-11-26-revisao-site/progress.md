@@ -130,7 +130,7 @@ Herança para o 05: hex das 12 cores seguem em `capitulos/` (2.x, 3.x, 4.x, 8.2)
 
 - [x] **Tarefa 1** — texto revisado com `design:ux-copy` (página, avisos, link do menu, bloco da home). `b1c120f`; review limpo; link vira "Feedback sobre esta página"
 - [x] **Tarefa 2** — acessibilidade: 4 menores do 08, bloco da home em lista, `design:accessibility-review`. `7256fcf`; review limpo; +3 achados WCAG corrigidos (borda dos campos, "Enviando…" anunciado, foco na falha); 2 perguntas de gosto
-- [ ] **Tarefa 3** — verificação final, envio real com isca, VoiceOver, renders, aprovação do dono. Checagens, navegador e renders ok (`0e2be98`, [record](records/10-feedback-final.md)); faltam envio real, VoiceOver e aprovação (dono)
+- [ ] **Tarefa 3** — verificação final, envio real com isca, VoiceOver, renders, aprovação do dono. Checagens, navegador e renders ok (`0e2be98`, [record](records/10-feedback-final.md)); envio real e VoiceOver feitos pelo dono; seção em lista a pedido do dono (`6304986`, `18d3ad6`, review limpo); falta aprovação
 
 ## Estado herdado
 
@@ -187,3 +187,4 @@ Herança para o 05: hex das 12 cores seguem em `capitulos/` (2.x, 3.x, 4.x, 8.2)
 - 2026-11-27 — Plano 09 completo (`95ea597`): link no sumário e bloco na home verificados no navegador. Próximo: escrever o 10.
 - 2026-11-28 — 09 mesclado na main (`09e07e1`). Plano 10 escrito: texto, acessibilidade (menores do 08, bloco da home em lista), envio real com isca e aprovação.
 - 2026-11-28 — Tarefas 1 e 2 do 10 concluídas; verificação no navegador e renders ok. Aguarda o dono: envio real com isca, VoiceOver, aprovação.
+- 2026-11-28 — Dono fez envio real e VoiceOver; pediu Página como lista de seções (feito). Falta aprovação.
