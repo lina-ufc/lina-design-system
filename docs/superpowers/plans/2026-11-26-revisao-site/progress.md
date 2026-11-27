@@ -23,7 +23,7 @@
 | 02 — protótipo visual | `[██████████]` | 4/4 | Completo (mesclado na main) (branch `revisao-site/02-prototipo`) |
 | 03 — fonte única | `[██████████]` | 4/4 | Completo (mesclado na main) |
 | 04 — estrutura | `[██████████]` | 5/5 | Completo (mesclado na main) |
-| 05 — visual em tudo | `[██░░░░░░░░]` | 1/6 | Em execução (branch `revisao-site/05-visual`) |
+| 05 — visual em tudo | `[████████░░]` | 5/6 | Em execução (branch `revisao-site/05-visual`) |
 | 06 — ferramentas no site | `[░░░░░░░░░░]` | — | Não escrito |
 | 07 — conteúdo novo | `[░░░░░░░░░░]` | — | Não escrito |
 | 08 — arquivar visual-code | `[░░░░░░░░░░]` | — | Não escrito |
@@ -74,14 +74,14 @@ Herança para o 05: hex das 12 cores seguem em `capitulos/` (2.x, 3.x, 4.x, 8.2)
 
 ## Plano 05 — visual em tudo
 
-`[██░░░░░░░░]` 17% — 1 de 6 tarefas.
+`[████████░░]` 83% — 5 de 6 tarefas.
 
 - [x] **Tarefa 1** — base: `site.css` com o B1, `.prancha`, Logotipo sem protótipo, 2.7/2.8 entradas próprias, `aria-current`. `b716424`, `c627c7b`, `8621a55`; sistema.py ok, 1 `!important` (paleta), 56/56; render igual à ref salvo 2.8/2.10 novas. Pendentes à 6: link 4.5 do .vectorcraft virou texto; `h2.h` inline em 4.x, 8.x, 10.x
-- [ ] **Tarefa 2** — Cores: molde e pranchas
-- [ ] **Tarefa 3** — Padrões: molde e pranchas
-- [ ] **Tarefa 4** — Tipografia e Ícones: molde e pranchas
-- [ ] **Tarefa 5** — Componentes: molde e pranchas
-- [ ] **Tarefa 6** — verificação, acessibilidade, aprovação do dono
+- [x] **Tarefa 2** — Cores: molde e pranchas. `1edc579`; 6 seções `livre`; Baixar vira 3.9
+- [x] **Tarefa 3** — Padrões: molde e pranchas. `cf8868a`; sem `livre`
+- [x] **Tarefa 4** — Tipografia e Ícones: molde e pranchas. `4105105`; Baixar 4.6 e 8.7, Opacidade original 8.4
+- [x] **Tarefa 5** — Componentes: molde e pranchas; Templates sem `h2` inline. `cc57719`, blocos `site.css`/`sistema.json` em commit próprio; links para os Baixar `6ed393d`
+- [ ] **Tarefa 6** — verificação, acessibilidade, aprovação do dono. Checagens ok, 0 rolagem lateral, 7 achados de critério corrigidos (`a03b584`, `d54ad2a`, último commit); 10 perguntas ao dono. Record: [`records/05-visual.md`](records/05-visual.md). Falta: decisão do dono
 
 ## Estado herdado
 
@@ -120,3 +120,4 @@ Herança para o 05: hex das 12 cores seguem em `capitulos/` (2.x, 3.x, 4.x, 8.2)
 - 2026-11-27 — Molde do piloto aprovado. Plano 04 completo; 05 desbloqueado. Abertos ao dono: princípio "forma" x "letra", h2 internos de 2.7/2.8.
 - 2026-11-27 — Plano 05 escrito. Dono: 2.7 e 2.8 viram entradas próprias do Logotipo (Baixar no fim). Templates, Princípios e Recursos sem molde.
 - 2026-11-27 — Tarefa 1 do 05 concluída. Baixar do Logotipo com id `s-baixar-logotipo` (`s-baixar` já é de Recursos).
+- 2026-11-27 — Tarefas 2–5 do 05 concluídas em paralelo; tarefa 6: verificação e revisão, 7 achados corrigidos. Aguarda o dono (10 perguntas no record).
