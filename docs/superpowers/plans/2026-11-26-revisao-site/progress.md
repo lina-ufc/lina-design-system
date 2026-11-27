@@ -1,6 +1,6 @@
 # Revisão do site — Progresso da implementação
 
-**Última atualização:** 2026-11-27. Branch `main`.
+**Última atualização:** 2026-11-27. Branch `revisao-site/03-fonte-unica`.
 
 Índice: [`README.md`](README.md).
 
@@ -21,7 +21,7 @@
 | --- | --- | --- | --- |
 | 01 — motores | `[██████████]` | 5/5 | Completo (branch `revisao-site/01-motores`, não mesclada) |
 | 02 — protótipo visual | `[██████████]` | 4/4 | Completo (mesclado na main) (branch `revisao-site/02-prototipo`) |
-| 03 — fonte única | `[░░░░░░░░░░]` | — | Não escrito. Escrito quando o 01 terminar |
+| 03 — fonte única | `[░░░░░░░░░░]` | 0/4 | Em execução (branch `revisao-site/03-fonte-unica`) |
 | 04 — estrutura | `[░░░░░░░░░░]` | — | Não escrito. Espera o 02 aprovado |
 | 05 — visual em tudo | `[░░░░░░░░░░]` | — | Não escrito |
 | 06 — ferramentas no site | `[░░░░░░░░░░]` | — | Não escrito |
@@ -48,6 +48,17 @@ Verificação: `node --test "ferramentas/test/*.test.mjs"` 51/51 (o diretório s
 - [x] **Tarefa 2** — folha `prototipo/b1.css`. `dc1d0c4`; 14 `!important` contra inline de fragmento; render do celular corrigido (iframe de 390 px)
 - [x] **Tarefa 3** — revisão de design e acessibilidade. `335b97f`; 11 achados de critério corrigidos, 8 perguntas de gosto ao dono; página atual idêntica ao pixel. Record: [`records/02-revisao.md`](records/02-revisao.md)
 - [x] **Tarefa 4** — aprovação do dono. Rodada 2 (`b3cd16c`), creme (`4a59347`), 1.3 a 1,5× em 3 colunas; memória `visual-b1`
+
+## Plano 03 — fonte única
+
+`[░░░░░░░░░░]` 0% — 0 de 4 tarefas.
+
+- [ ] **Tarefa 1** — `ferramentas/tokens.mjs` gera `tokens/lina.tokens.json` (DTCG) e confere `colors.css` contra a paleta
+- [ ] **Tarefa 2** — `sistema.py` gera `llms.txt`
+- [ ] **Tarefa 3** — `README.md` sem hex; `SKILL.md` como índice
+- [ ] **Tarefa 4** — teste às cegas e revisão
+
+Herança para o 05: hex das 12 cores seguem em `capitulos/` (2.x, 3.x, 4.x, 8.2), `assets/lina-draw.js`, `assets/lina-dither-field.js` e `templates/` (fora do escopo pelo spec).
 
 ## Estado herdado
 
@@ -78,3 +89,4 @@ Verificação: `node --test "ferramentas/test/*.test.mjs"` 51/51 (o diretório s
 - 2026-11-27 — Tarefa 3 do 02 concluída. Protótipo pronto para o dono.
 - 2026-11-27 — Rodada 2 do 02: número de seção com metade do título, acima dele, margem única; ladrilhos; folga de 2 células. Dono escolheu creme em tudo (página, barra, pranchas), contra o branco do spec. Pendente: 1.3 em 2× quebra em 3+2.
 - 2026-11-27 — 1.3 a 1,5× em três colunas iguais. Plano 02 completo; 04 e 05 desbloqueados.
+- 2026-11-27 — Plano 03 escrito (fonte única, `SKILL.md` índice, `llms.txt`).
