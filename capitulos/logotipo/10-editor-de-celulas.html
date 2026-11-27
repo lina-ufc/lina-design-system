@@ -1,0 +1,32 @@
+<h2>Editor de células</h2>
+<p class="p">Clique na grade para pôr uma célula, arraste para mover e use o botão direito ou Delete para apagar: o traçador aplica a regra dos cantos, e o desenho fica só neste navegador.</p>
+<div class="ferramenta" id="ec">
+<div class="controles">
+<fieldset><legend>Nova célula</legend><div class="seg" id="ec-brush">
+<button type="button" data-v="4">Célula</button><button type="button" data-v="2">Meia célula</button>
+</div></fieldset>
+<fieldset><legend>Encaixe</legend><div class="seg" id="ec-snap">
+<button type="button" data-v="4">Célula</button><button type="button" data-v="2">Meia</button><button type="button" data-v="1">Quarto</button>
+</div></fieldset>
+<fieldset><label><input id="ec-grade" type="checkbox"> Mostrar grade</label></fieldset>
+<fieldset><legend><label for="ec-cor">Cor</label></legend><select id="ec-cor"></select></fieldset>
+<fieldset><legend>Tamanho da grade em células</legend><div class="linha">
+<input id="ec-cols" type="number" min="4" max="48" step="1" aria-label="Colunas"><span aria-hidden="true">×</span><input id="ec-rows" type="number" min="3" max="32" step="1" aria-label="Linhas">
+</div></fieldset>
+</div>
+<div class="previa">
+<div class="prancha"><svg id="ec-board" xmlns="http://www.w3.org/2000/svg" tabindex="0" role="group" aria-label="Grade de edição: Enter adiciona uma célula, setas movem, Delete apaga, Esc solta.">
+<g id="ec-grid"></g><path id="ec-forma" fill-rule="evenodd"></path><g id="ec-marcas"></g><rect id="ec-fantasma" visibility="hidden"></rect>
+</svg></div>
+<p class="status" id="ec-status" role="status"></p>
+<div class="acoes">
+<button type="button" id="ec-desfazer">Desfazer</button><button type="button" id="ec-refazer">Refazer</button>
+<button type="button" id="ec-apagar">Apagar célula</button><button type="button" id="ec-limpar">Limpar</button>
+<button type="button" id="ec-letreiro" style="grid-column:span 2">Carregar logotipo LINA</button>
+</div>
+<div class="acoes">
+<button type="button" id="ec-baixar">Baixar SVG</button><button type="button" id="ec-copiar">Copiar SVG</button>
+</div>
+</div>
+</div>
+<script src="assets/lina-geometry.js"></script><script src="assets/lina-palette.js"></script><script src="assets/lina-ferramenta.js"></script><script src="assets/lina-ui-celulas.js"></script>

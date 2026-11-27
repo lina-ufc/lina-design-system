@@ -460,3 +460,14 @@ body>aside .rotulo{margin:20px 0 2px}
 .ferramenta .previa .prancha{display:block;margin:0}
 .ferramenta .previa .acoes{margin-top:var(--cell-half)}
 .ferramenta fieldset>label+label,.ferramenta fieldset>label+button{margin-top:var(--cell-quarter)}
+/* editor de células (Logotipo 2.10) */
+#ec-board{display:block;width:100%;max-height:75vh;touch-action:none;user-select:none;-webkit-user-select:none} /* touch-action só aqui: fora do SVG a página rola */
+#ec-board:focus{outline:none}#ec-board:focus-visible{outline:2px solid var(--ferro);outline-offset:2px}
+#ec-board .fino,#ec-board .meia,#ec-board .celula,#ec-board .moldura{stroke:var(--umbro);fill:none}
+#ec-board .fino{stroke-opacity:.07}#ec-board .meia{stroke-opacity:.14}#ec-board .celula{stroke-opacity:.28}#ec-board .moldura{stroke-opacity:.5}
+#ec-forma{stroke:var(--umbro);stroke-opacity:.35;vector-effect:non-scaling-stroke} /* contorno só na prévia: cor clara não some no creme */
+#ec-board .halo{fill:none;stroke:var(--creme);stroke-width:4}
+#ec-board .sel{fill:none;stroke:var(--umbro);stroke-width:2}
+#ec-board .fora{fill:none;stroke:var(--umbro);stroke-width:2;stroke-dasharray:4 3}
+#ec-fantasma{fill:var(--ferro);fill-opacity:.14}
+.ferramenta .status.aviso{color:var(--ferro)}

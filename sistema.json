@@ -174,9 +174,16 @@
   },
   {
    "cap": "logotipo",
+   "nome": "Editor de células",
+   "sub": "Monte formas com células e baixe o SVG com os cantos já traçados",
+   "secao": "capitulos/logotipo/10-editor-de-celulas.html",
+   "livre": true
+  },
+  {
+   "cap": "logotipo",
    "nome": "Baixar",
    "sub": "Logos em SVG, PNG e PDF, arquivo de marca e logos institucionais",
-   "secao": "capitulos/logotipo/10-baixar-logotipo.html",
+   "secao": "capitulos/logotipo/11-baixar-logotipo.html",
    "livre": true
   },
   {
