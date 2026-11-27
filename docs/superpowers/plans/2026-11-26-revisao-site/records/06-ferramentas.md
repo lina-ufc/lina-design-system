@@ -56,6 +56,6 @@ Data: 2026-11-27. Branch `revisao-site/06-ferramentas`.
 |---|---|---|
 | 1 | Só SVG, sem PNG nem fundo transparente | pendente |
 | 2 | Sem modo `glyphs`, raio fixo em ¼ | pendente |
-| 3 | Filtro sem foto de exemplo | pendente |
+| 3 | Filtro sem foto de exemplo | Recusada (2026-11-27): usar foto de exemplo. Filtro abre com o retrato `capitulos/imagem/img/exemplo.jpg` (do `lina-sample.js`) e tem botão "Usar exemplo"; SVG idêntico ao do comando |
 | 4 | Editor: cor entre os 12 tokens; estado só no `localStorage` | pendente |
 | 5 | Posições 6.9, 7.1, 2.10 (Baixar em 2.11) e 11.3 | pendente |

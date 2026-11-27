@@ -157,7 +157,15 @@
     F.copiar(location.href.split('#')[0] + (F.escreverHash(p, ESQ) ? '#' + F.escreverHash(p, ESQ) : ''), st));
   $('fi-cmd').addEventListener('click', () => F.copiar(F.comando('imagem', p, nome || undefined), st));
 
+  // Foto de exemplo: abre com ela; o caminho vai no comando para o terminal reproduzir.
+  const EXEMPLO = 'capitulos/imagem/img/exemplo.jpg';
+  async function exemplo() {
+    try { carrega(new File([await (await fetch(EXEMPLO)).blob()], EXEMPLO)); } catch (_) { /* aberto do disco: fica a prévia vazia */ }
+  }
+  $('fi-exemplo').addEventListener('click', exemplo);
+
   sincroniza();
   desenha();
+  exemplo();
   if (location.hash.includes('=')) raiz.parentElement.scrollIntoView(); // link com ajustes: abre na seção
 })();
