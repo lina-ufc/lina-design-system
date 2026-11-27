@@ -71,7 +71,7 @@
       const [, , w, h] = s.getAttribute('viewBox').split(' ');
       s.removeAttribute('width'); s.removeAttribute('height'); // largura 100 %, altura auto: nunca distorce
       s.style.cssText = 'display:block;width:100%;height:auto';
-      info = `${w} × ${h} px.`;
+      info = `${Math.round(w)} × ${Math.round(h)} px.`;
       acoes.forEach((b) => { b.disabled = false; });
     } catch (e) { // motor recusou: a prévia anterior fica
       info = e.message;

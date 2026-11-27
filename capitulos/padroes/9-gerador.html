@@ -15,25 +15,25 @@
 <input id="gp-largura" type="number" min="1" step="1" aria-label="Largura em pixels"><input id="gp-altura" type="number" min="1" step="1" aria-label="Altura em pixels">
 </div></fieldset>
 <fieldset><legend><label for="gp-cells">Células na largura</label></legend><div class="linha">
-<input id="gp-cells" type="range" data-k="cells" min="4" max="120" step="1"><output for="gp-cells" data-out="cells"></output>
+<input id="gp-cells" type="range" data-k="cells" min="4" max="120" step="1"><output aria-live="off" for="gp-cells" data-out="cells"></output>
 </div></fieldset>
 <fieldset><legend><label for="gp-blank">Espaço vazio</label></legend><div class="linha">
-<input id="gp-blank" type="range" data-k="blank" data-pct min="0" max="100" step="1"><output for="gp-blank" data-out="blank"></output>
+<input id="gp-blank" type="range" data-k="blank" data-pct min="0" max="100" step="1"><output aria-live="off" for="gp-blank" data-out="blank"></output>
 </div></fieldset>
 <fieldset data-modos="scatter field"><legend><label for="gp-steps">Meios passos</label></legend><div class="linha">
-<input id="gp-steps" type="range" data-k="steps" data-pct min="0" max="100" step="1"><output for="gp-steps" data-out="steps"></output>
+<input id="gp-steps" type="range" data-k="steps" data-pct min="0" max="100" step="1"><output aria-live="off" for="gp-steps" data-out="steps"></output>
 </div></fieldset>
 <fieldset data-modos="scatter"><legend><label for="gp-quarter">Vãos de ¼</label></legend><div class="linha">
-<input id="gp-quarter" type="range" data-k="quarter" data-pct min="0" max="100" step="1"><output for="gp-quarter" data-out="quarter"></output>
+<input id="gp-quarter" type="range" data-k="quarter" data-pct min="0" max="100" step="1"><output aria-live="off" for="gp-quarter" data-out="quarter"></output>
 </div></fieldset>
 <fieldset data-modos="scatter"><legend><label for="gp-clump">Aglomeração</label></legend><div class="linha">
-<input id="gp-clump" type="range" data-k="clump" data-pct min="0" max="100" step="1"><output for="gp-clump" data-out="clump"></output>
+<input id="gp-clump" type="range" data-k="clump" data-pct min="0" max="100" step="1"><output aria-live="off" for="gp-clump" data-out="clump"></output>
 </div></fieldset>
 <fieldset data-modos="field dither"><legend><label for="gp-grain">Grão</label></legend><div class="linha">
-<input id="gp-grain" type="range" data-k="grain" min="1" max="16" step="0.5"><output for="gp-grain" data-out="grain"></output>
+<input id="gp-grain" type="range" data-k="grain" min="1" max="16" step="0.5"><output aria-live="off" for="gp-grain" data-out="grain"></output>
 </div></fieldset>
 <fieldset data-modos="field dither"><legend><label for="gp-stretch">Alongamento</label></legend><div class="linha">
-<input id="gp-stretch" type="range" data-k="stretch" data-pct min="0" max="100" step="1"><output for="gp-stretch" data-out="stretch"></output>
+<input id="gp-stretch" type="range" data-k="stretch" data-pct min="0" max="100" step="1"><output aria-live="off" for="gp-stretch" data-out="stretch"></output>
 </div></fieldset>
 <fieldset><legend>Bordas</legend><div class="seg" id="gp-edges">
 <button type="button" data-v="bleed">Sangria</button><button type="button" data-v="cut">Dentro</button><button type="button" data-v="seamless">Contínuo</button>
@@ -49,11 +49,11 @@
 <button type="button" id="gp-sortear">Sortear</button>
 </fieldset>
 <fieldset data-cores="3"><legend><label for="gp-accent">Formas de destaque</label></legend><div class="linha">
-<input id="gp-accent" type="range" data-k="accent" data-pct min="0" max="100" step="1"><output for="gp-accent" data-out="accent"></output>
+<input id="gp-accent" type="range" data-k="accent" data-pct min="0" max="100" step="1"><output aria-live="off" for="gp-accent" data-out="accent"></output>
 </div></fieldset>
 </div>
 <div class="previa">
-<div class="prancha" id="gp-prancha"></div>
+<div class="prancha" id="gp-prancha" role="img" aria-label="Prévia do padrão"></div>
 <p class="status" id="gp-status" role="status"></p>
 <div class="acoes">
 <button type="button" id="gp-baixar">Baixar SVG</button><button type="button" id="gp-copiar">Copiar SVG</button>
