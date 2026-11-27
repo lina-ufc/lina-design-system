@@ -22,7 +22,7 @@
   ];
 
   const NAMES = Object.keys(COLORS);
-  const hex = (c) => COLORS[c] || c;
+  const hex = (c) => Object.hasOwn(COLORS, c) ? COLORS[c] : c;
   function lum(c) {
     const h = hex(c).replace('#', '');
     const [r, g, b] = [0, 2, 4].map((i) => {
@@ -51,7 +51,7 @@
   function check(names) {
     if (!Array.isArray(names) || names.length < 2 || names.length > 3)
       return no('Use 2 ou 3 cores.');
-    const bad = names.find((n) => !COLORS[n]);
+    const bad = names.find((n) => !Object.hasOwn(COLORS, n));
     if (bad !== undefined)
       return no(`Cor desconhecida: "${bad}". Nomes válidos: ${NAMES.join(', ')}.`);
     const d = pair(names[0], names[1]);

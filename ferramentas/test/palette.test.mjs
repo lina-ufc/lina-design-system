@@ -15,8 +15,8 @@ test('pares de 2.6 são recusados', () => {
   assert.match(LinaPalette.check(['turquesa','ferro']).reason, /evitar/i);
 });
 test('contraste baixo é recusado', () => {
-  const r = LinaPalette.check(['creme','nata','damasco'].slice(0, 1).concat('areia'));
-  assert.equal(r.ok, false);
+  const r = LinaPalette.check(['areia','turquesa']);
+  assert.equal(r.ok, false); assert.match(r.reason, /contraste/);
 });
 test('exemplos de 3.4–3.6 passam', () => {
   assert.equal(LinaPalette.check(['ferro-fundo','ferro']).kind, 'mono');
@@ -28,6 +28,10 @@ test('exemplos de 3.4–3.6 passam', () => {
 test('contraste confere com 2.4', () => {
   assert.equal(LinaPalette.contrast('umbro','creme').toFixed(1), '15.1');
   assert.equal(LinaPalette.contrast('ferro','creme').toFixed(1), '6.6');
+});
+test('chaves do protótipo são recusadas', () => {
+  assert.equal(LinaPalette.check(['constructor','creme']).ok, false);
+  assert.equal(LinaPalette.check(['constructor','toString']).ok, false);
 });
 test('nome desconhecido explica', () => {
   const r = LinaPalette.check(['Ferro','creme']);
