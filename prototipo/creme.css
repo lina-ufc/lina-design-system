@@ -1,0 +1,3 @@
+/* Variante do protótipo B1: interface em creme, pranchas e ladrilhos continuam brancos.
+   Carregada depois de b1.css só em prototipo-logotipo-creme.html, para comparar. */
+body,body>aside{background:var(--creme)}
