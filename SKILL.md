@@ -10,7 +10,7 @@ Este arquivo é um índice: diz onde está cada regra, não a repete. Os valores
 
 - Paleta (12 cores, famílias, pares a evitar): `assets/lina-palette.js`. Única fonte dos valores de cor.
 - Tokens: `tokens/*.css` (cores semânticas em `colors.css`; tipografia, espaço, raio, elevação, movimento, fontes). `tokens/lina.tokens.json` é o espelho das cores em formato DTCG, gerado por `node ferramentas/tokens.mjs`; não editar à mão.
-- Catálogo do sistema: `sistema.json` (capítulos 0 a 8 e entradas). Site gerado por `python3 sistema.py`: uma página por capítulo (`<n>-<nome>.html`, o preâmbulo é `index.html`) e o índice para agentes `llms.txt`, publicados em https://lina-ufc.github.io/lina-design-system/. O que está publicado vale, mesmo que seja revisado depois.
+- Catálogo do sistema: `sistema.json` (capítulos 0 a 8 e entradas). Site gerado por `python3 sistema.py`: uma página por capítulo (`<n>-<nome>.html`, o preâmbulo é `index.html`) e o índice para agentes `llms.txt`, publicados em https://lina-ufc.github.io/lina-design-system/ (índice: https://lina-ufc.github.io/lina-design-system/llms.txt). O que está publicado vale, mesmo que seja revisado depois.
 - Elemento novo: crie o arquivo, acrescente a entrada em `sistema.json` e gere o site de novo.
 
 ## Logotipo e geometria
@@ -27,7 +27,7 @@ Capítulo 3 (`3-padroes.html`): regra do pontilhado, mono, duo e trio. Motores: 
 
 ## Tipografia
 
-Capítulo 5 (`5-tipografia.html`) e `tokens/typography.css`. Fontes auto-hospedadas em `assets/fonts/` (Outfit e JetBrains Mono, ambas OFL); `tokens/fonts.css` as declara. Símbolos matemáticos usam STIX Two Math (`assets/fonts/STIXTwoMath.otf`; motivo em `memoria/simbolos-matematicos.md`). A Outfit substituiu a Neometric: `memoria/fonte-outfit.md`. Pacote: `downloads/LINA-Fontes.zip`.
+Capítulo 5 (`5-tipografia.html`) e `tokens/typography.css`. Fontes em `assets/fonts/` (Outfit e JetBrains Mono, ambas OFL). `tokens/fonts.css` declara a Outfit; na web a JetBrains Mono vem do Google Fonts (`README.md` §5). Símbolos matemáticos usam STIX Two Math (`assets/fonts/STIXTwoMath.otf`; motivo em `memoria/simbolos-matematicos.md`). A Outfit substituiu a Neometric: `memoria/fonte-outfit.md`. Pacote: `downloads/LINA-Fontes.zip`.
 
 ## Ícones
 

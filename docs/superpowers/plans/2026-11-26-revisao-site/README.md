@@ -12,7 +12,7 @@ Estado vivo: [`progress.md`](progress.md). Um subplano escrito por vez (`CLAUDE.
 | --- | --- | --- | --- |
 | 01 | [Motores e linha de comando](01-motores.md) | — | Completo (branch `revisao-site/01-motores`) |
 | 02 | [Protótipo visual B1 da página Logotipo](02-prototipo-visual.md) | — | Completo (mesclado na main) |
-| 03 | [Fonte única de tokens, `SKILL.md` índice, `llms.txt`](03-fonte-unica.md) | 01 | Em execução |
+| 03 | [Fonte única de tokens, `SKILL.md` índice, `llms.txt`](03-fonte-unica.md) | 01 | Completo (branch `revisao-site/03-fonte-unica`) |
 | 04 | Estrutura em quatro partes, molde único de seção, redirecionamentos | 02 aprovado | Não escrito |
 | 05 | Aplicar o visual aprovado a todas as páginas; revisão de acessibilidade | 02, 04 | Não escrito |
 | 06 | Ferramentas no site: padrões (Padrões), filtro (Imagem), editor de células (Logotipo) | 01, 05 | Não escrito |

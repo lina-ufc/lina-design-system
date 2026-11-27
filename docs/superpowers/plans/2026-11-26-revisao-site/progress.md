@@ -21,7 +21,7 @@
 | --- | --- | --- | --- |
 | 01 — motores | `[██████████]` | 5/5 | Completo (branch `revisao-site/01-motores`, não mesclada) |
 | 02 — protótipo visual | `[██████████]` | 4/4 | Completo (mesclado na main) (branch `revisao-site/02-prototipo`) |
-| 03 — fonte única | `[█████░░░░░]` | 2/4 | Em execução (branch `revisao-site/03-fonte-unica`) |
+| 03 — fonte única | `[██████████]` | 4/4 | Completo (branch `revisao-site/03-fonte-unica`, não mesclada) |
 | 04 — estrutura | `[░░░░░░░░░░]` | — | Não escrito. Espera o 02 aprovado |
 | 05 — visual em tudo | `[░░░░░░░░░░]` | — | Não escrito |
 | 06 — ferramentas no site | `[░░░░░░░░░░]` | — | Não escrito |
@@ -51,12 +51,14 @@ Verificação: `node --test "ferramentas/test/*.test.mjs"` 51/51 (o diretório s
 
 ## Plano 03 — fonte única
 
-`[█████░░░░░]` 50% — 2 de 4 tarefas.
+`[██████████]` 100% — 4 de 4 tarefas.
+
+Verificação: `python3 sistema.py` ok (53 links no `llms.txt`); `node --test "ferramentas/test/*.test.mjs"` 56/56; `node ferramentas/tokens.mjs --check` 0.
 
 - [x] **Tarefa 1** — `ferramentas/tokens.mjs` gera `tokens/lina.tokens.json` (DTCG) e confere `colors.css` contra a paleta. `a2e19fd`; 56/56 testes; `--check` 0; CSS adulterado sai 2
 - [x] **Tarefa 2** — `sistema.py` gera `llms.txt`. `317d75f`; 53/53 links ok
-- [ ] **Tarefa 3** — `README.md` sem hex; `SKILL.md` como índice
-- [ ] **Tarefa 4** — teste às cegas e revisão
+- [x] **Tarefa 3** — `README.md` sem hex; `SKILL.md` como índice. `270cb44`; 0 hex; 45 caminhos conferidos
+- [x] **Tarefa 4** — teste às cegas e revisão. 6/6; 1 achado corrigido (fontes); URL do `llms.txt` escrita no `SKILL.md`. Record: [`records/03-teste-cego.md`](records/03-teste-cego.md)
 
 Herança para o 05: hex das 12 cores seguem em `capitulos/` (2.x, 3.x, 4.x, 8.2), `assets/lina-draw.js`, `assets/lina-dither-field.js` e `templates/` (fora do escopo pelo spec).
 
@@ -91,3 +93,4 @@ Herança para o 05: hex das 12 cores seguem em `capitulos/` (2.x, 3.x, 4.x, 8.2)
 - 2026-11-27 — 1.3 a 1,5× em três colunas iguais. Plano 02 completo; 04 e 05 desbloqueados.
 - 2026-11-27 — Plano 03 escrito (fonte única, `SKILL.md` índice, `llms.txt`).
 - 2026-11-27 — Tarefas 1 e 2 do 03 concluídas (tokens DTCG, `llms.txt`), em paralelo.
+- 2026-11-27 — Tarefas 3 e 4 do 03 concluídas. Plano 03 completo; branch aguarda merge.
