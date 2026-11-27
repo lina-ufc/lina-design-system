@@ -20,7 +20,7 @@
 | Plano | Progresso | Tarefas | Status |
 | --- | --- | --- | --- |
 | 01 — motores | `[██████████]` | 5/5 | Completo (branch `revisao-site/01-motores`, não mesclada) |
-| 02 — protótipo visual | `[█████░░░░░]` | 2/4 | Em execução (branch `revisao-site/02-prototipo`) |
+| 02 — protótipo visual | `[████████░░]` | 3/4 | Espera aprovação do dono (branch `revisao-site/02-prototipo`) |
 | 03 — fonte única | `[░░░░░░░░░░]` | — | Não escrito. Escrito quando o 01 terminar |
 | 04 — estrutura | `[░░░░░░░░░░]` | — | Não escrito. Espera o 02 aprovado |
 | 05 — visual em tudo | `[░░░░░░░░░░]` | — | Não escrito |
@@ -42,11 +42,11 @@ Verificação: `node --test "ferramentas/test/*.test.mjs"` 51/51 (o diretório s
 
 ## Plano 02 — protótipo visual
 
-`[█████░░░░░]` 50% — 2 de 4 tarefas.
+`[████████░░]` 75% — 3 de 4 tarefas. Espera aprovação do dono.
 
 - [x] **Tarefa 1** — montagem (`prototipo/montar.sh`) e render (`prototipo/render.sh`). `9e4c7a5`; antes = b1 com folha vazia
 - [x] **Tarefa 2** — folha `prototipo/b1.css`. `dc1d0c4`; 14 `!important` contra inline de fragmento; render do celular corrigido (iframe de 390 px)
-- [ ] **Tarefa 3** — revisão de design e acessibilidade
+- [x] **Tarefa 3** — revisão de design e acessibilidade. `335b97f`; 11 achados de critério corrigidos, 8 perguntas de gosto ao dono; página atual idêntica ao pixel. Record: [`records/02-revisao.md`](records/02-revisao.md)
 - [ ] **Tarefa 4** — aprovação do dono
 
 ## Estado herdado
@@ -75,3 +75,4 @@ Verificação: `node --test "ferramentas/test/*.test.mjs"` 51/51 (o diretório s
 - 2026-11-27 — Plano 02 escrito (protótipo B1 da página Logotipo).
 - 2026-11-27 — Tarefa 1 do 02 concluída. Achado para o 05: em 1.8 o Baixar tem `<a>` dentro de `<a>` (link para 5.5 no cartão do .vectorcraft), o navegador parte o cartão.
 - 2026-11-27 — Tarefa 2 do 02 concluída. Chrome sem janela não abre com menos de 500 px: `render.sh` põe o celular num iframe de 390 px.
+- 2026-11-27 — Tarefa 3 do 02 concluída. Protótipo pronto para o dono.
