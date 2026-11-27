@@ -26,7 +26,7 @@
 | 05 — visual em tudo | `[██████████]` | 6/6 | Completo (mesclado na main) |
 | 06 — ferramentas no site | `[██████████]` | 9/9 | Completo, aprovado pelo dono em 2026-11-27 (mesclado na main) |
 | 07 — feedback: acesso anônimo e Apps Script | `[██████████]` | 3/3 | Completo (mesclado na main) |
-| 08 — feedback: página e envio | `[░░░░░░░░░░]` | 0/3 | Escrito |
+| 08 — feedback: página e envio | `[██████████]` | 3/3 | Completo (branch aguarda merge) |
 | 09 — feedback: entradas na home e no menu | `[░░░░░░░░░░]` | — | Não escrito |
 | 10 — feedback: verificação e aprovação | `[░░░░░░░░░░]` | — | Não escrito |
 | 11 — conteúdo novo | `[░░░░░░░░░░]` | — | Não escrito |
@@ -111,11 +111,11 @@ Herança para o 05: hex das 12 cores seguem em `capitulos/` (2.x, 3.x, 4.x, 8.2)
 
 ## Plano 08 — feedback: página e envio
 
-`[░░░░░░░░░░]` 0% — 0 de 3 tarefas. Plano: [`08-feedback-pagina.md`](08-feedback-pagina.md).
+`[██████████]` 100% — 3 de 3 tarefas. Plano: [`08-feedback-pagina.md`](08-feedback-pagina.md).
 
-- [ ] **Tarefa 1** — `assets/lina-feedback.js`: `valida`, `corpo`, `paginaDe`, `envia` testados em Node
-- [ ] **Tarefa 2** — `feedback.html` gerada pelo `sistema.py`; chaves `feedback` e `feedback_url`; `liga`; CSS
-- [ ] **Tarefa 3** — navegador (1280/390, estados, teclado) e envio real confirmado pelo dono
+- [x] **Tarefa 1** — `assets/lina-feedback.js`: `valida`, `corpo`, `paginaDe`, `envia` testados em Node. `7839a81`; review limpo; 95/95
+- [x] **Tarefa 2** — `feedback.html` gerada pelo `sistema.py`; chaves `feedback` e `feedback_url`; `liga`; CSS. `1581975`, `f6374c3`; review limpo após 1 correção (`#fb{display:flex}` anulava `hidden`). `feedback.html` não é versionado (`/*.html` no `.gitignore`)
+- [x] **Tarefa 3** — navegador (1280/390, estados, teclado) e envio real confirmado pelo dono. Record: [`records/08-feedback-pagina.md`](records/08-feedback-pagina.md); 4 menores de acessibilidade para o 10
 
 ## Estado herdado
 
@@ -165,3 +165,6 @@ Herança para o 05: hex das 12 cores seguem em `capitulos/` (2.x, 3.x, 4.x, 8.2)
 - 2026-11-27 — Tarefa 1 do 07 concluída: UFC permite acesso anônimo; abordagem B mantida.
 - 2026-11-27 — Tarefa 3 do 07 concluída. Plano 07 completo; URL publicada no record. Próximo: escrever o 08.
 - 2026-11-27 — 07 mesclado na main (`b937e2b`). Plano 08 escrito; chaves `feedback`/`feedback_url` passam do 09 para o 08 (a página precisa delas).
+- 2026-11-27 — Tarefa 1 do 08 concluída (lógica do envio).
+- 2026-11-27 — Tarefa 2 do 08 concluída (página). Plano previa commitar `feedback.html`, mas HTML da raiz é gerado e ignorado.
+- 2026-11-27 — Tarefa 3 do 08 concluída; envio real confirmado pelo dono. Plano 08 completo; próximo: escrever o 09.

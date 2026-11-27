@@ -20,7 +20,7 @@ Estado vivo: [`progress.md`](progress.md). Um subplano escrito por vez (`CLAUDE.
 | 05 | [Visual B1 em todas as páginas, molde nos capítulos, acessibilidade](05-visual.md) | 02, 04 | Completo (mesclado na main) |
 | 06 | [Ferramentas no site: padrões (Padrões), filtro (Imagem), editor de células (Logotipo)](06-ferramentas.md) | 01, 05 | Completo (mesclado na main) |
 | 07 | [Feedback: acesso anônimo e Apps Script](07-feedback-apps-script.md) | — | Completo (mesclado na main) |
-| 08 | [Feedback: página `feedback.html` e envio (`assets/lina-feedback.js`), chaves `feedback` e `feedback_url` em `sistema.json`](08-feedback-pagina.md) | 07 (URL publicada) | Escrito |
+| 08 | [Feedback: página `feedback.html` e envio (`assets/lina-feedback.js`), chaves `feedback` e `feedback_url` em `sistema.json`](08-feedback-pagina.md) | 07 (URL publicada) | Completo (branch aguarda merge) |
 | 09 | Feedback: bloco na página inicial, link "Apontar erro nesta página" no menu | 08 | Não escrito |
 | 10 | Feedback: verificação final, texto (`design:ux-copy`), acessibilidade, aprovação do dono | 09 | Não escrito |
 | 11 | Conteúdo novo: uso do logo, grid e espaço, imagem, voz (rascunhos para o dono decidir) | 04 | Não escrito |
