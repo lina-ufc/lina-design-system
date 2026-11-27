@@ -83,9 +83,9 @@ Seção nova `s-acessibilidade` (`capitulos/principios/3-acessibilidade.html`), 
 | --- | --- |
 | Contraste 4,5 para texto e 3 para título grande | `cores.html#s-estudo-de-contraste` (legenda do estudo); citado com link |
 | Pares de texto permitidos e proibidos | `cores.html#s-contrastes-a-usar` e `#s-contrastes-a-evitar`; citado |
-| Cor nunca é o único sinal | proposta nova, apoiada em "Contrastes a evitar" (mesmo valor, matizes opostos) |
+| Cor nunca é o único sinal | proposta nova (`<b>proposta:</b>`), apoiada em "Contrastes a evitar" (mesmo valor, matizes opostos) |
 | Letra de texto de pelo menos 11 px | proposta nova (`<b>proposta:</b>`): Tipografia, Hierarquia, não fixa mínimo; 11 px é a etiqueta, o menor tamanho usado |
-| Texto alternativo em imagem; ícone decorativo oculto, ícone sozinho com nome | prática do site (`alt` nas imagens de Componentes, `aria-hidden` nos SVG de Phosphor); regra posta por escrito |
+| Texto alternativo em imagem; ícone decorativo oculto, ícone sozinho com nome | proposta nova (`<b>proposta:</b>`): o site já faz assim (`alt` nas imagens de Componentes, `aria-hidden` nos SVG de Phosphor), mas a regra é posta por escrito |
 | Logo não desce do tamanho mínimo | `logotipo.html#s-tamanho-minimo` (Tarefa 1); citado |
 | Foco visível, contorno ferro de 2 px | proposta nova (`<b>proposta:</b>`); valor lido em `site.css` (`:focus-visible`), não documentado no sistema |
 | Alvo de 44 px no site | proposta nova (`<b>proposta:</b>`); coincide com `--cell: 44px` em `tokens/spacing.css`, link para `grid-e-espaco.html#s-celula` |
@@ -115,4 +115,6 @@ Seção nova `s-acessibilidade` (`capitulos/principios/3-acessibilidade.html`), 
 - Acessibilidade: letra de texto não desce de 11 px? Tipografia não fixa mínimo; 11 px é a etiqueta em caixa alta. (proposta)
 - Acessibilidade: foco visível é contorno ferro de 2 px em todo elemento interativo, o que o `site.css` já faz em links e campos? Vale também para peças fora do site? (proposta)
 - Acessibilidade: alvo de clique e toque de 44 px no site, igual à célula? Vale para botões pequenos de ferramentas e para links em linha de texto? (proposta)
-- Acessibilidade: imagem só decorativa leva alt vazio e ícone sozinho leva nome acessível; vale também para documento A4 e slide? (proposta)
+- Acessibilidade: alt informativo em toda imagem que informa e alt vazio na decorativa; ícone oculto ao lado de texto e com nome acessível quando sozinho. São regras novas (o site já faz assim em Componentes e Phosphor, mas nada decide). Valem também para documento A4 e slide? (proposta)
+- Acessibilidade: a cor nunca é o único sinal. Vale para gráficos e para impresso? (proposta)
+- Acessibilidade, Cores: o estudo de contraste aceita par de 3 ou mais para título grande, e "Contrastes a evitar" diz que o par de 3,1 (ferro sobre turquesa) "como texto, nunca". Prevalece qual? O texto de Acessibilidade diz só que os pares a evitar não servem para texto. (proposta)
