@@ -28,7 +28,7 @@
 | 07 — feedback: acesso anônimo e Apps Script | `[██████████]` | 3/3 | Completo (mesclado na main) |
 | 08 — feedback: página e envio | `[██████████]` | 3/3 | Completo (mesclado na main) |
 | 09 — feedback: entradas na home e no menu | `[██████████]` | 2/2 | Completo (mesclado na main) |
-| 10 — feedback: texto, acessibilidade, aprovação | `[░░░░░░░░░░]` | 0/3 | Escrito |
+| 10 — feedback: texto, acessibilidade, aprovação | `[██████░░░░]` | 2/3 | Em execução (branch `revisao-site/10-feedback-final`); falta o dono |
 | 11 — conteúdo novo | `[░░░░░░░░░░]` | — | Não escrito |
 | 12 — arquivar visual-code | `[░░░░░░░░░░]` | — | Não escrito |
 
@@ -126,11 +126,11 @@ Herança para o 05: hex das 12 cores seguem em `capitulos/` (2.x, 3.x, 4.x, 8.2)
 
 ## Plano 10 — feedback: texto, acessibilidade, verificação e aprovação
 
-`[░░░░░░░░░░]` 0% — 0 de 3 tarefas. Plano: [`10-feedback-final.md`](10-feedback-final.md).
+`[██████░░░░]` 67% — 2 de 3 tarefas. Plano: [`10-feedback-final.md`](10-feedback-final.md).
 
-- [ ] **Tarefa 1** — texto revisado com `design:ux-copy` (página, avisos, link do menu, bloco da home)
-- [ ] **Tarefa 2** — acessibilidade: 4 menores do 08, bloco da home em lista, `design:accessibility-review`
-- [ ] **Tarefa 3** — verificação final, envio real com isca, VoiceOver, renders, aprovação do dono
+- [x] **Tarefa 1** — texto revisado com `design:ux-copy` (página, avisos, link do menu, bloco da home). `b1c120f`; review limpo; link vira "Feedback sobre esta página"
+- [x] **Tarefa 2** — acessibilidade: 4 menores do 08, bloco da home em lista, `design:accessibility-review`. `7256fcf`; review limpo; +3 achados WCAG corrigidos (borda dos campos, "Enviando…" anunciado, foco na falha); 2 perguntas de gosto
+- [ ] **Tarefa 3** — verificação final, envio real com isca, VoiceOver, renders, aprovação do dono. Checagens, navegador e renders ok (`0e2be98`, [record](records/10-feedback-final.md)); faltam envio real, VoiceOver e aprovação (dono)
 
 ## Estado herdado
 
@@ -186,3 +186,4 @@ Herança para o 05: hex das 12 cores seguem em `capitulos/` (2.x, 3.x, 4.x, 8.2)
 - 2026-11-27 — 08 mesclado na main (`efbbda1`). Plano 09 escrito: link como último item do sumário (`a.cap`), `feedback.html` passa `FB` como `atual` para não levar o link.
 - 2026-11-27 — Plano 09 completo (`95ea597`): link no sumário e bloco na home verificados no navegador. Próximo: escrever o 10.
 - 2026-11-28 — 09 mesclado na main (`09e07e1`). Plano 10 escrito: texto, acessibilidade (menores do 08, bloco da home em lista), envio real com isca e aprovação.
+- 2026-11-28 — Tarefas 1 e 2 do 10 concluídas; verificação no navegador e renders ok. Aguarda o dono: envio real com isca, VoiceOver, aprovação.
