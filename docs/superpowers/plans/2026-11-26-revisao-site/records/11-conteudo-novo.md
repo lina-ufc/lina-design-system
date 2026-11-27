@@ -20,7 +20,7 @@ Justificativa do mínimo: o ¼ de célula é a menor medida do desenho (raio e f
 
 ## Perguntas
 
-- Logotipo, Área de proteção: a área livre do logo sem fundo é 1 célula em cada lado? (proposta)
+- Logotipo, Área de proteção: a área livre do logo sem fundo é 1 célula em cada lado? A memória `margem-meia-celula` diz que versões sem fundo "não têm margem"; o texto trata a área livre como espaço fora do logo, não como margem. (proposta)
 - Logotipo, Tamanho mínimo, tela: célula mínima de 8 px (horizontal 70 × 24 px, símbolo 16 × 24 px)? (proposta)
 - Logotipo, Tamanho mínimo, impresso: célula mínima de 2 mm (horizontal 17,5 × 6 mm, símbolo 4 × 6 mm)? (proposta)
-- Logotipo, Tamanho mínimo: vale também para vazados, selo e assinaturas? O texto cobre só horizontal, vertical e símbolo. (proposta)
+- Logotipo, Tamanho mínimo: vale também para vazados, selo e assinaturas, e vale para a arte dentro da placa e para o logo sem fundo? O texto cobre só horizontal, vertical e símbolo. (proposta)
