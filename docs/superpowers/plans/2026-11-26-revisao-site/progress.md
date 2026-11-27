@@ -166,5 +166,5 @@ Herança para o 05: hex das 12 cores seguem em `capitulos/` (2.x, 3.x, 4.x, 8.2)
 - 2026-11-27 — Tarefa 3 do 07 concluída. Plano 07 completo; URL publicada no record. Próximo: escrever o 08.
 - 2026-11-27 — 07 mesclado na main (`b937e2b`). Plano 08 escrito; chaves `feedback`/`feedback_url` passam do 09 para o 08 (a página precisa delas).
 - 2026-11-27 — Tarefa 1 do 08 concluída (lógica do envio).
-- 2026-11-27 — Tarefa 3 do 08 concluída; envio real confirmado pelo dono. Plano 08 completo; próximo: escrever o 09.
 - 2026-11-27 — Tarefa 2 do 08 concluída (página). Plano previa commitar `feedback.html`, mas HTML da raiz é gerado e ignorado.
+- 2026-11-27 — Tarefa 3 do 08 concluída; envio real confirmado pelo dono. Plano 08 completo; próximo: escrever o 09.
