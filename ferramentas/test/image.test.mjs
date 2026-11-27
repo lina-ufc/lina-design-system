@@ -2,6 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
+import { sharp } from '../_carregar.mjs';
 const req = createRequire(import.meta.url);
 req('../../assets/lina-geometry.js');
 req('../../assets/lina-palette.js');
@@ -79,6 +80,28 @@ test('faixa escura só tem tinta escura, a média o resto', () => {
   const dark = so(['ferro', 'none', 'none']), mid = so(['none', 'ferro', 'none']);
   assert.notEqual(dark, mid);
   for (const svg of [dark, mid]) assert.match(svg, / d="M/);
+});
+test('só escuros e médios repetem cor; claros igual à tinta e tudo none recusam', () => {
+  for (const tones of [['creme', 'ferro', 'creme'], ['ferro', 'none', 'ferro'], ['ferro', 'ferro', 'ferro'], ['none', 'none', 'none']])
+    assert.throws(() => LinaImage.fromParams({ tones }), /mesma cor|ao menos uma faixa/, tones.join());
+  assert.ok(LinaImage.fromParams({ tones: ['ferro', 'ferro', 'creme'] }));
+});
+test('cores diferentes: média é a união por baixo, escura por cima; faixas disjuntas', async () => {
+  const d = (svg) => [...svg.matchAll(/ d="([^"]*)"/g)].map((m) => m[1]);
+  for (const mode of ['dither', 'scatter', 'field']) {
+    const p = { mode, width: 800, midtones: 0.5, cutoff: 0, detail: 0.3 };
+    const img = grad(80, 40);
+    const [un] = d(LinaImage.render(img, { ...p, tones: ['ferro', 'ferro', 'creme'] }));
+    const duo = d(LinaImage.render(img, { ...p, tones: ['ferro-fundo', 'ferro', 'creme'] }));
+    assert.equal(duo.length, 2, mode); assert.equal(duo[0], un, mode + ': união');
+    const alfa = async (tones) => {
+      const { data } = await sharp()(Buffer.from(LinaImage.render(img, { ...p, tones }))).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+      return data.filter((_, i) => i % 4 === 3);
+    };
+    const [a, b] = [await alfa(['ferro', 'none', 'none']), await alfa(['none', 'ferro', 'none'])];
+    assert.ok(a.some((v) => v > 200) && b.some((v) => v > 200), mode + ': faixas vazias');
+    assert.equal(a.filter((v, i) => v > 200 && b[i] > 200).length, 0, mode + ': disjuntas');
+  }
 });
 test('par vizinho recusado lança com o motivo', () => {
   assert.throws(() => LinaImage.render(grad(10, 10), { tones: ['ferro', 'ferro', 'turquesa'], width: 100 }), /evitar/);

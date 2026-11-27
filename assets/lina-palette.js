@@ -68,8 +68,10 @@
     if (!Array.isArray(t) || t.length !== 3) return no('tones precisa de 3 itens: escuros, médios, claros.');
     const bad = t.find((n) => n !== 'none' && !Object.hasOwn(COLORS, n));
     if (bad !== undefined) return no(`Cor desconhecida: "${bad}". Use none ou: ${NAMES.join(', ')}.`);
+    if (t.every((n) => n === 'none')) return no('tones precisa de ao menos uma faixa com cor.');
     for (const [i, j] of [[0, 1], [0, 2], [1, 2]]) {
-      if (t[i] === 'none' || t[j] === 'none' || t[i] === t[j]) continue;
+      // só escuros e médios podem repetir a cor (é uma tinta só); com o fundo seria invisível
+      if (t[i] === 'none' || t[j] === 'none' || (i === 0 && j === 1 && t[i] === t[j])) continue;
       const r = pair(t[i], t[j]);
       if (!r.ok) return r;
     }

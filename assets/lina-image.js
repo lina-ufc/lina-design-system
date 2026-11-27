@@ -212,7 +212,8 @@
   }
 
   // SVG with exactly `params.width`; the height is whole rows of cells, set by the image's ratio.
-  // A `none` band draws no fill; equal dark and mid colours are one path.
+  // A `none` band draws no fill; equal dark and mid colours are one path; different ones draw all the
+  // ink in the mid colour and the dark ink over it, so no seam shows where the bands meet.
   function render(imageData, params) {
     const { options, tones: [dark, mid, light] } = fromParams(params);
     const width = params.width ?? 1080;
@@ -223,7 +224,7 @@
     const path = (fill, band) => (fill ? `  <path fill="${fill}" fill-rule="evenodd" d="${outline(res, options.radius, scale, band)}"/>\n` : '');
     return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}">\n` +
       (light ? `  <rect width="${w}" height="${h}" fill="${light}"/>\n` : '') +
-      (dark === mid ? path(dark) : path(mid, 'mid') + path(dark, 'dark')) + '</svg>\n';
+      (dark === mid ? path(dark) : path(mid, dark ? undefined : 'mid') + path(dark, 'dark')) + '</svg>\n';
   }
 
   root.LinaImage = { PALETTES, DEFAULTS, prepare, process, outline, CELL, fromParams, render };

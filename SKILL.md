@@ -50,13 +50,13 @@ Só Phosphor, seis pesos, em `assets/icons/phosphor/<peso>/`. Regras de peso, ta
 
 ## Gerar padrões e imagens
 
-Texturas e imagens pontilhadas saem como SVG por linha de comando, só com as cores do sistema. Antes de gerar, rode `--list-colors` para ver as combinações válidas. A primeira cor é o fundo. Duas cores da mesma família formam mono; de famílias diferentes, duo (contraste mínimo 3, fora dos pares a evitar); três cores, trio (as duas primeiras formam um duo válido e a terceira não repete o fundo). A imagem aceita só mono ou duo. Combinação inválida sai com código 2 e a regra em português.
+Texturas e imagens pontilhadas saem como SVG por linha de comando, só com as cores do sistema. Antes de gerar, rode `--list-colors` para ver as combinações válidas. A primeira cor é o fundo. Duas cores da mesma família formam mono; de famílias diferentes, duo (contraste mínimo 3, fora dos pares a evitar); três cores, trio (as duas primeiras formam um duo válido e a terceira não repete o fundo). Na imagem, as cores vão em `--tones` e cada par que se toca segue a mesma regra. Combinação inválida sai com código 2 e a regra em português.
 
 ```sh
 # textura 4:5 em trio (modos: dither, scatter, field)
 node ferramentas/textura.mjs --mode scatter --seed 3 --width 1080 --height 1350 --cells 36 --colors ferro,areia,creme --out textura.svg
-# foto pontilhada (modos: dither, bitmap)
-node ferramentas/imagem.mjs assets/logos-institutions/funcap/funcap-horizontal-cor.png --mode dither --colors creme,ferro --width 1080 --out imagem.svg
+# foto pontilhada (modos: dither, scatter, field; tones = escuros,médios,claros)
+node ferramentas/imagem.mjs assets/logos-institutions/funcap/funcap-horizontal-cor.png --mode dither --tones ferro,ferro,creme --width 1080 --out imagem.svg
 ```
 
-Flags da textura: `--mode --seed --width --height --cells --colors --blank --steps --quarter --clump --grain --stretch --accent --pinholes --edges`. Da imagem: `--mode --colors --width --detail --brightness --contrast --midtones --cutoff --smooth --dither --invert`. A mesma entrada gera sempre o mesmo SVG. Em HTML, carregue `assets/lina-geometry.js`, depois `lina-palette.js` e `lina-texture.js` ou `lina-image.js`, e chame `LinaTexture.render(params)` ou `LinaImage.render(imageData, params)`, com `imageData = {width, height, data}` (RGBA). Parâmetros numéricos de ajuste são frações de 0 a 1; a altura da imagem segue a proporção da foto.
+Flags da textura: `--mode --seed --width --height --cells --colors --blank --steps --quarter --clump --grain --stretch --accent --pinholes --edges`. Da imagem: `--mode --tones --width --detail --brightness --contrast --midtones --cutoff --smooth --invert`; `--tones` leva três itens (escuros, médios, claros), cada um cor ou `none` (transparente); claros é o fundo; só escuros e médios podem repetir a cor; `--colors` antigo vira aviso e é convertido. A mesma entrada gera sempre o mesmo SVG. Em HTML, carregue `assets/lina-geometry.js`, depois `lina-palette.js` e `lina-texture.js` ou `lina-image.js`, e chame `LinaTexture.render(params)` ou `LinaImage.render(imageData, params)`, com `imageData = {width, height, data}` (RGBA). Parâmetros numéricos de ajuste são frações de 0 a 1; a altura da imagem segue a proporção da foto.
