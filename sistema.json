@@ -326,6 +326,13 @@
    "secao": "capitulos/padroes/8-opcoes-de-cor.html"
   },
   {
+   "cap": "padroes",
+   "nome": "Gerador",
+   "sub": "Escolha padrão, cores e ajustes; baixe o SVG ou copie o comando",
+   "secao": "capitulos/padroes/9-gerador.html",
+   "livre": true
+  },
+  {
    "cap": "icones",
    "nome": "Phosphor",
    "sub": "O sistema de ícones: MIT, grade 256, traço 1,5",

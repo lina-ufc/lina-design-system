@@ -1,0 +1,64 @@
+<h2>Gerador</h2>
+<p class="p">Escolha o padrão, as cores e os ajustes. A mesma semente com os mesmos ajustes gera sempre o mesmo desenho, e o endereço da página guarda todos eles.</p>
+<div class="ferramenta" id="gp">
+<div class="controles">
+<fieldset><legend>Padrão</legend><div class="seg" id="gp-modo">
+<button type="button" data-v="dither">Pontilhado</button><button type="button" data-v="scatter">Dispersão</button><button type="button" data-v="field">Campo</button>
+</div></fieldset>
+<fieldset><legend><label for="gp-seed">Semente</label></legend><div class="linha">
+<input id="gp-seed" type="number" min="0" step="1"><button type="button" id="gp-nova">Nova semente</button>
+</div></fieldset>
+<fieldset><legend>Formato</legend><div class="seg" id="gp-formato">
+<button type="button" data-v="1:1">1:1</button><button type="button" data-v="4:5">4:5</button><button type="button" data-v="16:9">16:9</button><button type="button" data-v="9:16">9:16</button>
+</div></fieldset>
+<fieldset><legend>Largura e altura (px)</legend><div class="linha">
+<input id="gp-largura" type="number" min="1" step="1" aria-label="Largura em pixels"><input id="gp-altura" type="number" min="1" step="1" aria-label="Altura em pixels">
+</div></fieldset>
+<fieldset><legend><label for="gp-cells">Células na largura</label></legend><div class="linha">
+<input id="gp-cells" type="range" data-k="cells" min="4" max="120" step="1"><output for="gp-cells" data-out="cells"></output>
+</div></fieldset>
+<fieldset><legend><label for="gp-blank">Espaço vazio</label></legend><div class="linha">
+<input id="gp-blank" type="range" data-k="blank" data-pct min="0" max="100" step="1"><output for="gp-blank" data-out="blank"></output>
+</div></fieldset>
+<fieldset data-modos="scatter field"><legend><label for="gp-steps">Meios passos</label></legend><div class="linha">
+<input id="gp-steps" type="range" data-k="steps" data-pct min="0" max="100" step="1"><output for="gp-steps" data-out="steps"></output>
+</div></fieldset>
+<fieldset data-modos="scatter"><legend><label for="gp-quarter">Vãos de ¼</label></legend><div class="linha">
+<input id="gp-quarter" type="range" data-k="quarter" data-pct min="0" max="100" step="1"><output for="gp-quarter" data-out="quarter"></output>
+</div></fieldset>
+<fieldset data-modos="scatter"><legend><label for="gp-clump">Aglomeração</label></legend><div class="linha">
+<input id="gp-clump" type="range" data-k="clump" data-pct min="0" max="100" step="1"><output for="gp-clump" data-out="clump"></output>
+</div></fieldset>
+<fieldset data-modos="field dither"><legend><label for="gp-grain">Grão</label></legend><div class="linha">
+<input id="gp-grain" type="range" data-k="grain" min="1" max="16" step="0.5"><output for="gp-grain" data-out="grain"></output>
+</div></fieldset>
+<fieldset data-modos="field dither"><legend><label for="gp-stretch">Alongamento</label></legend><div class="linha">
+<input id="gp-stretch" type="range" data-k="stretch" data-pct min="0" max="100" step="1"><output for="gp-stretch" data-out="stretch"></output>
+</div></fieldset>
+<fieldset><legend>Bordas</legend><div class="seg" id="gp-edges">
+<button type="button" data-v="bleed">Sangria</button><button type="button" data-v="cut">Dentro</button><button type="button" data-v="seamless">Contínuo</button>
+</div></fieldset>
+<fieldset><label><input id="gp-pinholes" type="checkbox"> Preencher furinhos</label></fieldset>
+<fieldset><legend>Quantidade de cores</legend><div class="seg" id="gp-qtd">
+<button type="button" data-v="2">2 cores</button><button type="button" data-v="3">3 cores</button>
+</div></fieldset>
+<fieldset><legend>Cores</legend>
+<label>Fundo <select id="gp-c0" data-c="0"></select></label>
+<label>Forma <select id="gp-c1" data-c="1"></select></label>
+<label>Destaque <select id="gp-c2" data-c="2"></select></label>
+<button type="button" id="gp-sortear">Sortear</button>
+</fieldset>
+<fieldset data-cores="3"><legend><label for="gp-accent">Formas de destaque</label></legend><div class="linha">
+<input id="gp-accent" type="range" data-k="accent" data-pct min="0" max="100" step="1"><output for="gp-accent" data-out="accent"></output>
+</div></fieldset>
+</div>
+<div class="previa">
+<div class="prancha" id="gp-prancha"></div>
+<p class="status" id="gp-status" role="status"></p>
+<div class="acoes">
+<button type="button" id="gp-baixar">Baixar SVG</button><button type="button" id="gp-copiar">Copiar SVG</button>
+<button type="button" id="gp-link">Copiar link</button><button type="button" id="gp-cmd">Copiar comando</button>
+</div>
+</div>
+</div>
+<script src="assets/lina-geometry.js"></script><script src="assets/lina-palette.js"></script><script src="assets/lina-texture.js"></script><script src="assets/lina-ferramenta.js"></script><script src="assets/lina-ui-textura.js"></script>

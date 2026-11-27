@@ -456,3 +456,8 @@ body>aside .rotulo{margin:20px 0 2px}
   .ferramenta input[type=range]{height:var(--cell)}
   .ferramenta label:has(>input[type=checkbox]){display:flex;align-items:center;gap:12px;min-height:var(--cell)} /* alvo de toque = o rótulo inteiro */
 }
+.ferramenta fieldset:disabled{opacity:.4} /* controle que não vale para o padrão ou para a quantidade de cores */
+.ferramenta .previa .prancha{display:block;margin:0}
+.ferramenta .previa .acoes{margin-top:var(--cell-half)}
+.ferramenta fieldset>label+label,.ferramenta fieldset>label+button{margin-top:var(--cell-quarter)}
+@media (max-width:820px){.ferramenta .previa{order:-1}} /* prévia antes dos controles */
