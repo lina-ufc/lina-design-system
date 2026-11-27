@@ -22,8 +22,8 @@ Estado vivo: [`progress.md`](progress.md). Um subplano escrito por vez (`CLAUDE.
 | 07 | [Feedback: acesso anônimo e Apps Script](07-feedback-apps-script.md) | — | Completo (mesclado na main) |
 | 08 | [Feedback: página `feedback.html` e envio (`assets/lina-feedback.js`), chaves `feedback` e `feedback_url` em `sistema.json`](08-feedback-pagina.md) | 07 (URL publicada) | Completo (mesclado na main) |
 | 09 | [Feedback: bloco na página inicial, link "Apontar erro nesta página" no menu](09-feedback-entradas.md) | 08 | Completo (mesclado na main) |
-| 10 | [Feedback: texto (`design:ux-copy`), acessibilidade, verificação final, aprovação do dono](10-feedback-final.md) | 09 | Escrito |
-| 11 | Conteúdo novo: uso do logo, grid e espaço, imagem, voz (rascunhos para o dono decidir) | 04 | Não escrito |
+| 10 | [Feedback: texto (`design:ux-copy`), acessibilidade, verificação final, aprovação do dono](10-feedback-final.md) | 09 | Completo (mesclado na main) |
+| 11 | [Conteúdo novo: uso do logo, grid e espaço, fotografia, voz e texto (capítulo novo), acessibilidade em Princípios — rascunhos para o dono decidir](11-conteudo-novo.md) | 04 | Escrito |
 | 12 | Arquivar `lina-ufc/lina-visual-code` com link para cá | 06 | Não escrito |
 
 Executar em sequência, 07 a 12. 07 começa com um teste que só o dono faz: se o Workspace da UFC não

@@ -15,7 +15,7 @@
 
 ## Resumo
 
-`[████████░░]` 9 de 12 subplanos completos — total de tarefas ainda não conhecido (11–12 não escritos).
+`[████████░░]` 9 de 12 subplanos completos — total de tarefas ainda não conhecido (12 não escrito).
 
 | Plano | Progresso | Tarefas | Status |
 | --- | --- | --- | --- |
@@ -29,7 +29,7 @@
 | 08 — feedback: página e envio | `[██████████]` | 3/3 | Completo (mesclado na main) |
 | 09 — feedback: entradas na home e no menu | `[██████████]` | 2/2 | Completo (mesclado na main) |
 | 10 — feedback: texto, acessibilidade, aprovação | `[██████████]` | 3/3 | Completo, aprovado pelo dono em 2026-11-28 (branch `revisao-site/10-feedback-final`) |
-| 11 — conteúdo novo | `[░░░░░░░░░░]` | — | Não escrito |
+| 11 — conteúdo novo | `[░░░░░░░░░░]` | 0/6 | Escrito |
 | 12 — arquivar visual-code | `[░░░░░░░░░░]` | — | Não escrito |
 
 ## Plano 01 — motores
@@ -132,6 +132,17 @@ Herança para o 05: hex das 12 cores seguem em `capitulos/` (2.x, 3.x, 4.x, 8.2)
 - [x] **Tarefa 2** — acessibilidade: 4 menores do 08, bloco da home em lista, `design:accessibility-review`. `7256fcf`; review limpo; +3 achados WCAG corrigidos (borda dos campos, "Enviando…" anunciado, foco na falha); 2 perguntas de gosto
 - [x] **Tarefa 3** — verificação final, envio real com isca, VoiceOver, renders, aprovação do dono. Checagens, navegador e renders ok (`0e2be98`, [record](records/10-feedback-final.md)); envio real e VoiceOver feitos pelo dono; seção em lista a pedido do dono (`6304986`, `18d3ad6`, review limpo); aprovado pelo dono em 2026-11-28; 3 perguntas de gosto abertas no record
 
+## Plano 11 — conteúdo novo
+
+`[░░░░░░░░░░]` 0% — 0 de 6 tarefas. Plano: [`11-conteudo-novo.md`](11-conteudo-novo.md).
+
+- [ ] **Tarefa 1** — uso do logo: área de proteção e tamanho mínimo (Logotipo)
+- [ ] **Tarefa 2** — Grid e espaço: célula, margens, espaçamento
+- [ ] **Tarefa 3** — Imagem: fotografia
+- [ ] **Tarefa 4** — capítulo novo Voz e texto; renumeração conferida
+- [ ] **Tarefa 5** — Princípios: acessibilidade
+- [ ] **Tarefa 6** — verificação, renders, decisões do dono
+
 ## Estado herdado
 
 - Base: `a76283c` (Capítulo 7 concluído).
@@ -189,3 +200,4 @@ Herança para o 05: hex das 12 cores seguem em `capitulos/` (2.x, 3.x, 4.x, 8.2)
 - 2026-11-28 — Tarefas 1 e 2 do 10 concluídas; verificação no navegador e renders ok. Aguarda o dono: envio real com isca, VoiceOver, aprovação.
 - 2026-11-28 — Dono fez envio real e VoiceOver; pediu Página como lista de seções (feito). Falta aprovação.
 - 2026-11-28 — Feedback (07–10) aprovado pelo dono. Plano 10 completo; próximo: escrever o 11.
+- 2026-11-28 — 10 mesclado na main (`6707280`). Plano 11 escrito. Dono: voz e texto vira capítulo novo depois de Tipografia; acessibilidade entra em Princípios.
