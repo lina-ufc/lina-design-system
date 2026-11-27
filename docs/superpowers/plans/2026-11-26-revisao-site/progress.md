@@ -24,7 +24,7 @@
 | 03 — fonte única | `[██████████]` | 4/4 | Completo (mesclado na main) |
 | 04 — estrutura | `[██████████]` | 5/5 | Completo (mesclado na main) |
 | 05 — visual em tudo | `[██████████]` | 6/6 | Completo (mesclado na main) |
-| 06 — ferramentas no site | `[██░░░░░░░░]` | 1/5 | Em execução (branch `revisao-site/06-ferramentas`) |
+| 06 — ferramentas no site | `[██████░░░░]` | 3/5 | Em execução (branch `revisao-site/06-ferramentas`) |
 | 07 — conteúdo novo | `[░░░░░░░░░░]` | — | Não escrito |
 | 08 — arquivar visual-code | `[░░░░░░░░░░]` | — | Não escrito |
 
@@ -85,12 +85,12 @@ Herança para o 05: hex das 12 cores seguem em `capitulos/` (2.x, 3.x, 4.x, 8.2)
 
 ## Plano 06 — ferramentas no site
 
-`[██░░░░░░░░]` 20% — 1 de 5 tarefas. Plano: [`06-ferramentas.md`](06-ferramentas.md). 5 chamadas minhas a conferir com o dono no topo do plano.
+`[██████░░░░]` 60% — 3 de 5 tarefas. Plano: [`06-ferramentas.md`](06-ferramentas.md). 5 chamadas minhas a conferir com o dono no topo do plano.
 
 - [x] **Tarefa 1** — base comum: `assets/lina-ferramenta.js` (estado na URL, comando, baixar), CSS dos controles, testes. `e882183`, `66232fb`; review limpo após 1 rodada (carga sem motor, alvo 44 px, padrões = motor); 66/66
-- [ ] **Tarefa 2** — gerador de padrões em Padrões 6.9
-- [ ] **Tarefa 3** — filtro de pontilhado em Imagem 7.1
-- [ ] **Tarefa 4** — editor de células em Logotipo 2.10 (Baixar vira 2.11)
+- [x] **Tarefa 2** — gerador de padrões em Padrões 6.9. `a16f4f2`, `cd6dcf5`; review após 1 rodada (limite de formato: width=1 travava a aba); 66/66
+- [x] **Tarefa 3** — filtro de pontilhado em Imagem 7.1. `b0bf9cc`; review limpo; 3 ajustes de acessibilidade passam à tarefa 5
+- [ ] **Tarefa 4** — editor de células em Logotipo 2.10 (Baixar vira 2.11). `825f03e`; em revisão
 - [ ] **Tarefa 5** — Recursos 11.3, verificação, acessibilidade, aprovação do dono
 
 ## Estado herdado
