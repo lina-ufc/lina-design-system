@@ -35,6 +35,18 @@ Capítulo `grid-e-espaco` ganhou `"molde": true` e três seções: `s-celula` (`
 | Margens em células | `proposta:` sem número; depende da célula do A4 |
 | `--space-1` a `--space-16` (3 a 42 px) e a regra dos dois sistemas | `tokens/spacing.css` (valores e comentário); sem valor novo. Tabela em `dl.spec`, sem link para `lina.tokens.json` (que só tem cores) |
 
+## Imagem
+
+Capítulo `imagem` ganhou `"molde": true` e a seção `s-fotografia` (`2-fotografia.html`), antes do "Filtro de pontilhado"
+(que segue `livre`). Sem foto: "Faça e não faça" em texto. Fotos de exemplo esperam a curadoria do dono
+(memória `fotos-referencia-cores`); nenhuma imagem foi buscada.
+
+| Valor | Origem |
+| --- | --- |
+| Assunto: pessoas e lugares do laboratório | proposta nova; liga ao texto de "Das relações, o grupo" |
+| Luz natural | proposta nova |
+| Sem filtro de cor; tratamento gráfico é o filtro de pontilhado | proposta nova; links para `cores.html#s-paleta-principal` e `imagem.html#s-filtro-de-pontilhado` |
+
 ## Perguntas
 
 - Logotipo, Área de proteção: a área livre do logo sem fundo é 1 célula em cada lado? A memória `margem-meia-celula` diz que versões sem fundo "não têm margem"; o texto trata a área livre como espaço fora do logo, não como margem. (proposta)
@@ -44,3 +56,7 @@ Capítulo `grid-e-espaco` ganhou `"molde": true` e três seções: `s-celula` (`
 - Grid e espaço, Célula: qual a célula do documento A4? O template mede em px (1 px = 0,75 pt) e não define célula. (proposta)
 - Grid e espaço, Margens: escrever as margens de página (72 px na apresentação; 76, 64 e 134 a 141 px no A4) em células ou meias células? Na mesma escala, hoje não são múltiplos de nenhuma célula (72 = 6 × 12, mas a trama é de 1324 px e a margem de 1920). (proposta)
 - Grid e espaço, Célula: a trama de 12 px da apresentação conta como a célula da apresentação, ou a apresentação só tem colunas e linhas? O texto trata a trama como a única célula e deixa o alinhamento dos slides fora. (proposta)
+- Imagem, Fotografia: o assunto é só pessoas e lugares do laboratório, ou entram também objetos, eventos e a cidade? (proposta)
+- Imagem, Fotografia: luz natural é regra para toda foto, ou há exceção (palco, evento, ambiente fechado)? (proposta)
+- Imagem, Fotografia: "sem filtro de cor" proíbe também correção de cor e conversão para preto e branco? O texto proíbe só filtro, duotone e viragem que destoem da paleta. (proposta)
+- Imagem, Fotografia: quais fotos servem de exemplo? Espera a curadoria do dono; a seção não traz imagem.

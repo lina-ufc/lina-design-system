@@ -65,7 +65,8 @@
    "id": "imagem",
    "parte": "II",
    "nome": "Imagem",
-   "desc": "Fotografia e o filtro de pontilhado."
+   "desc": "Fotografia e o filtro de pontilhado.",
+   "molde": true
   },
   {
    "id": "icones",
@@ -376,6 +377,12 @@
    "sub": "Escolha padrão, cores e ajustes; baixe o SVG ou copie o comando",
    "secao": "capitulos/padroes/9-gerador.html",
    "livre": true
+  },
+  {
+   "cap": "imagem",
+   "nome": "Fotografia",
+   "sub": "Pessoas e lugares do laboratório, luz natural, sem filtro de cor (proposta)",
+   "secao": "capitulos/imagem/2-fotografia.html"
   },
   {
    "cap": "imagem",
