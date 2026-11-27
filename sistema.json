@@ -37,13 +37,15 @@
    "id": "cores",
    "parte": "II",
    "nome": "Cores",
-   "desc": "Paleta principal, auxiliar e contrastes."
+   "desc": "Paleta principal, auxiliar e contrastes.",
+   "molde": true
   },
   {
    "id": "tipografia",
    "parte": "II",
    "nome": "Tipografia",
-   "desc": "Outfit e JetBrains Mono, as duas livres (OFL)."
+   "desc": "Outfit e JetBrains Mono, as duas livres (OFL).",
+   "molde": true
   },
   {
    "id": "grid-e-espaco",
@@ -55,7 +57,8 @@
    "id": "padroes",
    "parte": "II",
    "nome": "Padrões",
-   "desc": "Pontilhado, dispersão e campo, parados e em movimento."
+   "desc": "Pontilhado, dispersão e campo, parados e em movimento.",
+   "molde": true
   },
   {
    "id": "imagem",
@@ -67,13 +70,15 @@
    "id": "icones",
    "parte": "II",
    "nome": "Ícones",
-   "desc": "Phosphor: seis pesos e o duotone nas cores do LINA."
+   "desc": "Phosphor: seis pesos e o duotone nas cores do LINA.",
+   "molde": true
   },
   {
    "id": "componentes",
    "parte": "III",
    "nome": "Componentes",
-   "desc": "Peças de conteúdo para slides e documentos: declaração, tabela, legenda, número, passos, nota, cabeçalho e rodapé, cartão e tile."
+   "desc": "Peças de conteúdo para slides e documentos: declaração, tabela, legenda, número, passos, nota, cabeçalho e rodapé, cartão e tile.",
+   "molde": true
   },
   {
    "id": "templates",
@@ -184,31 +189,36 @@
    "cap": "cores",
    "nome": "Brasil e Nordeste",
    "sub": "De onde vêm as cores: terra, duna, cal, fruta, mar",
-   "secao": "capitulos/cores/2-brasil-e-nordeste.html"
+   "secao": "capitulos/cores/2-brasil-e-nordeste.html",
+   "livre": true
   },
   {
    "cap": "cores",
    "nome": "Coerência",
    "sub": "Matiz, saturação e valor: por que as cinco cores funcionam juntas",
-   "secao": "capitulos/cores/3-coerencia.html"
+   "secao": "capitulos/cores/3-coerencia.html",
+   "livre": true
   },
   {
    "cap": "cores",
    "nome": "Estudo de contraste",
    "sub": "Todas as combinações de tinta e fundo, com a razão de contraste",
-   "secao": "capitulos/cores/4-estudo-de-contraste.html"
+   "secao": "capitulos/cores/4-estudo-de-contraste.html",
+   "livre": true
   },
   {
    "cap": "cores",
    "nome": "Contrastes a usar",
    "sub": "Os pares que carregam texto com segurança",
-   "secao": "capitulos/cores/5-contrastes-a-usar.html"
+   "secao": "capitulos/cores/5-contrastes-a-usar.html",
+   "livre": true
   },
   {
    "cap": "cores",
    "nome": "Contrastes a evitar",
    "sub": "Pares que vibram ou desaparecem",
-   "secao": "capitulos/cores/6-contrastes-a-evitar.html"
+   "secao": "capitulos/cores/6-contrastes-a-evitar.html",
+   "livre": true
   },
   {
    "cap": "cores",
@@ -221,6 +231,13 @@
    "nome": "Principal com auxiliar",
    "sub": "Proporção e três composições de referência",
    "secao": "capitulos/cores/8-principal-com-auxiliar.html"
+  },
+  {
+   "cap": "cores",
+   "nome": "Baixar",
+   "sub": "A paleta em .ase para VectorCraft, Illustrator, Affinity e Figma",
+   "secao": "capitulos/cores/9-baixar-cores.html",
+   "livre": true
   },
   {
    "cap": "tipografia",
@@ -250,7 +267,15 @@
    "cap": "tipografia",
    "nome": "Composições",
    "sub": "Caixas de texto com parágrafos longos, títulos e dado",
-   "secao": "capitulos/tipografia/5-composicoes.html"
+   "secao": "capitulos/tipografia/5-composicoes.html",
+   "livre": true
+  },
+  {
+   "cap": "tipografia",
+   "nome": "Baixar",
+   "sub": "Outfit, JetBrains Mono e STIX Two Math, com as licenças OFL",
+   "secao": "capitulos/tipografia/6-baixar-tipografia.html",
+   "livre": true
   },
   {
    "cap": "padroes",
@@ -304,7 +329,8 @@
    "cap": "icones",
    "nome": "Phosphor",
    "sub": "O sistema de ícones: MIT, grade 256, traço 1,5",
-   "secao": "capitulos/icones/1-phosphor.html"
+   "secao": "capitulos/icones/1-phosphor.html",
+   "livre": true
   },
   {
    "cap": "icones",
@@ -320,15 +346,28 @@
   },
   {
    "cap": "icones",
+   "nome": "Opacidade original",
+   "sub": "Uma cor só: o plano é a cor do traço a 20%",
+   "secao": "capitulos/icones/4-opacidade-original.html"
+  },
+  {
+   "cap": "icones",
    "nome": "Tratamentos",
    "sub": "Sólido, claro, duotone e simples no ladrilho de ¼",
-   "secao": "capitulos/icones/4-tratamentos.html"
+   "secao": "capitulos/icones/5-tratamentos.html"
   },
   {
    "cap": "icones",
    "nome": "Arquivos e regras",
    "sub": "Onde ficam, como trazer novos, como pintar",
-   "secao": "capitulos/icones/5-arquivos.html"
+   "secao": "capitulos/icones/6-arquivos.html"
+  },
+  {
+   "cap": "icones",
+   "nome": "Baixar",
+   "sub": "Ícones Phosphor nos seis pesos, em SVG, com a licença MIT",
+   "secao": "capitulos/icones/7-baixar-icones.html",
+   "livre": true
   },
   {
    "cap": "componentes",

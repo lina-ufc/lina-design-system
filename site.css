@@ -131,8 +131,6 @@ main.capitulo{position:relative;padding:var(--cell) calc(var(--cell) * 1.5) calc
 .capitulo .dado{font-size:12px;color:var(--t2)}
 @media (max-width:820px){.quadro article header{grid-template-columns:1fr}.arq{grid-column:1;grid-row:auto;overflow-wrap:anywhere}}
 
-/* paletas 2.1 e 2.7: no celular, uma cor por linha */
-@media (max-width:600px){.paleta{grid-template-columns:1fr!important}.paleta>div{height:auto!important;min-height:96px}}
 .breve{font:400 12px var(--font-mono);color:var(--t2);margin-left:6px}
 
 /* ---- rótulo de parte (sumário e mapa) ---- */
@@ -231,11 +229,153 @@ body>aside .rotulo{margin:20px 0 2px}
 }
 
 /* ---- cores ---- */
+/* 2.1 e 2.7: faixa de amostras (fundo e cor de cada uma ficam inline: são o conteúdo) */
+.paleta{display:grid;border:1px solid var(--fio-b1);border-radius:var(--radius-cell);overflow:hidden}
+.paleta>div{display:flex;flex-direction:column;justify-content:flex-end;gap:4px}
+.paleta>div>b{font-weight:800}
+.paleta .dado{color:inherit;opacity:.8}
+.paleta>div>span:last-child{opacity:.85;text-wrap:pretty}
+.pal5{grid-template-columns:1.25fr 1fr 1.4fr 1fr .8fr}
+.pal5>div{height:230px;padding:14px}
+.pal5>div>b{font-size:17px}
+.pal5>div>span:last-child{font-size:12px;line-height:1.35}
+.pal7{grid-template-columns:repeat(7,minmax(0,1fr))}
+.pal7>div{height:150px;padding:12px;gap:3px}
+.pal7>div>b{font-size:14px}
+.pal7>div>span:last-child{font-size:12px;line-height:1.3;opacity:1}
+@media (max-width:600px){.paleta{grid-template-columns:minmax(0,1fr)}.paleta>div{height:auto;min-height:96px}}
+/* 2.2: origem de cada cor */
+.origem{display:grid;gap:var(--cell-quarter);margin-top:var(--cell-half)}
+.origem>div{display:grid;grid-template-columns:56px 130px minmax(0,1fr);gap:16px;align-items:center}
+.origem .chip{display:block;height:var(--cell);border-radius:var(--radius-cell);box-shadow:inset 0 0 0 1px var(--fio)}
+.origem b{font-weight:500}
+.origem .cap{max-width:52ch}
+@media (max-width:600px){.origem>div{grid-template-columns:56px minmax(0,1fr);row-gap:var(--cell-quarter)}.origem .cap{grid-column:1/-1}}
+/* 2.3: roda e escada de valor lado a lado; os textos vêm antes, fora da prancha */
+#coerencia-d{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+#s-coerencia .p b{font-weight:500}
+@media (max-width:820px){#coerencia-d{grid-template-columns:minmax(0,1fr)}}
+/* 2.4: a matriz de 9 colunas rola dentro da prancha no celular */
+#estudo-de-contraste-d{display:grid}
+#estudo-de-contraste-m{display:grid;grid-template-columns:96px repeat(8,minmax(0,1fr));gap:3px}
+#estudo-de-contraste-m .dado{color:inherit}
+@media (max-width:600px){#estudo-de-contraste-d>.fig{min-width:640px}}
+/* 2.5, 2.6, 2.8: amostras de par de cores (fundo e cor inline) */
+.par,.par-texto{border-radius:var(--radius-cell);box-shadow:inset 0 0 0 1px var(--fio-b1)}
+.par{display:flex;flex-direction:column;justify-content:space-between;gap:var(--cell-half);padding:14px;min-height:110px}
+.par>span:first-child{font-weight:800;font-size:20px;line-height:1.1}
+.par>span:last-child{font-size:12px;line-height:1.35}
+.par b{font-weight:500}
+.par-texto{display:flex;align-items:center;justify-content:center;height:86px;font-weight:800;font-size:22px}
+#contrastes-a-usar-d>.fig,#principal-com-auxiliar-d>.fig{grid-template-rows:minmax(0,1fr)}
+#contrastes-a-usar-d{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+#contrastes-a-evitar-d{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:820px){#contrastes-a-usar-d{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:600px){#contrastes-a-evitar-d{grid-template-columns:minmax(0,1fr)}}
+/* 2.8: proporção e três composições */
+#principal-com-auxiliar-d{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+#principal-com-auxiliar-d>.fig:first-child{grid-column:1/-1}
+.faixa{display:flex;height:var(--cell-half);border:1px solid var(--fio-b1);box-sizing:content-box;border-radius:var(--radius-cell);overflow:hidden}
+.modelo{display:grid;gap:8px;align-content:start;padding:16px;border-radius:var(--radius-cell)}
+.modelo>b{font-weight:800;font-size:19px}
+.modelo>span:not(.k){font-size:12.5px}
+.modelo .k{margin:0}
+.modelo hr{border:0;height:1px;background:var(--fio);margin:0}
+.modelo .painel{padding:8px 10px;border-radius:var(--radius-cell);font-size:12px}
+.barras{display:flex;gap:4px;align-items:flex-end;height:34px}
+.barras>div{width:18%}
+@media (max-width:600px){#principal-com-auxiliar-d{grid-template-columns:minmax(0,1fr)}}
 
 /* ---- padroes ---- */
+/* amostra: retângulo 4:3 (cor de fundo inline = conteúdo) ou campo animado */
+.amostra{display:block;width:100%;min-width:0;aspect-ratio:4/3;border-radius:var(--radius-cell);overflow:hidden}
+.amostra.baixa{aspect-ratio:auto;height:150px}
+.amostra.larga{aspect-ratio:auto;height:260px}
+#tres-padroes-g,#monocromaticos-g,#duas-cores-g,#tres-cores-g,#opcoes-de-cor-g{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+:is(#tres-padroes-g,#monocromaticos-g,#duas-cores-g,#tres-cores-g,#opcoes-de-cor-g)>.fig{min-width:0;grid-template-columns:minmax(0,1fr)}
+/* 6.1: pontilhado grande à esquerda, os outros dois empilhados */
+#tres-padroes-g{grid-template-columns:minmax(0,2fr) minmax(0,1fr)}
+#tres-padroes-g>.fig:first-child{grid-row:span 2;grid-template-rows:minmax(330px,1fr) auto}
+#tres-padroes-g>.fig:first-child .amostra{aspect-ratio:auto}
+/* 6.2 e 6.3: rótulo e legenda coladas ao diagrama; B e C lado a lado */
+.diag>.fig>:is(.k,.cap){margin:0}
+.diag>.fig>.cap{max-width:52ch}
+#a-regra-do-pontilhado-tom-bc{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (max-width:820px){
+  #tres-padroes-g{grid-template-columns:minmax(0,1fr)}
+  #tres-padroes-g>.fig:first-child{grid-row:auto;grid-template-rows:auto}
+  #tres-padroes-g>.fig:first-child .amostra{aspect-ratio:4/3}
+  #a-regra-do-pontilhado-tom-bc{grid-template-columns:minmax(0,1fr)}
+  /* o diagrama rola dentro da prancha, na largura natural (não encolhe o texto do SVG) */
+  .prancha>.fig>.rola{overflow-x:auto}
+  #a-regra-do-pontilhado-tom-a svg{min-width:600px}
+  #a-regra-do-pontilhado-tom-b svg{min-width:416px}
+  #a-regra-do-pontilhado-tom-c svg{min-width:362px}
+  #a-regra-do-pontilhado-solido-d svg{min-width:562px}
+  #a-regra-do-pontilhado-solido-e svg{min-width:715px}
+}
+@media (max-width:600px){#monocromaticos-g,#duas-cores-g,#tres-cores-g,#opcoes-de-cor-g{grid-template-columns:repeat(2,minmax(0,1fr))}}
 
 /* ---- tipografia ---- */
+/* pesos e detalhes: pranchas de ladrilhos lisos (a base .pesos/.detalhes dá a grade; aqui só tira cartão e raio) */
+.prancha.pesos,.prancha.detalhes{border-radius:0;overflow:visible}
+.prancha.pesos>.fig,.prancha.detalhes>.fig{border-radius:0}
+.prancha.pesos>.ferro{background:var(--ferro);color:var(--creme)}
+.prancha.pesos>.turquesa{background:var(--turquesa);color:var(--turquesa-tinta)}
+.capitulo .pesos .ferro .cap,.capitulo .pesos .turquesa .cap{color:inherit}
+.prancha+.alfabeto{margin-top:var(--cell-half)}
+.spec+.k{margin-top:var(--cell)}
+/* composições: caixas e números como ladrilhos da prancha */
+.prancha.comp{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr)}
+.prancha.comp>.numeros,.prancha.comp>.duas-colunas{grid-column:1/-1}
+.prancha.comp>.caixa,.prancha.comp>.numeros{border-radius:0;box-shadow:none;margin:0}
+@media (max-width:760px){.prancha.comp{grid-template-columns:minmax(0,1fr)}}
 
 /* ---- icones ---- */
+.icl{display:flex;flex-wrap:wrap;gap:14px 18px;align-items:center;color:var(--ferro)}
+.ic{display:inline-block;width:40px;height:40px}.ic svg{width:100%;height:100%;display:block}
+.ic .dt{fill:var(--dt,currentColor);opacity:var(--dto,.2)}
+/* seis pesos: um ladrilho por peso (rótulo + fileira) */
+.prancha.pesos-ic{display:grid}
+.pesos-ic>.fig{grid-template-columns:minmax(0,1fr);gap:10px}
+.pesos-ic .icl{gap:14px}
+.pesos-ic b{font-weight:500;display:block}
+.tam{display:flex;gap:28px;align-items:end;flex-wrap:wrap;color:var(--ferro)}.tam>div{display:grid;gap:6px;justify-items:start}
+/* duotone: cada cartão é um ladrilho com o par de cores inline (amostra); Faça e não faça em largura toda */
+.faca-nao.duo-fn{grid-template-columns:minmax(0,1fr)}
+.prancha.duo{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr))}
+.duo>div{padding:18px;display:grid;gap:12px;align-content:start}
+.duo .icl{color:var(--tr);gap:12px 14px}.duo .ic{width:44px;height:44px}.duo .ic .dt{opacity:1}
+.capitulo .duo .cap{color:var(--rot)}.capitulo .duo .cap b{color:inherit}
+/* tratamentos: ladrilho de ¼ do lado (18 px em 72) */
+.tiles{display:flex;flex-wrap:wrap;gap:14px}.tile{box-sizing:border-box;width:72px;height:72px;border-radius:18px;padding:16px}
+.tile svg{width:100%;height:100%;display:block}
+.prancha .ic svg,.prancha .tile svg,.prancha .tam svg{background:none} /* o creme do .prancha svg não vale para ícone */
+.prancha.tratos>.fig>p{margin:0}.tile .dt{opacity:1;fill:var(--dt)}
+.t-solido{background:var(--ferro);color:var(--creme)}.t-claro{background:var(--damasco);color:var(--ferro)}.t-simples{color:var(--ferro)}
+.t-duo{background:var(--creme);color:var(--ferro);--dt:var(--damasco);box-shadow:inset 0 0 0 1px var(--fio)}
 
 /* ---- componentes ---- */
+/* recortes dos exemplos: um ladrilho por figura, na largura natural (PNG a 2x), sem passar do ladrilho */
+.prancha.imgs{display:grid;grid-template-columns:minmax(0,1fr)}
+.prancha.imgs>.fig{margin:0}
+.prancha.imgs img{display:block;max-width:100%;height:auto}
+
+/* ---- templates (capítulo sem molde) ---- */
+/* Apresentação: seis fundos de capa; só a cor de cada um vem do JS */
+#apresentacao-trama{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));margin-bottom:var(--cell-half)}
+.trama{position:relative;aspect-ratio:16/9;overflow:hidden}
+.trama lina-dither-field{position:absolute;inset:0;display:block;-webkit-mask-image:linear-gradient(#000 55%,transparent 80%);mask-image:linear-gradient(#000 55%,transparent 80%)}
+.trama>div{position:absolute;left:9px;right:9px;bottom:16px}
+.trama i{display:block;height:5px;width:70%;background:currentColor}
+.trama i+i{width:45%;margin-top:3px}
+.trama span{display:flex;gap:4px;margin-top:8px}
+.trama b{width:10px;height:4px;background:currentColor;opacity:.7}
+/* Documentos A4: as quatro páginas e os três exemplos em quadro */
+#documentos-a4-pags{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+#documentos-a4-pags svg{display:block;width:100%;height:auto;background:#fff;border:1px solid var(--fio-b1)} /* papel branco */
+#documentos-a4-exemplos{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+@media (max-width:820px){
+  #apresentacao-trama{grid-template-columns:repeat(3,minmax(0,1fr))}
+  #documentos-a4-pags{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
