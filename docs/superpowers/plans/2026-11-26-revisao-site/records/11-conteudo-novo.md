@@ -42,5 +42,5 @@ Capítulo `grid-e-espaco` ganhou `"molde": true` e três seções: `s-celula` (`
 - Logotipo, Tamanho mínimo, impresso: célula mínima de 2 mm (horizontal 17,5 × 6 mm, símbolo 4 × 6 mm)? (proposta)
 - Logotipo, Tamanho mínimo: vale também para vazados, selo e assinaturas, e vale para a arte dentro da placa e para o logo sem fundo? O texto cobre só horizontal, vertical e símbolo. (proposta)
 - Grid e espaço, Célula: qual a célula do documento A4? O template mede em px (1 px = 0,75 pt) e não define célula. (proposta)
-- Grid e espaço, Margens: escrever as margens de página (72 px na apresentação; 76, 64 e 134 a 141 px no A4) em células ou meias células? Hoje não são múltiplos de nenhuma célula. (proposta)
+- Grid e espaço, Margens: escrever as margens de página (72 px na apresentação; 76, 64 e 134 a 141 px no A4) em células ou meias células? Na mesma escala, hoje não são múltiplos de nenhuma célula (72 = 6 × 12, mas a trama é de 1324 px e a margem de 1920). (proposta)
 - Grid e espaço, Célula: a trama de 12 px da apresentação conta como a célula da apresentação, ou a apresentação só tem colunas e linhas? O texto trata a trama como a única célula e deixa o alinhamento dos slides fora. (proposta)
