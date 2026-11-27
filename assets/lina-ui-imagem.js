@@ -20,6 +20,8 @@
   const paraTons = (c) => (c.length === 1 ? [c[0], 'none', 'none'] : c.length === 2 ? [c[0], c[0], c[1]] : c);
   const produto = (n) => (n === 1 ? NOMES.map((a) => [a]) : produto(n - 1).flatMap((l) => NOMES.map((a) => [...l, a])));
 
+  const validos = (n) => produto(n).filter((c) => new Set(c).size === c.length && LinaPalette.checkTones(paraTons(c)).ok);
+
   const lido = F.lerHash(location.hash, ESQ);
   const p = lido.params;
   let avisos = lido.avisos;
@@ -158,19 +160,22 @@
     const b = e.target.closest('button');
     if (!b) return;
     const n = +b.dataset.v;
-    if (n <= cores.length) return poeCores(cores.slice(0, n));
+    if (n === cores.length) return; // quantidade já ativa: não mexe nas faixas
+    if (n < cores.length) return poeCores(cores.slice(0, n));
     const novo = cores.slice();
     while (novo.length < n) { // acrescenta a primeira cor que o conjunto aceita
       const c = NOMES.find((x) => LinaPalette.checkTones(paraTons([...novo, x])).ok);
-      novo.push(c || sorteia(NOMES));
+      if (!c) return poeCores(sorteia(validos(n)));
+      novo.push(c);
     }
     poeCores(novo);
   });
   raiz.querySelectorAll('[data-cor]').forEach((s) => s.addEventListener('change', () => {
-    const velha = cores[+s.dataset.cor];
+    const i = +s.dataset.cor, velha = cores[i], j = cores.indexOf(s.value); // j >= 0: cor já escolhida, troca de lugar
     cores = cores.slice();
-    cores[+s.dataset.cor] = s.value;
-    p.tones = p.tones.map((t) => (t === velha ? s.value : t)); // as faixas que usavam a cor seguem a nova
+    cores[i] = s.value;
+    if (j >= 0) cores[j] = velha;
+    p.tones = p.tones.map((t) => (t === velha ? s.value : j >= 0 && t === s.value ? velha : t)); // as faixas seguem a cor
     muda();
   }));
   raiz.querySelectorAll('[data-tom]').forEach((s) => s.addEventListener('change', () => {
@@ -179,8 +184,8 @@
     muda();
   }));
   $('fi-sortear').addEventListener('click', () => {
-    const ok = produto(cores.length).filter((c) => new Set(c).size === c.length && LinaPalette.checkTones(paraTons(c)).ok);
-    poeCores(sorteia(ok));
+    const ok = validos(cores.length);
+    if (ok.length) poeCores(sorteia(ok));
   });
 
   $('fi-arquivo').addEventListener('change', (e) => { if (e.target.files[0]) carrega(e.target.files[0]); });
