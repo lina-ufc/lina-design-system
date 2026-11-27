@@ -62,7 +62,7 @@
     email: 'Informe um e-mail válido.',
     pagina: 'A página deve ter até ' + LIMITES.pagina + ' caracteres.',
   };
-  const FALHA = 'Não foi possível enviar agora. Tente de novo em instantes.';
+  const FALHA = 'Não foi possível enviar agora. Sua mensagem continua no formulário; tente de novo em instantes.';
 
   // `form`: #fb; `url`: Apps Script ('' = indisponível, nada é enviado).
   function liga(form, url) {

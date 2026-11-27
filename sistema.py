@@ -74,7 +74,7 @@ def nav(atual):
         f'<li><a class="cap" href="{f["arquivo"]}"><span></span>{escape(f["nome"])}</a></li>' for f in FERR)
     arq = None if atual is FB else 'index.html' if atual is None else atual['arquivo'] if atual in FERR else pagina_de(atual)
     if arq and S['feedback_url']:
-        itens += f'<li><a class="cap" href="feedback.html?pagina={escape(arq)}"><span></span>Apontar erro nesta página</a></li>'
+        itens += f'<li><a class="cap" href="feedback.html?pagina={escape(arq)}"><span></span>Feedback sobre esta página</a></li>'
     return (f'<a class="pular" href="#conteudo">Pular para o conteúdo</a><aside aria-label="Sumário"><a class="logo" href="index.html"><img src="assets/logos/sand/lina-horizontal-ferro.svg" alt="LINA"></a>'
             f'<p class="tit">Sistema de design</p><details class="sum" open><summary>Sumário</summary><ol>{itens}</ol></details></aside>')
 
@@ -242,7 +242,7 @@ if (location.hash && !document.getElementById(location.hash.slice(1))) location.
 '''
 ferr_home = '<h3>Ferramentas</h3><ul class="regras">' + ''.join(f'<li><a href="{f["arquivo"]}">{escape(f["nome"])}</a>: {escape(f["sub"])}</li>' for f in FERR) + '</ul>'
 if S['feedback_url']:
-    ferr_home += '<h3>Feedback</h3><p>Viu um erro ou sentiu falta de algo? <a href="feedback.html">Conte para a equipe</a>.</p>'
+    ferr_home += '<h3>Feedback</h3><p>Viu um erro, sentiu falta de algo ou tem uma sugestão? <a href="feedback.html">Conte para a equipe</a>.</p>'
 main = f'<main id="conteudo" class="capitulo"><section>{(RAIZ / S["inicio"]).read_text()}{ferr_home}</section>\n{mapa}</main>'
 (RAIZ / 'index.html').write_text(html('Sistema LINA', None, main, HOME))
 
