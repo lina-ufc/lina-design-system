@@ -69,3 +69,7 @@ Pergunta do texto (revisão da Tarefa 1): `feedback.sub` ("Aponte um erro ou dig
 
 - 2026-11-28: envio real (normal e com isca) e VoiceOver feitos pelo dono ("feito").
 - 2026-11-28: pediu o campo Página como lista de seções (seção acima). `6304986`, `18d3ad6`; review limpo; navegador: `?pagina=cores.html` marca "3 Cores (capítulo todo)", envio manda `pagina=3 Cores`, select 44 px e `scrollWidth` 390 em 390 px.
+
+## Aprovação
+
+2026-11-28: dono aprova o feedback (07–10) como está. As três perguntas de gosto (anel do `#fb-ok`, borda dos botões, `feedback.sub` sem "sugestão") ficam abertas, sem mudança. Linhas de teste (07, 08, 10) na planilha: o dono apaga.
