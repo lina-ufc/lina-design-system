@@ -41,26 +41,26 @@ cards = ''.join(f'<a href="{escape(href(p))}" download><b>{t}</b><span class="p"
 
 fams = ''.join(f'<li><b>{k} · {fam}</b> <span class="cap">{desc}</span><br><span class="mono cap">'
                + ' · '.join(escape(l) for l in BASES if l.startswith(f'{k}.')) + '</span></li>' for k, (fam, desc) in enumerate(FAM, 1))
-H = '<h2 class="h" style="font-size:18px;margin:26px 0 6px">'
+H = '<h3>'
 # Os seis fundos de capa com a trama (pontilhado de uma cor, vizinha do fundo).
-TRAMA = '''<div id="apresentacao-trama" style="display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px;margin:12px 0 20px"></div>
+TRAMA = '''<div id="apresentacao-trama" class="prancha"></div>
 <script src="assets/lina-geometry.js"></script><script src="assets/lina-dither-field.js"></script><script>{
 const T=[['ferro','#A81F0D','#8A1A0B','#FAF5C6'],['umbro','#2A1A12','#3D2418','#FAF5C6'],['turquesa tinta','#14322E','#1F4741','#FAF5C6'],['ferro fundo','#6E1408','#541008','#FAF5C6'],['creme','#FAF5C6','#EFE3A4','#2A1A12'],['damasco','#FDD692','#F2C37A','#2A1A12']];
-document.getElementById('apresentacao-trama').innerHTML=T.map(([n,bg,pt,tx])=>'<div class="fig"><div style="position:relative;aspect-ratio:16/9;background:'+bg+';border-radius:6px;overflow:hidden"><lina-dither-field colors="'+pt+','+pt+'" still density=".2" cell="4" style="position:absolute;inset:0;display:block;-webkit-mask-image:linear-gradient(#000 55%,transparent 80%);mask-image:linear-gradient(#000 55%,transparent 80%)"></lina-dither-field><div style="position:absolute;left:9px;bottom:16px;right:9px;color:'+tx+'"><div style="height:5px;width:70%;background:currentColor;border-radius:2px"></div><div style="height:5px;width:45%;background:currentColor;border-radius:2px;margin-top:3px"></div><div style="display:flex;gap:4px;margin-top:8px">'+'<span style="width:10px;height:4px;background:currentColor;opacity:.7;border-radius:1px"></span>'.repeat(3)+'</div></div></div><p class="cap">'+n+'</p></div>').join('');
+document.getElementById('apresentacao-trama').innerHTML=T.map(([n,bg,pt,tx])=>'<div class="fig"><div class="trama" style="background:'+bg+';color:'+tx+'"><lina-dither-field colors="'+pt+','+pt+'" still density=".2" cell="4"></lina-dither-field><div><i></i><i></i><span><b></b><b></b><b></b></span></div></div><p class="cap">'+n+'</p></div>').join('');
 }</script>'''
 
 apres = f'''<style>.fam{{margin:8px 0 20px;padding:0;list-style:none;display:grid;gap:10px}}</style>{CSS}<h2>Apresentação</h2>
-{H}Estrutura</h2>
+{H}Estrutura</h3>
 <p class="p">Template 16:9, desenhado em 1920 × 1080. Um só gerador produz o PowerPoint e o deck HTML: os dois têm os mesmos layouts e as mesmas medidas.</p>
 <p class="p">Grade de 12 colunas e 6 linhas sobre a área modular, com margens de 72 px. O rótulo da seção ocupa a faixa do topo; o título começa na primeira linha e o conteúdo na segunda. O rodapé traz o ícone L, o título abreviado e o número do slide. Slides de conteúdo têm fundo branco.</p>
 <p class="p">Capa, aberturas de seção e encerramento têm fundo de cor coberto por um <a href="padroes.html#s-monocromaticos">pontilhado de uma cor só</a>, vizinha do fundo (<a href="cores.html#s-estudo-de-contraste">contraste de 1,2 a 1,8 : 1</a>). O pontilhado some antes da faixa de logos. O logotipo completo aparece só na capa e no encerramento; nos outros slides, o ícone no rodapé. Seis fundos possíveis:</p>
 {TRAMA}
 <p class="p">São {len(LAYS)} layouts em seis famílias. O nome é numerado, <span class="mono">família.variação</span>, e é nessa ordem que aparecem na lista de layouts do editor. Alguns layouts mudam de arranjo com a quantidade de itens: o sumário, a lista, a equipe e os autores têm uma variação por faixa, com o número no nome (<span class="mono">1.4 Sumário · 12 itens</span>). A lista abaixo mostra os {len(BASES)} desenhos de base.</p>
 <ul class="fam p">{fams}</ul>
-{H}Exemplo</h2>
+{H}Exemplo</h3>
 <p class="p">O exemplo no deck HTML: setas passam os slides. <a href="{T}/Apresentacao.dc.html" target="_blank">Abrir em tela cheia ↗</a></p>
-<!--quadro {T}/Apresentacao.dc.html 1920x1080-->
-{H}Uso</h2>
+<div class="prancha"><div class="fig"><!--quadro {T}/Apresentacao.dc.html 1920x1080--></div></div>
+{H}Uso</h3>
 <ol class="passos p">
 <li>Instale as fontes (<a href="tipografia.html#s-composicoes">5.5</a>) antes de abrir os arquivos.</li>
 <li>PowerPoint: abra o <span class="mono">.potx</span>, que cria uma apresentação nova. Keynote, Google Slides e Impress: abra o <span class="mono">.pptx</span> de exemplo e apague os slides que não usar.</li>
@@ -72,11 +72,11 @@ apres = f'''<style>.fam{{margin:8px 0 20px;padding:0;list-style:none;display:gri
 <li>Antes de apresentar, apague o guia e as páginas de ícones. Ao salvar, incorpore as fontes.</li>
 </ol>
 <p class="p">Para o deck HTML, descompacte o zip e abra <span class="mono">Apresentacao.dc.html</span> no navegador. Setas passam os slides; G mostra a grade, F alterna a tela cheia e N abre a janela do apresentador. Cada slide é uma <span class="mono">&lt;section&gt;</span> no arquivo: edite os textos num editor de texto e troque as imagens na pasta <span class="mono">img/</span>, mantendo os nomes.</p>
-{H}Notas do apresentador</h2>
+{H}Notas do apresentador</h3>
 <p class="p">As notas são o texto que só o apresentador vê. No PowerPoint, escreva no campo de notas de cada slide e use o Modo de Apresentação. Com o gerador, passe <span class="mono">notas: '…'</span> no <span class="mono">s()</span> do slide (<span class="mono">\\n</span> separa parágrafos); as notas vão para o .pptx e para o deck HTML.</p>
 <p class="p">No deck HTML, a tecla N abre a janela do apresentador: nota do slide atual, o slide atual em tamanho grande, o próximo em miniatura menor com o começo da nota seguinte, cronômetro e relógio. As miniaturas são estáticas: vídeos e animações aparecem parados. P inicia ou pausa o cronômetro, R zera, as setas passam os slides e F ocupa a tela toda. O navegador precisa permitir pop-up para o site. Arraste a janela para a tela do notebook e deixe o deck no projetor.</p>
-<div class="fig"><img src="capitulos/templates/img/apresentador.png" alt="Janela do apresentador: à esquerda a nota do slide 6, &quot;Quatro blocos. Cite cada um em uma frase e diga quanto tempo leva.&quot;; à direita o slide atual em tamanho grande e, abaixo, o próximo em miniatura menor e apagada, com o aviso de que as miniaturas são estáticas; no topo o cronômetro, os botões e a hora." width="1440" height="904" style="display:block;width:100%;height:auto;border-radius:6px"><p class="cap">Janela do apresentador no slide 6 do exemplo.</p></div>
-{H}Baixar</h2>
+<div class="prancha imgs"><div class="fig"><img src="capitulos/templates/img/apresentador.png" alt="Janela do apresentador: à esquerda a nota do slide 6, &quot;Quatro blocos. Cite cada um em uma frase e diga quanto tempo leva.&quot;; à direita o slide atual em tamanho grande e, abaixo, o próximo em miniatura menor e apagada, com o aviso de que as miniaturas são estáticas; no topo o cronômetro, os botões e a hora." width="1440" height="904"><p class="cap">Janela do apresentador no slide 6 do exemplo.</p></div></div>
+{H}Baixar</h3>
 <p class="p mono">Versão {VER} · <a href="{escape(hist)}">histórico de versões</a> · <a href="https://github.com/lina-ufc/lina-design-system/releases">versões anteriores</a></p>
 <div class="dl">{cards}</div>
 <p class="p">Também: fontes (<a href="tipografia.html#s-composicoes">5.5</a>), ícones além das páginas do exemplo (<a href="icones.html#s-arquivos">6.5</a>) e logos para a faixa de parceiros (<a href="logotipo.html#s-combinacoes-de-cores">1.8</a>).</p>'''
@@ -102,6 +102,6 @@ baixar_d = f'''<p class="p mono">Versão {VER_D} · <a href="{escape(hist_d)}">h
 <div class="dl">{cards_d}</div>
 <p class="p">Também: fontes (<a href="tipografia.html#s-composicoes">5.5</a>) e logos (<a href="logotipo.html#s-combinacoes-de-cores">1.8</a>).</p>'''
 f = os.path.join(AQUI, '2-documentos-a4.html')
-h = open(f, encoding='utf-8').read(); k = 'Baixar</h2>\n'
+h = open(f, encoding='utf-8').read(); k = 'Baixar</h3>\n'
 open(f, 'w', encoding='utf-8').write(h[:h.index(k) + len(k)] + baixar_d + '\n')
 print('documentos', len(DL_D))
