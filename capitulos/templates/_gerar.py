@@ -46,7 +46,7 @@ H = '<h3>'
 TRAMA = '''<div id="apresentacao-trama" class="prancha"></div>
 <script src="assets/lina-geometry.js"></script><script src="assets/lina-dither-field.js"></script><script>{
 const T=[['ferro','#A81F0D','#8A1A0B','#FAF5C6'],['umbro','#2A1A12','#3D2418','#FAF5C6'],['turquesa tinta','#14322E','#1F4741','#FAF5C6'],['ferro fundo','#6E1408','#541008','#FAF5C6'],['creme','#FAF5C6','#EFE3A4','#2A1A12'],['damasco','#FDD692','#F2C37A','#2A1A12']];
-document.getElementById('apresentacao-trama').innerHTML=T.map(([n,bg,pt,tx])=>'<div class="fig"><div class="trama" style="background:'+bg+';color:'+tx+'"><lina-dither-field colors="'+pt+','+pt+'" still density=".2" cell="4"></lina-dither-field><div><i></i><i></i><span><b></b><b></b><b></b></span></div></div><p class="cap">'+n+'</p></div>').join('');
+document.getElementById('apresentacao-trama').innerHTML=T.map(([n,bg,pt,tx])=>'<div class="fig"><div class="trama" style="background:'+bg+';color:'+tx+'"><lina-dither-field colors="'+pt+','+pt+'" fill still density=".2" cell="4"></lina-dither-field><div><i></i><i></i><span><b></b><b></b><b></b></span></div></div><p class="cap">'+n+'</p></div>').join('');
 }</script>'''
 
 apres = f'''<style>.fam{{margin:8px 0 20px;padding:0;list-style:none;display:grid;gap:10px}}</style>{CSS}<h2>Apresentação</h2>
