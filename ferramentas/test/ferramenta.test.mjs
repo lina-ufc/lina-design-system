@@ -39,7 +39,7 @@ test('hash: padrões não entram na URL; # inicial é aceito', () => {
 
 test('hash: ida e volta de imagem', () => {
   const E = F.ESQUEMAS.imagem;
-  const p = { ...F.lerHash('', E).params, mode: 'bitmap', dither: 'ordered', invert: true, colors: ['creme', 'umbro'], width: 640, detail: 0.7 };
+  const p = { ...F.lerHash('', E).params, mode: 'field', invert: true, colors: ['creme', 'umbro'], tones: ['ferro', 'none', 'none'], width: 640, detail: 0.7 };
   assert.deepEqual(F.lerHash(F.escreverHash(p, E), E).params, p);
 });
 
@@ -82,8 +82,9 @@ test('comando de imagem reproduz o motor', async () => {
   const { data, info } = await sharp()(raiz + FOTO).rotate().ensureAlpha().raw().toBuffer({ resolveWithObject: true });
   const img = { width: info.width, height: info.height, data: new Uint8ClampedArray(data) };
   for (const p of [
-    { mode: 'dither', dither: 'ordered', colors: ['creme', 'umbro'], width: 300, detail: 0.5, invert: true },
-    { mode: 'bitmap', colors: ['creme', 'ferro'], width: 400, contrast: 0.6, cutoff: 0.2 },
+    { mode: 'dither', colors: ['creme', 'umbro'], width: 300, detail: 0.5, invert: true },
+    { mode: 'scatter', colors: ['creme', 'ferro'], tones: ['ferro', 'none', 'none'], width: 400, contrast: 0.6, cutoff: 0.2 },
+    { mode: 'field', colors: ['creme', 'ferro'], tones: ['ferro-fundo', 'ferro', 'creme'], width: 400, detail: 0.3 },
   ]) {
     const linha = F.comando('imagem', p, FOTO);
     assert.match(linha, /^node ferramentas\/imagem\.mjs assets\/\S+ /);

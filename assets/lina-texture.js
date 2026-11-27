@@ -125,9 +125,18 @@
   // Random cells. Clumping keeps walking from the last cell, which draws trails.
   // `steps` puts a cell half a cell off the grid; `quarter` puts it a quarter off,
   // where it can only sit if it touches nothing.
-  function scatter(F, p, seed) {
+  // `tone(x, y, w, h)` (optional, frame pixels, 0 paper to 1 ink) replaces `blank`: a cell lands
+  // with the chance of the tone under it times BOOST (solid ink is reached before the target stops
+  // the walk), and F.tone keeps that tone for every ink pixel.
+  const BOOST = 1.5;
+  function scatter(F, p, seed, tone) {
     const rng = rngFor(seed, 1);
-    const target = F.W * F.H * (1 - p.blank);
+    let target = F.W * F.H * (1 - p.blank);
+    if (tone) {
+      F.tone = new Float32Array(F.GW * F.GH);
+      target = 0;
+      for (let y = 0; y < F.H; y += CELL) for (let x = 0; x < F.W; x += CELL) target += Math.min(1, tone(x, y, CELL, CELL) * BOOST) * CELL * CELL;
+    }
     const DIRS = [[CELL, 0], [0, CELL], [-CELL, 0], [0, -CELL]];
     let filled = 0, x = 0, y = 0, dir = 0, walking = false;
     const tries = (F.GW * F.GH) / 2;
@@ -143,9 +152,12 @@
         if (rng() < p.steps) { if (rng() < 0.5) x += HALF; else y += HALF; }
         if (rng() < p.quarter) { if (rng() < 0.5) x += 1; else y += 1; }
       }
-      const n = fillRect(F, x, y, CELL, CELL);
+      const d = tone ? tone(x - F.M, y - F.M, CELL, CELL) : 1;
+      const n = tone && rng() >= Math.min(1, d * BOOST) ? -1 : fillRect(F, x, y, CELL, CELL);
       walking = n >= 0;
       if (n > 0) filled += n;
+      if (tone && n > 0)
+        for (let j = 0; j < CELL; j++) for (let i = 0; i < CELL; i++) if (!F.tone[(y + j) * F.GW + x + i]) F.tone[(y + j) * F.GW + x + i] = d;
     }
   }
 
@@ -181,9 +193,16 @@
   // Field is one connected mass, so it works on the half-cell grid: the noise is cut
   // into whole cells at half-cell resolution, then drawn at quarter resolution.
   // Cells on the cell grid are always allowed; half-offset cells only as often as `steps`.
-  function fieldMode(F, p, seed) {
+  // `tone(x, y, w, h)` (optional, frame pixels, 0 paper to 1 ink) takes the noise's place with a
+  // fixed cut at 0.35 (a mid-tone rim around the dark mass), and F.tone keeps the tone of every ink pixel.
+  function fieldMode(F, p, seed, tone) {
     const gw = F.GW / 2, gh = F.GH / 2;
-    const n = noise(gw, gh, F.wrap, p, seed);
+    let n;
+    if (tone) {
+      n = new Float32Array(gw * gh);
+      F.tone = new Float32Array(F.GW * F.GH);
+      for (let y = 0; y < gh; y++) for (let x = 0; x < gw; x++) n[y * gw + x] = tone(2 * x - F.M, 2 * y - F.M, 2, 2);
+    } else n = noise(gw, gh, F.wrap, p, seed);
     const half = new Uint8Array(gw * gh);
     const build = (t) => {
       half.fill(0);
@@ -203,9 +222,10 @@
           if (!half[y * gw + x]) continue;
           const k = 2 * y * F.GW + 2 * x;
           F.bits[k] = F.bits[k + 1] = F.bits[k + F.GW] = F.bits[k + F.GW + 1] = 1;
+          if (tone) F.tone[k] = F.tone[k + 1] = F.tone[k + F.GW] = F.tone[k + F.GW + 1] = n[y * gw + x];
         }
     };
-    fitBlank(F, p.blank, 0, 1, build);
+    if (tone) build(0.35); else fitBlank(F, p.blank, 0, 1, build);
   }
 
   // The wordmark letters in all eight orientations, in quarter units
@@ -483,7 +503,16 @@
       }
       if (!mixed && c) for (const k of hole) fills.push([k, c]);
     }
-    for (const [k, c] of fills) bits[k] = c;
+    for (const [k, c] of fills) {
+      bits[k] = c;
+      if (F.tone) { // a filled hole takes the strongest tone around it
+        const x = k % GW, y = (k - x) / GW;
+        for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) {
+          const nx = x + dx, ny = y + dy;
+          if (nx >= 0 && ny >= 0 && nx < GW && ny < GH) F.tone[k] = Math.max(F.tone[k], F.tone[ny * GW + nx]);
+        }
+      }
+    }
   }
 
   // 8-connected components, matching the outline rule where diagonal contact joins shapes.
@@ -640,5 +669,7 @@
     return toSVG(generate(options), colors, { id: `lina-${options.mode}-${options.seed ?? DEFAULTS.seed}` });
   }
 
-  root.LinaTexture = { generate, toSVG, fromParams, render, legal, PALETTES, DEFAULTS };
+  // `engine`: the generators, for a caller that supplies its own tone (the image filter).
+  root.LinaTexture = { generate, toSVG, fromParams, render, legal, PALETTES, DEFAULTS,
+    engine: { makeField, scatter, fieldMode, fillPinholes } };
 })(typeof window !== 'undefined' ? window : globalThis);

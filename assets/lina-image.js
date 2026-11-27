@@ -3,7 +3,9 @@
 
   Units: 1 unit = ¼ cell. The photo becomes a darkness map. Dither is the landing
   banner's pattern toned by the photo, the one filter outside the rule: its dots vary
-  in size. Bitmap keeps to the rule.
+  in size. Scatter and field are the texture generators with the photo's tone in the
+  noise's place, so they keep to the rule. Ink is split in two tone bands (dark, mid),
+  each with its own colour; light is the paper.
 */
 (function (root) {
   'use strict';
@@ -18,11 +20,13 @@
 
   const DEFAULTS = {
     mode: 'dither', detail: 84,
-    dither: 'diffusion',
     brightness: 0, contrast: 0, midtones: 0.35, cutoff: 0.08, smooth: 0.3, invert: false, radius: 0.25,
   };
 
   const CELL = 4;
+  const DARK = 0.5; // ink at or above this tone is `escuros`, below it `médios`
+  const TONES = ['ferro', 'ferro', 'creme'];
+  const inBand = (band, t) => !band || (t >= DARK) === (band === 'dark');
   const clamp = (v, a, b) => (v < a ? a : v > b ? b : v);
 
   /* ---------- source ---------- */
@@ -68,45 +72,9 @@
     };
   }
 
-  /* ---------- tone to dot size ---------- */
+  /* ---------- filters ---------- */
 
   const BAYER = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5].map((v) => (v + 0.5) / 16);
-
-  // Pick a ladder step per tile. `cov` is the ink share of each step, increasing.
-  function quantize(nx, ny, tone, cov, mode) {
-    const out = new Uint8Array(nx * ny);
-    const t = Float32Array.from(tone);
-    const top = cov.length - 1;
-    for (let j = 0; j < ny; j++) {
-      const ltr = mode !== 'diffusion' || j % 2 === 0;
-      for (let n = 0; n < nx; n++) {
-        const i = ltr ? n : nx - 1 - n;
-        const k = j * nx + i;
-        // Cleared highlights stay empty and take no error, so the paper stays clean.
-        if (tone[k] <= 0) continue;
-        const v = t[k];
-        let l = 0;
-        if (mode === 'ordered') {
-          while (l < top && v >= cov[l + 1]) l++;
-          if (l < top && (v - cov[l]) / (cov[l + 1] - cov[l]) > BAYER[(j & 3) * 4 + (i & 3)]) l++;
-        } else {
-          while (l < top && Math.abs(cov[l + 1] - v) <= Math.abs(cov[l] - v)) l++;
-        }
-        out[k] = l;
-        if (mode === 'diffusion') {
-          const e = v - cov[l], s = ltr ? 1 : -1;
-          const spread = (ii, jj, w) => { if (ii >= 0 && ii < nx && jj < ny) t[jj * nx + ii] += e * w; };
-          spread(i + s, j, 7 / 16);
-          spread(i - s, j + 1, 3 / 16);
-          spread(i, j + 1, 5 / 16);
-          spread(i + s, j + 1, 1 / 16);
-        }
-      }
-    }
-    return out;
-  }
-
-  /* ---------- filters ---------- */
 
   // The landing banner's pattern, toned by the photo, one tile per cell. Dark tiles become solid
   // cells whose union is traced by the rule; below that the rim is Bayer-dithered into cells
@@ -147,11 +115,12 @@
       size[k] = s;
     }
     const f = (v) => Math.round(v * 1000) / 1000;
-    const draw = (radius, scale) => {
+    const draw = (radius, scale, band) => {
       const C = CELL * scale;
-      let d = Geo.traceBitmap(solid, nx, ny, radius, { scale: C });
+      const part = band ? solid.map((v, k) => (v && inBand(band, tone[k]) ? 1 : 0)) : solid;
+      let d = Geo.traceBitmap(part, nx, ny, radius, { scale: C });
       for (let k = 0; k < N; k++) {
-        if (!size[k]) continue;
+        if (!size[k] || !inBand(band, tone[k])) continue;
         const i = k % nx, j = (k - i) / nx, s = size[k] * C, r = f(Math.min(s / 2, radius * C));
         const x = i * C + (C - s) / 2, y = j * C + (C - s) / 2;
         d += `M${f(x + r)} ${f(y)}H${f(x + s - r)}A${r} ${r} 0 0 1 ${f(x + s)} ${f(y + r)}` +
@@ -163,44 +132,26 @@
     return { U, V, draw, label: `${nx} × ${ny} células` };
   }
 
-  // Two tones. Without dithering the edge follows the image at half-cell precision,
-  // trimmed to what whole cells can cover; with dithering each cell is ink or paper.
-  // Bitmap is one mass, so it works on the half-cell grid and is drawn at quarter resolution.
-  function bitmap(src, p) {
-    const cw = Math.max(4, Math.round(p.detail));
-    const ch = rows(cw, src, 2);
-    const hw = cw * 2, hh = ch * 2;
-    const tone = sampler(src, hw, hh, p);
-    const half = new Uint8Array(hw * hh);
-    if (p.dither === 'none') {
-      const ink = new Uint8Array(hw * hh);
-      for (let y = 0; y < hh; y++) for (let x = 0; x < hw; x++) ink[y * hw + x] = tone(x, y, 1, 1) > 0.5 ? 1 : 0;
-      for (let y = 0; y < hh - 1; y++) {
-        for (let x = 0; x < hw - 1; x++) {
-          const a = y * hw + x;
-          if (ink[a] && ink[a + 1] && ink[a + hw] && ink[a + hw + 1]) half[a] = half[a + 1] = half[a + hw] = half[a + hw + 1] = 1;
-        }
-      }
-    } else {
-      const t = new Float32Array(cw * ch);
-      for (let j = 0; j < ch; j++) for (let i = 0; i < cw; i++) t[j * cw + i] = tone(i * 2, j * 2, 2, 2);
-      const levels = quantize(cw, ch, t, [0, 1], p.dither);
-      for (let k = 0; k < levels.length; k++) {
-        if (!levels[k]) continue;
-        const i = k % cw, j = (k - i) / cw;
-        for (let y = 0; y < 2; y++) half.fill(1, (j * 2 + y) * hw + i * 2, (j * 2 + y) * hw + i * 2 + 2);
-      }
-    }
-    const U = hw * 2, V = hh * 2;
-    const bits = new Uint8Array(U * V);
-    for (let y = 0; y < hh; y++)
-      for (let x = 0; x < hw; x++) {
-        if (!half[y * hw + x]) continue;
-        const k = 2 * y * U + 2 * x;
-        bits[k] = bits[k + 1] = bits[k + U] = bits[k + U + 1] = 1;
-      }
-    return { bits, U, V, label: `${cw} × ${ch} células` };
-  }
+  // Scatter and field: the texture generators, the photo's tone in place of blank and noise.
+  // The grid is the photo's cells, cut at the frame; `steps` 1 lets half-cell blocks follow the edge.
+  const texture = (kind) => (src, p) => {
+    const T = root.LinaTexture && root.LinaTexture.engine;
+    if (!T) throw new Error('Dispersão e campo precisam do lina-texture.js.');
+    const nx = Math.max(4, Math.round(p.detail));
+    const ny = rows(nx, src, 1);
+    const U = nx * CELL, V = ny * CELL;
+    const F = T.makeField(U, V, 'cut');
+    const tone = sampler(src, U, V, p);
+    if (kind === 'scatter') T.scatter(F, { clump: 0.6, steps: 0.5, quarter: 0 }, 1, tone);
+    else T.fieldMode(F, { steps: 1 }, 1, tone);
+    T.fillPinholes(F);
+    const draw = (radius, scale, band) => {
+      const ink = new Uint8Array(U * V);
+      for (let k = 0; k < ink.length; k++) ink[k] = F.bits[k] && inBand(band, F.tone[k]) ? 1 : 0;
+      return Geo.traceBitmap(ink, U, V, radius * CELL, { scale });
+    };
+    return { U, V, draw, label: `${nx} × ${ny} células` };
+  };
 
   // Whole rows that fit the image at `cols` across; too flat for `min` rows would mean stretching.
   function rows(cols, src, min) {
@@ -209,65 +160,70 @@
     return n;
   }
 
-  const FILTERS = { dither, bitmap };
+  const FILTERS = { dither, scatter: texture('scatter'), field: texture('field') };
 
   function process(src, options) {
     const p = Object.assign({}, DEFAULTS, options);
     return (FILTERS[p.mode] || dither)(src, p);
   }
 
-  // A result's outline in output units times `scale`, corners rounded by `radius` cells.
-  function outline(res, radius, scale = 1) {
-    return res.draw ? res.draw(radius, scale) : Geo.traceBitmap(res.bits, res.U, res.V, radius * CELL, { scale });
+  // A result's outline in output units times `scale`, corners rounded by `radius` cells;
+  // `band` ('dark' | 'mid') keeps only the ink of that tone band.
+  function outline(res, radius, scale = 1, band) {
+    return res.draw(radius, scale, band);
   }
 
   /* ---------- public contract ---------- */
 
-  const MODES = ['dither', 'bitmap'];
-  const DITHERS = ['none', 'ordered', 'diffusion'];
+  const MODES = ['dither', 'scatter', 'field'];
   const f2 = (v) => Math.round(v * 100) / 100;
 
-  // params: { mode, detail, dither, brightness, contrast, midtones, cutoff, smooth, invert,
-  // colors: [bg, fg], width }, fractions in 0–1. Mapping to the engine's options:
+  // params: { mode, detail, brightness, contrast, midtones, cutoff, smooth, invert, tones, width },
+  // fractions in 0–1. tones = [escuros, médios, claros], each a colour name or 'none' (transparent);
+  // light is the paper behind the ink. The old `colors: [bg, fg]` still works, becomes
+  // [fg, fg, bg] and adds a warning. Mapping to the engine's options:
   //   detail 0–1 -> cells across 20–160; brightness, contrast, midtones 0–1 -> -1..1 (0.5 is neutral);
-  //   cutoff, smooth 0–1 -> as is; dither: 'none' | 'ordered' | 'diffusion', or a fraction
-  //   (0 none, up to 0.5 ordered, above diffusion); invert boolean. Radius stays 0.25 cell.
+  //   cutoff, smooth 0–1 -> as is; invert boolean. Radius stays 0.25 cell.
   function fromParams(params) {
-    const r = Pal.check(params.colors);
-    if (!r.ok) throw new Error(r.reason);
-    if (r.kind === 'trio') throw new Error('Imagem usa 2 cores (fundo e tinta); um trio não se aplica.');
+    const warnings = [];
+    let tones = params.tones ?? (params.colors === undefined ? TONES : null);
+    if (!tones) {
+      const r = Pal.check(params.colors);
+      if (!r.ok) throw new Error(r.reason);
+      if (r.kind === 'trio') throw new Error('Imagem usa 2 cores (fundo e tinta); um trio não se aplica.');
+      tones = [params.colors[1], params.colors[1], params.colors[0]];
+      warnings.push(`colors ficou obsoleto: use tones=${tones.join(',')}.`);
+    }
+    const t = Pal.checkTones(tones);
+    if (!t.ok) throw new Error(t.reason);
     const mode = params.mode || DEFAULTS.mode;
     if (!MODES.includes(mode)) throw new Error(`Modo desconhecido: "${mode}". Modos válidos: ${MODES.join(', ')}.`);
     const options = { mode, radius: 0.25 };
-    for (const k of ['detail', 'brightness', 'contrast', 'midtones', 'cutoff', 'smooth', 'dither']) {
+    for (const k of ['detail', 'brightness', 'contrast', 'midtones', 'cutoff', 'smooth']) {
       const v = params[k];
-      if (v !== undefined && typeof v !== 'string' && !(v >= 0 && v <= 1)) throw new Error(`${k} é fração de 0 a 1, veio ${v}.`);
+      if (v !== undefined && !(v >= 0 && v <= 1)) throw new Error(`${k} é fração de 0 a 1, veio ${v}.`);
     }
     const signed = (v) => (v - 0.5) * 2;
     if (params.detail !== undefined) options.detail = Math.round(20 + params.detail * 140);
     for (const k of ['brightness', 'contrast', 'midtones'])
       if (params[k] !== undefined) options[k] = signed(params[k]);
     for (const k of ['cutoff', 'smooth', 'invert']) if (params[k] !== undefined) options[k] = params[k];
-    const d = params.dither;
-    if (typeof d === 'string') {
-      if (!DITHERS.includes(d)) throw new Error(`Pontilhado desconhecido: "${d}". Válidos: ${DITHERS.join(', ')}.`);
-      options.dither = d;
-    } else if (d !== undefined) options.dither = d <= 0 ? 'none' : d <= 0.5 ? 'ordered' : 'diffusion';
-    const [bg, fg] = params.colors.map((n) => Pal.COLORS[n]);
-    return { options, colors: { bg, fg } };
+    return { options, tones: tones.map((n) => (n === 'none' ? null : Pal.COLORS[n])), warnings };
   }
 
   // SVG with exactly `params.width`; the height is whole rows of cells, set by the image's ratio.
+  // A `none` band draws no fill; equal dark and mid colours are one path.
   function render(imageData, params) {
-    const { options, colors } = fromParams(params);
+    const { options, tones: [dark, mid, light] } = fromParams(params);
     const width = params.width ?? 1080;
     if (!(width > 0) || !Number.isFinite(width)) throw new Error(`width precisa de número maior que 0, veio ${width}.`);
     const res = process(prepare(imageData), options);
     const scale = width / res.U;
     const w = f2(width), h = f2(res.V * scale);
+    const path = (fill, band) => (fill ? `  <path fill="${fill}" fill-rule="evenodd" d="${outline(res, options.radius, scale, band)}"/>\n` : '');
     return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}">\n` +
-      `  <rect width="${w}" height="${h}" fill="${colors.bg}"/>\n` +
-      `  <path fill="${colors.fg}" fill-rule="evenodd" d="${outline(res, options.radius, scale)}"/>\n</svg>\n`;
+      (light ? `  <rect width="${w}" height="${h}" fill="${light}"/>\n` : '') +
+      (dark === mid ? path(dark) : path(mid, 'mid') + path(dark, 'dark')) + '</svg>\n';
   }
 
   root.LinaImage = { PALETTES, DEFAULTS, prepare, process, outline, CELL, fromParams, render };

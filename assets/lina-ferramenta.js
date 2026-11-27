@@ -17,6 +17,8 @@
   const str = (padrao, valores) => ({ tipo: 'str', valores, padrao });
   const bool = (padrao) => ({ tipo: 'bool', padrao });
   const cores = (min, max) => ({ tipo: 'cores', min, max, padrao: ['creme', 'ferro'] });
+  // [escuros, médios, claros]; null = sem tons: a imagem usa `colors` (convertido).
+  const tons = () => ({ tipo: 'tons', padrao: null });
 
   // Faixas e padrões do fromParams e do DEFAULTS de cada motor (frações 0–1).
   const ESQUEMAS = {
@@ -34,14 +36,14 @@
       pinholes: bool(true),
     },
     imagem: {
-      mode: str('dither', ['dither', 'bitmap']),
+      mode: str('dither', ['dither', 'scatter', 'field']),
       detail: num(0.46), // 84 células: 20 + 0,46 × 140
-      dither: str('diffusion', ['none', 'ordered', 'diffusion']),
       brightness: num(0.5), contrast: num(0.5),
       midtones: num(0.675), // DEFAULTS.midtones 0,35 em -1..1
       cutoff: num(0.08), smooth: num(0.3),
       invert: bool(false),
       colors: cores(2, 2),
+      tones: tons(),
       width: num(1080, 0, Infinity, true),
     },
   };
@@ -64,6 +66,12 @@
       const lista = bruto.split(',');
       if (lista.length < e.min || lista.length > e.max) throw new Error(`use ${e.min === e.max ? e.min : `${e.min} ou ${e.max}`} cores`);
       const r = root.LinaPalette.check(lista);
+      if (!r.ok) throw new Error(r.reason);
+      return lista;
+    }
+    if (e.tipo === 'tons') {
+      const lista = bruto.split(',');
+      const r = root.LinaPalette.checkTones(lista);
       if (!r.ok) throw new Error(r.reason);
       return lista;
     }

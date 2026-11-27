@@ -20,9 +20,9 @@ export function sharp() {
 
 export const fail = (msg) => { process.stderr.write(`Erro: ${msg}\n`); process.exit(2); };
 
-// spec: { num: [...], bool: [...], str: [...] } → params; `colors` vira lista; `--no-x` desliga booleana.
+// spec: { num: [...], bool: [...], str: [...] } → params; `colors` e `tones` viram lista; `--no-x` desliga booleana.
 export function flags(argv, spec, { positional = false } = {}) {
-  const options = { out: { type: 'string' }, colors: { type: 'string' }, 'list-colors': { type: 'boolean' } };
+  const options = { out: { type: 'string' }, colors: { type: 'string' }, tones: { type: 'string' }, 'list-colors': { type: 'boolean' } };
   for (const k of [...spec.num, ...spec.str]) options[k] = { type: 'string' };
   for (const k of spec.bool) options[k] = { type: 'boolean' };
   let r;
@@ -34,7 +34,7 @@ export function flags(argv, spec, { positional = false } = {}) {
   const params = {};
   for (const [k, v] of Object.entries(r.values)) {
     if (['out', 'list-colors'].includes(k)) continue;
-    if (k === 'colors') params.colors = v.split(',').map((s) => s.trim());
+    if (k === 'colors' || k === 'tones') params[k] = v.split(',').map((s) => s.trim());
     else if (spec.num.includes(k)) {
       const n = Number(v);
       if (v.trim() === '' || !Number.isFinite(n)) fail(`--${k} precisa de número, veio "${v}".`);

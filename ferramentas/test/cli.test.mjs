@@ -49,6 +49,15 @@ test('imagem a partir de PNG', () => {
   const r = run('ferramentas/imagem.mjs', [PNG, '--colors', 'creme,umbro', '--width', '300']);
   assert.equal(r.status, 0); assert.match(r.stdout, /width="300"/);
 });
+test('imagem: --tones nos três modos, none sem fill; --colors avisa em stderr', () => {
+  for (const mode of ['dither', 'scatter', 'field']) {
+    const r = run('ferramentas/imagem.mjs', [PNG, '--mode', mode, '--tones', 'ferro,none,none', '--width', '300']);
+    assert.equal(r.status, 0, r.stderr); assert.doesNotMatch(r.stdout, /<rect|none/); assert.equal(r.stderr, '');
+  }
+  const r = run('ferramentas/imagem.mjs', [PNG, '--colors', 'creme,umbro', '--width', '300']);
+  assert.equal(r.status, 0); assert.match(r.stderr, /Aviso: colors ficou obsoleto: use tones=umbro,umbro,creme/);
+  assert.equal(run('ferramentas/imagem.mjs', [PNG, '--tones', 'ferro,umbro,creme']).status, 2);
+});
 test('imagem: de outro cwd, trio, foto inexistente, sem caminho', () => {
   const abs = spawnSync('node', [join(root, 'ferramentas/imagem.mjs'), join(root, PNG), '--colors', 'creme,umbro', '--width', '300'],
     { cwd: tmpdir(), encoding: 'utf8' });
