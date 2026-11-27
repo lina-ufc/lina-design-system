@@ -2,6 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
 import { mkdtempSync, readFileSync } from 'node:fs';
+import { createRequire } from 'node:module';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
@@ -55,5 +56,21 @@ test('imagem: de outro cwd, trio, foto inexistente, sem caminho', () => {
   for (const a of [[PNG, '--colors', 'creme,umbro,ferro'], ['nao-existe.png', '--colors', 'creme,umbro'], ['--colors', 'creme,umbro']]) {
     const r = run('ferramentas/imagem.mjs', a);
     assert.equal(r.status, 2, a.join(' ')); assert.equal(r.stdout, ''); assert.doesNotMatch(r.stderr, /\n\s+at /);
+  }
+});
+test('imagem: JPEG com EXIF orientation 6 sai em retrato', async () => {
+  const sharp = createRequire(new URL('../../templates/apresentacao/potx/package.json', import.meta.url))('sharp');
+  const f = join(mkdtempSync(join(tmpdir(), 'lina-')), 'f.jpg');
+  await sharp({ create: { width: 200, height: 100, channels: 3, background: '#888' } })
+    .jpeg().withMetadata({ orientation: 6 }).toFile(f);
+  const r = run('ferramentas/imagem.mjs', [f, '--colors', 'creme,umbro', '--width', '300']);
+  assert.equal(r.status, 0);
+  const m = r.stdout.match(/width="300" height="(\S+)"/);
+  assert.ok(Number(m[1]) > 300, `altura ${m[1]} não é retrato`);
+});
+test('textura e imagem: fração fora de 0–1 sai com 2', () => {
+  for (const [s, a] of [['textura', ['--blank', '5']], ['textura', ['--edges', 'x']], ['imagem', ['--detail', '84', PNG]]]) {
+    const r = run(`ferramentas/${s}.mjs`, [...a, '--colors', 'creme,umbro']);
+    assert.equal(r.status, 2, a.join(' ')); assert.equal(r.stdout, '');
   }
 });

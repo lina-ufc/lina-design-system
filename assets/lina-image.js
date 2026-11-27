@@ -239,6 +239,10 @@
     const mode = params.mode || DEFAULTS.mode;
     if (!MODES.includes(mode)) throw new Error(`Modo desconhecido: "${mode}". Modos válidos: ${MODES.join(', ')}.`);
     const options = { mode, radius: 0.25 };
+    for (const k of ['detail', 'brightness', 'contrast', 'midtones', 'cutoff', 'smooth', 'dither']) {
+      const v = params[k];
+      if (v !== undefined && typeof v !== 'string' && !(v >= 0 && v <= 1)) throw new Error(`${k} é fração de 0 a 1, veio ${v}.`);
+    }
     const signed = (v) => (v - 0.5) * 2;
     if (params.detail !== undefined) options.detail = Math.round(20 + params.detail * 140);
     for (const k of ['brightness', 'contrast', 'midtones'])
@@ -256,9 +260,11 @@
   // SVG with exactly `params.width`; the height is whole rows of cells, set by the image's ratio.
   function render(imageData, params) {
     const { options, colors } = fromParams(params);
+    const width = params.width ?? 1080;
+    if (!(width > 0) || !Number.isFinite(width)) throw new Error(`width precisa de número maior que 0, veio ${width}.`);
     const res = process(prepare(imageData), options);
-    const scale = params.width / res.U;
-    const w = f2(params.width), h = f2(res.V * scale);
+    const scale = width / res.U;
+    const w = f2(width), h = f2(res.V * scale);
     return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}">\n` +
       `  <rect width="${w}" height="${h}" fill="${colors.bg}"/>\n` +
       `  <path fill="${colors.fg}" fill-rule="evenodd" d="${outline(res, options.radius, scale)}"/>\n</svg>\n`;

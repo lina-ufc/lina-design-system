@@ -58,6 +58,7 @@
     if (names.length === 2) return d;
     if (!d.ok || d.kind !== 'duo') return d.ok ? no('Trio precisa de um duo como base.') : d;
     if (names[2] === names[0]) return no('A terceira cor não pode repetir o fundo.');
+    if (names[2] === names[1]) return no('A terceira cor não pode repetir a segunda.');
     return { ok: true, kind: 'trio', reason: '' };
   }
 

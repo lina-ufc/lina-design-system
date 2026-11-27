@@ -44,3 +44,10 @@ test('combos devolve só válidas', () => {
     for (const n of c) assert.equal(LinaPalette.check(n).kind, k, n.join('/'));
   }
 });
+test('trio com terceira cor repetida é recusado', () => {
+  for (const t of [['ferro','areia','areia'], ['ferro','areia','ferro']]) {
+    const r = LinaPalette.check(t);
+    assert.equal(r.ok, false, t.join('/')); assert.match(r.reason, /terceira/);
+  }
+  assert.ok(LinaPalette.combos('trio').every(([a, b, c]) => c !== a && c !== b));
+});

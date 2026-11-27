@@ -71,3 +71,12 @@ test('nenhuma cor do lina-visual-code', () => {
 test('API antiga exportada', () => {
   for (const k of ['prepare', 'process', 'outline', 'DEFAULTS', 'CELL']) assert.ok(LinaImage[k] !== undefined, k);
 });
+test('fração fora de 0–1 recusa com o nome', () => {
+  for (const k of ['detail', 'brightness', 'contrast', 'midtones', 'cutoff', 'smooth', 'dither'])
+    assert.throws(() => LinaImage.fromParams({ colors: ['creme', 'ferro'], [k]: 84 }), new RegExp(`${k} é fração de 0 a 1`));
+  assert.throws(() => LinaImage.fromParams({ colors: ['creme', 'ferro'], detail: -0.1 }), /detail/);
+});
+test('width padrão 1080 e width 0 recusa', () => {
+  assert.match(LinaImage.render(grad(40, 40), { mode: 'bitmap', colors: ['creme', 'ferro'] }), /width="1080"/);
+  assert.throws(() => LinaImage.render(grad(40, 40), { colors: ['creme', 'ferro'], width: 0 }), /width/);
+});

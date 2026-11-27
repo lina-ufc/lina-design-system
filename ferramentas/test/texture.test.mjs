@@ -41,3 +41,14 @@ test('toSVG sem id mantém ids distintos', () => {
   const c = { bg:'#FAF5C6', fg:'#A81F0D', accent:'#A81F0D' };
   assert.notEqual(LinaTexture.toSVG(res, c), LinaTexture.toSVG(res, c));
 });
+test('defaults do motor: sem cells/width/height', () => {
+  const svg = LinaTexture.render({ colors: ['creme', 'ferro'] });
+  assert.match(svg, /width="1080" height="1080"/); assert.doesNotMatch(svg, /NaN/);
+});
+test('recusa cells, width, height, fração e edges inválidos', () => {
+  const c = ['creme', 'ferro'];
+  for (const [o, re] of [[{ cells: 0 }, /cells/], [{ cells: 3.5 }, /cells/], [{ cells: 3 }, /cells/],
+    [{ width: 0 }, /width/], [{ height: -1 }, /height/], [{ blank: 5 }, /blank é fração de 0 a 1/],
+    [{ accent: 2 }, /accent/], [{ edges: 'x' }, /bleed, seamless/]])
+    assert.throws(() => LinaTexture.render({ colors: c, ...o }), re, JSON.stringify(o));
+});

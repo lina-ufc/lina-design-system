@@ -8,7 +8,6 @@ const { params, out, list } = flags(process.argv.slice(2), {
   bool: ['pinholes'], str: ['mode', 'edges'],
 });
 if (list) { listColors(LinaPalette); process.exit(0); }
-const p = { mode: 'field', seed: 1, width: 1080, height: 1080, cells: 36, ...params };
 let svg;
-try { svg = LinaTexture.render(p); } catch (e) { fail(e.message); }
+try { svg = LinaTexture.render(params); } catch (e) { fail(e.message); }
 emit(svg, out);

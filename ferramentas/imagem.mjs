@@ -12,8 +12,8 @@ if (args.length !== 1) fail('informe o caminho da foto: imagem.mjs foto.jpg --co
 if (params.dither !== undefined && params.dither.trim() !== '' && Number.isFinite(Number(params.dither))) params.dither = Number(params.dither);
 let svg;
 try {
-  const { data, info } = await sharp()(args[0]).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+  const { data, info } = await sharp()(args[0]).rotate().ensureAlpha().raw().toBuffer({ resolveWithObject: true });
   svg = LinaImage.render({ width: info.width, height: info.height, data: new Uint8ClampedArray(data) },
-    { width: 1080, ...params });
+    params);
 } catch (e) { fail(e.code === 'ENOENT' || /Input file/.test(e.message) ? `foto não encontrada ou ilegível: ${args[0]}` : e.message); }
 emit(svg, out);

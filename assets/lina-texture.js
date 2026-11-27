@@ -606,6 +606,8 @@
   /* ---------- public contract ---------- */
 
   const MODES = ['dither', 'scatter', 'field'];
+  const FRACTIONS = ['blank', 'steps', 'quarter', 'clump', 'stretch', 'accent'];
+  const EDGES = ['bleed', 'seamless', 'cut'];
   const KEYS = ['seed', 'blank', 'steps', 'quarter', 'clump', 'grain', 'stretch', 'edges', 'pinholes'];
 
   // params: { mode, seed, width, height, cells, colors, blank, steps, quarter, clump, grain,
@@ -615,8 +617,18 @@
     if (!r.ok) throw new Error(r.reason);
     const mode = params.mode || DEFAULTS.mode;
     if (!MODES.includes(mode)) throw new Error(`Modo desconhecido: "${mode}". Modos válidos: ${MODES.join(', ')}.`);
-    const cols = params.cells, rows = Math.max(4, Math.round(cols * params.height / params.width));
-    const options = { mode, cols, rows, scale: params.width / (cols * 2), radius: 0.25 };
+    const { width = 1080, height = 1080, cells = 36 } = params;
+    if (!Number.isInteger(cells) || cells < 4) throw new Error(`cells precisa de inteiro a partir de 4, veio ${cells}.`);
+    for (const [k, v] of [['width', width], ['height', height]])
+      if (!(v > 0) || !Number.isFinite(v)) throw new Error(`${k} precisa de número maior que 0, veio ${v}.`);
+    for (const k of FRACTIONS) {
+      const v = params[k];
+      if (v !== undefined && !(v >= 0 && v <= 1)) throw new Error(`${k} é fração de 0 a 1, veio ${v}.`);
+    }
+    if (params.edges !== undefined && !EDGES.includes(params.edges))
+      throw new Error(`edges desconhecido: "${params.edges}". Válidos: ${EDGES.join(', ')}.`);
+    const cols = cells, rows = Math.max(4, Math.round(cols * height / width));
+    const options = { mode, cols, rows, scale: width / (cols * 2), radius: 0.25 };
     for (const k of KEYS) if (params[k] !== undefined) options[k] = params[k];
     const [bg, fg, ac] = params.colors.map((n) => Pal.COLORS[n]);
     options.accent = ac ? (params.accent ?? DEFAULTS.accent) : 0;
