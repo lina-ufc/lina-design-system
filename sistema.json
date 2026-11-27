@@ -51,7 +51,8 @@
    "id": "grid-e-espaco",
    "parte": "II",
    "nome": "Grid e espaço",
-   "desc": "Célula, margens e espaçamento."
+   "desc": "Célula, margens e espaçamento.",
+   "molde": true
   },
   {
    "id": "padroes",
@@ -302,6 +303,24 @@
    "sub": "Outfit, JetBrains Mono e STIX Two Math, com as licenças OFL",
    "secao": "capitulos/tipografia/6-baixar-tipografia.html",
    "livre": true
+  },
+  {
+   "cap": "grid-e-espaco",
+   "nome": "Célula",
+   "sub": "A célula como unidade de tudo e o valor dela em cada meio (proposta)",
+   "secao": "capitulos/grid-e-espaco/1-celula.html"
+  },
+  {
+   "cap": "grid-e-espaco",
+   "nome": "Margens",
+   "sub": "Meia célula entre arte e borda e a margem de página de cada meio (proposta)",
+   "secao": "capitulos/grid-e-espaco/2-margens.html"
+  },
+  {
+   "cap": "grid-e-espaco",
+   "nome": "Espaçamento",
+   "sub": "Espaçamento de interface em px e deslocamento de forma em célula (proposta)",
+   "secao": "capitulos/grid-e-espaco/3-espacamento.html"
   },
   {
    "cap": "padroes",

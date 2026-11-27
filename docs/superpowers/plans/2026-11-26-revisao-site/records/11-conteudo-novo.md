@@ -18,9 +18,29 @@ e `s-tamanho-minimo` (`13-tamanho-minimo.html`). Sem figura nem foto; "Faça e n
 
 Justificativa do mínimo: o ¼ de célula é a menor medida do desenho (raio e folga entre letras), "Três medidas".
 
+## Grid e espaço
+
+Capítulo `grid-e-espaco` ganhou `"molde": true` e três seções: `s-celula` (`1-celula.html`), `s-margens`
+(`2-margens.html`) e `s-espacamento` (`3-espacamento.html`). Sem figura nem foto; Espaçamento traz "Faça e não faça" em texto.
+
+| Valor | Origem |
+| --- | --- |
+| Célula: site 44 px (meia 22, quarto 11) | `tokens/spacing.css` (`--cell`, `--cell-half`, `--cell-quarter`); citado |
+| Célula: apresentação, trama de 12 px a 1324 px de largura | `templates/apresentacao/README.md`, seção Trama; citado |
+| Célula: A4 | nenhum valor documentado no template (`lina.cls` e `word/build.js` medem em px, sem célula); marcado `proposta:` sem número |
+| Margem arte e borda: ½ célula | decisão de 2026-11-22 (`memoria/margem-meia-celula.md`); link para `logotipo.html#s-area-de-protecao` |
+| Margem de página: apresentação 72 px (laterais e topo, referência 1920 × 1080) | README da apresentação, tabela Grade; citado |
+| Margem de página: A4 76 px laterais, 64 px embaixo, topo 134 a 141 px (72 px na capa) | `templates/documento-a4/latex/lina.cls` (`geometry`, `\lina@top`) e `word/build.js` (`MX`, `PG`, capa); citado |
+| Margem de página: site `--gutter-page`, 20 a 66 px | `tokens/spacing.css`; citado |
+| Margens em células | `proposta:` sem número; depende da célula do A4 |
+| `--space-1` a `--space-16` (3 a 42 px) e a regra dos dois sistemas | `tokens/spacing.css` (valores e comentário); sem valor novo. Tabela em `dl.spec`, sem link para `lina.tokens.json` (que só tem cores) |
+
 ## Perguntas
 
 - Logotipo, Área de proteção: a área livre do logo sem fundo é 1 célula em cada lado? A memória `margem-meia-celula` diz que versões sem fundo "não têm margem"; o texto trata a área livre como espaço fora do logo, não como margem. (proposta)
 - Logotipo, Tamanho mínimo, tela: célula mínima de 8 px (horizontal 70 × 24 px, símbolo 16 × 24 px)? (proposta)
 - Logotipo, Tamanho mínimo, impresso: célula mínima de 2 mm (horizontal 17,5 × 6 mm, símbolo 4 × 6 mm)? (proposta)
 - Logotipo, Tamanho mínimo: vale também para vazados, selo e assinaturas, e vale para a arte dentro da placa e para o logo sem fundo? O texto cobre só horizontal, vertical e símbolo. (proposta)
+- Grid e espaço, Célula: qual a célula do documento A4? O template mede em px (1 px = 0,75 pt) e não define célula. (proposta)
+- Grid e espaço, Margens: escrever as margens de página (72 px na apresentação; 76, 64 e 134 a 141 px no A4) em células ou meias células? Hoje não são múltiplos de nenhuma célula. (proposta)
+- Grid e espaço, Célula: a trama de 12 px da apresentação conta como a célula da apresentação, ou a apresentação só tem colunas e linhas? O texto trata a trama como a única célula e deixa o alinhamento dos slides fora. (proposta)

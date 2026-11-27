@@ -1,0 +1,27 @@
+<h2>Espaçamento</h2>
+<p class="regra">Dois sistemas convivem: a interface usa os valores em px de <span class="mono">--space-*</span>, e toda forma desenhada só se desloca em célula, meia célula ou ¼ de célula.</p>
+<p class="cap"><b>Proposta, aguarda decisão.</b> O texto organiza o que <span class="mono">tokens/spacing.css</span> já define. Nenhum valor é novo.</p>
+<p class="p">Os valores de interface não seguem grade de 4 ou 8: são os que o desenho pediu, e ficam como estão. Para formas (letras, placas, tramas), o deslocamento sai da <a href="grid-e-espaco.html#s-celula">célula</a>, e tudo derivado dela continua legal.</p>
+<h3>Medidas</h3>
+<dl class="spec">
+  <dt>Célula</dt><dd><span class="mono">--cell</span> 44 px; <span class="mono">--cell-half</span> 22 px; <span class="mono">--cell-quarter</span> 11 px.</dd>
+  <dt>--space-1</dt><dd>3 px</dd>
+  <dt>--space-2</dt><dd>4 px</dd>
+  <dt>--space-3</dt><dd>6 px</dd>
+  <dt>--space-4</dt><dd>7 px</dd>
+  <dt>--space-5</dt><dd>8 px</dd>
+  <dt>--space-6</dt><dd>10 px</dd>
+  <dt>--space-7</dt><dd>12 px</dd>
+  <dt>--space-8</dt><dd>14 px</dd>
+  <dt>--space-9</dt><dd>18 px</dd>
+  <dt>--space-10</dt><dd>20 px</dd>
+  <dt>--space-11</dt><dd>22 px</dd>
+  <dt>--space-12</dt><dd>24 px</dd>
+  <dt>--space-13</dt><dd>28 px</dd>
+  <dt>--space-14</dt><dd>32 px</dd>
+  <dt>--space-15</dt><dd>34 px</dd>
+  <dt>--space-16</dt><dd>42 px</dd>
+</dl>
+<h3>Faça e não faça</h3>
+<div class="faca-nao"><div class="faca"><ul class="regras"><li>Afastar uma forma de outra em célula, meia célula ou ¼ de célula; afastar elementos de interface com um <span class="mono">--space-*</span>.</li></ul></div>
+<div class="nao"><ul class="regras"><li>Afastar uma forma desenhada em px soltos ou em <span class="mono">--space-*</span>, ou inventar um valor de interface fora da lista.</li></ul></div></div>
