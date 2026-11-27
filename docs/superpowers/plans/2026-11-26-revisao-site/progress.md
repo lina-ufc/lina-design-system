@@ -25,7 +25,7 @@
 | 04 — estrutura | `[██████████]` | 5/5 | Completo (mesclado na main) |
 | 05 — visual em tudo | `[██████████]` | 6/6 | Completo (mesclado na main) |
 | 06 — ferramentas no site | `[██████████]` | 9/9 | Completo, aprovado pelo dono em 2026-11-27 (mesclado na main) |
-| 07 — feedback: acesso anônimo e Apps Script | `[░░░░░░░░░░]` | 0/3 | Escrito |
+| 07 — feedback: acesso anônimo e Apps Script | `[███░░░░░░░]` | 1/3 | Em andamento (branch `revisao-site/07-feedback`) |
 | 08 — feedback: página e envio | `[░░░░░░░░░░]` | — | Não escrito |
 | 09 — feedback: entradas na home e no menu | `[░░░░░░░░░░]` | — | Não escrito |
 | 10 — feedback: verificação e aprovação | `[░░░░░░░░░░]` | — | Não escrito |
@@ -103,10 +103,10 @@ Herança para o 05: hex das 12 cores seguem em `capitulos/` (2.x, 3.x, 4.x, 8.2)
 
 ## Plano 07 — feedback: acesso anônimo e Apps Script
 
-`[░░░░░░░░░░]` 0% — 0 de 3 tarefas. Plano: [`07-feedback-apps-script.md`](07-feedback-apps-script.md).
+`[███░░░░░░░]` 33% — 1 de 3 tarefas. Plano: [`07-feedback-apps-script.md`](07-feedback-apps-script.md).
 
 - [ ] **Tarefa 1** — dono confirma que a UFC permite app da web com acesso de "Qualquer pessoa"
-- [ ] **Tarefa 2** — `feedback/apps-script.gs` com `valida` e `decide` testados em Node
+- [x] **Tarefa 2** — `feedback/apps-script.gs` com `valida` e `decide` testados em Node. `a73f2d5`; review limpo (só menores); 88/88. Na Tarefa 3, conferir que `'=x` aparece como texto na planilha
 - [ ] **Tarefa 3** — `feedback/README.md`; dono publica o script real; envio de teste grava linha
 
 ## Estado herdado
@@ -153,3 +153,4 @@ Herança para o 05: hex das 12 cores seguem em `capitulos/` (2.x, 3.x, 4.x, 8.2)
 - 2026-11-27 — Dono pediu: filtro com os três padrões e cores por tom; ferramentas em páginas próprias. Tarefas 6–9 no 06 (spec `2026-11-27-ferramentas-paginas-e-tons.md`).
 - 2026-11-27 — Spec do feedback aprovado; subplano escrito (conjunto `2026-11-27-feedback/`).
 - 2026-11-27 — Conjuntos mesclados: feedback vira 07–10; conteúdo novo passa a 11 e arquivar visual-code a 12. Execução em sequência.
+- 2026-11-27 — Tarefa 2 do 07 concluída (Apps Script). Tarefa 1 espera o dono.
