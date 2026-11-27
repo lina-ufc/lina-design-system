@@ -1,0 +1,58 @@
+<p class="p">A foto fica no seu navegador: nada é enviado, e o endereço da página guarda só os ajustes.</p>
+<div class="ferramenta" id="fi">
+<div class="controles">
+<fieldset><legend>Enviar imagem</legend>
+<input id="fi-arquivo" type="file" accept="image/*" hidden>
+<button type="button" id="fi-escolher">Escolher foto</button>
+<button type="button" id="fi-exemplo">Usar exemplo</button>
+</fieldset>
+<fieldset><legend>Filtro</legend><div class="seg" id="fi-modo">
+<button type="button" data-v="dither">Pontilhado</button><button type="button" data-v="scatter">Dispersão</button><button type="button" data-v="field">Campo</button>
+</div></fieldset>
+<fieldset><legend>Quantidade de cores</legend><div class="seg" id="fi-qtd">
+<button type="button" data-v="1">1</button><button type="button" data-v="2">2</button><button type="button" data-v="3">3</button>
+</div></fieldset>
+<fieldset><legend>Cores</legend>
+<label>Cor 1 <select id="fi-c0" data-cor="0"></select></label>
+<label>Cor 2 <select id="fi-c1" data-cor="1"></select></label>
+<label>Cor 3 <select id="fi-c2" data-cor="2"></select></label>
+<button type="button" id="fi-sortear">Sortear</button>
+</fieldset>
+<fieldset><legend>Cor por faixa de tom</legend>
+<label>Escuros <select id="fi-t0" data-tom="0"></select></label>
+<label>Médios <select id="fi-t1" data-tom="1"></select></label>
+<label>Claros <select id="fi-t2" data-tom="2"></select></label>
+</fieldset>
+<fieldset><legend><label for="fi-detail">Detalhe</label></legend><div class="linha">
+<input id="fi-detail" type="range" data-k="detail" data-c="pct" min="0" max="100" step="1"><output aria-live="off" for="fi-detail" data-out="detail"></output>
+</div></fieldset>
+<fieldset><legend><label for="fi-brightness">Brilho</label></legend><div class="linha">
+<input id="fi-brightness" type="range" data-k="brightness" data-c="sin" min="-100" max="100" step="1"><output aria-live="off" for="fi-brightness" data-out="brightness"></output>
+</div></fieldset>
+<fieldset><legend><label for="fi-contrast">Contraste</label></legend><div class="linha">
+<input id="fi-contrast" type="range" data-k="contrast" data-c="sin" min="-100" max="100" step="1"><output aria-live="off" for="fi-contrast" data-out="contrast"></output>
+</div></fieldset>
+<fieldset><legend><label for="fi-midtones">Meios-tons</label></legend><div class="linha">
+<input id="fi-midtones" type="range" data-k="midtones" data-c="sin" min="-100" max="100" step="1"><output aria-live="off" for="fi-midtones" data-out="midtones"></output>
+</div></fieldset>
+<fieldset><legend><label for="fi-cutoff">Limpar claros</label></legend><div class="linha">
+<input id="fi-cutoff" type="range" data-k="cutoff" data-c="pct" min="0" max="100" step="1"><output aria-live="off" for="fi-cutoff" data-out="cutoff"></output>
+</div></fieldset>
+<fieldset><legend><label for="fi-smooth">Suavizar</label></legend><div class="linha">
+<input id="fi-smooth" type="range" data-k="smooth" data-c="pct" min="0" max="100" step="1"><output aria-live="off" for="fi-smooth" data-out="smooth"></output>
+</div></fieldset>
+<fieldset><label><input id="fi-invert" type="checkbox"> Inverter</label></fieldset>
+<fieldset><legend>Largura (px)</legend>
+<input id="fi-largura" type="number" min="16" max="8192" step="1" aria-label="Largura em pixels">
+</fieldset>
+</div>
+<div class="previa">
+<div class="prancha" id="fi-prancha" role="img" aria-label="Prévia da imagem filtrada"><p class="p" id="fi-vazio">Envie, solte ou cole uma foto.</p></div>
+<p class="status" id="fi-status" role="status"></p>
+<div class="acoes">
+<button type="button" id="fi-baixar" disabled>Baixar SVG</button><button type="button" id="fi-copiar" disabled>Copiar SVG</button>
+<button type="button" id="fi-link">Copiar link</button><button type="button" id="fi-cmd">Copiar comando</button>
+</div>
+</div>
+</div>
+<script src="assets/lina-geometry.js"></script><script src="assets/lina-palette.js"></script><script src="assets/lina-texture.js"></script><script src="assets/lina-image.js"></script><script src="assets/lina-ferramenta.js"></script><script src="assets/lina-ui-imagem.js"></script>

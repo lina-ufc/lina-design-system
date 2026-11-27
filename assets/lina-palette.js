@@ -62,6 +62,22 @@
     return { ok: true, kind: 'trio', reason: '' };
   }
 
+  // Faixas de tom [escuros, médios, claros]: cada uma um nome ou 'none' (transparente).
+  // Três pares podem se tocar (tinta sobre tinta, tinta sobre fundo); todos passam pela regra do par.
+  function checkTones(t) {
+    if (!Array.isArray(t) || t.length !== 3) return no('tones precisa de 3 itens: escuros, médios, claros.');
+    const bad = t.find((n) => n !== 'none' && !Object.hasOwn(COLORS, n));
+    if (bad !== undefined) return no(`Cor desconhecida: "${bad}". Use none ou: ${NAMES.join(', ')}.`);
+    if (t.every((n) => n === 'none')) return no('tones precisa de ao menos uma faixa com cor.');
+    for (const [i, j] of [[0, 1], [0, 2], [1, 2]]) {
+      // só escuros e médios podem repetir a cor (é uma tinta só); com o fundo seria invisível
+      if (t[i] === 'none' || t[j] === 'none' || (i === 0 && j === 1 && t[i] === t[j])) continue;
+      const r = pair(t[i], t[j]);
+      if (!r.ok) return r;
+    }
+    return { ok: true, kind: null, reason: '' };
+  }
+
   function combos(kind) {
     const out = [];
     for (const a of NAMES) for (const b of NAMES) {
@@ -71,5 +87,5 @@
     return out;
   }
 
-  root.LinaPalette = { COLORS, FAMILIES, AVOID, contrast, check, combos };
+  root.LinaPalette = { COLORS, FAMILIES, AVOID, contrast, check, checkTones, combos };
 })(typeof window !== 'undefined' ? window : globalThis);

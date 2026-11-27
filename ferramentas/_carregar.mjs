@@ -18,11 +18,22 @@ export function sharp() {
   return createRequire(new URL('templates/apresentacao/potx/package.json', raiz))('sharp');
 }
 
+// Lê a foto em RGBA e reduz a 1600 px no lado maior, como o site (lina-ui-imagem.js, LADO).
+export async function lerFoto(caminho) {
+  const s = sharp();
+  let { data, info } = await s(caminho).rotate().ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+  const k = Math.min(1, 1600 / Math.max(info.width, info.height));
+  if (k < 1) ({ data, info } = await s(data, { raw: info })
+    .resize(Math.max(1, Math.round(info.width * k)), Math.max(1, Math.round(info.height * k)), { fit: 'fill' })
+    .raw().toBuffer({ resolveWithObject: true }));
+  return { data, info };
+}
+
 export const fail = (msg) => { process.stderr.write(`Erro: ${msg}\n`); process.exit(2); };
 
-// spec: { num: [...], bool: [...], str: [...] } → params; `colors` vira lista; `--no-x` desliga booleana.
+// spec: { num: [...], bool: [...], str: [...] } → params; `colors` e `tones` viram lista; `--no-x` desliga booleana.
 export function flags(argv, spec, { positional = false } = {}) {
-  const options = { out: { type: 'string' }, colors: { type: 'string' }, 'list-colors': { type: 'boolean' } };
+  const options = { out: { type: 'string' }, colors: { type: 'string' }, tones: { type: 'string' }, 'list-colors': { type: 'boolean' } };
   for (const k of [...spec.num, ...spec.str]) options[k] = { type: 'string' };
   for (const k of spec.bool) options[k] = { type: 'boolean' };
   let r;
@@ -34,7 +45,7 @@ export function flags(argv, spec, { positional = false } = {}) {
   const params = {};
   for (const [k, v] of Object.entries(r.values)) {
     if (['out', 'list-colors'].includes(k)) continue;
-    if (k === 'colors') params.colors = v.split(',').map((s) => s.trim());
+    if (k === 'colors' || k === 'tones') params[k] = v.split(',').map((s) => s.trim());
     else if (spec.num.includes(k)) {
       const n = Number(v);
       if (v.trim() === '' || !Number.isFinite(n)) fail(`--${k} precisa de número, veio "${v}".`);

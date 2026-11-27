@@ -19,8 +19,10 @@ from urllib.parse import quote
 RAIZ = Path(__file__).parent
 S = json.loads((RAIZ / 'sistema.json').read_text())
 CAPS, ENTS, PARTES = S['capitulos'], S['entradas'], {p['id']: p['nome'] for p in S['partes']}
+FERR = S['ferramentas']
 
 faltam = [e.get('secao') or e['arquivo'] for e in ENTS if not (RAIZ / (e.get('secao') or e['arquivo'])).exists()]
+faltam += [f['fragmento'] for f in FERR if not (RAIZ / f['fragmento']).exists()]
 if not (RAIZ / S['inicio']).exists():
     faltam.append(S['inicio'])
 if faltam:
@@ -66,6 +68,9 @@ def nav(atual):
         breve = '' if sub else '<small class="breve">em breve</small>'
         atual_a = ' aria-current="page"' if c is atual else ''
         itens += f'<li{cls}><a class="cap" href="{href}"{atual_a}><span>{c["n"]}</span>{escape(c["nome"])}{breve}</a><ol>{sub}</ol></li>'
+    itens += '<li class="rotulo">Ferramentas</li>' + ''.join(
+        '<li class="atual">' + f'<a class="cap" href="{f["arquivo"]}" aria-current="page"><span></span>{escape(f["nome"])}</a></li>' if f is atual else
+        f'<li><a class="cap" href="{f["arquivo"]}"><span></span>{escape(f["nome"])}</a></li>' for f in FERR)
     return (f'<a class="pular" href="#conteudo">Pular para o conteúdo</a><aside aria-label="Sumário"><a class="logo" href="index.html"><img src="assets/logos/sand/lina-horizontal-ferro.svg" alt="LINA"></a>'
             f'<p class="tit">Sistema de design</p><details class="sum" open><summary>Sumário</summary><ol>{itens}</ol></details></aside>')
 
@@ -216,11 +221,18 @@ for c in CAPS:
             f'<nav class="vizinhos">{link(ant, "←")}{link(prox, "→")}</nav></main>')
     (RAIZ / pagina_de(c)).write_text(html(titulo, c, main, AJUSTA))
 
+# ---- páginas das ferramentas: o fragmento (sem título) entra na moldura do site ----
+for f in FERR:
+    main = (f'<main id="conteudo" class="capitulo"><header><h1>{escape(f["nome"])}</h1><p class="desc">{escape(f["sub"])}</p></header>\n'
+            f'<section class="pagina-ferramenta">{(RAIZ / f["fragmento"]).read_text()}</section></main>')
+    (RAIZ / f['arquivo']).write_text(html(f'{f["nome"]} · Sistema LINA', f, main))
+
 # ---- home: porta de entrada + mapa; âncora velha (index.html#s-…) sem alvo na home vai para os Princípios ----
 HOME = '''
 if (location.hash && !document.getElementById(location.hash.slice(1))) location.replace('principios.html' + location.hash);
 '''
-main = f'<main id="conteudo" class="capitulo"><section>{(RAIZ / S["inicio"]).read_text()}</section>\n{mapa}</main>'
+ferr_home = '<h3>Ferramentas</h3><ul class="regras">' + ''.join(f'<li><a href="{f["arquivo"]}">{escape(f["nome"])}</a>: {escape(f["sub"])}</li>' for f in FERR) + '</ul>'
+main = f'<main id="conteudo" class="capitulo"><section>{(RAIZ / S["inicio"]).read_text()}{ferr_home}</section>\n{mapa}</main>'
 (RAIZ / 'index.html').write_text(html('Sistema LINA', None, main, HOME))
 
 # ---- redirecionamentos das páginas velhas ----
@@ -254,6 +266,7 @@ for c in CAPS:
     for e in entradas(c):
         llms.append(f'- [{rot(e)}]({BASE}{quote(e["href"], safe="#/")})' + (f': {e["sub"]}' if e.get('sub') else ''))
         n_llms += 1
+llms += ['', '## Ferramentas', ''] + [f'- [{f["nome"]}]({BASE}{f["arquivo"]}): {f["sub"]}' for f in FERR]
 llms += ['', '## Para agentes', ''] + [f'- [{a}]({BASE}{a}): {d}' for a, d in AGENTES]
 (RAIZ / 'llms.txt').write_text('\n'.join(llms) + '\n')
-print(f'llms.txt: {n_llms + len(AGENTES)} links')
+print(f'llms.txt: {n_llms + len(FERR) + len(AGENTES)} links')
