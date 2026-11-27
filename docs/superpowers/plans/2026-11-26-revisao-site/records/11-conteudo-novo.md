@@ -111,10 +111,22 @@ Seção nova `s-acessibilidade` (`capitulos/principios/3-acessibilidade.html`), 
 - Voz e texto, Números e datas: espaço antes da unidade e do "%" ("44 px", "50 %")? O site hoje escreve "20%" em alguns lugares, e Tipografia, Detalhes, escreve "11px" e "0,12em" sem espaço: a regra proposta diverge dele. (proposta)
 - Voz e texto, Nomes e siglas: o nome oficial leva dois-pontos (README) ou travessão (SKILL.md)? O texto usa dois-pontos. (proposta)
 - Voz e texto, Nomes e siglas: nome por extenso na primeira menção em todo texto, ou só em documento que chega a quem não conhece o LINA? (proposta)
-- Voz e texto, Nomes e siglas: siglas de uso geral (PDF, IFC, A4) dispensam o nome por extenso, e o plural da sigla não leva "s"? (proposta)
+- Voz e texto, Nomes e siglas: siglas de uso geral (PDF, IFC, SVG) dispensam o nome por extenso, e o plural da sigla não leva "s"? (proposta)
 - Acessibilidade: letra de texto não desce de 11 px? Tipografia não fixa mínimo; 11 px é a etiqueta em caixa alta. (proposta)
 - Acessibilidade: foco visível é contorno ferro de 2 px em todo elemento interativo, o que o `site.css` já faz em links e campos? Vale também para peças fora do site? (proposta)
 - Acessibilidade: alvo de clique e toque de 44 px no site, igual à célula? Vale para botões pequenos de ferramentas e para links em linha de texto? (proposta)
 - Acessibilidade: alt informativo em toda imagem que informa e alt vazio na decorativa; ícone oculto ao lado de texto e com nome acessível quando sozinho. São regras novas (o site já faz assim em Componentes e Phosphor, mas nada decide). Valem também para documento A4 e slide? (proposta)
 - Acessibilidade: a cor nunca é o único sinal. Vale para gráficos e para impresso? (proposta)
 - Acessibilidade, Cores: o estudo de contraste aceita par de 3 ou mais para título grande, e "Contrastes a evitar" diz que o par de 3,1 (ferro sobre turquesa) "como texto, nunca". Prevalece qual? O texto de Acessibilidade diz só que os pares a evitar não servem para texto. (proposta)
+- Voz e texto, Nomes e siglas: o nome por extenso do IAUD e se a sigla entra na primeira menção ("Instituto de Arquitetura, Urbanismo e Design (IAUD)"?). O texto mantém só "IAUD, Universidade Federal do Ceará (UFC)". (proposta)
+- Logotipo, Combinações de cores (`capitulos/logotipo/9-combinacoes-de-cores.html`): o texto diz "L a uma célula da borda", mas o código dá 1 célula nas laterais e ½ em cima e embaixo. Qual vale? Pré-existente; o fragmento não foi editado.
+- Voz e texto, Números e datas x Tipografia, Hierarquia (`capitulos/tipografia/3-hierarquia.html:16`): Voz propõe milhar "1250" (quatro algarismos, sem ponto); Hierarquia mostra "1.284,60 m²". Qual cede?
+- Voz e texto, Números e datas x Tipografia, Hierarquia (`3-hierarquia.html:17`, linha Dado): Voz propõe data em dado "22/11/2026"; Hierarquia mostra "2026-03-14" em mono. Qual cede?
+
+## Gosto (decidir)
+
+- Forma das seções novas: Logotipo 12/13 e Grid 1/2 sem "Por quê"; só Voz tem "Como pedir"; Tamanho mínimo, Célula e Margens sem "Faça e não faça". Uniformizar?
+- Medidas de Tom como lista (`ul.regras`) ou `dl.spec`, igual às outras de Voz?
+- Duas escalas de referência da apresentação no mesmo capítulo (1324 px na trama, 1920 × 1080 na margem): explicar na página?
+- `2-tratamento.html`, Medidas: o exemplo "Use o logotipo sem fundo sobre fotografia" sugere um uso que Logotipo não confirma. Trocar por exemplo neutro?
+- Alvo de 44 px e foco de 2 px ferro viram regra para todo o site?
