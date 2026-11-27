@@ -479,6 +479,12 @@
    "nome": "Para agentes",
    "sub": "Arquivos feitos para ferramentas e agentes lerem",
    "secao": "capitulos/recursos/2-para-agentes.html"
+  },
+  {
+   "cap": "recursos",
+   "nome": "Ferramentas",
+   "sub": "Gerador de padrões, filtro de pontilhado e editor de células",
+   "secao": "capitulos/recursos/3-ferramentas.html"
   }
  ]
 }
