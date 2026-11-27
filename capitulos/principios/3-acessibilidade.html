@@ -1,0 +1,13 @@
+<h2>Acessibilidade</h2>
+<p class="cap"><b>Proposta, aguarda decisão.</b> As regras de contraste e de tamanho mínimo do logo vêm de seções que já existem, e o texto alternativo segue o que o site já faz nas imagens e nos ícones. A letra mínima, o foco visível e o alvo de 44 px são valores novos, deduzidos do CSS do site (<span class="mono">site.css</span>, <span class="mono">tokens/spacing.css</span>) e da WCAG, e ninguém os decidiu.</p>
+<ul class="regras">
+  <li>Texto pede contraste de pelo menos 4,5; título grande aceita 3. Use os pares de <a href="cores.html#s-contrastes-a-usar">Contrastes a usar</a> e confira os demais no <a href="cores.html#s-estudo-de-contraste">Estudo de contraste</a>.</li>
+  <li>Os pares de <a href="cores.html#s-contrastes-a-evitar">Contrastes a evitar</a> não servem para texto, em nenhum tamanho.</li>
+  <li>A cor nunca é o único sinal. Estado, erro e destaque também levam texto, forma ou ícone. Matiz diferente com o mesmo valor, como nos pares de <a href="cores.html#s-contrastes-a-evitar">Contrastes a evitar</a>, não basta para separar duas coisas.</li>
+  <li>Letra de texto não desce de 11 px. <b>proposta:</b> <a href="tipografia.html#s-hierarquia">Hierarquia</a> não fixa letra mínima; a etiqueta de 11 px é o menor tamanho que ela usa.</li>
+  <li>Toda imagem que informa leva texto alternativo que diz o que ela mostra, como nas imagens de <a href="componentes.html#s-declaracao">Componentes</a>. Imagem só decorativa leva alt vazio.</li>
+  <li>Ícone ao lado de texto é decorativo e fica oculto para leitor de tela; ícone sozinho leva nome acessível. Os <a href="icones.html#s-phosphor">ícones Phosphor</a> do site já saem ocultos.</li>
+  <li>O logo não desce do tamanho de <a href="logotipo.html#s-tamanho-minimo">Tamanho mínimo</a>.</li>
+  <li>Todo elemento interativo mostra foco visível. <b>proposta:</b> contorno ferro de 2 px, como o <span class="mono">site.css</span> já usa em links e campos.</li>
+  <li>Todo alvo de clique ou toque mede pelo menos 44 px por 44 px no site. <b>proposta:</b> o valor é o da <a href="grid-e-espaco.html#s-celula">célula</a> do site, <span class="mono">--cell: 44px</span>.</li>
+</ul>

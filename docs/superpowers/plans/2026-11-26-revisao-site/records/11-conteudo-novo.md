@@ -75,6 +75,21 @@ ocorrência. `llms.txt` é regenerado. Corrigido à mão, por apontar para o nú
 `memoria/README.md`, `memoria/padrao-explicacao-download.md`, `memoria/templates-downloads.md` e os comentários de
 `capitulos/templates/_gerar.py` (linhas 1 e 87).
 
+## Acessibilidade
+
+Seção nova `s-acessibilidade` (`capitulos/principios/3-acessibilidade.html`), no capítulo Princípios, depois de "Das relações, o grupo". Sem molde, no formato de `1-principios.html`: `h2`, `p.cap` de proposta e `ul.regras`, cada regra com link para onde o valor mora.
+
+| Valor | Origem |
+| --- | --- |
+| Contraste 4,5 para texto e 3 para título grande | `cores.html#s-estudo-de-contraste` (legenda do estudo); citado com link |
+| Pares de texto permitidos e proibidos | `cores.html#s-contrastes-a-usar` e `#s-contrastes-a-evitar`; citado |
+| Cor nunca é o único sinal | proposta nova, apoiada em "Contrastes a evitar" (mesmo valor, matizes opostos) |
+| Letra de texto de pelo menos 11 px | proposta nova (`<b>proposta:</b>`): Tipografia, Hierarquia, não fixa mínimo; 11 px é a etiqueta, o menor tamanho usado |
+| Texto alternativo em imagem; ícone decorativo oculto, ícone sozinho com nome | prática do site (`alt` nas imagens de Componentes, `aria-hidden` nos SVG de Phosphor); regra posta por escrito |
+| Logo não desce do tamanho mínimo | `logotipo.html#s-tamanho-minimo` (Tarefa 1); citado |
+| Foco visível, contorno ferro de 2 px | proposta nova (`<b>proposta:</b>`); valor lido em `site.css` (`:focus-visible`), não documentado no sistema |
+| Alvo de 44 px no site | proposta nova (`<b>proposta:</b>`); coincide com `--cell: 44px` em `tokens/spacing.css`, link para `grid-e-espaco.html#s-celula` |
+
 ## Perguntas
 
 - Logotipo, Área de proteção: a área livre do logo sem fundo é 1 célula em cada lado? A memória `margem-meia-celula` diz que versões sem fundo "não têm margem"; o texto trata a área livre como espaço fora do logo, não como margem. (proposta)
@@ -97,3 +112,7 @@ ocorrência. `llms.txt` é regenerado. Corrigido à mão, por apontar para o nú
 - Voz e texto, Nomes e siglas: o nome oficial leva dois-pontos (README) ou travessão (SKILL.md)? O texto usa dois-pontos. (proposta)
 - Voz e texto, Nomes e siglas: nome por extenso na primeira menção em todo texto, ou só em documento que chega a quem não conhece o LINA? (proposta)
 - Voz e texto, Nomes e siglas: siglas de uso geral (PDF, IFC, A4) dispensam o nome por extenso, e o plural da sigla não leva "s"? (proposta)
+- Acessibilidade: letra de texto não desce de 11 px? Tipografia não fixa mínimo; 11 px é a etiqueta em caixa alta. (proposta)
+- Acessibilidade: foco visível é contorno ferro de 2 px em todo elemento interativo, o que o `site.css` já faz em links e campos? Vale também para peças fora do site? (proposta)
+- Acessibilidade: alvo de clique e toque de 44 px no site, igual à célula? Vale para botões pequenos de ferramentas e para links em linha de texto? (proposta)
+- Acessibilidade: imagem só decorativa leva alt vazio e ícone sozinho leva nome acessível; vale também para documento A4 e slide? (proposta)

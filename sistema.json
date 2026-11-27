@@ -133,6 +133,12 @@
    "secao": "capitulos/principios/2-das-relacoes-o-grupo.html"
   },
   {
+   "cap": "principios",
+   "nome": "Acessibilidade",
+   "sub": "Contraste, letra, texto alternativo, foco e alvo de toque (proposta)",
+   "secao": "capitulos/principios/3-acessibilidade.html"
+  },
+  {
    "cap": "logotipo",
    "nome": "A ideia",
    "sub": "Uma regra que gera forma: células, grade, união, cantos",
