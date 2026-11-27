@@ -144,6 +144,8 @@ for c in CAPS:
             n_regra = len(re.findall(r'<p class="regra">', f))
             if n_regra != 1:
                 fora_do_molde.append(f'molde: {e["secao"]}: esperado um <p class="regra">, achei {n_regra}')
+            if n_regra == 1 and '<h3' in f and f.index('<h3') < f.index('<p class="regra">'):
+                fora_do_molde.append(f'molde: {e["secao"]}: regra depois de h3')
             if [x for x in MOLDE_H3 if x in h3] != h3 or len(set(h3)) != len(h3):
                 fora_do_molde.append(f'molde: {e["secao"]}: h3 {h3} fora de {MOLDE_H3}, nessa ordem')
         for pag, ancora in re.findall(r'href="([\w.-]*\.html)?#(s-[\w-]+)"', f):
@@ -157,8 +159,8 @@ for c in CAPS:
                                 lambda m: m[1] + POR_ID[k]['num'] + m[4] if (k := (m[2] or pagina_de(c), m[3])) in POR_ID else m[0], f)
 # home: só confere os links (a home não entra em "Citado em")
 for pag, ancora in re.findall(r'href="([\w.-]*\.html)?#(s-[\w-]+)"', (RAIZ / S['inicio']).read_text()):
-    if (pag, ancora) not in POR_ID:
-        quebrados.append(f'{S["inicio"]}: {pag or ""}#{ancora}')
+    if (pag or 'index.html', ancora) not in POR_ID:
+        quebrados.append(f'{S["inicio"]}: {pag or "index.html"}#{ancora}')
 if fora_do_molde:
     sys.exit('\n'.join(fora_do_molde))
 if quebrados:
