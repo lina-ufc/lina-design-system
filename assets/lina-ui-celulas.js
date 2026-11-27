@@ -127,7 +127,7 @@
     future.length = 0;
     save();
   }
-  function restaura(json) { state.blocks = JSON.parse(json); selected = null; render(); save(); }
+  function restaura(json) { state.blocks = JSON.parse(json); prende(); selected = null; render(); save(); } // prende: desfazer após encolher a grade não deixa célula fora
   const desfazer = () => { if (history.length) { future.push(snapshot()); restaura(history.pop()); } };
   const refazer = () => { if (future.length) { history.push(snapshot()); restaura(future.pop()); } };
 
