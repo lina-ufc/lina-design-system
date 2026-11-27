@@ -6,14 +6,6 @@
 :root{
   --t2:rgba(42,26,18,.72);            /* texto secundário: umbro sobre creme */
   --fio-b1:rgba(42,26,18,.16);        /* fio de estrutura */
-  --ret-1:rgba(42,26,18,.05);         /* retícula: meia célula */
-  --ret-2:rgba(42,26,18,.1);          /* retícula: célula */
-  /* retícula de meia célula com a célula inteira mais marcada */
-  --reticula:
-    linear-gradient(var(--ret-2) 1px,transparent 1px) 0 0/var(--cell) var(--cell),
-    linear-gradient(90deg,var(--ret-2) 1px,transparent 1px) 0 0/var(--cell) var(--cell),
-    linear-gradient(var(--ret-1) 1px,transparent 1px) 0 0/var(--cell-half) var(--cell-half),
-    linear-gradient(90deg,var(--ret-1) 1px,transparent 1px) 0 0/var(--cell-half) var(--cell-half);
 }
 body{margin:0;background:var(--creme);color:var(--umbro);font:400 17px/1.55 var(--font-body);-webkit-font-smoothing:antialiased}
 a{color:inherit}
@@ -157,16 +149,11 @@ body>aside .rotulo{margin:20px 0 2px}
 .dl .mono{overflow-wrap:anywhere;font-size:12px;font-weight:400}
 @media (max-width:600px){.dl>a{grid-template-columns:minmax(0,1fr)}}
 
-/* ---- prancha: exemplos de largura total sobre a retícula da marca ---- */
-.prancha{position:relative;margin-top:var(--cell-half);padding:var(--cell);gap:var(--cell-half);align-items:stretch;background:var(--reticula),var(--creme);border:1px solid var(--fio-b1)}
-/* faixa da margem por prancha: mesma retícula, deslocada 22 px para a linha de célula cair em -44 */
-.prancha::before{content:"";position:absolute;left:calc(var(--cell) * -1.5);top:0;bottom:0;width:calc(var(--cell) * 1.5);background:var(--reticula);background-position:var(--cell-half) 0}
-/* ladrilho: cada figura é um bloco liso; a retícula só aparece nos vãos e na moldura. Legenda nunca sobre retícula */
-.prancha>.fig{background:var(--creme);padding:var(--cell-half)}
-.prancha svg{background:var(--creme)} /* a grade amarela dos diagramas não se mistura com a retícula */
+/* ---- prancha: exemplos de largura total, fundo liso ---- */
+.prancha{position:relative;margin-top:var(--cell-half);padding:var(--cell);gap:var(--cell-half);align-items:stretch;background:var(--creme);border:1px solid var(--fio-b1)}
+.prancha>.fig{padding:var(--cell-half)}
 @media (max-width:820px){
   .prancha{padding:var(--cell-quarter);gap:var(--cell-quarter)}
-  .prancha::before{display:none}
   .prancha>.fig{padding:var(--cell-quarter)}
   .capitulo .citado a,.vizinhos a,.mapa li li a,.mapa .cap,.spec a{min-height:44px;display:inline-flex;align-items:center}
 }
@@ -185,7 +172,7 @@ body>aside .rotulo{margin:20px 0 2px}
 #a-ideia-d text[fill="#C9B87A"]{fill:var(--t2)}
 #construcao-das-letras-d [stroke="#A81F0D"]{stroke:var(--umbro)}
 #construcao-das-letras-d .k{text-transform:none} /* "n" minúsculo */
-/* 1.2: a prancha é só o desenho; as legendas ficam ao lado, fora da retícula */
+/* 1.2: a prancha é só o desenho; as legendas ficam ao lado */
 .medidas{display:grid;grid-template-columns:minmax(0,388px) minmax(0,1fr);gap:36px;align-items:end;margin-top:var(--cell-half)}
 .medidas>.prancha{align-self:stretch;margin-top:0}
 .medidas-leg{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
