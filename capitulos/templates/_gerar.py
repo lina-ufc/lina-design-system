@@ -62,7 +62,7 @@ apres = f'''<style>.fam{{margin:8px 0 20px;padding:0;list-style:none;display:gri
 <div class="prancha"><div class="fig"><!--quadro {T}/Apresentacao.dc.html 1920x1080--></div></div>
 {H}Uso</h3>
 <ol class="passos p">
-<li>Instale as fontes (<a href="tipografia.html#s-composicoes">5.5</a>) antes de abrir os arquivos.</li>
+<li>Instale as fontes (<a href="tipografia.html#s-baixar-tipografia">5.5</a>) antes de abrir os arquivos.</li>
 <li>PowerPoint: abra o <span class="mono">.potx</span>, que cria uma apresentação nova. Keynote, Google Slides e Impress: abra o <span class="mono">.pptx</span> de exemplo e apague os slides que não usar.</li>
 <li>Novo slide: escolha o layout pelo número. O primeiro algarismo é a família, o segundo a variação (<span class="mono">4.5 Imagens em linha · 2 imagens</span>). Quando o conteúdo tem mais ou menos itens, escolha a variação com o número certo; no gerador, a lista <span class="mono">itens</span> escolhe sozinha.</li>
 <li>Preencha os espaços sem mover nem redimensionar as caixas. Se a composição não couber, troque de layout; para diagramas livres, use <span class="mono">2.6 Só título</span>.</li>
@@ -79,7 +79,7 @@ apres = f'''<style>.fam{{margin:8px 0 20px;padding:0;list-style:none;display:gri
 {H}Baixar</h3>
 <p class="p mono">Versão {VER} · <a href="{escape(hist)}">histórico de versões</a> · <a href="https://github.com/lina-ufc/lina-design-system/releases">versões anteriores</a></p>
 <div class="dl">{cards}</div>
-<p class="p">Também: fontes (<a href="tipografia.html#s-composicoes">5.5</a>), ícones além das páginas do exemplo (<a href="icones.html#s-arquivos">6.5</a>) e logos para a faixa de parceiros (<a href="logotipo.html#s-combinacoes-de-cores">1.8</a>).</p>'''
+<p class="p">Também: fontes (<a href="tipografia.html#s-baixar-tipografia">5.5</a>), ícones além das páginas do exemplo (<a href="icones.html#s-baixar-icones">6.5</a>) e logos para a faixa de parceiros (<a href="logotipo.html#s-combinacoes-de-cores">1.8</a>).</p>'''
 
 open(os.path.join(AQUI, '1-apresentacao.html'), 'w').write(apres + '\n')
 print('layouts', len(LAYS))
@@ -100,7 +100,7 @@ hist_d = REL_D.replace('/download/', '/tag/').rstrip('/') if REL_D else f'{TD}/C
 cards_d = ''.join(f'<a href="{escape(href_d(p))}" download><b>{t}</b><span class="p" style="margin:0">{d}</span><span class="mono cap">{os.path.basename(p)} · {tam(p)}</span></a>' for p, t, d in DL_D)
 baixar_d = f'''<p class="p mono">Versão {VER_D} · <a href="{escape(hist_d)}">histórico de versões</a> · <a href="https://github.com/lina-ufc/lina-design-system/releases">versões anteriores</a></p>
 <div class="dl">{cards_d}</div>
-<p class="p">Também: fontes (<a href="tipografia.html#s-composicoes">5.5</a>) e logos (<a href="logotipo.html#s-combinacoes-de-cores">1.8</a>).</p>'''
+<p class="p">Também: fontes (<a href="tipografia.html#s-baixar-tipografia">5.5</a>) e logos (<a href="logotipo.html#s-combinacoes-de-cores">1.8</a>).</p>'''
 f = os.path.join(AQUI, '2-documentos-a4.html')
 h = open(f, encoding='utf-8').read(); k = 'Baixar</h3>\n'
 open(f, 'w', encoding='utf-8').write(h[:h.index(k) + len(k)] + baixar_d + '\n')
