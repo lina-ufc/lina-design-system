@@ -1,12 +1,9 @@
 <h2>Coerência</h2>
-<div style="display:grid;grid-template-columns:320px minmax(0,1fr) 230px;gap:28px;align-items:start;margin-top:14px">
-<div id="coerencia-wheel"></div>
-<div style="display:grid;gap:12px">
-<p class="cap" style="font-size:13px"><b>Matiz.</b> Ferro, damasco, areia e creme ocupam um arco de 47° (7° a 54°): são variações de uma mesma terra. A turquesa está a 166° do ferro, quase o complemento, e por isso funciona como o contraponto único.</p>
-<p class="cap" style="font-size:13px"><b>Saturação.</b> Os quentes são vivos (63% a 96%); a turquesa é contida (36%). O frio entra baixo para não disputar com o ferro.</p>
-<p class="cap" style="font-size:13px"><b>Valor.</b> As cinco cores se distribuem em degraus nítidos de luminosidade. Cada par adjacente na escada tem contraste baixo; pares distantes têm contraste alto. A hierarquia vem do valor, não do matiz.</p>
-<p class="cap" style="font-size:13px"><b>Ajuste.</b> O creme está a 54°, junto à areia, e não no amarelo-esverdeado; assim o papel pertence à família quente.</p>
-</div><div id="coerencia-ladder"></div></div>
+<p class="p"><b>Matiz.</b> Ferro, damasco, areia e creme ocupam um arco de 47° (7° a 54°): são variações de uma mesma terra. A turquesa está a 166° do ferro, quase o complemento, e por isso funciona como o contraponto único.</p>
+<p class="p"><b>Saturação.</b> Os quentes são vivos (63% a 96%); a turquesa é contida (36%). O frio entra baixo para não disputar com o ferro.</p>
+<p class="p"><b>Valor.</b> As cinco cores se distribuem em degraus nítidos de luminosidade. Cada par adjacente na escada tem contraste baixo; pares distantes têm contraste alto. A hierarquia vem do valor, não do matiz.</p>
+<p class="p"><b>Ajuste.</b> O creme está a 54°, junto à areia, e não no amarelo-esverdeado; assim o papel pertence à família quente.</p>
+<div class="prancha" id="coerencia-d"><div class="fig" id="coerencia-wheel"></div><div class="fig" id="coerencia-ladder"></div></div>
 <script>{
 const HEX={ferro:'#A81F0D',areia:'#E1CE7A',creme:'#FAF5C6',damasco:'#FDD692',turquesa:'#64B6AC',umbro:'#2A1A12','ferro fundo':'#6E1408','turquesa fundo':'#2F6A62','turquesa tinta':'#14322E',nata:'#FDF1CF'};
 const rgb=h=>[1,3,5].map(i=>parseInt(h.substr(i,2),16)/255);
