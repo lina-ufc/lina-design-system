@@ -93,7 +93,10 @@
       el.focus();
     };
 
-    form.elements.pagina.value = paginaDe(root.location.search);
+    const sel = form.elements.pagina;
+    const arq = paginaDe(root.location.search);
+    const alvo = arq && [...sel.options].find((o) => o.dataset.arq === arq);
+    if (alvo) alvo.selected = true;
     conta();
     msg.addEventListener('input', conta);
     form.addEventListener('input', () => { limpa(); status.textContent = ''; });
@@ -126,6 +129,7 @@
 
     d.getElementById('fb-outra').addEventListener('click', () => {
       msg.value = '';
+      sel.selectedIndex = 0;
       conta();
       status.textContent = '';
       ok.hidden = true;

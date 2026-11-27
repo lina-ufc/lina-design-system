@@ -232,8 +232,18 @@ for f in FERR:
     (RAIZ / f['arquivo']).write_text(html(f'{f["nome"]} · Sistema LINA', f, main))
 
 # ---- feedback: mesma moldura; a URL do Apps Script vai no data-url (vazia = formulário indisponível) ----
+def opcao(valor, texto, arq=None):
+    return f'<option value="{escape(valor)}"' + (f' data-arq="{escape(arq)}"' if arq else '') + f'>{escape(texto)}</option>'
+
+
+secoes = opcao('', 'Geral, sem seção específica') + opcao('Página inicial', 'Página inicial', 'index.html')
+for c in CAPS:
+    nome = f'{c["n"]} {c["nome"]}'
+    secoes += (f'<optgroup label="{escape(nome)}">' + opcao(nome, 'Capítulo todo', pagina_de(c))
+               + ''.join(opcao(rot(e), rot(e)) for e in entradas(c)) + '</optgroup>')
+secoes += '<optgroup label="Ferramentas">' + ''.join(opcao(f['nome'], f['nome'], f['arquivo']) for f in FERR) + '</optgroup>'
 main = (f'<main id="conteudo" class="capitulo"><header><h1>{escape(FB["nome"])}</h1><p class="desc">{escape(FB["sub"])}</p></header>\n'
-        f'<section class="pagina-ferramenta" data-url="{escape(S["feedback_url"])}">{(RAIZ / FB["fragmento"]).read_text()}</section></main>')
+        f'<section class="pagina-ferramenta" data-url="{escape(S["feedback_url"])}">{(RAIZ / FB["fragmento"]).read_text().replace("<!--secoes-->", secoes)}</section></main>')
 (RAIZ / FB['arquivo']).write_text(html(f'{FB["nome"]} · Sistema LINA', FB, main))
 
 # ---- home: porta de entrada + mapa; âncora velha (index.html#s-…) sem alvo na home vai para os Princípios ----
