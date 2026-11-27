@@ -21,7 +21,7 @@
 | --- | --- | --- | --- |
 | 01 — motores | `[██████████]` | 5/5 | Completo (branch `revisao-site/01-motores`, não mesclada) |
 | 02 — protótipo visual | `[██████████]` | 4/4 | Completo (mesclado na main) (branch `revisao-site/02-prototipo`) |
-| 03 — fonte única | `[░░░░░░░░░░]` | 0/4 | Em execução (branch `revisao-site/03-fonte-unica`) |
+| 03 — fonte única | `[█████░░░░░]` | 2/4 | Em execução (branch `revisao-site/03-fonte-unica`) |
 | 04 — estrutura | `[░░░░░░░░░░]` | — | Não escrito. Espera o 02 aprovado |
 | 05 — visual em tudo | `[░░░░░░░░░░]` | — | Não escrito |
 | 06 — ferramentas no site | `[░░░░░░░░░░]` | — | Não escrito |
@@ -51,10 +51,10 @@ Verificação: `node --test "ferramentas/test/*.test.mjs"` 51/51 (o diretório s
 
 ## Plano 03 — fonte única
 
-`[░░░░░░░░░░]` 0% — 0 de 4 tarefas.
+`[█████░░░░░]` 50% — 2 de 4 tarefas.
 
-- [ ] **Tarefa 1** — `ferramentas/tokens.mjs` gera `tokens/lina.tokens.json` (DTCG) e confere `colors.css` contra a paleta
-- [ ] **Tarefa 2** — `sistema.py` gera `llms.txt`
+- [x] **Tarefa 1** — `ferramentas/tokens.mjs` gera `tokens/lina.tokens.json` (DTCG) e confere `colors.css` contra a paleta. `a2e19fd`; 56/56 testes; `--check` 0; CSS adulterado sai 2
+- [x] **Tarefa 2** — `sistema.py` gera `llms.txt`. `317d75f`; 53/53 links ok
 - [ ] **Tarefa 3** — `README.md` sem hex; `SKILL.md` como índice
 - [ ] **Tarefa 4** — teste às cegas e revisão
 
@@ -90,3 +90,4 @@ Herança para o 05: hex das 12 cores seguem em `capitulos/` (2.x, 3.x, 4.x, 8.2)
 - 2026-11-27 — Rodada 2 do 02: número de seção com metade do título, acima dele, margem única; ladrilhos; folga de 2 células. Dono escolheu creme em tudo (página, barra, pranchas), contra o branco do spec. Pendente: 1.3 em 2× quebra em 3+2.
 - 2026-11-27 — 1.3 a 1,5× em três colunas iguais. Plano 02 completo; 04 e 05 desbloqueados.
 - 2026-11-27 — Plano 03 escrito (fonte única, `SKILL.md` índice, `llms.txt`).
+- 2026-11-27 — Tarefas 1 e 2 do 03 concluídas (tokens DTCG, `llms.txt`), em paralelo.
