@@ -23,7 +23,7 @@
 | 02 — protótipo visual | `[██████████]` | 4/4 | Completo (mesclado na main) (branch `revisao-site/02-prototipo`) |
 | 03 — fonte única | `[██████████]` | 4/4 | Completo (mesclado na main) |
 | 04 — estrutura | `[██████████]` | 5/5 | Completo (mesclado na main) |
-| 05 — visual em tudo | `[░░░░░░░░░░]` | 0/6 | Em execução (branch `revisao-site/05-visual`) |
+| 05 — visual em tudo | `[██░░░░░░░░]` | 1/6 | Em execução (branch `revisao-site/05-visual`) |
 | 06 — ferramentas no site | `[░░░░░░░░░░]` | — | Não escrito |
 | 07 — conteúdo novo | `[░░░░░░░░░░]` | — | Não escrito |
 | 08 — arquivar visual-code | `[░░░░░░░░░░]` | — | Não escrito |
@@ -74,9 +74,9 @@ Herança para o 05: hex das 12 cores seguem em `capitulos/` (2.x, 3.x, 4.x, 8.2)
 
 ## Plano 05 — visual em tudo
 
-`[░░░░░░░░░░]` 0% — 0 de 6 tarefas.
+`[██░░░░░░░░]` 17% — 1 de 6 tarefas.
 
-- [ ] **Tarefa 1** — base: `site.css` com o B1, `.prancha`, Logotipo sem protótipo, 2.7/2.8 entradas próprias, `aria-current`
+- [x] **Tarefa 1** — base: `site.css` com o B1, `.prancha`, Logotipo sem protótipo, 2.7/2.8 entradas próprias, `aria-current`. `b716424`, `c627c7b`, `8621a55`; sistema.py ok, 1 `!important` (paleta), 56/56; render igual à ref salvo 2.8/2.10 novas. Pendentes à 6: link 4.5 do .vectorcraft virou texto; `h2.h` inline em 4.x, 8.x, 10.x
 - [ ] **Tarefa 2** — Cores: molde e pranchas
 - [ ] **Tarefa 3** — Padrões: molde e pranchas
 - [ ] **Tarefa 4** — Tipografia e Ícones: molde e pranchas
@@ -119,3 +119,4 @@ Herança para o 05: hex das 12 cores seguem em `capitulos/` (2.x, 3.x, 4.x, 8.2)
 - 2026-11-27 — Tarefas 1–4 do 04 concluídas (2, 3 e 4 em paralelo). Verificação final ok; piloto do molde e princípios esperam o dono.
 - 2026-11-27 — Molde do piloto aprovado. Plano 04 completo; 05 desbloqueado. Abertos ao dono: princípio "forma" x "letra", h2 internos de 2.7/2.8.
 - 2026-11-27 — Plano 05 escrito. Dono: 2.7 e 2.8 viram entradas próprias do Logotipo (Baixar no fim). Templates, Princípios e Recursos sem molde.
+- 2026-11-27 — Tarefa 1 do 05 concluída. Baixar do Logotipo com id `s-baixar-logotipo` (`s-baixar` já é de Recursos).
