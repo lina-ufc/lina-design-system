@@ -69,7 +69,8 @@ def nav(atual):
         atual_a = ' aria-current="page"' if c is atual else ''
         itens += f'<li{cls}><a class="cap" href="{href}"{atual_a}><span>{c["n"]}</span>{escape(c["nome"])}{breve}</a><ol>{sub}</ol></li>'
     itens += '<li class="rotulo">Ferramentas</li>' + ''.join(
-        f'<li{" class=\"atual\"" if f is atual else ""}><a class="cap" href="{f["arquivo"]}"{" aria-current=\"page\"" if f is atual else ""}><span></span>{escape(f["nome"])}</a></li>' for f in FERR)
+        '<li class="atual">' + f'<a class="cap" href="{f["arquivo"]}" aria-current="page"><span></span>{escape(f["nome"])}</a></li>' if f is atual else
+        f'<li><a class="cap" href="{f["arquivo"]}"><span></span>{escape(f["nome"])}</a></li>' for f in FERR)
     return (f'<a class="pular" href="#conteudo">Pular para o conteúdo</a><aside aria-label="Sumário"><a class="logo" href="index.html"><img src="assets/logos/sand/lina-horizontal-ferro.svg" alt="LINA"></a>'
             f'<p class="tit">Sistema de design</p><details class="sum" open><summary>Sumário</summary><ol>{itens}</ol></details></aside>')
 
