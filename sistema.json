@@ -181,6 +181,18 @@
   },
   {
    "cap": "logotipo",
+   "nome": "Área de proteção",
+   "sub": "Meia célula nas versões com fundo e área livre ao redor das sem fundo (proposta)",
+   "secao": "capitulos/logotipo/12-area-de-protecao.html"
+  },
+  {
+   "cap": "logotipo",
+   "nome": "Tamanho mínimo",
+   "sub": "Menor tamanho do logo em tela e impresso (proposta)",
+   "secao": "capitulos/logotipo/13-tamanho-minimo.html"
+  },
+  {
+   "cap": "logotipo",
    "nome": "Editor de células",
    "sub": "Monte formas com células e baixe o SVG com os cantos já traçados",
    "secao": "capitulos/logotipo/10-editor-de-celulas.html",
