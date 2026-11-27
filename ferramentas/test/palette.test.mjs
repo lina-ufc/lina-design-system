@@ -18,7 +18,7 @@ test('contraste baixo é recusado', () => {
   const r = LinaPalette.check(['areia','turquesa']);
   assert.equal(r.ok, false); assert.match(r.reason, /contraste/);
 });
-test('exemplos de #s-estudo-de-contraste, #s-contrastes-a-usar e #s-contrastes-a-evitar passam', () => {
+test('exemplos de #s-monocromaticos, #s-duas-cores e #s-tres-cores passam', () => {
   assert.equal(LinaPalette.check(['ferro-fundo','ferro']).kind, 'mono');
   assert.equal(LinaPalette.check(['nata','damasco']).kind, 'mono');
   assert.equal(LinaPalette.check(['areia','ferro']).kind, 'duo');
