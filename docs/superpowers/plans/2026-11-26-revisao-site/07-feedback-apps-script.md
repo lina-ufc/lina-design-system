@@ -178,7 +178,7 @@ mesma URL). Como desligar o e-mail (`AVISA = false`) e mudar os tetos. Como marc
 curl -sL --data-urlencode tipo=Erro --data-urlencode pagina=cores.html --data-urlencode 'mensagem=Teste do plano 07' --data-urlencode nome=Teste --data-urlencode email=teste@ufc.br '<URL>'
 curl -sL --data-urlencode tipo=Elogio --data-urlencode mensagem=x --data-urlencode nome=T --data-urlencode email=t@ufc.br '<URL>'
 curl -sL --data-urlencode tipo=Erro --data-urlencode mensagem=x --data-urlencode nome=T --data-urlencode email=t@ufc.br --data-urlencode site=robo '<URL>'
-curl -sL -X POST '<URL>'
+curl -sL -d '' '<URL>'
 ```
 
 Expected, nesta ordem: `{"ok":true}`; `{"ok":false,"erro":"tipo"}`; `{"ok":true}`; `{"ok":false,"erro":"tipo"}`.
