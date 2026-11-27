@@ -61,6 +61,6 @@ Pergunta do texto (revisão da Tarefa 1): `feedback.sub` ("Aponte um erro ou dig
 ## Seção em lista (pedido do dono, 2026-11-28)
 
 - Decisão do dono: campo Página vira lista fechada (`<select>`), nível seção, agrupada por capítulo. Rótulo "Seção (opcional)"; `name="pagina"` igual, então planilha e `apps-script.gs` não mudam.
-- Valor enviado: texto da opção. Vazio = "Geral, sem seção específica"; "Página inicial"; "<n> <Capítulo>" (opção "Capítulo todo"); "<n.m> <Seção>"; nome da ferramenta.
+- Valor enviado: texto da opção. Vazio = "Geral, sem seção específica"; "Página inicial"; "<n> <Capítulo>" (opção "<n> <Capítulo> (capítulo todo)", legível com a lista fechada); "<n.m> <Seção>"; nome da ferramenta.
 - Opções geradas em `sistema.py` (numeração de `sistema.json`, `rot(e)`) no marcador `<!--secoes-->` de `paginas/feedback.html`.
 - Link do menu (`?pagina=arquivo.html`): `lina-feedback.js` marca a opção cujo `data-arq` é o arquivo (capítulo, ferramenta ou `index.html`); sem par, fica "Geral". "Enviar outra mensagem" volta o select à primeira opção.
