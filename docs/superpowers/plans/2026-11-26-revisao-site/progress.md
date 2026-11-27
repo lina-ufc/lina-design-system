@@ -91,7 +91,7 @@ Herança para o 05: hex das 12 cores seguem em `capitulos/` (2.x, 3.x, 4.x, 8.2)
 - [x] **Tarefa 2** — gerador de padrões em Padrões 6.9. `a16f4f2`, `cd6dcf5`; review após 1 rodada (limite de formato: width=1 travava a aba); 66/66
 - [x] **Tarefa 3** — filtro de pontilhado em Imagem 7.1. `b0bf9cc`; review limpo; 3 ajustes de acessibilidade passam à tarefa 5
 - [x] **Tarefa 4** — editor de células em Logotipo 2.10 (Baixar vira 2.11). `825f03e`, `58b1322`; revisão própria (desfazer fora da grade corrigido); letreiro centrado, teclado só com a grade em foco, limite de 1000 células
-- [ ] **Tarefa 5** — Recursos 11.3, verificação, acessibilidade, aprovação do dono
+- [ ] **Tarefa 5** — Recursos 11.3, verificação, acessibilidade, aprovação do dono. `b82f0c1`, `c8aa1d2`; checagens e navegador ok ([record](records/06-ferramentas.md)); falta aprovação do dono e decisão sobre fotos > 1600 px
 
 ## Estado herdado
 
