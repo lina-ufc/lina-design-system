@@ -15,7 +15,7 @@
 
 ## Resumo
 
-`[███████░░░]` 8 de 12 subplanos completos — total de tarefas ainda não conhecido (10–12 não escritos).
+`[███████░░░]` 8 de 12 subplanos completos — total de tarefas ainda não conhecido (11–12 não escritos).
 
 | Plano | Progresso | Tarefas | Status |
 | --- | --- | --- | --- |
@@ -26,9 +26,9 @@
 | 05 — visual em tudo | `[██████████]` | 6/6 | Completo (mesclado na main) |
 | 06 — ferramentas no site | `[██████████]` | 9/9 | Completo, aprovado pelo dono em 2026-11-27 (mesclado na main) |
 | 07 — feedback: acesso anônimo e Apps Script | `[██████████]` | 3/3 | Completo (mesclado na main) |
-| 08 — feedback: página e envio | `[██████████]` | 3/3 | Completo (branch aguarda merge) |
-| 09 — feedback: entradas na home e no menu | `[██████████]` | 2/2 | Completo (branch `revisao-site/09-feedback-entradas` aguarda merge) |
-| 10 — feedback: verificação e aprovação | `[░░░░░░░░░░]` | — | Não escrito |
+| 08 — feedback: página e envio | `[██████████]` | 3/3 | Completo (mesclado na main) |
+| 09 — feedback: entradas na home e no menu | `[██████████]` | 2/2 | Completo (mesclado na main) |
+| 10 — feedback: texto, acessibilidade, aprovação | `[░░░░░░░░░░]` | 0/3 | Escrito |
 | 11 — conteúdo novo | `[░░░░░░░░░░]` | — | Não escrito |
 | 12 — arquivar visual-code | `[░░░░░░░░░░]` | — | Não escrito |
 
@@ -124,6 +124,14 @@ Herança para o 05: hex das 12 cores seguem em `capitulos/` (2.x, 3.x, 4.x, 8.2)
 - [x] **Tarefa 1** — `sistema.py`: link no fim do sumário (`?pagina=<arquivo>`) e bloco na home; nada sem `feedback_url`. `95ea597`; review limpo; 95/95
 - [x] **Tarefa 2** — navegador (1280/390, clique do link preenche Página, 44 px, teclado). Ok; 1 nota de design para o 10. Record: [`records/09-feedback-entradas.md`](records/09-feedback-entradas.md)
 
+## Plano 10 — feedback: texto, acessibilidade, verificação e aprovação
+
+`[░░░░░░░░░░]` 0% — 0 de 3 tarefas. Plano: [`10-feedback-final.md`](10-feedback-final.md).
+
+- [ ] **Tarefa 1** — texto revisado com `design:ux-copy` (página, avisos, link do menu, bloco da home)
+- [ ] **Tarefa 2** — acessibilidade: 4 menores do 08, bloco da home em lista, `design:accessibility-review`
+- [ ] **Tarefa 3** — verificação final, envio real com isca, VoiceOver, renders, aprovação do dono
+
 ## Estado herdado
 
 - Base: `a76283c` (Capítulo 7 concluído).
@@ -177,3 +185,4 @@ Herança para o 05: hex das 12 cores seguem em `capitulos/` (2.x, 3.x, 4.x, 8.2)
 - 2026-11-27 — Tarefa 3 do 08 concluída; envio real confirmado pelo dono. Plano 08 completo; próximo: escrever o 09.
 - 2026-11-27 — 08 mesclado na main (`efbbda1`). Plano 09 escrito: link como último item do sumário (`a.cap`), `feedback.html` passa `FB` como `atual` para não levar o link.
 - 2026-11-27 — Plano 09 completo (`95ea597`): link no sumário e bloco na home verificados no navegador. Próximo: escrever o 10.
+- 2026-11-28 — 09 mesclado na main (`09e07e1`). Plano 10 escrito: texto, acessibilidade (menores do 08, bloco da home em lista), envio real com isca e aprovação.
