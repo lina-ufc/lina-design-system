@@ -156,7 +156,7 @@ Revisão de 12/11/2026, ainda não aplicada:
 
 1. Edite `potx/build.js`: as constantes da grade ficam no topo (`M`, `G`, `CW`, `RH`, `BAND`) e os layouts em `defineLayouts()`. Nome de layout novo: siga `família.variação`; o build ordena o master pelo número.
 2. Rode `sh potx/make.sh`. Ele instala as dependências (`npm ci`), gera e valida o `.pptx` e o `.potx`, copia para esta pasta o modelo, o exemplo, o PDF (LibreOffice) e o deck HTML com `img/`, e monta os `.zip` em `downloads/`. Tudo isso é gerado e fica fora do git.
-3. Para ver o site local: `python3 capitulos/8-templates/_gerar.py` e `python3 sistema.py` na raiz, depois abra `index.html`.
+3. Para ver o site local: `python3 capitulos/templates/_gerar.py` e `python3 sistema.py` na raiz, depois abra `index.html`.
 4. Publicar uma versão: escreva a entrada em `CHANGELOG.md`, faça o commit e crie a tag `apresentacao-vX.Y.Z` (`git tag apresentacao-v1.1.0 && git push --tags`). O GitHub Actions gera os arquivos, cria a release e atualiza o site.
 5. Ajustes feitos à mão no DeckCraft ou no PowerPoint: transfira as medidas para o `build.js` antes de gerar de novo. Gerar de novo sobrescreve os arquivos.
 

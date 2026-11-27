@@ -11,7 +11,7 @@ Rejeitado ("ficaram terríveis"): Lucide convertido para pixel com cantos do log
 desenhada do zero em blocos. Não repropor ícone pixelado.
 
 Duotone LINA: a camada `opacity="0.2"` recebe uma segunda cor cheia da paleta, seguindo os pares de contraste.
-Capítulo 6 gerado por `capitulos/6-icones/_gerar.py` (SVG embutido); depois rodar `sistema.py`.
+Capítulo Ícones (8) gerado por `capitulos/icones/_gerar.py` (SVG embutido); depois rodar `sistema.py`.
 
 Docs atualizados (README §6, SKILL.md, CLAUDE.md, assets/icons/README.md). Template de slides migrado (2026-11-22):
 `build.js` mantém os nomes Lucide como chave e mapeia para Phosphor regular (`PH_NOME`); o hook copia

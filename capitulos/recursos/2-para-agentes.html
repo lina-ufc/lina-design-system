@@ -1,0 +1,21 @@
+<h2>Para agentes</h2>
+<p class="lead">Arquivos que um agente de IA deve ler e comandos que ele pode rodar, todos publicados na raiz do site.</p>
+<h3>Arquivos</h3>
+<dl class="spec">
+  <dt><a href="SKILL.md">SKILL.md</a></dt><dd>Índice por assunto: onde está cada regra do sistema.</dd>
+  <dt><a href="llms.txt">llms.txt</a></dt><dd>Lista de todas as seções do site, com link e uma linha de descrição.</dd>
+  <dt><a href="tokens/lina.tokens.json">tokens/lina.tokens.json</a></dt><dd>Cores em formato DTCG, gerado de <span class="mono">assets/lina-palette.js</span>.</dd>
+  <dt><a href="assets/lina-palette.js">assets/lina-palette.js</a></dt><dd>Fonte única dos valores de cor.</dd>
+  <dt><a href="sistema.json">sistema.json</a></dt><dd>Catálogo do site: capítulos, partes e seções.</dd>
+</dl>
+<h3>Comandos</h3>
+<dl class="spec">
+  <dt>Ver combinações de cor válidas</dt><dd><code class="mono">node ferramentas/textura.mjs --list-colors</code>. Rode antes de gerar um padrão ou uma imagem.</dd>
+  <dt>Gerar uma textura</dt><dd><code class="mono">node ferramentas/textura.mjs --mode scatter --seed 3 --width 1080 --height 1350 --cells 36 --colors ferro,areia,creme --out textura.svg</code>. Modos: <span class="mono">dither</span>, <span class="mono">scatter</span> e <span class="mono">field</span>. A primeira cor é o fundo.</dd>
+  <dt>Gerar uma imagem pontilhada</dt><dd><code class="mono">node ferramentas/imagem.mjs foto.png --mode dither --colors creme,ferro --width 1080 --out imagem.svg</code>. Modos: <span class="mono">dither</span> e <span class="mono">bitmap</span>. Só mono ou duo.</dd>
+  <dt>Regerar os tokens</dt><dd><code class="mono">node ferramentas/tokens.mjs</code>. Com <span class="mono">--check</span>, só confere se o arquivo está em dia.</dd>
+  <dt>Gerar a apresentação</dt><dd><code class="mono">sh templates/apresentacao/potx/make.sh</code></dd>
+  <dt>Gerar o documento A4</dt><dd><code class="mono">sh templates/documento-a4/make.sh</code></dd>
+  <dt>Gerar o site</dt><dd><code class="mono">python3 sistema.py</code></dd>
+</dl>
+<p class="cap">Combinação de cor inválida sai com código 2 e a regra em português. A mesma entrada gera sempre o mesmo SVG.</p>

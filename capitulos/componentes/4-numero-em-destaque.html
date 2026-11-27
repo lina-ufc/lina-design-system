@@ -1,0 +1,25 @@
+<h2>Número em destaque</h2>
+<p class="lead">Número grande em ferro e, logo abaixo, em tamanho menor, o que ele mede. A peça existe só no slide.</p>
+<div style="display:grid;gap:24px;margin:0 0 14px">
+  <figure class="fig" style="margin:0">
+    <img src="capitulos/componentes/img/numero-slide.png" alt="Três números lado a lado, cada um sob um fio ferro: 76, 3× e 0,8, em ferro e negrito. Abaixo de cada um vem o rótulo em umbro, &quot;estações monitoradas&quot;, &quot;mais rápido&quot; e &quot;correlação&quot;, e abaixo dele uma nota curta em texto leve." width="1824" height="368" style="display:block;width:100%;max-width:912px;height:auto">
+    <figcaption class="cap">Slide</figcaption>
+  </figure>
+</div>
+<h3>Regra</h3>
+<ul class="regras">
+  <li>O número vai em Outfit ExtraBold na cor ferro. Abaixo dele, o rótulo do que ele mede, em Outfit Medium de 32 px na cor umbro. Nos dois layouts "5.3", uma nota em Outfit Light de 24 px pode vir depois, como texto de apoio.</li>
+  <li>Layout "5.3 Números-chave": de 2 a 4 números em colunas iguais, cada um com um fio ferro de 3 pt (6 px) acima. O número tem 140 px até 3 números e 110 px com 4.</li>
+  <li>Layout "5.3 Números-chave · antes e depois": dois números de 5 colunas cada, com 140 px, e uma seta ferro entre eles. A seta é uma imagem, igual no PowerPoint e no deck HTML.</li>
+  <li>Pelo código, <code class="mono">comp.numeroSeta</code> desenha o par num bloco só: números de 96 px em ferro, a seta em Outfit Light umbro entre eles e a unidade em mono de 18 px embaixo. É uma montagem à parte, com a seta em texto.</li>
+</ul>
+<h3>Não fazer</h3>
+<ul class="regras">
+  <li>Número em umbro ou em peso leve.</li>
+</ul>
+<h3>Como pedir</h3>
+<dl class="spec">
+  <dt>Slide</dt><dd>Copie o slide 52 do exemplo para um slide com o layout "5.3 Números-chave", ou o slide 51 para o layout "5.3 Números-chave · antes e depois". Ao gerar pelo código: <code class="mono">comp.numeroSeta(sl, [x, y, w, h], antes, depois, unidade)</code>.</dd>
+  <dt>Word</dt><dd>Ainda não existe.</dd>
+  <dt>LaTeX</dt><dd>Ainda não existe.</dd>
+</dl>

@@ -1,0 +1,17 @@
+<h2>Combinações de cores</h2>
+<p class="regra">As cores do logotipo seguem os mesmos pares do texto (<a href="cores.html#s-contrastes-a-usar">2.5</a> e <a href="cores.html#s-contrastes-a-evitar">2.6</a>).</p>
+<p class="p">Aqui, o símbolo sobre a placa de cantos arredondados, a aplicação mais comum: quatro células de lado, o L a uma célula da borda.</p>
+<h3>Faça e não faça</h3>
+<div class="faca-nao"><div class="faca"><div id="comb-usar" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:18px 14px"></div></div>
+<div class="nao"><div id="comb-evitar" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:18px 14px"></div></div></div>
+<script>{
+const L=LD.letter('L',1,2,1);
+const card=(c)=>'<div class="fig"><svg viewBox="0 0 8 8" style="width:100%;max-width:150px;height:auto;display:block" role="img" aria-label="'+c[2]+'"><rect width="8" height="8" rx="1.25" fill="var(--'+c[0]+')" stroke="rgba(42,26,18,.14)" stroke-width=".04"/><path d="'+L+'" fill="var(--'+c[1]+')" fill-rule="evenodd"/></svg><p class="cap"><b>'+c[2]+'</b>'+(c[3]?'<br>'+c[3]:'')+'</p></div>';
+// [placa, símbolo, par · contraste, nota]
+const U=[['ferro','creme','creme sobre ferro · 6,6','Capas, perfis, faixas.'],['creme','ferro','ferro sobre creme · 6,6','O par principal.'],['umbro','creme','creme sobre umbro · 15,1','Peças noturnas.'],['umbro','areia','areia sobre umbro · 10,6','Rodapés, fundos escuros.'],['damasco','ferro','ferro sobre damasco · 5,3','Destaque quente.'],['damasco','umbro','umbro sobre damasco · 12,1','Painéis e chamadas.'],['areia','umbro','umbro sobre areia · 10,6','Superfícies de apoio.'],['turquesa','turquesa-tinta','turquesa tinta sobre turquesa · 5,8','Contexto de dados.']];
+const E=[['turquesa','ferro','ferro sobre turquesa · 3,1','Vibra.'],['turquesa','creme','creme sobre turquesa · 2,1','Some.'],['creme','areia','areia sobre creme · 1,4','Some.'],['areia','damasco','damasco sobre areia · 1,1','Some.'],['umbro','ferro','ferro sobre umbro · 2,3','Afunda.'],['ferro','turquesa-fundo','turquesa fundo sobre ferro · 1,2','Afunda.']];
+document.getElementById('comb-usar').innerHTML=U.map(card).join('');
+document.getElementById('comb-evitar').innerHTML=E.map(card).join('');
+}</script>
+<h2 class="h" style="font-size:18px;margin:26px 0 6px">Baixar</h2>
+<div class="dl"><a href="https://github.com/lina-ufc/lina-design-system/releases/download/marca-v1.1.0/LINA-Logos.zip" download><b>Logos · .zip</b><span class="p" style="margin:0">As 55 variações em SVG, PNG transparente de 2000 px e PDF vetorial.</span><span class="mono cap">LINA-Logos.zip · 3,5 MB</span></a><a href="https://github.com/lina-ufc/lina-design-system/releases/download/marca-v1.1.0/LINA-Marca.vectorcraft" download><b>Arquivo de marca · .vectorcraft</b><span class="p" style="margin:0">Uma prancheta por forma e a construção. Texto das assinaturas vivo: instale as fontes (<a href="tipografia.html#s-composicoes">5.5</a>). Cores como amostras globais: editar a amostra recolore o logo.</span><span class="mono cap">LINA-Marca.vectorcraft · 1,9 MB</span></a><a href="https://github.com/lina-ufc/lina-design-system/releases/download/institucionais-v2.0.0/Logos-Institucionais.zip" download><b>Institucionais · .zip</b><span class="p" style="margin:0">UFC, IAUD, PPGAUD, PPGEC, CNPq, FUNCAP, SECULT, Cientista Chefe, LAREB e Documenta, em SVG, PNG e PDF.</span><span class="mono cap">Logos-Institucionais.zip · 15,7 MB</span></a></div>
