@@ -1,5 +1,5 @@
 {
- "_leia": "Fonte do documento do sistema. \"partes\" agrupa os capítulos; a ordem de \"capitulos\" dá o número de cada um (o id é o nome do arquivo: <id>.html). \"molde\": true confere o molde de seção no capítulo. \"antigos\" mapeia as páginas velhas para as novas (redirecionamento). Entrada com \"secao\" (fragmento HTML em capitulos/) entra no corpo; com \"arquivo\" + \"vista\", entra num quadro. Depois de editar: python3 sistema.py",
+ "_leia": "Fonte do documento do sistema. \"partes\" agrupa os capítulos; a ordem de \"capitulos\" dá o número de cada um (o id é o nome do arquivo: <id>.html). \"molde\": true confere o molde de seção no capítulo. \"antigos\" mapeia as páginas velhas para as novas (redirecionamento). Entrada com \"secao\" (fragmento HTML em capitulos/) entra no corpo; com \"arquivo\" + \"vista\", entra num quadro. \"ferramentas\": páginas próprias na raiz (arquivo, nome, sub, fragmento em paginas/ferramentas/). Depois de editar: python3 sistema.py",
  "partes": [
   {
    "id": "I",
@@ -92,6 +92,11 @@
    "nome": "Recursos",
    "desc": "Downloads, arquivos para agentes e linha de comando num só lugar."
   }
+ ],
+ "ferramentas": [
+  {"arquivo": "gerador-de-padroes.html", "nome": "Gerador de padrões", "sub": "Pontilhado, dispersão e campo nas cores da paleta; baixe o SVG ou copie o comando.", "fragmento": "paginas/ferramentas/gerador-de-padroes.html"},
+  {"arquivo": "filtro-de-pontilhado.html", "nome": "Filtro de pontilhado", "sub": "Transforme uma foto em SVG pontilhado, com uma cor por faixa de tom.", "fragmento": "paginas/ferramentas/filtro-de-pontilhado.html"},
+  {"arquivo": "editor-de-celulas.html", "nome": "Editor de células", "sub": "Monte formas com células e baixe o SVG com os cantos já traçados.", "fragmento": "paginas/ferramentas/editor-de-celulas.html"}
  ],
  "antigos": {
   "1-logotipo.html": "logotipo.html",

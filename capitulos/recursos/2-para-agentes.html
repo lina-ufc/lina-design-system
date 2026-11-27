@@ -12,7 +12,7 @@
 <dl class="spec">
   <dt>Ver combinações de cor válidas</dt><dd><code class="mono">node ferramentas/textura.mjs --list-colors</code>. Rode antes de gerar um padrão ou uma imagem.</dd>
   <dt>Gerar uma textura</dt><dd><code class="mono">node ferramentas/textura.mjs --mode scatter --seed 3 --width 1080 --height 1350 --cells 36 --colors ferro,areia,creme --out textura.svg</code>. Modos: <span class="mono">dither</span>, <span class="mono">scatter</span> e <span class="mono">field</span>. A primeira cor é o fundo.</dd>
-  <dt>Gerar uma imagem pontilhada</dt><dd><code class="mono">node ferramentas/imagem.mjs foto.png --mode dither --colors creme,ferro --width 1080 --out imagem.svg</code>. Modos: <span class="mono">dither</span> e <span class="mono">bitmap</span>. Só mono ou duo.</dd>
+  <dt>Gerar uma imagem pontilhada</dt><dd><code class="mono">node ferramentas/imagem.mjs foto.png --mode dither --tones ferro,ferro,creme --width 1080 --out imagem.svg</code>. Modos: <span class="mono">dither</span>, <span class="mono">scatter</span> e <span class="mono">field</span>. Cores por faixa de tom em <span class="mono">--tones</span> (escuros,médios,claros; <span class="mono">none</span> é transparente).</dd>
   <dt>Regerar os tokens</dt><dd><code class="mono">node ferramentas/tokens.mjs</code>. Com <span class="mono">--check</span>, só confere se o arquivo está em dia.</dd>
   <dt>Gerar a apresentação</dt><dd><code class="mono">sh templates/apresentacao/potx/make.sh</code></dd>
   <dt>Gerar o documento A4</dt><dd><code class="mono">sh templates/documento-a4/make.sh</code></dd>

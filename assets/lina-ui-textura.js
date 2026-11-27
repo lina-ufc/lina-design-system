@@ -152,5 +152,4 @@
 
   sincroniza();
   desenha();
-  if (location.hash.includes('=')) raiz.parentElement.scrollIntoView(); // link com ajustes: abre na seção
 })();
