@@ -1,7 +1,6 @@
 # Revisão do site — Progresso da implementação
 
-**Última atualização:** 2026-11-27. Branch `main`. Spec e planos ainda não commitados.
-Branch `revisao-site/01-motores`.
+**Última atualização:** 2026-11-27. Branch `revisao-site/02-prototipo`.
 
 Índice: [`README.md`](README.md).
 
@@ -21,7 +20,7 @@ Branch `revisao-site/01-motores`.
 | Plano | Progresso | Tarefas | Status |
 | --- | --- | --- | --- |
 | 01 — motores | `[██████████]` | 5/5 | Completo (branch `revisao-site/01-motores`, não mesclada) |
-| 02 — protótipo visual | `[░░░░░░░░░░]` | — | Não escrito. Pode ser escrito em paralelo ao 01 |
+| 02 — protótipo visual | `[░░░░░░░░░░]` | 0/4 | Em execução (branch `revisao-site/02-prototipo`) |
 | 03 — fonte única | `[░░░░░░░░░░]` | — | Não escrito. Escrito quando o 01 terminar |
 | 04 — estrutura | `[░░░░░░░░░░]` | — | Não escrito. Espera o 02 aprovado |
 | 05 — visual em tudo | `[░░░░░░░░░░]` | — | Não escrito |
@@ -40,6 +39,15 @@ Branch `revisao-site/01-motores`.
 - [x] **Tarefa 5** — `SKILL.md` documenta os comandos; páginas 3.x continuam iguais. `a61416b`; review limpo; sessão sem contexto gerou os dois SVG só com o `SKILL.md`
 
 Verificação: `node --test "ferramentas/test/*.test.mjs"` 51/51 (o diretório sozinho falha no Node 26.5); `python3 sistema.py` ok; `3-padroes.html` com os 19 SVG idênticos à base `a76283c`.
+
+## Plano 02 — protótipo visual
+
+`[░░░░░░░░░░]` 0% — 0 de 4 tarefas.
+
+- [ ] **Tarefa 1** — montagem (`prototipo/montar.sh`) e render (`prototipo/render.sh`)
+- [ ] **Tarefa 2** — folha `prototipo/b1.css`
+- [ ] **Tarefa 3** — revisão de design e acessibilidade
+- [ ] **Tarefa 4** — aprovação do dono
 
 ## Estado herdado
 
@@ -64,3 +72,4 @@ Verificação: `node --test "ferramentas/test/*.test.mjs"` 51/51 (o diretório s
 - 2026-11-27 — Tarefa 3 concluída (imagem). Escala uniforme: a altura pode ficar até uma linha menor que a razão exata; nunca estica.
 - 2026-11-27 — Tarefa 4 concluída (linha de comando).
 - 2026-11-27 — Tarefa 5 e revisão final concluídas. Plano 01 completo; branch aguarda merge. Próximo: escrever o 03 (depende do 01).
+- 2026-11-27 — Plano 02 escrito (protótipo B1 da página Logotipo).
