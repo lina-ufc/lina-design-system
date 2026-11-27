@@ -12,13 +12,11 @@
   'use strict';
   const Geo = root.LinaGeometry;
 
-  const PALETTES = [
-    { name: 'Ferro sobre creme', bg: '#FAF5C6', fg: '#A81F0D', accent: '#2A1A12' },
-    { name: 'Creme sobre ferro', bg: '#A81F0D', fg: '#FAF5C6', accent: '#2A1A12' },
-    { name: 'Umbro sobre damasco', bg: '#FDD692', fg: '#2A1A12', accent: '#A81F0D' },
-    { name: 'Umbro sobre turquesa', bg: '#64B6AC', fg: '#2A1A12', accent: '#FAF5C6' },
-    { name: 'Areia sobre umbro', bg: '#2A1A12', fg: '#E1CE7A', accent: '#A81F0D' },
-  ];
+  const Pal = root.LinaPalette;
+
+  // Duos of the palette module in the old shape. A duo has no third colour, so accent = fg.
+  const PALETTES = Pal.combos('duo').map(([bg, fg]) => (
+    { name: `${fg} sobre ${bg}`, bg: Pal.COLORS[bg], fg: Pal.COLORS[fg], accent: Pal.COLORS[fg] }));
 
   const DEFAULTS = {
     mode: 'field', seed: 1, cols: 48, rows: 48, edges: 'bleed',
@@ -567,15 +565,35 @@
       accent: Geo.traceBitmap(accent, TW, TH, r, { scale: S, ox: off, oy: off }),
       blank: 1 - filled / (W * H),
       shapes: seen.size,
+      bits: F.bits, bw: F.GW, bh: F.GH,
       field: p.debug ? F : undefined,
     };
   }
 
+  // Every ink pixel lies in a filled 2×2 block on its own shape's half-cell grid: the class stored
+  // in bits (1..4) is the parity of the shape's origin, so a shape offset ¼ cell (scatter `quarter`)
+  // is judged on its own grid. Dither has no bitmap: it is the declared exception.
+  function legal(res) {
+    const { bits, bw, bh } = res;
+    if (!bits) return true;
+    for (let y = 0; y < bh; y++)
+      for (let x = 0; x < bw; x++) {
+        const c = bits[y * bw + x];
+        if (!c) continue;
+        const bx = x - ((x ^ ((c - 1) >> 1)) & 1), by = y - ((y ^ ((c - 1) & 1)) & 1);
+        if (bx < 0 || by < 0 || bx + 1 >= bw || by + 1 >= bh) return false;
+        const k = by * bw + bx;
+        if (bits[k] !== c || bits[k + 1] !== c || bits[k + bw] !== c || bits[k + bw + 1] !== c) return false;
+      }
+    return true;
+  }
+
   let uid = 0;
+  const clean = (v) => Math.round(v * 100) / 100;
   function toSVG(res, colors, opts) {
     const transparent = opts && opts.transparent;
-    const w = res.W * res.scale, h = res.H * res.scale;
-    const id = 'lina-frame-' + (++uid);
+    const w = clean(res.W * res.scale), h = clean(res.H * res.scale);
+    const id = (opts && opts.id) || 'lina-frame-' + (++uid);
     return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}">\n` +
       `  <defs><clipPath id="${id}"><rect width="${w}" height="${h}"/></clipPath></defs>\n` +
       (transparent ? '' : `  <rect width="${w}" height="${h}" fill="${colors.bg}"/>\n`) +
@@ -585,5 +603,30 @@
       `  </g>\n</svg>\n`;
   }
 
-  root.LinaTexture = { generate, toSVG, PALETTES, DEFAULTS };
+  /* ---------- public contract ---------- */
+
+  const MODES = ['dither', 'scatter', 'field'];
+  const KEYS = ['seed', 'blank', 'steps', 'quarter', 'clump', 'grain', 'stretch', 'edges', 'pinholes'];
+
+  // params: { mode, seed, width, height, cells, colors, blank, steps, quarter, clump, grain,
+  // stretch, accent, edges, pinholes }, fractions in 0–1. colors = [bg, fg, accent?] by token name.
+  function fromParams(params) {
+    const r = Pal.check(params.colors);
+    if (!r.ok) throw new Error(r.reason);
+    const mode = params.mode || DEFAULTS.mode;
+    if (!MODES.includes(mode)) throw new Error(`Modo desconhecido: "${mode}". Modos válidos: ${MODES.join(', ')}.`);
+    const cols = params.cells, rows = Math.max(4, Math.round(cols * params.height / params.width));
+    const options = { mode, cols, rows, scale: params.width / (cols * 2), radius: 0.25 };
+    for (const k of KEYS) if (params[k] !== undefined) options[k] = params[k];
+    const [bg, fg, ac] = params.colors.map((n) => Pal.COLORS[n]);
+    options.accent = ac ? (params.accent ?? DEFAULTS.accent) : 0;
+    return { options, colors: { bg, fg, accent: ac || fg } };
+  }
+
+  function render(params) {
+    const { options, colors } = fromParams(params);
+    return toSVG(generate(options), colors, { id: `lina-${options.mode}-${options.seed ?? DEFAULTS.seed}` });
+  }
+
+  root.LinaTexture = { generate, toSVG, fromParams, render, legal, PALETTES, DEFAULTS };
 })(typeof window !== 'undefined' ? window : globalThis);
