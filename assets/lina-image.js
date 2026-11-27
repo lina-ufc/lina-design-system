@@ -54,7 +54,8 @@
 
   // Darkness of a box in output units: 0 is paper, 1 is full ink.
   function sampler(src, U, V, p) {
-    const sx = src.w / U, sy = src.h / V;
+    // Uniform scale: never stretch; a strip under one row at the bottom is cropped.
+    const sx = src.w / U, sy = sx;
     const blur = p.smooth * CELL;
     const k = Math.exp(p.contrast * 1.6);
     // Lifting the midtones opens up faces and skin without greying the blacks.
@@ -115,7 +116,7 @@
   function dither(src, p) {
     const SOLID = 0.9, BRIDGE = 0.72, LINE = 0.62;
     const nx = Math.max(4, Math.round(p.detail));
-    const ny = Math.max(1, Math.round((nx * src.h) / src.w));
+    const ny = Math.max(1, Math.floor((nx * src.h) / src.w + 1e-9));
     const U = nx * CELL, V = ny * CELL, N = nx * ny;
     const sample = sampler(src, U, V, p);
     const tone = new Float32Array(N);
@@ -167,7 +168,7 @@
   // Bitmap is one mass, so it works on the half-cell grid and is drawn at quarter resolution.
   function bitmap(src, p) {
     const cw = Math.max(4, Math.round(p.detail));
-    const ch = Math.max(2, Math.round((cw * src.h) / src.w));
+    const ch = Math.max(2, Math.floor((cw * src.h) / src.w + 1e-9));
     const hw = cw * 2, hh = ch * 2;
     const tone = sampler(src, hw, hh, p);
     const half = new Uint8Array(hw * hh);

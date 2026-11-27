@@ -20,6 +20,13 @@ test('paisagem mantém proporção', () => {
   const m = dims(LinaImage.render(grad(90, 60), { mode: 'bitmap', colors: ['creme', 'umbro'], width: 600 }));
   assert.equal(m[3], '600'); assert.equal(m[4], '400');
 });
+for (const [w, h] of [[100, 13], [100, 77]]) for (const mode of ['dither', 'bitmap'])
+  test(`sem distorção vertical ${w}x${h} ${mode}`, () => {
+    const m = dims(LinaImage.render(grad(w, h), { mode, detail: 0, colors: ['creme', 'umbro'], width: 400 }));
+    const rows = Number(m[4]) / Number(m[3]) * 20;           // detail 0 = 20 células de largura
+    const sampled = rows * w / 20;                           // altura amostrada, na mesma escala da largura
+    assert.ok(sampled <= h + 1e-6 && sampled > h - w / 20, `amostrou ${sampled} de ${h}`);
+  });
 test('PNG com transparência renderiza com a proporção', () => {
   const m = dims(LinaImage.render(grad(60, 90, 0), { mode: 'dither', colors: ['creme', 'umbro'], width: 600 }));
   assert.equal(m[3], '600'); assert.ok(Math.abs(Number(m[4]) - 900) < 600 / 84);
