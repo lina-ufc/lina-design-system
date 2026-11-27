@@ -64,7 +64,8 @@ def nav(atual):
         href = pagina_de(c)
         cls = ' class="atual"' if c is atual else ''
         breve = '' if sub else '<small class="breve">em breve</small>'
-        itens += f'<li{cls}><a class="cap" href="{href}"><span>{c["n"]}</span>{escape(c["nome"])}{breve}</a><ol>{sub}</ol></li>'
+        atual_a = ' aria-current="page"' if c is atual else ''
+        itens += f'<li{cls}><a class="cap" href="{href}"{atual_a}><span>{c["n"]}</span>{escape(c["nome"])}{breve}</a><ol>{sub}</ol></li>'
     return (f'<aside><a class="logo" href="index.html"><img src="assets/logos/sand/lina-horizontal-ferro.svg" alt="LINA"></a>'
             f'<p class="tit">Sistema de design</p><details class="sum"><summary>Sumário</summary><ol>{itens}</ol></details></aside>')
 

@@ -20,4 +20,4 @@ subplano 05 (aplicar a todas as páginas).
 **Why:** decisão do dono sobre o protótipo; achados e medidas em
 `docs/superpowers/plans/2026-11-26-revisao-site/records/02-revisao.md`.
 
-**How to apply:** o 05 parte de `prototipo/b1.css`, movendo os `!important` para os fragmentos.
+**How to apply:** o B1 mora em `site.css` (variáveis `--t2`, `--fio-b1`, `--reticula`). Exemplo largo = classe `.prancha` (moldura com retícula) com ladrilhos `.fig`; `.rola` + `tabindex="0"` `role="region"` `aria-label` quando o diagrama rola no celular. Regra própria de capítulo no bloco dele no fim de `site.css`; sem `!important` nem inline que brigue com o B1.
