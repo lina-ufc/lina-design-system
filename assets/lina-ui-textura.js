@@ -44,20 +44,21 @@
       const [a, b] = FORMATOS[v];
       return Math.abs(p.height - Math.round(p.width * b / a)) <= 1 ? v : '';
     });
-    $('gp-seed').value = p.seed;
-    $('gp-largura').value = p.width;
-    $('gp-altura').value = p.height;
+    const poe = (el, v) => { if (document.activeElement !== el) el.value = v; }; // não reescreve o campo em edição
+    poe($('gp-seed'), p.seed);
+    poe($('gp-largura'), p.width);
+    poe($('gp-altura'), p.height);
     $('gp-pinholes').checked = p.pinholes;
     raiz.querySelectorAll('[data-k]').forEach((i) => {
       const k = i.dataset.k;
-      i.value = i.dataset.pct !== undefined ? p[k] * 100 : p[k];
+      poe(i, i.dataset.pct !== undefined ? p[k] * 100 : p[k]);
       raiz.querySelector(`[data-out="${k}"]`).value = (saidas[k] || (() => pct(p[k])))();
     });
     raiz.querySelectorAll('[data-modos]').forEach((f) => { f.disabled = !f.dataset.modos.split(' ').includes(p.mode); });
     raiz.querySelector('[data-cores]').disabled = p.colors.length < 3;
     raiz.querySelectorAll('[data-c]').forEach((s) => {
       s.disabled = +s.dataset.c >= p.colors.length;
-      if (!s.disabled) s.value = p.colors[+s.dataset.c];
+      if (!s.disabled) poe(s, p.colors[+s.dataset.c]);
     });
   }
 
@@ -65,6 +66,9 @@
   function desenha() {
     let info;
     try {
+      const menor = Math.min(p.width, p.height), maior = Math.max(p.width, p.height);
+      if (menor < 64 || maior / menor > 8)
+        throw new Error(`Tamanho ${p.width} × ${p.height} px fora do limite: lado menor a partir de 64 px e proporção até 8:1.`);
       svg = LinaTexture.render(p);
       $('gp-prancha').innerHTML = svg;
       const s = $('gp-prancha').firstElementChild;
@@ -76,7 +80,8 @@
       info = e.message;
       acoes.forEach((b) => { b.disabled = true; });
     }
-    $('gp-status').textContent = [...avisos, info].join(' ');
+    const texto = [...avisos, info].join(' ');
+    if ($('gp-status').textContent !== texto) $('gp-status').textContent = texto;
   }
 
   let quadro = 0;
@@ -128,7 +133,7 @@
     if (e.target.value !== '' && Number.isInteger(n) && n >= 0) { p.seed = n; muda(); }
   });
   for (const [id, k] of [['gp-largura', 'width'], ['gp-altura', 'height']])
-    $(id).addEventListener('input', (e) => {
+    $(id).addEventListener('change', (e) => { // só ao confirmar: digitar "1" a caminho de "1080" não renderiza
       const n = Math.round(Number(e.target.value));
       if (n > 0) { p[k] = n; muda(); }
     });
@@ -142,7 +147,7 @@
   $('gp-baixar').addEventListener('click', () => F.baixar(`lina-textura-${p.mode}-${p.seed}.svg`, svg));
   $('gp-copiar').addEventListener('click', () => F.copiar(svg, st));
   $('gp-link').addEventListener('click', () =>
-    F.copiar(location.href.split('#')[0] + '#' + F.escreverHash(p, ESQ), st));
+    F.copiar(location.href.split('#')[0] + (F.escreverHash(p, ESQ) ? '#' + F.escreverHash(p, ESQ) : ''), st));
   $('gp-cmd').addEventListener('click', () => F.copiar(F.comando('textura', p), st));
 
   sincroniza();
