@@ -96,7 +96,7 @@
     form.elements.pagina.value = paginaDe(root.location.search);
     conta();
     msg.addEventListener('input', conta);
-    form.addEventListener('input', limpa);
+    form.addEventListener('input', () => { limpa(); status.textContent = ''; });
 
     form.addEventListener('submit', async (ev) => {
       ev.preventDefault();
@@ -108,6 +108,7 @@
       if (erro) return recusa(erro);
       botao.disabled = true;
       botao.textContent = 'Enviando…';
+      status.textContent = 'Enviando…';
       const r = await envia(url, corpo(c, form.elements.site.value));
       botao.disabled = false;
       botao.textContent = 'Enviar';
@@ -119,6 +120,7 @@
         recusa(r.erro);
       } else {
         status.textContent = FALHA;
+        botao.focus();
       }
     });
 

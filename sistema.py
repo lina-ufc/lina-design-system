@@ -242,7 +242,7 @@ if (location.hash && !document.getElementById(location.hash.slice(1))) location.
 '''
 ferr_home = '<h3>Ferramentas</h3><ul class="regras">' + ''.join(f'<li><a href="{f["arquivo"]}">{escape(f["nome"])}</a>: {escape(f["sub"])}</li>' for f in FERR) + '</ul>'
 if S['feedback_url']:
-    ferr_home += '<h3>Feedback</h3><p>Viu um erro, sentiu falta de algo ou tem uma sugestão? <a href="feedback.html">Conte para a equipe</a>.</p>'
+    ferr_home += '<h3>Feedback</h3><ul class="regras"><li>Viu um erro, sentiu falta de algo ou tem uma sugestão? <a href="feedback.html">Conte para a equipe</a>.</li></ul>'
 main = f'<main id="conteudo" class="capitulo"><section>{(RAIZ / S["inicio"]).read_text()}{ferr_home}</section>\n{mapa}</main>'
 (RAIZ / 'index.html').write_text(html('Sistema LINA', None, main, HOME))
 

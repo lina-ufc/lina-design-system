@@ -463,6 +463,7 @@ body>aside .rotulo{margin:20px 0 2px}
 #fb{display:flex;flex-direction:column;gap:var(--cell-half);max-width:36rem;margin:var(--cell) 0}
 #fb[hidden]{display:none} /* #fb{display:flex} vence o [hidden] do navegador */
 #fb textarea{resize:vertical;line-height:1.5}
+#fb :is(input,textarea):not([type=radio]){border-color:var(--t2)} /* fio de estrutura (.16) dá 1,4:1; borda do campo precisa de 3:1 (WCAG 1.4.11) */
 #fb label:has(>input[type=radio]){display:flex;align-items:center;gap:12px;font-size:14px;color:var(--umbro)} /* alvo de toque = o rótulo inteiro */
 #fb input[type=radio]{accent-color:var(--ferro);width:var(--cell-half);height:var(--cell-half);margin:0}
 #fb :is(input,textarea)[aria-invalid=true]:not([type=radio]){border:2px solid var(--ferro)} /* borda mais grossa e a mensagem em #fb-status: não só cor */
@@ -473,7 +474,6 @@ body>aside .rotulo{margin:20px 0 2px}
 #fb .status{color:var(--ferro)}
 #fb .isca{position:absolute;left:-9999px}
 .feedback-aviso{max-width:36rem;margin:var(--cell) 0}
-.feedback-aviso:focus{outline:none}
 .ferramenta fieldset:disabled{opacity:.4} /* controle que não vale para o padrão ou para a quantidade de cores */
 .ferramenta .previa .prancha{display:block;margin:0}
 .ferramenta .previa .acoes{margin-top:var(--cell-half)}

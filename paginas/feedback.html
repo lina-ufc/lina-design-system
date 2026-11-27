@@ -1,15 +1,15 @@
 <p class="p">Encontrou um erro, sentiu falta de algo ou tem uma sugestão? Escreva abaixo; a equipe do LINA lê tudo.</p>
 <form id="fb" novalidate>
 <fieldset><legend>Tipo</legend>
-<label><input type="radio" name="tipo" value="Erro"> Erro</label>
-<label><input type="radio" name="tipo" value="Falta algo"> Falta algo</label>
-<label><input type="radio" name="tipo" value="Sugestão"> Sugestão</label>
+<label><input type="radio" name="tipo" value="Erro" required> Erro</label>
+<label><input type="radio" name="tipo" value="Falta algo" required> Falta algo</label>
+<label><input type="radio" name="tipo" value="Sugestão" required> Sugestão</label>
 </fieldset>
 <div><label for="fb-pagina">Página (opcional)</label><input type="text" id="fb-pagina" name="pagina" maxlength="200"></div>
-<div><label for="fb-mensagem">Mensagem</label><textarea id="fb-mensagem" name="mensagem" rows="6" maxlength="2000" aria-describedby="fb-contador"></textarea>
+<div><label for="fb-mensagem">Mensagem</label><textarea id="fb-mensagem" name="mensagem" required rows="6" maxlength="2000" aria-describedby="fb-contador"></textarea>
 <p class="contador" id="fb-contador">0 de 2000 caracteres</p></div>
-<div><label for="fb-nome">Nome</label><input type="text" id="fb-nome" name="nome" maxlength="120" autocomplete="name"></div>
-<div><label for="fb-email">E-mail</label><input type="email" id="fb-email" name="email" maxlength="254" autocomplete="email"></div>
+<div><label for="fb-nome">Nome</label><input type="text" id="fb-nome" name="nome" required maxlength="120" autocomplete="name"></div>
+<div><label for="fb-email">E-mail</label><input type="email" id="fb-email" name="email" required maxlength="254" autocomplete="email"></div>
 <div class="isca" aria-hidden="true"><label>Site <input name="site" tabindex="-1" autocomplete="off"></label></div>
 <p class="aviso-dados">O e-mail serve só para a equipe tirar dúvidas sobre a sua mensagem. Nada do que você enviar é publicado. Os dados ficam guardados pelo LINA (UFC) numa planilha interna; para apagá-los, escreva para <a href="mailto:lina.pesquisa@iaud.ufc.br">lina.pesquisa@iaud.ufc.br</a>.</p>
 <button type="submit">Enviar</button>
