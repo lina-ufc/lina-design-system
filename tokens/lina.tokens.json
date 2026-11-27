@@ -1,0 +1,292 @@
+{
+  "color": {
+    "$type": "color",
+    "$description": "Gerado de assets/lina-palette.js e tokens/colors.css. Não editar; rodar: node ferramentas/tokens.mjs",
+    "$extensions": {
+      "br.ufc.lina": {
+        "families": [
+          [
+            "ferro",
+            "ferro-fundo"
+          ],
+          [
+            "turquesa",
+            "turquesa-fundo",
+            "turquesa-tinta"
+          ],
+          [
+            "areia",
+            "fio",
+            "fio-forte"
+          ],
+          [
+            "creme",
+            "nata",
+            "damasco"
+          ],
+          [
+            "umbro"
+          ]
+        ],
+        "avoid": [
+          [
+            "ferro",
+            "turquesa"
+          ],
+          [
+            "turquesa",
+            "creme"
+          ],
+          [
+            "areia",
+            "creme"
+          ],
+          [
+            "damasco",
+            "areia"
+          ],
+          [
+            "ferro",
+            "umbro"
+          ],
+          [
+            "turquesa-fundo",
+            "ferro"
+          ]
+        ],
+        "source": "assets/lina-palette.js"
+      }
+    },
+    "ferro": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.6588,
+          0.1216,
+          0.051
+        ],
+        "hex": "#a81f0d"
+      }
+    },
+    "areia": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.8824,
+          0.8078,
+          0.4784
+        ],
+        "hex": "#e1ce7a"
+      }
+    },
+    "creme": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9804,
+          0.9608,
+          0.7765
+        ],
+        "hex": "#faf5c6"
+      }
+    },
+    "damasco": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9922,
+          0.8392,
+          0.5725
+        ],
+        "hex": "#fdd692"
+      }
+    },
+    "turquesa": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.3922,
+          0.7137,
+          0.6745
+        ],
+        "hex": "#64b6ac"
+      }
+    },
+    "umbro": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.1647,
+          0.102,
+          0.0706
+        ],
+        "hex": "#2a1a12"
+      }
+    },
+    "ferro-fundo": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.4314,
+          0.0784,
+          0.0314
+        ],
+        "hex": "#6e1408"
+      }
+    },
+    "turquesa-fundo": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.1843,
+          0.4157,
+          0.3843
+        ],
+        "hex": "#2f6a62"
+      }
+    },
+    "turquesa-tinta": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.0784,
+          0.1961,
+          0.1804
+        ],
+        "hex": "#14322e"
+      }
+    },
+    "nata": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.9922,
+          0.9451,
+          0.8118
+        ],
+        "hex": "#fdf1cf"
+      }
+    },
+    "fio": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.902,
+          0.8745,
+          0.6353
+        ],
+        "hex": "#e6dfa2"
+      }
+    },
+    "fio-forte": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.7882,
+          0.7216,
+          0.4784
+        ],
+        "hex": "#c9b87a"
+      }
+    },
+    "iron": {
+      "$value": "{color.ferro}"
+    },
+    "sand": {
+      "$value": "{color.areia}"
+    },
+    "cream": {
+      "$value": "{color.creme}"
+    },
+    "apricot": {
+      "$value": "{color.damasco}"
+    },
+    "teal": {
+      "$value": "{color.turquesa}"
+    },
+    "umber": {
+      "$value": "{color.umbro}"
+    },
+    "text-body": {
+      "$value": "{color.umbro}"
+    },
+    "text-muted": {
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.1647,
+          0.102,
+          0.0706
+        ],
+        "hex": "#2a1a12",
+        "alpha": 0.62
+      }
+    },
+    "text-accent": {
+      "$value": "{color.ferro}"
+    },
+    "text-cool": {
+      "$value": "{color.turquesa-fundo}"
+    },
+    "text-on-accent": {
+      "$value": "{color.creme}"
+    },
+    "text-on-cool": {
+      "$value": "{color.turquesa-tinta}"
+    },
+    "text-on-deep": {
+      "$value": "{color.areia}"
+    },
+    "text-on-dark": {
+      "$value": "{color.areia}"
+    },
+    "surface-page": {
+      "$value": "{color.creme}"
+    },
+    "surface-panel": {
+      "$value": "{color.nata}"
+    },
+    "surface-warm": {
+      "$value": "{color.damasco}"
+    },
+    "surface-sand": {
+      "$value": "{color.areia}"
+    },
+    "surface-accent": {
+      "$value": "{color.ferro}"
+    },
+    "surface-cool": {
+      "$value": "{color.turquesa}"
+    },
+    "surface-deep": {
+      "$value": "{color.umbro}"
+    },
+    "surface-dark": {
+      "$value": "{color.umbro}"
+    },
+    "surface-stage": {
+      "$value": "{color.areia}"
+    },
+    "border-hairline": {
+      "$value": "{color.fio}"
+    },
+    "border-control": {
+      "$value": "{color.fio-forte}"
+    },
+    "border-emphasis": {
+      "$value": "{color.umbro}"
+    },
+    "focus-ring": {
+      "$value": "{color.ferro}"
+    },
+    "control-bg": {
+      "$value": "{color.creme}"
+    },
+    "control-track": {
+      "$value": "{color.fio}"
+    },
+    "accent-color": {
+      "$value": "{color.ferro}"
+    }
+  }
+}
