@@ -1,6 +1,6 @@
 ---
 name: lina-design
-description: Use esta habilidade para gerar peças e interfaces do LINA (Laboratório de Design da Informação — Arte · Arquitetura · Ambiente, IAUD/UFC). Índice do sistema: princípios, logotipo, cores e tokens, grid e espaço, padrões e imagens pontilhadas, animação, tipografia, ícones, componentes (declaração, tabela, nota, cartão…), templates de apresentação e documento A4, recursos para baixar e as ferramentas de linha de comando que os geram. Use this skill to generate well-branded assets for LINA.
+description: Use esta habilidade para gerar peças e interfaces do LINA (Laboratório de Design da Informação — Arte · Arquitetura · Ambiente, IAUD/UFC). Índice do sistema: princípios, logotipo, cores e tokens, grid e espaço (em breve), padrões e imagens pontilhadas, animação, tipografia, ícones, componentes (declaração, tabela, nota, cartão…), templates de apresentação e documento A4, recursos para baixar e as ferramentas de linha de comando que os geram. Use this skill to generate well-branded assets for LINA.
 user-invocable: true
 ---
 
@@ -8,7 +8,7 @@ Este arquivo é um índice: diz onde está cada regra, não a repete. Os valores
 
 ## Princípios, grid e recursos
 
-`principios.html` (conceito e princípios, em proposta), `grid-e-espaco.html` (célula, margens, espaçamento) e `recursos.html` (downloads, arquivos para agentes e linha de comando).
+`principios.html` (conceito e princípios, em proposta), `grid-e-espaco.html` (em breve: célula, margens, espaçamento) e `recursos.html` (downloads, arquivos para agentes e linha de comando).
 
 ## Fonte da verdade
 
@@ -27,7 +27,7 @@ Toda forma do LINA é uma união de células com cantos de ¼ de célula; `asset
 
 ## Padrões, imagens e animação
 
-`padroes.html`: regra do pontilhado, mono, duo e trio. Motores: `assets/lina-texture.js` e `assets/lina-image.js`. Fotografia e filtro: `imagem.html`. Animação (`padroes.html#s-o-campo-animado`): `assets/lina-dither-field.js`. Comandos na seção "Gerar padrões e imagens", abaixo.
+`padroes.html`: regra do pontilhado, mono, duo e trio. Motores: `assets/lina-texture.js` e `assets/lina-image.js`. Fotografia e filtro: `imagem.html` (em breve). Animação (`padroes.html#s-o-campo-animado`): `assets/lina-dither-field.js`. Comandos na seção "Gerar padrões e imagens", abaixo.
 
 ## Tipografia
 
