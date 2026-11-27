@@ -1,6 +1,6 @@
 /*
   LINA palette: the 12 colours of tokens/colors.css and the rules for combining them
-  (sections 2.4–2.6, 3.4 of the site). names[0] is always the background.
+  (cores.html#s-estudo-de-contraste, #s-contrastes-a-usar, #s-contrastes-a-evitar). names[0] is always the background.
 */
 (function (root) {
   'use strict';
@@ -15,7 +15,7 @@
     ['ferro', 'ferro-fundo'], ['turquesa', 'turquesa-fundo', 'turquesa-tinta'],
     ['areia', 'fio', 'fio-forte'], ['creme', 'nata', 'damasco'], ['umbro'],
   ];
-  // Unordered pairs from 2.6.
+  // Unordered pairs from cores.html#s-contrastes-a-evitar.
   const AVOID = [
     ['ferro', 'turquesa'], ['turquesa', 'creme'], ['areia', 'creme'],
     ['damasco', 'areia'], ['ferro', 'umbro'], ['turquesa-fundo', 'ferro'],
@@ -42,7 +42,7 @@
   function pair(a, b) {
     if (a === b) return no(`${a} sobre ${a}: mesma cor.`);
     if (family(a) === family(b)) return { ok: true, kind: 'mono', reason: '' };
-    if (avoided(a, b)) return no(`${a} com ${b}: par a evitar (seção 2.6).`);
+    if (avoided(a, b)) return no(`${a} com ${b}: par a evitar (cores.html#s-contrastes-a-evitar).`);
     const c = contrast(a, b);
     if (c < 3) return no(`${a} com ${b}: contraste ${c.toFixed(1)} abaixo de 3.`);
     return { ok: true, kind: 'duo', reason: '' };

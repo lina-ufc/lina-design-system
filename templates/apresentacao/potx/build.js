@@ -51,7 +51,7 @@ async function assets() {
     if (fs.existsSync(out)) continue;
     let body = fs.readFileSync(path.join(PHD, peso, `${n}.svg`), 'utf8').trim().replace(/^<svg[^>]*>|<\/svg>$/g, '');
     if (dt) body = body.replace(/opacity="0.2"/g, `fill="#${dt}"`);
-    const k = bg ? 0.5625 : 0.8, o = 128 * (1 - k); // dentro do ladrilho, ícone a 9/16 do lado (como no capítulo 6)
+    const k = bg ? 0.5625 : 0.8, o = 128 * (1 - k); // dentro do ladrilho, ícone a 9/16 do lado (como no capítulo Ícones)
     const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">${bg ? `<rect width="256" height="256" rx="64" fill="#${bg}"/>` : ''}<g fill="#${fg}" transform="translate(${o} ${o}) scale(${k})">${body}</g></svg>`;
     await sharp(Buffer.from(svg), { density: 600 }).resize(384, 384).png().toFile(out);
   }

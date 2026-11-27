@@ -1,10 +1,10 @@
 ---
 name: fotos-referencia-cores
-description: Ideia futura — fotos de referência por cor na seção 2.2; curadoria será do usuário
+description: Ideia futura — fotos de referência por cor em `cores.html#s-brasil-e-nordeste`; curadoria será do usuário
 type: projeto
 ---
 
-Ideia (2026-11-22): ilustrar cada cor da seção 2.2 "Terra, duna, cal, fruta e mar" com 2–3 fotos
+Ideia (2026-11-22): ilustrar cada cor da seção Brasil e Nordeste "Terra, duna, cal, fruta e mar" com 2–3 fotos
 dos exemplos citados no texto (falésias, telha, dunas, palha de carnaúba, cal, renda de bilro,
 caju, manga, mar raso, lagoas, portas pintadas).
 

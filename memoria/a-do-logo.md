@@ -8,7 +8,7 @@ Decisão do usuário em 2026-11-22: o "A" do LINA tem sempre uma cor ligeirament
 outras letras. Representa a sobreposição de palavras com A (arte, arquitetura, ambiente).
 
 Logo em ferro: "A" em umbro `#2A1A12` (como já vinha em `assets/logos/sand/lina-horizontal-ferro.svg`).
-Antes o HTML dos documentos A4, a seção 8.2 e o preâmbulo usavam ferro-fundo `#6E1408`; trocado
+Antes o HTML dos documentos A4, a seção `templates.html#s-documentos-a4` e o preâmbulo (hoje o capítulo Princípios) usavam ferro-fundo `#6E1408`; trocado
 para umbro no mesmo dia. Variantes dos assets que já seguem a regra: creme sobre ferro (A damasco
 `#FDD692`), creme sobre umbro (A areia `#E1CE7A`), turquesa (A umbro).
 

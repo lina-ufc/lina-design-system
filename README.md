@@ -2,7 +2,7 @@
 
 **LINA — Laboratório de Design da Informação: Arte · Arquitetura · Ambiente.** IAUD, Universidade Federal do Ceará.
 
-Este arquivo resume as regras da marca em seis partes, na ordem em que devem ser lidas. O site (`index.html` e uma página por capítulo, geradas por `sistema.py`) desenha cada uma e traz também o preâmbulo, os componentes e os templates para baixar.
+Este arquivo resume as regras da marca em seis partes, na ordem em que devem ser lidas. O site (`index.html` e uma página por capítulo, geradas por `sistema.py`) desenha cada uma e traz também Princípios, componentes, templates e recursos para baixar.
 
 - **Site** (consulta e downloads): https://lina-ufc.github.io/lina-design-system/
 - **Templates para baixar**: https://github.com/lina-ufc/lina-design-system/releases
@@ -85,7 +85,7 @@ Referências: terra vermelha do sertão e telha (ferro); dunas e palha de carna�
 
 **Auxiliar** — umbro (texto), ferro fundo, turquesa fundo (turquesa como texto), turquesa tinta (texto sobre turquesa), nata (painéis), fio e fio forte. Nenhum cinza.
 
-**Valores e contraste** — os valores estão em `tokens/lina.tokens.json` (gerado de `assets/lina-palette.js`, a fonte única). Os pares a usar e a evitar, com as razões de contraste, estão em 2.4 a 2.6 do site e em `node ferramentas/textura.mjs --list-colors`.
+**Valores e contraste** — os valores estão em `tokens/lina.tokens.json` (gerado de `assets/lina-palette.js`, a fonte única). Os pares a usar e a evitar, com as razões de contraste, estão em `cores.html` (estudo de contraste e pares a usar e a evitar) e em `node ferramentas/textura.mjs --list-colors`.
 
 Tokens em `tokens/colors.css`.
 
@@ -116,7 +116,7 @@ pesos (thin, light, regular, bold, fill, duotone). Um peso por peça; o regular 
 tamanho pequeno, o fill para estado ativo. No **duotone** o plano de 20% recebe uma segunda cor cheia da paleta,
 seguindo os pares de contraste (ex.: ferro sobre damasco). Tratamentos de slide: sólido (creme sobre ladrilho
 ferro), claro (ferro sobre ladrilho damasco), duotone e simples; o ladrilho tem cantos de ¼. Nenhum emoji.
-Arquivos em `assets/icons/phosphor/<peso>/`; capítulo 8 do documento.
+Arquivos em `assets/icons/phosphor/<peso>/`; capítulo Ícones do site (`icones.html`).
 
 ---
 
