@@ -20,7 +20,7 @@
 | Plano | Progresso | Tarefas | Status |
 | --- | --- | --- | --- |
 | 01 — motores | `[██████████]` | 5/5 | Completo (branch `revisao-site/01-motores`, não mesclada) |
-| 02 — protótipo visual | `[░░░░░░░░░░]` | 0/4 | Em execução (branch `revisao-site/02-prototipo`) |
+| 02 — protótipo visual | `[██░░░░░░░░]` | 1/4 | Em execução (branch `revisao-site/02-prototipo`) |
 | 03 — fonte única | `[░░░░░░░░░░]` | — | Não escrito. Escrito quando o 01 terminar |
 | 04 — estrutura | `[░░░░░░░░░░]` | — | Não escrito. Espera o 02 aprovado |
 | 05 — visual em tudo | `[░░░░░░░░░░]` | — | Não escrito |
@@ -42,9 +42,9 @@ Verificação: `node --test "ferramentas/test/*.test.mjs"` 51/51 (o diretório s
 
 ## Plano 02 — protótipo visual
 
-`[░░░░░░░░░░]` 0% — 0 de 4 tarefas.
+`[██░░░░░░░░]` 25% — 1 de 4 tarefas.
 
-- [ ] **Tarefa 1** — montagem (`prototipo/montar.sh`) e render (`prototipo/render.sh`)
+- [x] **Tarefa 1** — montagem (`prototipo/montar.sh`) e render (`prototipo/render.sh`). `9e4c7a5`; antes = b1 com folha vazia
 - [ ] **Tarefa 2** — folha `prototipo/b1.css`
 - [ ] **Tarefa 3** — revisão de design e acessibilidade
 - [ ] **Tarefa 4** — aprovação do dono
@@ -73,3 +73,4 @@ Verificação: `node --test "ferramentas/test/*.test.mjs"` 51/51 (o diretório s
 - 2026-11-27 — Tarefa 4 concluída (linha de comando).
 - 2026-11-27 — Tarefa 5 e revisão final concluídas. Plano 01 completo; branch aguarda merge. Próximo: escrever o 03 (depende do 01).
 - 2026-11-27 — Plano 02 escrito (protótipo B1 da página Logotipo).
+- 2026-11-27 — Tarefa 1 do 02 concluída. Achado para o 05: em 1.8 o Baixar tem `<a>` dentro de `<a>` (link para 5.5 no cartão do .vectorcraft), o navegador parte o cartão.
