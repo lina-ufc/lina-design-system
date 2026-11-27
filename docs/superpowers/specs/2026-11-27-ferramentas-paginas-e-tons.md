@@ -22,7 +22,7 @@ Data: 2026-11-27. Continua o plano 06 (`docs/superpowers/plans/2026-11-26-revisa
 ### A. Filtro: padrões
 
 - O seletor de filtro passa a ter Pontilhado (`dither`), Dispersão (`scatter`) e Campo (`field`). O Bitmap sai.
-  - Suposição: o Bitmap sai porque o dono escolheu os três padrões no lugar dele. A confirmar.
+  - Confirmado pelo dono em 2026-11-27.
 - No motor (`assets/lina-image.js`), os três modos usam a geração do `lina-texture.js`, com o tom da foto no lugar do ruído:
   - Pontilhado já faz isso. É o modo `dither` atual.
   - Campo: o mesmo limiar por célula do `fieldMode`, aplicado à luminância da foto em vez do ruído suave.
@@ -33,7 +33,7 @@ Data: 2026-11-27. Continua o plano 06 (`docs/superpowers/plans/2026-11-26-revisa
 ### B. Filtro: cores por tom
 
 - Três faixas de tom, com o corte vindo do motor: escuros, médios e claros.
-- Proposta de interface:
+- Interface (confirmada pelo dono em 2026-11-27):
   - "Quantidade de cores": 1, 2 ou 3.
   - Um `select` por faixa (Escuros, Médios, Claros). Cada um mostra as cores escolhidas e mais "Transparente".
 - Padrões por quantidade de cores:

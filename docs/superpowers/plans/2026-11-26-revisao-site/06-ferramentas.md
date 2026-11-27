@@ -197,3 +197,54 @@ Sequencial, controlador.
   acima com a resposta do dono. Renders em PNG mostrados ao dono antes de marcar completo.
 
 Verificação final: tudo acima e aprovação do dono registrada no `progress.md`.
+
+## Tarefas 6 a 9 — pedido do dono de 2026-11-27
+
+Spec: `docs/superpowers/specs/2026-11-27-ferramentas-paginas-e-tons.md`. A Tarefa 5 fica
+aberta até a 9 (aprovação única no fim). Sequenciais: 6, 7, 8, 9.
+
+### Task 6: motor de imagem com os três padrões e cores por tom
+
+**Arquivos:** `assets/lina-image.js`, `assets/lina-texture.js` (só exportar o que for
+reusado), `assets/lina-ferramenta.js` (`ESQUEMAS.imagem`), `ferramentas/imagem.mjs`,
+`ferramentas/test/`.
+
+- Modos `dither | scatter | field`; `bitmap` sai (o esquema recusa com aviso). Campo = limiar
+  do `fieldMode` sobre o tom da foto; Dispersão = posicionamento do `scatter` com densidade
+  pelo tom. Reusar o código do `lina-texture.js`, não copiar.
+- Cores por faixa: `tones: [escuros, médios, claros]`, cada um token ou `none`
+  (transparente). Padrão `[ferro, ferro, creme]`. Par vizinho em `LinaPalette.AVOID` lança
+  erro com o motivo. Fundo transparente quando `claros = none`.
+- Hash e CLI: `tones=ferro,ferro,creme`; `--tones ferro,ferro,creme`. `colors` antigo vira
+  aviso e é convertido (`[a,b]` → `[b,b,a]` conforme o fundo do motor atual).
+- Testes: os três modos rendem, mesma entrada → mesmo SVG; `none` não gera `fill`; par
+  recusado lança; esquema = motor.
+
+### Task 7: interface do filtro
+
+**Arquivos:** `capitulos/imagem/1-filtro-de-pontilhado.html`, `assets/lina-ui-imagem.js`.
+
+- Filtro: Pontilhado, Dispersão, Campo. Controles que não valem para o modo, desativados.
+- Quantidade de cores 1|2|3; um `select` de token por cor; "Sortear"; um `select` por faixa
+  (Escuros, Médios, Claros) com as cores escolhidas e "Transparente". Padrões ao trocar a
+  quantidade: 1 → [c1, none, none]; 2 → [c1, c1, c2]; 3 → [c1, c2, c3].
+- Mantém: foto de exemplo, limites, status, ações, SVG idêntico ao comando.
+
+### Task 8: páginas próprias e índice
+
+**Arquivos:** `sistema.py`, `sistema.json`, fragmentos das três ferramentas (mover para
+`paginas/ferramentas/`), três seções curtas nos capítulos, `capitulos/inicio.html`,
+`capitulos/recursos/3-ferramentas.html`.
+
+- Páginas `gerador-de-padroes.html`, `filtro-de-pontilhado.html`, `editor-de-celulas.html`
+  na raiz, com a moldura do site. O hash só guarda o estado da ferramenta.
+- Seções 6.9, 7.1 e 2.10: uma frase e um link para a página; âncoras continuam.
+- Página inicial: bloco "Ferramentas" com três links e uma linha cada. Menu lateral: grupo
+  "Ferramentas" em todas as páginas. 11.3 e `llms.txt` apontam para as páginas.
+
+### Task 9: verificação e aprovação
+
+- `node --test`, `python3 sistema.py`, `tokens.mjs --check`.
+- Navegador, desktop e celular: três páginas; SVG idêntico ao comando nos três modos;
+  1, 2 e 3 cores, com faixa transparente; acessibilidade das páginas novas.
+- Record `records/06-ferramentas.md` atualizado; renders ao dono; aprovação no `progress.md`.

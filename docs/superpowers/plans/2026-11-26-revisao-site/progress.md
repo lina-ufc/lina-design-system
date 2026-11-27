@@ -24,7 +24,7 @@
 | 03 — fonte única | `[██████████]` | 4/4 | Completo (mesclado na main) |
 | 04 — estrutura | `[██████████]` | 5/5 | Completo (mesclado na main) |
 | 05 — visual em tudo | `[██████████]` | 6/6 | Completo (mesclado na main) |
-| 06 — ferramentas no site | `[████████░░]` | 4/5 | Em execução (branch `revisao-site/06-ferramentas`) |
+| 06 — ferramentas no site | `[████░░░░░░]` | 4/9 | Em execução (branch `revisao-site/06-ferramentas`) |
 | 07 — conteúdo novo | `[░░░░░░░░░░]` | — | Não escrito |
 | 08 — arquivar visual-code | `[░░░░░░░░░░]` | — | Não escrito |
 
@@ -85,13 +85,17 @@ Herança para o 05: hex das 12 cores seguem em `capitulos/` (2.x, 3.x, 4.x, 8.2)
 
 ## Plano 06 — ferramentas no site
 
-`[████████░░]` 80% — 4 de 5 tarefas. Plano: [`06-ferramentas.md`](06-ferramentas.md). 5 chamadas minhas a conferir com o dono no topo do plano.
+`[█████░░░░░]` 44% — 4 de 9 tarefas. Plano: [`06-ferramentas.md`](06-ferramentas.md). 5 chamadas minhas a conferir com o dono no topo do plano.
 
 - [x] **Tarefa 1** — base comum: `assets/lina-ferramenta.js` (estado na URL, comando, baixar), CSS dos controles, testes. `e882183`, `66232fb`; review limpo após 1 rodada (carga sem motor, alvo 44 px, padrões = motor); 66/66
 - [x] **Tarefa 2** — gerador de padrões em Padrões 6.9. `a16f4f2`, `cd6dcf5`; review após 1 rodada (limite de formato: width=1 travava a aba); 66/66
 - [x] **Tarefa 3** — filtro de pontilhado em Imagem 7.1. `b0bf9cc`; review limpo; 3 ajustes de acessibilidade passam à tarefa 5
 - [x] **Tarefa 4** — editor de células em Logotipo 2.10 (Baixar vira 2.11). `825f03e`, `58b1322`; revisão própria (desfazer fora da grade corrigido); letreiro centrado, teclado só com a grade em foco, limite de 1000 células
 - [ ] **Tarefa 5** — Recursos 11.3, verificação, acessibilidade, aprovação do dono. `b82f0c1`, `c8aa1d2`; checagens e navegador ok ([record](records/06-ferramentas.md)); falta aprovação do dono e decisão sobre fotos > 1600 px
+- [ ] **Tarefa 6** — motor de imagem: Pontilhado, Dispersão, Campo; cores por tom (spec 2026-11-27)
+- [ ] **Tarefa 7** — interface do filtro com os três padrões e as faixas de tom
+- [ ] **Tarefa 8** — ferramentas em páginas próprias; índice e menu
+- [ ] **Tarefa 9** — verificação e aprovação do dono
 
 ## Estado herdado
 
@@ -134,3 +138,4 @@ Herança para o 05: hex das 12 cores seguem em `capitulos/` (2.x, 3.x, 4.x, 8.2)
 - 2026-11-27 — Visual do 05 aprovado. Plano 05 completo; 06 desbloqueado. Perguntas do record 05 abertas.
 - 2026-11-27 — Fora dos subplanos: moldura de 9 faixas em todos os capítulos (`c4e6560`, branch `revisao-site/06-moldura`, nome não ligado ao plano 06) e pranchas sem retícula (`65776e7`). Ambos mesclados (`fdc930d`, `a200c9b`).
 - 2026-11-27 — Plano 06 escrito (ferramentas no site). Tarefas 2–4 em paralelo depois da 1.
+- 2026-11-27 — Dono pediu: filtro com os três padrões e cores por tom; ferramentas em páginas próprias. Tarefas 6–9 no 06 (spec `2026-11-27-ferramentas-paginas-e-tons.md`).
