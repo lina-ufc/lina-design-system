@@ -8,7 +8,7 @@ Este repositório reúne materiais com licenças diferentes.
    (build.js, html.js, post.py, aspect.py, embed-deck-stage.py, make.sh),
    capitulos/*/_gerar.py, downloads/empacotar.py, site.css, styles.css e tokens/.
 
-   Copyright (c) 2026 LINA — Laboratório de Design da Informação, IAUD/UFC
+   Copyright (c) 2026 LINA — Laboratório de Modelagem da Informação, IAUD/UFC
 
    Permission is hereby granted, free of charge, to any person obtaining a copy
    of this software and associated documentation files (the "Software"), to deal
@@ -33,7 +33,7 @@ Este repositório reúne materiais com licenças diferentes.
    Logotipos, assinaturas, símbolo, texturas e padrões (assets/logos/,
    assets/textures/), a regra de construção do logotipo e os templates
    (templates/) são da identidade visual do LINA.
-   Copyright (c) 2026 LINA — Laboratório de Design da Informação, IAUD/UFC.
+   Copyright (c) 2026 LINA — Laboratório de Modelagem da Informação, IAUD/UFC.
    Todos os direitos reservados. O uso é restrito a membros e parceiros do LINA,
    em peças do laboratório. Outros usos dependem de autorização do laboratório.
 

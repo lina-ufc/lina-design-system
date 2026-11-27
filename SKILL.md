@@ -1,6 +1,6 @@
 ---
 name: lina-design
-description: Use esta habilidade para gerar peças e interfaces do LINA (Laboratório de Design da Informação — Arte · Arquitetura · Ambiente, IAUD/UFC). Índice do sistema: princípios, logotipo, cores e tokens, grid e espaço (em breve), padrões e imagens pontilhadas, animação, tipografia, ícones, componentes (declaração, tabela, nota, cartão…), templates de apresentação e documento A4, recursos para baixar e as ferramentas de linha de comando que os geram. Use this skill to generate well-branded assets for LINA.
+description: Use esta habilidade para gerar peças e interfaces do LINA (Laboratório de Modelagem da Informação — Arte · Arquitetura · Ambiente, IAUD/UFC). Índice do sistema: princípios, logotipo, cores e tokens, grid e espaço (em breve), padrões e imagens pontilhadas, animação, tipografia, ícones, componentes (declaração, tabela, nota, cartão…), templates de apresentação e documento A4, recursos para baixar e as ferramentas de linha de comando que os geram. Use this skill to generate well-branded assets for LINA.
 user-invocable: true
 ---
 
