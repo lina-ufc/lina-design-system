@@ -1,6 +1,6 @@
 # Revisão do site — Progresso da implementação
 
-**Última atualização:** 2026-11-27. Branch `main`.
+**Última atualização:** 2026-11-27. Branch `revisao-site/05-visual`.
 
 Índice: [`README.md`](README.md).
 
@@ -19,11 +19,11 @@
 
 | Plano | Progresso | Tarefas | Status |
 | --- | --- | --- | --- |
-| 01 — motores | `[██████████]` | 5/5 | Completo (branch `revisao-site/01-motores`, não mesclada) |
+| 01 — motores | `[██████████]` | 5/5 | Completo (mesclado na main) |
 | 02 — protótipo visual | `[██████████]` | 4/4 | Completo (mesclado na main) (branch `revisao-site/02-prototipo`) |
 | 03 — fonte única | `[██████████]` | 4/4 | Completo (mesclado na main) |
-| 04 — estrutura | `[██████████]` | 5/5 | Completo (branch `revisao-site/04-estrutura`, não mesclada) |
-| 05 — visual em tudo | `[░░░░░░░░░░]` | — | Não escrito |
+| 04 — estrutura | `[██████████]` | 5/5 | Completo (mesclado na main) |
+| 05 — visual em tudo | `[░░░░░░░░░░]` | 0/6 | Em execução (branch `revisao-site/05-visual`) |
 | 06 — ferramentas no site | `[░░░░░░░░░░]` | — | Não escrito |
 | 07 — conteúdo novo | `[░░░░░░░░░░]` | — | Não escrito |
 | 08 — arquivar visual-code | `[░░░░░░░░░░]` | — | Não escrito |
@@ -72,6 +72,17 @@ Herança para o 05: hex das 12 cores seguem em `capitulos/` (2.x, 3.x, 4.x, 8.2)
 - [x] **Tarefa 4** — referências e números soltos. `53b441c`, `978c9e9` + título de teste; review limpo após 1 correção
 - [x] **Tarefa 5** — verificação, revisão, aprovação do piloto. Checagens ok; molde aprovado pelo dono em 2026-11-27. Record: [`records/04-estrutura.md`](records/04-estrutura.md)
 
+## Plano 05 — visual em tudo
+
+`[░░░░░░░░░░]` 0% — 0 de 6 tarefas.
+
+- [ ] **Tarefa 1** — base: `site.css` com o B1, `.prancha`, Logotipo sem protótipo, 2.7/2.8 entradas próprias, `aria-current`
+- [ ] **Tarefa 2** — Cores: molde e pranchas
+- [ ] **Tarefa 3** — Padrões: molde e pranchas
+- [ ] **Tarefa 4** — Tipografia e Ícones: molde e pranchas
+- [ ] **Tarefa 5** — Componentes: molde e pranchas
+- [ ] **Tarefa 6** — verificação, acessibilidade, aprovação do dono
+
 ## Estado herdado
 
 - Base: `a76283c` (Capítulo 7 concluído).
@@ -107,3 +118,4 @@ Herança para o 05: hex das 12 cores seguem em `capitulos/` (2.x, 3.x, 4.x, 8.2)
 - 2026-11-27 — Plano 04 escrito. Dono: numeração contínua sem número no arquivo, molde com piloto no Logotipo, home porta de entrada, Recursos agora.
 - 2026-11-27 — Tarefas 1–4 do 04 concluídas (2, 3 e 4 em paralelo). Verificação final ok; piloto do molde e princípios esperam o dono.
 - 2026-11-27 — Molde do piloto aprovado. Plano 04 completo; 05 desbloqueado. Abertos ao dono: princípio "forma" x "letra", h2 internos de 2.7/2.8.
+- 2026-11-27 — Plano 05 escrito. Dono: 2.7 e 2.8 viram entradas próprias do Logotipo (Baixar no fim). Templates, Princípios e Recursos sem molde.
