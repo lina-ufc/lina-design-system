@@ -111,7 +111,7 @@ main.capitulo{position:relative;padding:var(--cell) calc(var(--cell) * 1.5) calc
 .caixa hr{border:0;height:1px;background:var(--fio);margin:0}
 .et{font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;opacity:.7}
 .ficha{font-family:var(--font-mono);font-variant-ligatures:none;display:grid;grid-template-columns:auto 1fr;gap:2px 16px;margin:0;line-height:1.6}
-.ficha dt{opacity:.6}.ficha dd{margin:0}
+.ficha dt{color:var(--t2)}.ficha dd{margin:0}
 .comp-dupla{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:14px;margin:0 0 14px}
 @media (max-width:760px){.comp-dupla{grid-template-columns:1fr}}
 .numeros{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1px;background:var(--ferro-fundo);border-radius:var(--radius-xl);overflow:hidden;margin:0 0 14px;color:var(--creme)}
@@ -138,8 +138,8 @@ main.capitulo{position:relative;padding:var(--cell) calc(var(--cell) * 1.5) calc
 body>aside .rotulo{margin:20px 0 2px}
 
 /* ---- home: mapa do documento; "citado em" ---- */
-.mapa>ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1px;background:var(--fio);border:1px solid var(--fio);border-radius:var(--radius-xl);overflow:hidden}
-.mapa>ol>li{background:var(--creme);padding:20px 22px}
+.mapa>ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1px;background:var(--creme);padding:1px}
+.mapa>ol>li{background:var(--creme);padding:20px 22px;outline:1px solid var(--fio)}
 .mapa .cap{display:flex;gap:10px;align-items:baseline;font-size:20px;font-weight:800;text-decoration:none;color:var(--umbro)}
 .mapa .cap:hover{color:var(--ferro)}
 .mapa li p{margin:6px 0 10px;font-size:14px;color:var(--t2)}
@@ -168,7 +168,7 @@ body>aside .rotulo{margin:20px 0 2px}
   .prancha{padding:var(--cell-quarter);gap:var(--cell-quarter)}
   .prancha::before{display:none}
   .prancha>.fig{padding:var(--cell-quarter)}
-  .capitulo .citado a,.vizinhos a{min-height:44px;display:inline-flex;align-items:center}
+  .capitulo .citado a,.vizinhos a,.mapa li li a,.mapa .cap,.spec a{min-height:44px;display:inline-flex;align-items:center}
 }
 /* diagrama largo rola dentro da prancha (tabindex="0" role="region" aria-label no fragmento), não a página */
 @media (max-width:600px){.prancha.rola{overflow-x:auto}.prancha.rola svg{min-width:560px}}
@@ -233,8 +233,8 @@ body>aside .rotulo{margin:20px 0 2px}
 .paleta{display:grid;border:1px solid var(--fio-b1);border-radius:var(--radius-cell);overflow:hidden}
 .paleta>div{display:flex;flex-direction:column;justify-content:flex-end;gap:4px}
 .paleta>div>b{font-weight:800}
-.paleta .dado{color:inherit;opacity:.8}
-.paleta>div>span:last-child{opacity:.85;text-wrap:pretty}
+.paleta .dado{color:inherit}
+.paleta>div>span:last-child{text-wrap:pretty}
 .pal5{grid-template-columns:1.25fr 1fr 1.4fr 1fr .8fr}
 .pal5>div{height:230px;padding:14px}
 .pal5>div>b{font-size:17px}
@@ -379,3 +379,7 @@ body>aside .rotulo{margin:20px 0 2px}
   #apresentacao-trama{grid-template-columns:repeat(3,minmax(0,1fr))}
   #documentos-a4-pags{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
+
+/* link de salto: escondido até receber foco (WCAG 2.4.1) */
+.pular{position:absolute;left:-9999px;top:0;z-index:10;padding:var(--cell-quarter) var(--cell-half);background:var(--creme);color:var(--umbro)}
+.pular:focus{left:var(--cell-half)}
