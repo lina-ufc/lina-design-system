@@ -461,6 +461,7 @@ body>aside .rotulo{margin:20px 0 2px}
 }
 /* formulário de feedback (feedback.html): uma coluna, largura de leitura */
 #fb{display:flex;flex-direction:column;gap:var(--cell-half);max-width:36rem;margin:var(--cell) 0}
+#fb[hidden]{display:none} /* #fb{display:flex} vence o [hidden] do navegador */
 #fb textarea{resize:vertical;line-height:1.5}
 #fb label:has(>input[type=radio]){display:flex;align-items:center;gap:12px;font-size:14px;color:var(--umbro)} /* alvo de toque = o rótulo inteiro */
 #fb input[type=radio]{accent-color:var(--ferro);width:var(--cell-half);height:var(--cell-half);margin:0}
