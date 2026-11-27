@@ -62,7 +62,7 @@
     email: 'Informe um e-mail válido.',
     pagina: 'A página deve ter até ' + LIMITES.pagina + ' caracteres.',
   };
-  const FALHA = 'Não foi possível enviar agora. Tente de novo em instantes.';
+  const FALHA = 'Não foi possível enviar agora. Sua mensagem continua no formulário; tente de novo em instantes.';
 
   // `form`: #fb; `url`: Apps Script ('' = indisponível, nada é enviado).
   function liga(form, url) {
@@ -93,10 +93,13 @@
       el.focus();
     };
 
-    form.elements.pagina.value = paginaDe(root.location.search);
+    const sel = form.elements.pagina;
+    const arq = paginaDe(root.location.search);
+    const alvo = arq && [...sel.options].find((o) => o.dataset.arq === arq);
+    if (alvo) alvo.selected = true;
     conta();
     msg.addEventListener('input', conta);
-    form.addEventListener('input', limpa);
+    form.addEventListener('input', () => { limpa(); status.textContent = ''; });
 
     form.addEventListener('submit', async (ev) => {
       ev.preventDefault();
@@ -108,6 +111,7 @@
       if (erro) return recusa(erro);
       botao.disabled = true;
       botao.textContent = 'Enviando…';
+      status.textContent = 'Enviando…';
       const r = await envia(url, corpo(c, form.elements.site.value));
       botao.disabled = false;
       botao.textContent = 'Enviar';
@@ -119,11 +123,13 @@
         recusa(r.erro);
       } else {
         status.textContent = FALHA;
+        botao.focus();
       }
     });
 
     d.getElementById('fb-outra').addEventListener('click', () => {
       msg.value = '';
+      sel.selectedIndex = 0;
       conta();
       status.textContent = '';
       ok.hidden = true;

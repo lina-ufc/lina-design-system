@@ -74,7 +74,7 @@ def nav(atual):
         f'<li><a class="cap" href="{f["arquivo"]}"><span></span>{escape(f["nome"])}</a></li>' for f in FERR)
     arq = None if atual is FB else 'index.html' if atual is None else atual['arquivo'] if atual in FERR else pagina_de(atual)
     if arq and S['feedback_url']:
-        itens += f'<li><a class="cap" href="feedback.html?pagina={escape(arq)}"><span></span>Apontar erro nesta página</a></li>'
+        itens += f'<li><a class="cap" href="feedback.html?pagina={escape(arq)}"><span></span>Feedback sobre esta página</a></li>'
     return (f'<a class="pular" href="#conteudo">Pular para o conteúdo</a><aside aria-label="Sumário"><a class="logo" href="index.html"><img src="assets/logos/sand/lina-horizontal-ferro.svg" alt="LINA"></a>'
             f'<p class="tit">Sistema de design</p><details class="sum" open><summary>Sumário</summary><ol>{itens}</ol></details></aside>')
 
@@ -232,8 +232,18 @@ for f in FERR:
     (RAIZ / f['arquivo']).write_text(html(f'{f["nome"]} · Sistema LINA', f, main))
 
 # ---- feedback: mesma moldura; a URL do Apps Script vai no data-url (vazia = formulário indisponível) ----
+def opcao(valor, texto, arq=None):
+    return f'<option value="{escape(valor)}"' + (f' data-arq="{escape(arq)}"' if arq else '') + f'>{escape(texto)}</option>'
+
+
+secoes = opcao('', 'Geral, sem seção específica') + opcao('Página inicial', 'Página inicial', 'index.html')
+for c in CAPS:
+    nome = f'{c["n"]} {c["nome"]}'
+    secoes += (f'<optgroup label="{escape(nome)}">' + opcao(nome, f'{nome} (capítulo todo)', pagina_de(c))
+               + ''.join(opcao(rot(e), rot(e)) for e in entradas(c)) + '</optgroup>')
+secoes += '<optgroup label="Ferramentas">' + ''.join(opcao(f['nome'], f['nome'], f['arquivo']) for f in FERR) + '</optgroup>'
 main = (f'<main id="conteudo" class="capitulo"><header><h1>{escape(FB["nome"])}</h1><p class="desc">{escape(FB["sub"])}</p></header>\n'
-        f'<section class="pagina-ferramenta" data-url="{escape(S["feedback_url"])}">{(RAIZ / FB["fragmento"]).read_text()}</section></main>')
+        f'<section class="pagina-ferramenta" data-url="{escape(S["feedback_url"])}">{(RAIZ / FB["fragmento"]).read_text().replace("<!--secoes-->", secoes)}</section></main>')
 (RAIZ / FB['arquivo']).write_text(html(f'{FB["nome"]} · Sistema LINA', FB, main))
 
 # ---- home: porta de entrada + mapa; âncora velha (index.html#s-…) sem alvo na home vai para os Princípios ----
@@ -242,7 +252,7 @@ if (location.hash && !document.getElementById(location.hash.slice(1))) location.
 '''
 ferr_home = '<h3>Ferramentas</h3><ul class="regras">' + ''.join(f'<li><a href="{f["arquivo"]}">{escape(f["nome"])}</a>: {escape(f["sub"])}</li>' for f in FERR) + '</ul>'
 if S['feedback_url']:
-    ferr_home += '<h3>Feedback</h3><p>Viu um erro ou sentiu falta de algo? <a href="feedback.html">Conte para a equipe</a>.</p>'
+    ferr_home += '<h3>Feedback</h3><ul class="regras"><li>Viu um erro, sentiu falta de algo ou tem uma sugestão? <a href="feedback.html">Conte para a equipe</a>.</li></ul>'
 main = f'<main id="conteudo" class="capitulo"><section>{(RAIZ / S["inicio"]).read_text()}{ferr_home}</section>\n{mapa}</main>'
 (RAIZ / 'index.html').write_text(html('Sistema LINA', None, main, HOME))
 
