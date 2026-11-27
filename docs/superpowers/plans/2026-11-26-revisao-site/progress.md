@@ -1,0 +1,66 @@
+# Revisão do site — Progresso da implementação
+
+**Última atualização:** 2026-11-27. Branch `main`. Spec e planos ainda não commitados.
+Branch `revisao-site/01-motores`.
+
+Índice: [`README.md`](README.md).
+
+## Como atualizar este arquivo
+
+1. Atualizar só depois que o critério de verificação da tarefa passar.
+2. Marcar a caixa e anexar o SHA curto e o resultado do review.
+3. Atualizar a linha do plano na tabela de resumo.
+4. Acrescentar uma linha no changelog.
+5. Tarefa abandonada ou adiada: caixa desmarcada e motivo na mesma linha.
+6. Nunca marcar um plano como completo com tarefa desmarcada.
+
+## Resumo
+
+`[░░░░░░░░░░]` 0% — total ainda não conhecido (só o 01 escrito).
+
+| Plano | Progresso | Tarefas | Status |
+| --- | --- | --- | --- |
+| 01 — motores | `[██████████]` | 5/5 | Completo (branch `revisao-site/01-motores`, não mesclada) |
+| 02 — protótipo visual | `[░░░░░░░░░░]` | — | Não escrito. Pode ser escrito em paralelo ao 01 |
+| 03 — fonte única | `[░░░░░░░░░░]` | — | Não escrito. Escrito quando o 01 terminar |
+| 04 — estrutura | `[░░░░░░░░░░]` | — | Não escrito. Espera o 02 aprovado |
+| 05 — visual em tudo | `[░░░░░░░░░░]` | — | Não escrito |
+| 06 — ferramentas no site | `[░░░░░░░░░░]` | — | Não escrito |
+| 07 — conteúdo novo | `[░░░░░░░░░░]` | — | Não escrito |
+| 08 — arquivar visual-code | `[░░░░░░░░░░]` | — | Não escrito |
+
+## Plano 01 — motores
+
+`[██████████]` 100% — 5 de 5 tarefas. Revisão final (opus) + correção única `2a30531` (EXIF, faixa 0–1 das frações, defaults no motor, trio sem cor repetida).
+
+- [x] **Tarefa 1** — `assets/lina-palette.js`: cores, famílias, contraste, combinações válidas. `9de2d08`, `2b47cc1`; review limpo após 1 correção (chaves do protótipo)
+- [x] **Tarefa 2** — textura: paletas do sistema, `fromParams`, bitmap exposto, SVG determinístico. `ee8b36a`; review limpo; 3-padroes com SVG idêntico à base
+- [x] **Tarefa 3** — imagem: motor trazido do `lina-visual-code`, paletas do sistema, `fromParams`. `e94184f`, `fae9534`, `5dc43f2`; review limpo após 2 correções (distorção vertical; imagem baixa demais agora recusa)
+- [x] **Tarefa 4** — linha de comando `ferramentas/textura.mjs` e `ferramentas/imagem.mjs`. `60b9c9c`; review limpo; 44/44 testes
+- [x] **Tarefa 5** — `SKILL.md` documenta os comandos; páginas 3.x continuam iguais. `a61416b`; review limpo; sessão sem contexto gerou os dois SVG só com o `SKILL.md`
+
+Verificação: `node --test "ferramentas/test/*.test.mjs"` 51/51 (o diretório sozinho falha no Node 26.5); `python3 sistema.py` ok; `3-padroes.html` com os 19 SVG idênticos à base `a76283c`.
+
+## Estado herdado
+
+- Base: `a76283c` (Capítulo 7 concluído).
+- `assets/lina-geometry.js` idêntico ao do `lina-visual-code`.
+- `assets/lina-texture.js` já portado, difere do `lina-visual-code` só nas paletas.
+- `lina-image.js` e o editor de células (`grid.html`) só existem no `lina-visual-code`.
+- `sharp` já instalado em `templates/apresentacao/potx/node_modules` (hook `build-setup.sh`).
+- Node 26 (`node --test` disponível, sem dependências novas).
+
+## Ações pendentes do dono
+
+1. Conferir as chamadas minhas listadas no spec (fundo branco do site, famílias de matiz,
+   regra de contraste dos padrões). Não bloqueiam o 01.
+2. Aprovar o protótipo do 02. Bloqueia 04 e 05.
+
+## Changelog
+
+- 2026-11-26 — Spec com decisões escrito; conjunto criado; plano 01 escrito.
+- 2026-11-27 — Tarefa 1 concluída (paleta).
+- 2026-11-27 — Tarefa 2 concluída (textura). `legal()` checa o bloco 2×2 na grade da própria forma (o `quarter` desloca formas separadas em ¼).
+- 2026-11-27 — Tarefa 3 concluída (imagem). Escala uniforme: a altura pode ficar até uma linha menor que a razão exata; nunca estica.
+- 2026-11-27 — Tarefa 4 concluída (linha de comando).
+- 2026-11-27 — Tarefa 5 e revisão final concluídas. Plano 01 completo; branch aguarda merge. Próximo: escrever o 03 (depende do 01).

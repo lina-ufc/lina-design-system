@@ -1,0 +1,22 @@
+# Revisão do site do sistema
+
+Spec: [`../../specs/2026-11-26-revisao-site-diagnostico.md`](../../specs/2026-11-26-revisao-site-diagnostico.md)
+(diagnóstico, opções e decisões de 2026-11-26: A1 quatro partes, B1 manual de construção,
+C1 ferramenta dentro do fundamento, D1 fonte única para agentes).
+
+Estado vivo: [`progress.md`](progress.md). Um subplano escrito por vez (`CLAUDE.md` §9).
+
+## Ordem
+
+| # | Subplano | Depende de | Status |
+| --- | --- | --- | --- |
+| 01 | [Motores e linha de comando](01-motores.md) | — | Completo (branch `revisao-site/01-motores`) |
+| 02 | Protótipo visual da página Logotipo (B1), render desktop e celular | — | Não escrito |
+| 03 | Fonte única de tokens a partir de `assets/lina-palette.js`; `SKILL.md` índice; `llms.txt` | 01 | Não escrito |
+| 04 | Estrutura em quatro partes, molde único de seção, redirecionamentos | 02 aprovado | Não escrito |
+| 05 | Aplicar o visual aprovado a todas as páginas; revisão de acessibilidade | 02, 04 | Não escrito |
+| 06 | Ferramentas no site: padrões (Padrões), filtro (Imagem), editor de células (Logotipo) | 01, 05 | Não escrito |
+| 07 | Conteúdo novo: uso do logo, grid e espaço, imagem, voz (rascunhos para o dono decidir) | 04 | Não escrito |
+| 08 | Arquivar `lina-ufc/lina-visual-code` com link para cá | 06 | Não escrito |
+
+01 e 02 podem andar em paralelo.
