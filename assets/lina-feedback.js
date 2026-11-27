@@ -3,7 +3,7 @@
   ao Apps Script (feedback/apps-script.gs, fonte de TIPOS, LIMITES e regras). Cada uso exige:
     TIPOS, LIMITES, valida, corpo, paginaDe   nada (dados e texto; URLSearchParams).
     envia                                     fetch (ou o `buscar` injetado), só no navegador.
-  Sem DOM aqui; a ligação ao formulário fica na página.
+  liga: ligação ao formulário #fb da página feedback.html; só roda com DOM (o arquivo carrega em Node sem ele).
 */
 (function (root) {
   'use strict';
@@ -55,5 +55,87 @@
     }
   }
 
-  root.LinaFeedback = { TIPOS, LIMITES, valida, corpo, paginaDe, envia };
+  const AVISOS = {
+    tipo: 'Escolha o tipo da mensagem.',
+    mensagem: 'Escreva uma mensagem de até ' + LIMITES.mensagem + ' caracteres.',
+    nome: 'Informe seu nome (até ' + LIMITES.nome + ' caracteres).',
+    email: 'Informe um e-mail válido.',
+    pagina: 'A página deve ter até ' + LIMITES.pagina + ' caracteres.',
+  };
+  const FALHA = 'Não foi possível enviar agora. Tente de novo em instantes.';
+
+  // `form`: #fb; `url`: Apps Script ('' = indisponível, nada é enviado).
+  function liga(form, url) {
+    const d = form.ownerDocument;
+    const ok = d.getElementById('fb-ok');
+    const status = d.getElementById('fb-status');
+    const botao = form.querySelector('button[type=submit]');
+    const msg = form.elements.mensagem;
+    const contador = d.getElementById('fb-contador');
+    if (!url) {
+      form.hidden = true;
+      d.getElementById('fb-indisponivel').hidden = false;
+      return;
+    }
+    const conta = () => { contador.textContent = msg.value.length + ' de ' + LIMITES.mensagem + ' caracteres'; };
+    const dados = () => {
+      const c = { tipo: (form.querySelector('[name=tipo]:checked') || {}).value };
+      for (const k of ['pagina', 'mensagem', 'nome', 'email']) c[k] = form.elements[k].value;
+      return c;
+    };
+    // O campo de `tipo` é o grupo de rádios; o foco vai ao primeiro.
+    const campo = (k) => form.querySelector('[name=' + k + ']');
+    const limpa = () => form.querySelectorAll('[aria-invalid]').forEach((el) => el.removeAttribute('aria-invalid'));
+    const recusa = (k) => {
+      const el = campo(k);
+      form.querySelectorAll('[name=' + k + ']').forEach((r) => r.setAttribute('aria-invalid', 'true'));
+      status.textContent = AVISOS[k];
+      el.focus();
+    };
+
+    form.elements.pagina.value = paginaDe(root.location.search);
+    conta();
+    msg.addEventListener('input', conta);
+    form.addEventListener('input', limpa);
+
+    form.addEventListener('submit', async (ev) => {
+      ev.preventDefault();
+      if (botao.disabled) return;
+      limpa();
+      status.textContent = '';
+      const c = dados();
+      const erro = valida(c);
+      if (erro) return recusa(erro);
+      botao.disabled = true;
+      botao.textContent = 'Enviando…';
+      const r = await envia(url, corpo(c, form.elements.site.value));
+      botao.disabled = false;
+      botao.textContent = 'Enviar';
+      if (r.ok) {
+        form.hidden = true;
+        ok.hidden = false;
+        ok.focus();
+      } else if (Object.hasOwn(AVISOS, r.erro)) {
+        recusa(r.erro);
+      } else {
+        status.textContent = FALHA;
+      }
+    });
+
+    d.getElementById('fb-outra').addEventListener('click', () => {
+      msg.value = '';
+      conta();
+      status.textContent = '';
+      ok.hidden = true;
+      form.hidden = false;
+      msg.focus();
+    });
+  }
+
+  root.LinaFeedback = { TIPOS, LIMITES, valida, corpo, paginaDe, envia, liga };
 })(typeof window !== 'undefined' ? window : globalThis);
+
+if (typeof document !== 'undefined' && document.getElementById('fb')) {
+  const f = document.getElementById('fb');
+  window.LinaFeedback.liga(f, f.closest('section').dataset.url);
+}

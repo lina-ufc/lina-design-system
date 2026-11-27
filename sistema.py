@@ -20,9 +20,10 @@ RAIZ = Path(__file__).parent
 S = json.loads((RAIZ / 'sistema.json').read_text())
 CAPS, ENTS, PARTES = S['capitulos'], S['entradas'], {p['id']: p['nome'] for p in S['partes']}
 FERR = S['ferramentas']
+FB = S['feedback']
 
 faltam = [e.get('secao') or e['arquivo'] for e in ENTS if not (RAIZ / (e.get('secao') or e['arquivo'])).exists()]
-faltam += [f['fragmento'] for f in FERR if not (RAIZ / f['fragmento']).exists()]
+faltam += [f['fragmento'] for f in FERR + [FB] if not (RAIZ / f['fragmento']).exists()]
 if not (RAIZ / S['inicio']).exists():
     faltam.append(S['inicio'])
 if faltam:
@@ -226,6 +227,11 @@ for f in FERR:
     main = (f'<main id="conteudo" class="capitulo"><header><h1>{escape(f["nome"])}</h1><p class="desc">{escape(f["sub"])}</p></header>\n'
             f'<section class="pagina-ferramenta">{(RAIZ / f["fragmento"]).read_text()}</section></main>')
     (RAIZ / f['arquivo']).write_text(html(f'{f["nome"]} · Sistema LINA', f, main))
+
+# ---- feedback: mesma moldura; a URL do Apps Script vai no data-url (vazia = formulário indisponível) ----
+main = (f'<main id="conteudo" class="capitulo"><header><h1>{escape(FB["nome"])}</h1><p class="desc">{escape(FB["sub"])}</p></header>\n'
+        f'<section class="pagina-ferramenta" data-url="{escape(S["feedback_url"])}">{(RAIZ / FB["fragmento"]).read_text()}</section></main>')
+(RAIZ / FB['arquivo']).write_text(html(f'{FB["nome"]} · Sistema LINA', None, main))
 
 # ---- home: porta de entrada + mapa; âncora velha (index.html#s-…) sem alvo na home vai para os Princípios ----
 HOME = '''
