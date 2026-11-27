@@ -473,3 +473,5 @@ body>aside .rotulo{margin:20px 0 2px}
 #ec-board .fora{fill:none;stroke:var(--umbro);stroke-width:2;stroke-dasharray:4 3}
 #ec-fantasma{fill:var(--ferro);fill-opacity:.14}
 .ferramenta .status.aviso{color:var(--ferro)}
+/* página própria da ferramenta: sem a grade de capítulo, conteúdo na largura toda */
+.capitulo>section.pagina-ferramenta{display:block;padding:var(--cell-half) var(--cell) var(--cell);background:none}

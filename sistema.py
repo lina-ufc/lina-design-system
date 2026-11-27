@@ -223,7 +223,7 @@ for c in CAPS:
 # ---- páginas das ferramentas: o fragmento (sem título) entra na moldura do site ----
 for f in FERR:
     main = (f'<main id="conteudo" class="capitulo"><header><h1>{escape(f["nome"])}</h1><p class="desc">{escape(f["sub"])}</p></header>\n'
-            f'<section>{(RAIZ / f["fragmento"]).read_text()}</section></main>')
+            f'<section class="pagina-ferramenta">{(RAIZ / f["fragmento"]).read_text()}</section></main>')
     (RAIZ / f['arquivo']).write_text(html(f'{f["nome"]} · Sistema LINA', f, main))
 
 # ---- home: porta de entrada + mapa; âncora velha (index.html#s-…) sem alvo na home vai para os Princípios ----
