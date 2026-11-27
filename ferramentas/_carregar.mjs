@@ -18,6 +18,17 @@ export function sharp() {
   return createRequire(new URL('templates/apresentacao/potx/package.json', raiz))('sharp');
 }
 
+// Lê a foto em RGBA e reduz a 1600 px no lado maior, como o site (lina-ui-imagem.js, LADO).
+export async function lerFoto(caminho) {
+  const s = sharp();
+  let { data, info } = await s(caminho).rotate().ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+  const k = Math.min(1, 1600 / Math.max(info.width, info.height));
+  if (k < 1) ({ data, info } = await s(data, { raw: info })
+    .resize(Math.max(1, Math.round(info.width * k)), Math.max(1, Math.round(info.height * k)), { fit: 'fill' })
+    .raw().toBuffer({ resolveWithObject: true }));
+  return { data, info };
+}
+
 export const fail = (msg) => { process.stderr.write(`Erro: ${msg}\n`); process.exit(2); };
 
 // spec: { num: [...], bool: [...], str: [...] } → params; `colors` e `tones` viram lista; `--no-x` desliga booleana.

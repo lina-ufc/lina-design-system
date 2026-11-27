@@ -188,6 +188,7 @@
     if (ok.length) poeCores(sorteia(ok));
   });
 
+  $('fi-escolher').addEventListener('click', () => $('fi-arquivo').click());
   $('fi-arquivo').addEventListener('change', (e) => { if (e.target.files[0]) carrega(e.target.files[0]); });
   const prancha = $('fi-prancha');
   prancha.addEventListener('dragover', (e) => e.preventDefault());

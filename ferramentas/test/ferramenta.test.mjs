@@ -4,7 +4,7 @@ import { spawnSync } from 'node:child_process';
 import { createRequire } from 'node:module';
 import { readFileSync } from 'node:fs';
 import vm from 'node:vm';
-import { sharp } from '../_carregar.mjs';
+import { sharp, lerFoto } from '../_carregar.mjs';
 
 const req = createRequire(import.meta.url);
 for (const m of ['geometry', 'palette', 'texture', 'image', 'ferramenta']) req(`../../assets/lina-${m}.js`);
@@ -79,7 +79,8 @@ test('comando de textura reproduz o motor', () => {
 });
 
 test('comando de imagem reproduz o motor', async () => {
-  const { data, info } = await sharp()(raiz + FOTO).rotate().ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+  const { data, info } = await lerFoto(raiz + FOTO);
+  assert.equal(Math.max(info.width, info.height), 1600);
   const img = { width: info.width, height: info.height, data: new Uint8ClampedArray(data) };
   for (const p of [
     { mode: 'dither', tones: ['umbro', 'umbro', 'creme'], width: 300, detail: 0.5, invert: true },

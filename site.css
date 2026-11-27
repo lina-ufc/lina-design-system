@@ -475,3 +475,5 @@ body>aside .rotulo{margin:20px 0 2px}
 .ferramenta .status.aviso{color:var(--ferro)}
 /* página própria da ferramenta: sem a grade de capítulo, conteúdo na largura toda */
 .capitulo>section.pagina-ferramenta{display:block;padding:var(--cell-half) var(--cell) var(--cell);background:none}
+@media (max-width:600px){.capitulo>section.pagina-ferramenta{padding-inline:0}}
+@media (max-width:820px){.capitulo>header:has(+section.pagina-ferramenta){margin-bottom:0}}
