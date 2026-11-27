@@ -1,6 +1,6 @@
 # Revisão do site — Progresso da implementação
 
-**Última atualização:** 2026-11-27. Branch `main` (05 e moldura mesclados).
+**Última atualização:** 2026-11-27. Branch `main`; 01–06 mesclados; feedback (07–10) mesclado neste conjunto.
 
 Índice: [`README.md`](README.md).
 
@@ -15,7 +15,7 @@
 
 ## Resumo
 
-`[░░░░░░░░░░]` 0% — total ainda não conhecido (só o 01 escrito).
+`[█████░░░░░]` 6 de 12 subplanos completos — total de tarefas ainda não conhecido (08–12 não escritos).
 
 | Plano | Progresso | Tarefas | Status |
 | --- | --- | --- | --- |
@@ -25,8 +25,12 @@
 | 04 — estrutura | `[██████████]` | 5/5 | Completo (mesclado na main) |
 | 05 — visual em tudo | `[██████████]` | 6/6 | Completo (mesclado na main) |
 | 06 — ferramentas no site | `[██████████]` | 9/9 | Completo, aprovado pelo dono em 2026-11-27 (mesclado na main) |
-| 07 — conteúdo novo | `[░░░░░░░░░░]` | — | Não escrito |
-| 08 — arquivar visual-code | `[░░░░░░░░░░]` | — | Não escrito |
+| 07 — feedback: acesso anônimo e Apps Script | `[░░░░░░░░░░]` | 0/3 | Escrito |
+| 08 — feedback: página e envio | `[░░░░░░░░░░]` | — | Não escrito |
+| 09 — feedback: entradas na home e no menu | `[░░░░░░░░░░]` | — | Não escrito |
+| 10 — feedback: verificação e aprovação | `[░░░░░░░░░░]` | — | Não escrito |
+| 11 — conteúdo novo | `[░░░░░░░░░░]` | — | Não escrito |
+| 12 — arquivar visual-code | `[░░░░░░░░░░]` | — | Não escrito |
 
 ## Plano 01 — motores
 
@@ -97,6 +101,14 @@ Herança para o 05: hex das 12 cores seguem em `capitulos/` (2.x, 3.x, 4.x, 8.2)
 - [x] **Tarefa 8** — ferramentas em páginas próprias; índice e menu. `c44ec49`, `130fde2`, `0ab7511`; review limpo (menores: f-string só em Python 3.12 corrigido; texto de abertura repete o subtítulo e links antigos `#s-gerador` sem redirecionar ficam para a tarefa 9); cores logo abaixo de Filtro; 82/82
 - [x] **Tarefa 9** — verificação e aprovação do dono. `fa84684`; checagens e navegador ok ([record](records/06-ferramentas.md)); aprovado pelo dono em 2026-11-27
 
+## Plano 07 — feedback: acesso anônimo e Apps Script
+
+`[░░░░░░░░░░]` 0% — 0 de 3 tarefas. Plano: [`07-feedback-apps-script.md`](07-feedback-apps-script.md).
+
+- [ ] **Tarefa 1** — dono confirma que a UFC permite app da web com acesso de "Qualquer pessoa"
+- [ ] **Tarefa 2** — `feedback/apps-script.gs` com `valida` e `decide` testados em Node
+- [ ] **Tarefa 3** — `feedback/README.md`; dono publica o script real; envio de teste grava linha
+
 ## Estado herdado
 
 - Base: `a76283c` (Capítulo 7 concluído).
@@ -139,3 +151,5 @@ Herança para o 05: hex das 12 cores seguem em `capitulos/` (2.x, 3.x, 4.x, 8.2)
 - 2026-11-27 — Fora dos subplanos: moldura de 9 faixas em todos os capítulos (`c4e6560`, branch `revisao-site/06-moldura`, nome não ligado ao plano 06) e pranchas sem retícula (`65776e7`). Ambos mesclados (`fdc930d`, `a200c9b`).
 - 2026-11-27 — Plano 06 escrito (ferramentas no site). Tarefas 2–4 em paralelo depois da 1.
 - 2026-11-27 — Dono pediu: filtro com os três padrões e cores por tom; ferramentas em páginas próprias. Tarefas 6–9 no 06 (spec `2026-11-27-ferramentas-paginas-e-tons.md`).
+- 2026-11-27 — Spec do feedback aprovado; subplano escrito (conjunto `2026-11-27-feedback/`).
+- 2026-11-27 — Conjuntos mesclados: feedback vira 07–10; conteúdo novo passa a 11 e arquivar visual-code a 12. Execução em sequência.

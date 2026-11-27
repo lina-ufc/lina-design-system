@@ -1,4 +1,4 @@
-# 01 — Acesso anônimo e Apps Script: plano de implementação
+# 07 — Acesso anônimo e Apps Script: plano de implementação
 
 > **Para agentes:** sub-skill obrigatória: `superpowers:subagent-driven-development` (ou
 > `superpowers:executing-plans`). Passos em caixas (`- [ ]`). Ao terminar cada tarefa, atualizar `progress.md`.
@@ -44,7 +44,7 @@ testar a lógica em Node com `vm`, como os motores em `ferramentas/test/`. `doPo
 Tarefa do dono; o agente só registra. Nenhum código.
 
 **Files:**
-- Create: `docs/superpowers/plans/2026-11-27-feedback/records/01-apps-script.md`
+- Create: `docs/superpowers/plans/2026-11-26-revisao-site/records/07-feedback-apps-script.md`
 
 - [ ] **Step 1: Pedir ao dono, com estes passos exatos**
 
@@ -65,7 +65,7 @@ registrar e avisar o dono que o conjunto troca para a abordagem A.
 Record com data, resultado do `curl` e a URL (a URL não é segredo; spec, "Envio").
 
 ```bash
-git add docs/superpowers/plans/2026-11-27-feedback/records/01-apps-script.md
+git add docs/superpowers/plans/2026-11-26-revisao-site/records/07-feedback-apps-script.md
 git commit -m "docs(feedback): acesso anônimo ao Apps Script confirmado"
 ```
 
@@ -76,7 +76,7 @@ git commit -m "docs(feedback): acesso anônimo ao Apps Script confirmado"
 - Test: `ferramentas/test/feedback.test.mjs` (fica no glob que o repo já roda)
 
 **Interfaces:**
-- Produces (usado na Tarefa 3 e pelo subplano 02, que monta o envio no site):
+- Produces (usado na Tarefa 3 e pelo subplano 08, que monta o envio no site):
   - `TIPOS: string[]`, `LIMITES: { mensagem: 2000, nome: 120, email: 254, pagina: 200 }`,
     `TETO_EMAIL = 20`, `TETO_GRAVA = 200`, `AVISA = true`.
   - `limpa(texto: string) -> string`: `trim`; se começar com `=`, `+`, `-` ou `@`, prefixa `'`.
@@ -157,11 +157,11 @@ git commit -m "feat(feedback): Apps Script valida e grava envios do site"
 
 **Files:**
 - Create: `feedback/README.md`
-- Modify: `docs/superpowers/plans/2026-11-27-feedback/records/01-apps-script.md`
+- Modify: `docs/superpowers/plans/2026-11-26-revisao-site/records/07-feedback-apps-script.md`
 
 **Interfaces:**
 - Consumes: `feedback/apps-script.gs` (Tarefa 2), URL da Tarefa 1.
-- Produces: URL publicada e testada, registrada no record; o subplano 02 a põe em `sistema.json` como `feedback_url`.
+- Produces: URL publicada e testada, registrada no record; o subplano 08 a põe em `sistema.json` como `feedback_url`.
 
 - [ ] **Step 1: Escrever `feedback/README.md`**
 
@@ -175,14 +175,14 @@ mesma URL). Como desligar o e-mail (`AVISA = false`) e mudar os tetos. Como marc
 - [ ] **Step 3: Conferir os quatro casos de fora**
 
 ```bash
-curl -sL --data-urlencode tipo=Erro --data-urlencode pagina=cores.html --data-urlencode 'mensagem=Teste do plano 01' --data-urlencode nome=Teste --data-urlencode email=teste@ufc.br '<URL>'
+curl -sL --data-urlencode tipo=Erro --data-urlencode pagina=cores.html --data-urlencode 'mensagem=Teste do plano 07' --data-urlencode nome=Teste --data-urlencode email=teste@ufc.br '<URL>'
 curl -sL --data-urlencode tipo=Elogio --data-urlencode mensagem=x --data-urlencode nome=T --data-urlencode email=t@ufc.br '<URL>'
 curl -sL --data-urlencode tipo=Erro --data-urlencode mensagem=x --data-urlencode nome=T --data-urlencode email=t@ufc.br --data-urlencode site=robo '<URL>'
 curl -sL -X POST '<URL>'
 ```
 
 Expected, nesta ordem: `{"ok":true}`; `{"ok":false,"erro":"tipo"}`; `{"ok":true}`; `{"ok":false,"erro":"tipo"}`.
-Dono confirma na planilha: cabeçalho + **uma** linha (`Teste do plano 01`, situação `nova`) e um e-mail recebido.
+Dono confirma na planilha: cabeçalho + **uma** linha (`Teste do plano 07`, situação `nova`) e um e-mail recebido.
 Depois o dono apaga a linha de teste.
 
 - [ ] **Step 4: Registrar e commitar**
@@ -190,6 +190,6 @@ Depois o dono apaga a linha de teste.
 Record: data, as quatro respostas, confirmação do dono.
 
 ```bash
-git add feedback/README.md docs/superpowers/plans/2026-11-27-feedback/records/01-apps-script.md
+git add feedback/README.md docs/superpowers/plans/2026-11-26-revisao-site/records/07-feedback-apps-script.md
 git commit -m "docs(feedback): instruções de publicação e teste do script real"
 ```
