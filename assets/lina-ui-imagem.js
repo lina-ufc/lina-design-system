@@ -16,10 +16,23 @@
   const LARGURA = [16, 8192]; // saída em px: o motor aceita > 0; fora disso o SVG não serve a ninguém
   const NOMES = Object.keys(LinaPalette.COLORS);
   const sorteia = (l) => l[Math.floor(Math.random() * l.length)];
+  // Cores escolhidas → faixas [escuros, médios, claros]: 1 → [a,-,-]; 2 → [a,a,b]; 3 → [a,b,c].
+  const paraTons = (c) => (c.length === 1 ? [c[0], 'none', 'none'] : c.length === 2 ? [c[0], c[0], c[1]] : c);
+  const produto = (n) => (n === 1 ? NOMES.map((a) => [a]) : produto(n - 1).flatMap((l) => NOMES.map((a) => [...l, a])));
 
   const lido = F.lerHash(location.hash, ESQ);
   const p = lido.params;
   let avisos = lido.avisos;
+  const antigo = new URLSearchParams(location.hash.replace(/^#/, '')); // link velho com colors=fundo,tinta
+  if (antigo.has('colors') && !antigo.has('tones')) {
+    const c = antigo.get('colors').split(',');
+    if (c.length === 2 && LinaPalette.check(c).ok) {
+      p.tones = [c[1], c[1], c[0]];
+      avisos.push(`colors ficou obsoleto: use tones=${p.tones.join(',')}.`);
+    } else avisos.push('colors: não vale; ficou o padrão.');
+  }
+  let cores = [...new Set(p.tones.filter((t) => t !== 'none'))].slice(0, 3); // cores escolhidas, na ordem das faixas
+  const ILEGIVEL = 'Não foi possível ler este arquivo como imagem.';
   let svg = '', foto = null, nome = '';
 
   // Na tela: pct = 0–100 %, sin = −100…100 (0,5 da URL é o zero).
@@ -33,13 +46,13 @@
     cutoff: (v) => v + '%', smooth: (v) => v + '%',
   };
 
-  for (const s of raiz.querySelectorAll('select')) s.append(...NOMES.map((n) => new Option(n, n)));
+  for (const s of raiz.querySelectorAll('[data-cor]')) s.append(...NOMES.map((n) => new Option(n, n)));
 
   function sincroniza() {
     const marca = (id, atual) => $(id).querySelectorAll('button').forEach((b) =>
-      b.setAttribute('aria-pressed', String(b.dataset.v === atual)));
+      b.setAttribute('aria-pressed', String(b.dataset.v === String(atual))));
     marca('fi-modo', p.mode);
-    marca('fi-dither', p.dither);
+    marca('fi-qtd', cores.length);
     const poe = (el, v) => { if (document.activeElement !== el) el.value = v; }; // não reescreve o campo em edição
     poe($('fi-largura'), p.width);
     $('fi-invert').checked = p.invert;
@@ -50,8 +63,18 @@
       const t = k === 'detail' ? saidas.detail() : saidas[k](v);
       if (o.value !== t) o.value = t;
     });
-    raiz.querySelectorAll('[data-modos]').forEach((f) => { f.disabled = !f.dataset.modos.split(' ').includes(p.mode); });
-    raiz.querySelectorAll('[data-cor]').forEach((s) => poe(s, p.colors[+s.dataset.cor]));
+    raiz.querySelectorAll('[data-cor]').forEach((s) => {
+      s.disabled = +s.dataset.cor >= cores.length;
+      if (!s.disabled) poe(s, cores[+s.dataset.cor]);
+    });
+    const ops = ['none', ...cores].join();
+    raiz.querySelectorAll('[data-tom]').forEach((s) => {
+      if (s.dataset.ops !== ops) { // só refaz a lista se mudou
+        s.replaceChildren(...[...cores, 'none'].map((n) => new Option(n === 'none' ? 'Transparente' : n, n)));
+        s.dataset.ops = ops;
+      }
+      poe(s, p.tones[+s.dataset.tom]);
+    });
   }
 
   const acoes = ['fi-baixar', 'fi-copiar'].map($);
@@ -107,11 +130,11 @@
       const dados = g.getImageData(0, 0, c.width, c.height);
       if (eu !== leitura) return;
       foto = dados; nome = arquivo.name || '';
-      avisos = [];
+      avisos = avisos.filter((a) => a !== ILEGIVEL); // os avisos do endereço ficam
       desenha();
     } catch (e) { // arquivo ilegível: a foto anterior fica
       if (eu !== leitura) return;
-      avisos = ['Não foi possível ler este arquivo como imagem.'];
+      avisos = [ILEGIVEL];
       desenha();
     } finally { if (bmp) bmp.close(); }
   }
@@ -121,7 +144,6 @@
     if (b) { p[k] = b.dataset.v; muda(); }
   });
   grupo('fi-modo', 'mode');
-  grupo('fi-dither', 'dither');
   raiz.querySelectorAll('[data-k]').forEach((i) => i.addEventListener('input', () => {
     p[i.dataset.k] = CONV[i.dataset.c][1](Number(i.value));
     muda();
@@ -131,12 +153,35 @@
     const n = Math.round(Number(e.target.value));
     if (n > 0) { p.width = n; muda(); }
   });
+  const poeCores = (c) => { cores = c; p.tones = paraTons(c); muda(); };
+  $('fi-qtd').addEventListener('click', (e) => {
+    const b = e.target.closest('button');
+    if (!b) return;
+    const n = +b.dataset.v;
+    if (n <= cores.length) return poeCores(cores.slice(0, n));
+    const novo = cores.slice();
+    while (novo.length < n) { // acrescenta a primeira cor que o conjunto aceita
+      const c = NOMES.find((x) => LinaPalette.checkTones(paraTons([...novo, x])).ok);
+      novo.push(c || sorteia(NOMES));
+    }
+    poeCores(novo);
+  });
   raiz.querySelectorAll('[data-cor]').forEach((s) => s.addEventListener('change', () => {
-    p.colors = p.colors.slice();
-    p.colors[+s.dataset.cor] = s.value;
+    const velha = cores[+s.dataset.cor];
+    cores = cores.slice();
+    cores[+s.dataset.cor] = s.value;
+    p.tones = p.tones.map((t) => (t === velha ? s.value : t)); // as faixas que usavam a cor seguem a nova
     muda();
   }));
-  $('fi-sortear').addEventListener('click', () => { p.colors = sorteia(LinaPalette.combos('duo')); muda(); });
+  raiz.querySelectorAll('[data-tom]').forEach((s) => s.addEventListener('change', () => {
+    p.tones = p.tones.slice();
+    p.tones[+s.dataset.tom] = s.value;
+    muda();
+  }));
+  $('fi-sortear').addEventListener('click', () => {
+    const ok = produto(cores.length).filter((c) => new Set(c).size === c.length && LinaPalette.checkTones(paraTons(c)).ok);
+    poeCores(sorteia(ok));
+  });
 
   $('fi-arquivo').addEventListener('change', (e) => { if (e.target.files[0]) carrega(e.target.files[0]); });
   const prancha = $('fi-prancha');

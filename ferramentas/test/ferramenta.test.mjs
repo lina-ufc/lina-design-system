@@ -39,7 +39,7 @@ test('hash: padrões não entram na URL; # inicial é aceito', () => {
 
 test('hash: ida e volta de imagem', () => {
   const E = F.ESQUEMAS.imagem;
-  const p = { ...F.lerHash('', E).params, mode: 'field', invert: true, colors: ['creme', 'umbro'], tones: ['ferro', 'none', 'none'], width: 640, detail: 0.7 };
+  const p = { ...F.lerHash('', E).params, mode: 'field', invert: true, tones: ['ferro', 'none', 'none'], width: 640, detail: 0.7 };
   assert.deepEqual(F.lerHash(F.escreverHash(p, E), E).params, p);
 });
 
@@ -62,7 +62,7 @@ test('hash: faixas e tipos', () => {
   // sem teto além do que o motor aceita
   for (const h of ['seed=99999999', 'cells=500', 'width=20000', 'grain=0.5']) assert.deepEqual(F.lerHash(h, E).avisos, [], h);
   assert.equal(F.lerHash('colors=creme,ferro,turquesa', E).avisos.length, 0);
-  assert.equal(F.lerHash('colors=creme,ferro,turquesa', F.ESQUEMAS.imagem).avisos.length, 1); // trio não vale na imagem
+  assert.equal(F.lerHash('tones=ferro,ferro,ferro', F.ESQUEMAS.imagem).avisos.length, 1); // faixa claro igual ao escuro
 });
 
 test('comando de textura reproduz o motor', () => {
@@ -82,9 +82,9 @@ test('comando de imagem reproduz o motor', async () => {
   const { data, info } = await sharp()(raiz + FOTO).rotate().ensureAlpha().raw().toBuffer({ resolveWithObject: true });
   const img = { width: info.width, height: info.height, data: new Uint8ClampedArray(data) };
   for (const p of [
-    { mode: 'dither', colors: ['creme', 'umbro'], width: 300, detail: 0.5, invert: true },
-    { mode: 'scatter', colors: ['creme', 'ferro'], tones: ['ferro', 'none', 'none'], width: 400, contrast: 0.6, cutoff: 0.2 },
-    { mode: 'field', colors: ['creme', 'ferro'], tones: ['ferro-fundo', 'ferro', 'creme'], width: 400, detail: 0.3 },
+    { mode: 'dither', tones: ['umbro', 'umbro', 'creme'], width: 300, detail: 0.5, invert: true },
+    { mode: 'scatter', tones: ['ferro', 'none', 'none'], width: 400, contrast: 0.6, cutoff: 0.2 },
+    { mode: 'field', tones: ['ferro-fundo', 'ferro', 'creme'], width: 400, detail: 0.3 },
   ]) {
     const linha = F.comando('imagem', p, FOTO);
     assert.match(linha, /^node ferramentas\/imagem\.mjs assets\/\S+ /);
@@ -110,7 +110,7 @@ test('módulo carrega sem motores; baixar/copiar existem; lerHash de imagem sem 
   for (const m of ['geometry', 'palette', 'image', 'ferramenta']) vm.runInNewContext(fonte(m), ctx);
   assert.equal(ctx.LinaTexture, undefined);
   const r = ctx.LinaFerramenta.lerHash('', ctx.LinaFerramenta.ESQUEMAS.imagem);
-  assert.equal(r.avisos.length, 0); assert.equal(r.params.colors.join(), 'creme,ferro'); // realm do vm: sem deepEqual
+  assert.equal(r.avisos.length, 0); assert.equal(r.params.tones.join(), 'ferro,ferro,creme'); // realm do vm: sem deepEqual
 });
 
 test('padrões do esquema batem com os do motor', async () => {
@@ -118,5 +118,5 @@ test('padrões do esquema batem com os do motor', async () => {
   assert.equal(LinaTexture.render(F.lerHash('', E.textura).params), LinaTexture.render({ colors: E.textura.colors.padrao }));
   const { data, info } = await sharp()(raiz + FOTO).rotate().ensureAlpha().raw().toBuffer({ resolveWithObject: true });
   const img = { width: info.width, height: info.height, data: new Uint8ClampedArray(data) };
-  assert.equal(LinaImage.render(img, F.lerHash('', E.imagem).params), LinaImage.render(img, { colors: E.imagem.colors.padrao }));
+  assert.equal(LinaImage.render(img, F.lerHash('', E.imagem).params), LinaImage.render(img, {}));
 });

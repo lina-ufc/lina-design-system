@@ -1,5 +1,5 @@
 <h2>Filtro de pontilhado</h2>
-<p class="p">A foto vira pontilhado ou bitmap nas cores do LINA e fica no seu navegador: nada é enviado, e o endereço da página guarda só os ajustes.</p>
+<p class="p">A foto vira pontilhado, dispersão ou campo, com uma cor por faixa de tom e fica no seu navegador: nada é enviado, e o endereço da página guarda só os ajustes.</p>
 <div class="ferramenta" id="fi">
 <div class="controles">
 <fieldset><legend><label for="fi-arquivo">Enviar imagem</label></legend>
@@ -7,13 +7,10 @@
 <button type="button" id="fi-exemplo">Usar exemplo</button>
 </fieldset>
 <fieldset><legend>Filtro</legend><div class="seg" id="fi-modo">
-<button type="button" data-v="dither">Pontilhado</button><button type="button" data-v="bitmap">Bitmap</button>
+<button type="button" data-v="dither">Pontilhado</button><button type="button" data-v="scatter">Dispersão</button><button type="button" data-v="field">Campo</button>
 </div></fieldset>
 <fieldset><legend><label for="fi-detail">Detalhe</label></legend><div class="linha">
 <input id="fi-detail" type="range" data-k="detail" data-c="pct" min="0" max="100" step="1"><output aria-live="off" for="fi-detail" data-out="detail"></output>
-</div></fieldset>
-<fieldset data-modos="bitmap"><legend>Pontilhamento</legend><div class="seg" id="fi-dither">
-<button type="button" data-v="none">Nenhum</button><button type="button" data-v="ordered">Ordenado</button><button type="button" data-v="diffusion">Difusão</button>
 </div></fieldset>
 <fieldset><legend><label for="fi-brightness">Brilho</label></legend><div class="linha">
 <input id="fi-brightness" type="range" data-k="brightness" data-c="sin" min="-100" max="100" step="1"><output aria-live="off" for="fi-brightness" data-out="brightness"></output>
@@ -34,10 +31,19 @@
 <fieldset><legend>Largura (px)</legend>
 <input id="fi-largura" type="number" min="16" max="8192" step="1" aria-label="Largura em pixels">
 </fieldset>
+<fieldset><legend>Quantidade de cores</legend><div class="seg" id="fi-qtd">
+<button type="button" data-v="1">1</button><button type="button" data-v="2">2</button><button type="button" data-v="3">3</button>
+</div></fieldset>
 <fieldset><legend>Cores</legend>
-<label>Fundo <select id="fi-c0" data-cor="0"></select></label>
-<label>Tinta <select id="fi-c1" data-cor="1"></select></label>
+<label>Cor 1 <select id="fi-c0" data-cor="0"></select></label>
+<label>Cor 2 <select id="fi-c1" data-cor="1"></select></label>
+<label>Cor 3 <select id="fi-c2" data-cor="2"></select></label>
 <button type="button" id="fi-sortear">Sortear</button>
+</fieldset>
+<fieldset><legend>Cor por faixa de tom</legend>
+<label>Escuros <select id="fi-t0" data-tom="0"></select></label>
+<label>Médios <select id="fi-t1" data-tom="1"></select></label>
+<label>Claros <select id="fi-t2" data-tom="2"></select></label>
 </fieldset>
 </div>
 <div class="previa">
@@ -49,4 +55,4 @@
 </div>
 </div>
 </div>
-<script src="assets/lina-geometry.js"></script><script src="assets/lina-palette.js"></script><script src="assets/lina-image.js"></script><script src="assets/lina-ferramenta.js"></script><script src="assets/lina-ui-imagem.js"></script>
+<script src="assets/lina-geometry.js"></script><script src="assets/lina-palette.js"></script><script src="assets/lina-texture.js"></script><script src="assets/lina-image.js"></script><script src="assets/lina-ferramenta.js"></script><script src="assets/lina-ui-imagem.js"></script>

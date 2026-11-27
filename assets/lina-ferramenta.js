@@ -17,8 +17,8 @@
   const str = (padrao, valores) => ({ tipo: 'str', valores, padrao });
   const bool = (padrao) => ({ tipo: 'bool', padrao });
   const cores = (min, max) => ({ tipo: 'cores', min, max, padrao: ['creme', 'ferro'] });
-  // [escuros, médios, claros]; null = sem tons: a imagem usa `colors` (convertido).
-  const tons = () => ({ tipo: 'tons', padrao: null });
+  // [escuros, médios, claros]: cada faixa um token ou 'none'.
+  const tons = () => ({ tipo: 'tons', padrao: ['ferro', 'ferro', 'creme'] });
 
   // Faixas e padrões do fromParams e do DEFAULTS de cada motor (frações 0–1).
   const ESQUEMAS = {
@@ -42,7 +42,6 @@
       midtones: num(0.675), // DEFAULTS.midtones 0,35 em -1..1
       cutoff: num(0.08), smooth: num(0.3),
       invert: bool(false),
-      colors: cores(2, 2),
       tones: tons(),
       width: num(1080, 0, Infinity, true),
     },
@@ -106,14 +105,14 @@
   // Foto entre aspas simples se tiver espaço ou metacaractere de shell.
   const aspas = (s) => (/^[\w@%+=:,./-]+$/.test(s) ? s : `'${s.replace(/'/g, `'\\''`)}'`);
 
-  // Linha equivalente: só o que difere do padrão, mais mode e colors sempre.
+  // Linha equivalente: só o que difere do padrão, mais mode, colors e tones sempre.
   function comando(qual, params, foto = 'foto.jpg') {
     const esquema = ESQUEMAS[qual];
     const args = [];
     for (const [k, e] of Object.entries(esquema)) {
       const v = params[k];
       if (v === undefined) continue;
-      if (k !== 'mode' && k !== 'colors' && igual(v, e.padrao)) continue;
+      if (k !== 'mode' && k !== 'colors' && k !== 'tones' && igual(v, e.padrao)) continue;
       args.push(e.tipo === 'bool' ? (v ? `--${k}` : `--no-${k}`) : `--${k} ${v}`);
     }
     return ['node', `ferramentas/${qual}.mjs`, ...(qual === 'imagem' ? [aspas(foto)] : []), ...args,
