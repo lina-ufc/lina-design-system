@@ -58,5 +58,5 @@ Capítulo `imagem` ganhou `"molde": true` e a seção `s-fotografia` (`2-fotogra
 - Grid e espaço, Célula: a trama de 12 px da apresentação conta como a célula da apresentação, ou a apresentação só tem colunas e linhas? O texto trata a trama como a única célula e deixa o alinhamento dos slides fora. (proposta)
 - Imagem, Fotografia: o assunto é só pessoas e lugares do laboratório, ou entram também objetos, eventos e a cidade? (proposta)
 - Imagem, Fotografia: luz natural é regra para toda foto, ou há exceção (palco, evento, ambiente fechado)? (proposta)
-- Imagem, Fotografia: "sem filtro de cor" proíbe também correção de cor e conversão para preto e branco? O texto proíbe só filtro, duotone e viragem que destoem da paleta. (proposta)
+- Imagem, Fotografia: "filtro de cor que brigue com a paleta" proíbe também correção de cor e conversão para preto e branco? O texto não diz; o critério é brigar ou não com a paleta. (proposta)
 - Imagem, Fotografia: quais fotos servem de exemplo? Espera a curadoria do dono; a seção não traz imagem.
