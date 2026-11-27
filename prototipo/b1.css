@@ -21,7 +21,7 @@
 body{background:var(--branco);color:var(--umbro);font:400 17px/1.55 var(--font-body)}
 a:focus-visible,summary:focus-visible{outline:2px solid var(--ferro);outline-offset:3px}
 .capitulo a:hover{color:var(--ferro)}
-.capitulo .p,.capitulo .desc,.capitulo .lead{font-size:17px;line-height:1.55;max-width:70ch;margin:0 0 var(--cell-half)}
+.capitulo .p,.capitulo .desc,.capitulo .lead{font-size:17px;line-height:1.55;max-width:52ch;margin:0 0 var(--cell-half)} /* 52ch em Outfit 17 px rende ~70 caracteres por linha */
 .capitulo .cap{font-size:14px;line-height:1.45;opacity:1;color:var(--t2)}
 .capitulo .cap b{color:var(--umbro)}
 .capitulo .k{color:var(--ferro);opacity:1;margin:0 0 6px}
@@ -35,11 +35,11 @@ body>aside .cap{color:var(--umbro);opacity:1}
 body>aside .cap span{color:inherit}
 body>aside li li a{opacity:1;color:var(--t2)}
 body>aside li li a:hover,body>aside .cap:hover,body>aside .atual>.cap{color:var(--ferro)}
+body>aside .atual>.cap{font-weight:700} /* atual não só por cor (WCAG 1.4.1) */
 body>aside summary{color:var(--umbro)}
 
 /* ---- página: margem de retícula e cabeçalho ---- */
 main.capitulo{position:relative;max-width:1240px;padding:var(--cell) calc(var(--cell) * 1.5) calc(var(--cell) * 4)}
-main.capitulo::before{content:"";position:absolute;left:0;top:0;bottom:0;width:calc(var(--cell) * 1.5);background:var(--reticula)}
 .capitulo>header{display:grid;grid-template-columns:var(--coluna-num) minmax(0,1fr);margin-bottom:calc(var(--cell) * 3)}
 .capitulo>header>*{grid-column:2;min-width:0}
 .capitulo>header .num{grid-column:1;grid-row:1/span 2;font:500 calc(var(--cell) * 3)/1 var(--font-mono);color:var(--umbro);letter-spacing:-.04em}
@@ -62,11 +62,20 @@ main.capitulo::before{content:"";position:absolute;left:0;top:0;bottom:0;width:c
 /* ---- pranchas: os exemplos, sobre a retícula da marca ---- */
 .capitulo :is(div[id$="-d"],#variacoes-f,#comb-usar,#comb-evitar){
   background:var(--reticula),var(--branco);border:1px solid var(--fio-b1);border-radius:0;
-  padding:var(--cell);margin-top:var(--cell-half)!important /* inline do fragmento; o 05 move para o fragmento */}
+  position:relative;padding:var(--cell);margin-top:var(--cell-half)!important /* inline do fragmento; o 05 move para o fragmento */}
+/* faixa da margem por prancha: mesma retícula, deslocada 22 px para a linha de célula cair em -44 */
+.capitulo :is(div[id$="-d"],#variacoes-f,#comb-usar,#comb-evitar)::before{content:"";position:absolute;left:calc(var(--cell) * -1.5);top:0;bottom:0;width:calc(var(--cell) * 1.5);background:var(--reticula);background-position:var(--cell-half) 0}
+/* diagramas 1.1-1.6 sobre branco: a grade amarela deles não se mistura com a retícula */
+:is(#a-ideia-d,#tres-medidas-d,#cantos-e-encontros-d,#construcao-das-letras-d,#espacamento-e-proporcao-d,#logotipo-com-a-grade-d) svg{background:var(--branco)}
+/* setas de 1.1 e anotações de 1.4: texto secundário e umbro, não areia/ferro */
+#a-ideia-d text[fill="#C9B87A"]{fill:var(--t2)}
+#construcao-das-letras-d [stroke="#A81F0D"]{stroke:var(--umbro)}
+#construcao-das-letras-d .k{text-transform:none} /* "n" minúsculo */
 /* texto de legenda nunca fica sobre a retícula */
 .capitulo :is(div[id$="-d"],#variacoes-f,#comb-usar,#comb-evitar) :is(.cap,.k){background:var(--branco);padding:2px 0}
 /* 1.2: a prancha é só o desenho; legendas ficam ao lado, fora da retícula */
 #tres-medidas-d{align-self:stretch}
+div:has(>#tres-medidas-d){grid-template-columns:minmax(0,388px) minmax(0,1fr)!important} /* inline do fragmento; o 05 move para o fragmento */
 
 /* 1.5 e 1.6: o diagrama ocupa a prancha */
 #espacamento-e-proporcao-d svg,#logotipo-com-a-grade-d svg{width:100%}
@@ -78,6 +87,7 @@ main.capitulo::before{content:"";position:absolute;left:0;top:0;bottom:0;width:c
 #variacoes-d>.fig:first-child svg{max-width:calc(var(--cell) * 16)!important} /* inline do fragmento; o 05 move para o fragmento */
 /* 1.8: placas maiores que os 150 px de antes */
 #comb-usar svg,#comb-evitar svg{max-width:none!important;width:100%} /* inline do fragmento; o 05 move para o fragmento */
+#comb-evitar{grid-template-columns:repeat(4,minmax(0,1fr))!important} /* inline do fragmento; o 05 move para o fragmento */
 
 /* ---- 1.8 Baixar: lista com fios, sem cartões ---- */
 .capitulo>section>.dl{grid-column:2;display:block;margin:0;border-top:1px solid var(--umbro)}
@@ -86,9 +96,6 @@ main.capitulo::before{content:"";position:absolute;left:0;top:0;bottom:0;width:c
 .capitulo .dl b{color:inherit;font-weight:500}
 .capitulo .dl .p{font-size:16px;color:var(--umbro)}
 .capitulo .dl .mono{overflow-wrap:anywhere}
-/* ponytail: o fragmento põe <a> dentro de <a>; o navegador parte o 2º item e deixa
-   "5.5" e a nota soltos. Aqui só se desfaz o estilo de linha do link solto; o 05 conserta o HTML. */
-.capitulo .dl>a:not([download]){display:inline;padding:0;border:0;text-decoration:underline}
 .capitulo .dl .mono{font-size:12px}
 
 /* ---- celular e tablet estreito ---- */
@@ -97,7 +104,6 @@ main.capitulo::before{content:"";position:absolute;left:0;top:0;bottom:0;width:c
   body>aside summary{min-height:44px;display:flex;align-items:center}
   body>aside li li a,body>aside .cap{display:flex;align-items:center;min-height:44px;padding-top:0;padding-bottom:0;margin-top:0}
   main.capitulo{padding:var(--cell) var(--cell-half) calc(var(--cell) * 2)}
-  main.capitulo::before{display:none}
   .capitulo>header,.capitulo>section{grid-template-columns:minmax(0,1fr)}
   .capitulo>header>*,.capitulo>section>*,.capitulo>section>.num,.capitulo>header .num,.capitulo>section>h2:first-of-type,.capitulo h1,.capitulo>header p.desc{grid-column:1;grid-row:auto}
   .capitulo .num{order:-2}
@@ -108,14 +114,17 @@ main.capitulo::before{content:"";position:absolute;left:0;top:0;bottom:0;width:c
   .capitulo>section{overflow:visible;margin-bottom:calc(var(--cell) * 2)}
   .capitulo>section>h2:first-of-type{font-size:28px;margin:0}
   .capitulo :is(div[id$="-d"],#variacoes-f,#comb-usar,#comb-evitar){padding:var(--cell-quarter)}
+  .capitulo :is(div[id$="-d"],#variacoes-f,#comb-usar,#comb-evitar)::before{display:none}
   div:has(>#tres-medidas-d){grid-template-columns:minmax(0,1fr)!important} /* inline do fragmento; o 05 move para o fragmento */
 }
 @media (max-width:600px){
+  /* rolagem dentro da prancha: rótulos legíveis, página sem rolagem lateral */
+  :is(#a-ideia-d,#espacamento-e-proporcao-d,#logotipo-com-a-grade-d){overflow-x:auto}
+  :is(#a-ideia-d,#espacamento-e-proporcao-d,#logotipo-com-a-grade-d) svg{min-width:560px}
   #tres-medidas-d+div{grid-template-columns:minmax(0,1fr)!important} /* inline do fragmento; o 05 move para o fragmento */
   #cantos-e-encontros-d,#variacoes-f,#comb-usar{grid-template-columns:repeat(2,minmax(0,1fr))!important} /* inline do fragmento; o 05 move para o fragmento */
   #comb-evitar{grid-template-columns:repeat(3,minmax(0,1fr))!important} /* inline do fragmento; o 05 move para o fragmento */
   #construcao-das-letras-d{gap:var(--cell-quarter)!important} /* inline do fragmento; o 05 move para o fragmento */
   .capitulo .dl>a{grid-template-columns:minmax(0,1fr)}
   .capitulo>section>.dl{grid-column:1}
-  .capitulo .dl>a:not([download]){display:inline}
 }
