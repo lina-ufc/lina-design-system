@@ -1,7 +1,7 @@
 <h2>Cantos e encontros</h2>
 <p class="regra">O contorno é traçado uma vez sobre a união.</p>
 <p class="p">O tracejado mostra a união antes do arredondamento.</p>
-<div id="cantos-e-encontros-d" style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:20px;align-items:start;margin-top:16px"></div>
+<div id="cantos-e-encontros-d" class="prancha"></div>
 <script src="assets/lina-geometry.js"></script><script src="assets/lina-draw.js"></script><script>{
 const {G,shape,grid,path,outline,hdim,svg}=LD,s=22;
 const F=[{b:[[0,0,2]],w:2,h:2,t:'<b>Canto livre</b>: arco convexo de ¼ de célula.'},
@@ -14,5 +14,5 @@ F.forEach(f=>{const m=s,ox=m,oy=m*1.2,W=f.w*s+2*m,H=f.h*s+m*2.2;let o=grid(ox-s/
 o+=path(shape(f.b,s,ox,oy),G.dark)+outline(shape(f.b,s,ox,oy,0),G.mid);
 if(f.b2){o+=path(shape(f.b2,s,ox+f.dx*s,oy),G.dark)+outline(shape(f.b2,s,ox+f.dx*s,oy,0),G.mid)+hdim(ox+2*s,ox+2.5*s,oy-10,'¼');}
 if(f.gap)o+=hdim(ox+2*s,ox+3*s,oy+f.h*s+12,'½',G.dark,true);
-const d=document.createElement('div');d.className='fig';d.innerHTML='<div style="height:'+(4*s+s*2.2)+'px;display:flex;align-items:flex-end">'+svg(W,H,o)+'</div>'+'<p class="cap">'+f.t+'</p>';el.appendChild(d);});
+const d=document.createElement('div');d.className='fig';d.innerHTML='<div>'+svg(W,H,o)+'</div>'+'<p class="cap">'+f.t+'</p>';el.appendChild(d);});
 }</script>

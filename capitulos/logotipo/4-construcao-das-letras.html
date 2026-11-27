@@ -1,7 +1,7 @@
 <h2>Construção das letras</h2>
 <p class="regra">Cada letra cabe numa altura de três células.</p>
 <p class="p">O tracejado marca os blocos; os círculos, os pescoços.</p>
-<div id="construcao-das-letras-d" style="display:flex;gap:44px;flex-wrap:wrap;align-items:flex-start;margin-top:18px"></div>
+<div id="construcao-das-letras-d" class="prancha"></div>
 <script src="assets/lina-geometry.js"></script><script src="assets/lina-draw.js"></script><script>{
 const {G,letter,blocksOf,grid,rects,path,hdim,svg}=LD,s=24,L=LinaGeometry.LETTERS;
 const ring=(x,y)=>'<circle cx="'+x+'" cy="'+y+'" r="9" fill="none" stroke="'+G.ink+'" stroke-width="1.2"/>';
@@ -12,6 +12,6 @@ A:['O topo liga a perna direita pelo canto. O contravão é uma cápsula de ½ �
 const el=document.getElementById('construcao-das-letras-d');
 ['L','I','n','A'].forEach(k=>{const w=L[k].w,o={x:12,y:12};let g=grid(o.x,o.y,w*s,6*s,s/2,G.faint)+grid(o.x,o.y,w*s,6*s,s,G.line);
 g+=path(letter(k,s,o.x,o.y),G.line)+rects(blocksOf(k,s,o.x,o.y),G.ink,1,'4 3')+T[k][1](o);
-const d=document.createElement('div');d.className='fig';d.style.maxWidth=Math.max(150,w*s+24)+'px';
+const d=document.createElement('div');d.className='fig';
 d.innerHTML='<p class="k" style="margin:0">'+k+'</p>'+svg(w*s+24,6*s+44,g)+'<p class="cap">'+T[k][0]+'</p>';el.appendChild(d);});
 }</script>

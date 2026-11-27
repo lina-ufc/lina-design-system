@@ -64,9 +64,10 @@ def nav(atual):
         href = pagina_de(c)
         cls = ' class="atual"' if c is atual else ''
         breve = '' if sub else '<small class="breve">em breve</small>'
-        itens += f'<li{cls}><a class="cap" href="{href}"><span>{c["n"]}</span>{escape(c["nome"])}{breve}</a><ol>{sub}</ol></li>'
-    return (f'<aside><a class="logo" href="index.html"><img src="assets/logos/sand/lina-horizontal-ferro.svg" alt="LINA"></a>'
-            f'<p class="tit">Sistema de design</p><details class="sum"><summary>Sumário</summary><ol>{itens}</ol></details></aside>')
+        atual_a = ' aria-current="page"' if c is atual else ''
+        itens += f'<li{cls}><a class="cap" href="{href}"{atual_a}><span>{c["n"]}</span>{escape(c["nome"])}{breve}</a><ol>{sub}</ol></li>'
+    return (f'<a class="pular" href="#conteudo">Pular para o conteúdo</a><aside aria-label="Sumário"><a class="logo" href="index.html"><img src="assets/logos/sand/lina-horizontal-ferro.svg" alt="LINA"></a>'
+            f'<p class="tit">Sistema de design</p><details class="sum" open><summary>Sumário</summary><ol>{itens}</ol></details></aside>')
 
 
 def html(titulo, atual, main, script=''):
@@ -79,8 +80,8 @@ def html(titulo, atual, main, script=''):
 {nav(atual)}
 {main}
 <script>
-// Sumário aberto em tela larga; no celular, recolhido.
-if (matchMedia('(min-width:821px)').matches) document.querySelector('details.sum').open = true;
+// Sumário aberto no HTML (funciona sem JS); no celular, o JS recolhe.
+if (!matchMedia('(min-width:821px)').matches) document.querySelector('details.sum').open = false;
 {script}
 </script>
 </body></html>
@@ -210,7 +211,7 @@ for c in CAPS:
     link = lambda k, seta: (f'<a href="{pagina_de(k)}">{seta} {k["n"]} · {escape(k["nome"])}</a>'
                             if k else '<span></span>')
     titulo = f'{c["nome"]} · Sistema LINA'
-    main = (f'<main class="capitulo"><header><p class="num">{c["n"]}</p><h1>{escape(c["nome"])}</h1>'
+    main = (f'<main id="conteudo" class="capitulo"><header><p class="num">{c["n"]}</p><h1>{escape(c["nome"])}</h1>'
             f'<p class="desc">{escape(c["desc"])}</p></header>\n{corpo}'
             f'<nav class="vizinhos">{link(ant, "←")}{link(prox, "→")}</nav></main>')
     (RAIZ / pagina_de(c)).write_text(html(titulo, c, main, AJUSTA))
@@ -219,7 +220,7 @@ for c in CAPS:
 HOME = '''
 if (location.hash && !document.getElementById(location.hash.slice(1))) location.replace('principios.html' + location.hash);
 '''
-main = f'<main class="capitulo"><section>{(RAIZ / S["inicio"]).read_text()}</section>\n{mapa}</main>'
+main = f'<main id="conteudo" class="capitulo"><section>{(RAIZ / S["inicio"]).read_text()}</section>\n{mapa}</main>'
 (RAIZ / 'index.html').write_text(html('Sistema LINA', None, main, HOME))
 
 # ---- redirecionamentos das páginas velhas ----

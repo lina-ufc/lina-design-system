@@ -1,56 +1,75 @@
 /* Páginas do documento do sistema (index.html e capítulos), geradas por sistema.py.
    Só leiaute do site e peças de conteúdo dos capítulos; cores e fontes vêm de styles.css. */
 
-body{margin:0;background:var(--creme);color:var(--umbro);font:300 16px/1.5 var(--font-body);-webkit-font-smoothing:antialiased}
+/* Visual B1 (memoria/visual-b1.md): creme em tudo, umbro no texto, ferro só em rótulo pequeno, item atual e foco.
+   Grade da marca = grade da página: célula 44 px, meia célula 22 px. */
+:root{
+  --t2:rgba(42,26,18,.72);            /* texto secundário: umbro sobre creme */
+  --fio-b1:rgba(42,26,18,.16);        /* fio de estrutura */
+}
+body{margin:0;background:var(--creme);color:var(--umbro);font:400 17px/1.55 var(--font-body);-webkit-font-smoothing:antialiased}
 a{color:inherit}
-.mono,.mono *{font-family:var(--font-mono);font-variant-ligatures:none}
+a:focus-visible,summary:focus-visible,[tabindex="0"]:focus-visible{outline:2px solid var(--ferro);outline-offset:3px}
+.mono,.mono *{font-family:var(--font-mono);font-variant-ligatures:none;overflow-wrap:anywhere}
 
 /* ---- leiaute ---- */
-body>aside{position:fixed;inset:0 auto 0 0;width:260px;overflow:auto;padding:32px 24px;box-sizing:border-box;border-right:1px solid var(--fio);background:var(--nata)}
+body>aside{position:fixed;inset:0 auto 0 0;width:260px;overflow:auto;padding:32px 24px;box-sizing:border-box;border-right:1px solid var(--fio-b1);background:var(--creme)}
 body>aside .logo img{width:132px;display:block;margin-bottom:8px}
-body>aside .tit{font:500 11px var(--font-mono);letter-spacing:.12em;text-transform:uppercase;opacity:.62;margin:0 0 28px}
-body>aside summary{display:none}
+body>aside .tit{font:500 11px var(--font-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--t2);margin:0 0 28px}
+body>aside summary{display:none;color:var(--umbro)}
 body>aside ol{list-style:none;margin:0;padding:0}
-body>aside li li a{display:block;padding:5px 0 5px 26px;font-size:12.5px;text-decoration:none;opacity:.75}
-body>aside li li a:hover,body>aside .cap:hover{color:var(--ferro);opacity:1}
-body>aside .cap{display:flex;gap:12px;margin:10px 0 0;padding:4px 0;font-weight:500;text-decoration:none}
-body>aside .cap span{font:500 13px var(--font-mono);color:var(--ferro);width:20px}
-body>aside .atual>.cap{color:var(--ferro)}
+body>aside li li a{display:block;padding:5px 0 5px 26px;font-size:12.5px;text-decoration:none;color:var(--t2)}
+body>aside li li a:hover,body>aside .cap:hover{color:var(--ferro)}
+body>aside .cap{display:flex;gap:12px;margin:10px 0 0;padding:4px 0;font-weight:500;text-decoration:none;color:var(--umbro)}
+body>aside .cap span{font:500 13px var(--font-mono);color:inherit;width:20px}
+body>aside .atual>.cap{color:var(--ferro);font-weight:700} /* atual não só por cor (WCAG 1.4.1) */
 main{margin-left:260px;padding:48px 56px 120px;max-width:1240px;box-sizing:border-box}
+main.capitulo{position:relative;padding:var(--cell) calc(var(--cell) * 1.5) calc(var(--cell) * 4)}
 @media (max-width:820px){
-  body>aside{position:static;width:auto;border-right:0;border-bottom:1px solid var(--fio);padding:20px 16px}
+  body>aside{position:static;width:auto;border-right:0;border-bottom:1px solid var(--fio-b1);padding:20px 16px}
   body>aside .tit{margin-bottom:12px}
-  body>aside summary{display:block;cursor:pointer;font:500 13px var(--font-mono);color:var(--ferro)}
+  body>aside summary{display:flex;align-items:center;min-height:44px;cursor:pointer;font:500 13px var(--font-mono);color:var(--umbro)}
+  body>aside li li a,body>aside .cap{display:flex;align-items:center;min-height:44px;padding-top:0;padding-bottom:0;margin-top:0}
   main{margin:0;padding:32px 16px 80px}
+  main.capitulo{padding:var(--cell) var(--cell-half) calc(var(--cell) * 2)}
 }
 
 /* ---- quadros ---- */
 .num{font:500 13px var(--font-mono);color:var(--ferro);margin:0}
-.desc{margin:0 0 28px;max-width:62ch}
-.vazio{font:300 13px var(--font-mono);opacity:.62;border:1px dashed var(--fio-forte);border-radius:8px;padding:20px}
+.vazio{font:400 13px var(--font-mono);color:var(--t2);border:1px dashed var(--fio-forte);border-radius:8px;padding:20px}
 .quadro article{scroll-margin-top:24px}
 .quadro article header{display:grid;grid-template-columns:1fr auto;column-gap:24px;margin-bottom:10px}
-.quadro .k{grid-column:1;font-size:18px;font-weight:500;margin:0;opacity:1;letter-spacing:0;text-transform:none}
-.quadro .sub{grid-column:1;margin:0;font-size:13.5px;opacity:.75}
-.arq{grid-column:2;grid-row:1/3;align-self:end;margin:0;font:300 11px var(--font-mono)}
-.arq a{text-decoration:none;opacity:.62}.arq a:hover{opacity:1;color:var(--ferro)}
+.quadro .k{grid-column:1;font-size:18px;font-weight:500;margin:0;color:var(--umbro);letter-spacing:0;text-transform:none}
+.quadro .sub{grid-column:1;margin:0;font-size:14px;color:var(--t2)}
+.arq{grid-column:2;grid-row:1/3;align-self:end;margin:0;font:400 12px var(--font-mono)}
+.arq a{text-decoration:none;color:var(--t2)}.arq a:hover{color:var(--ferro)}
 .fr{position:relative;overflow:hidden;background:#fff;border:1px solid var(--fio);border-radius:4px}
 .fr iframe{position:absolute;top:0;left:0;border:0;transform-origin:0 0}
 
 
 /* ---- página de capítulo ---- */
-.capitulo{max-width:1040px}
-.capitulo>header{margin-bottom:56px}
-.capitulo h1{font-size:clamp(36px,5vw,58px);font-weight:500;letter-spacing:-.024em;line-height:1;margin:6px 0 14px}
-.capitulo>header p.desc{font-size:18px;line-height:1.58;margin:0}
-.capitulo>section{padding-top:40px;margin-bottom:64px;border-top:1px solid var(--fio-forte);scroll-margin-top:16px}
-.capitulo h2{font-size:26px;font-weight:800;letter-spacing:-.012em;color:var(--ferro);margin:4px 0 12px}
+.capitulo{max-width:1240px}
+.capitulo>header{margin-bottom:calc(var(--cell) * 3)}
+/* número = metade do título, mono, acima dele, na mesma margem */
+.capitulo>header .num{font:500 calc(clamp(48px,6vw,72px) / 2)/1 var(--font-mono);color:var(--t2);margin:0 0 var(--cell-quarter)}
+.capitulo h1{font-size:clamp(48px,6vw,72px);font-weight:500;letter-spacing:-.024em;line-height:1;color:var(--umbro);margin:0 0 var(--cell-half)}
+.capitulo>header p.desc{font-size:20px;line-height:1.58;color:var(--t2);margin:0}
+.capitulo>section{margin-bottom:calc(var(--cell) * 2);scroll-margin-top:16px}
+/* número pequeno (metade do h2) acima do título; exemplos na largura toda */
+.capitulo>section>.num{font:500 16px/1 var(--font-mono);color:var(--t2);margin:0 0 var(--cell-quarter)}
+.capitulo h2{font-size:26px;font-weight:800;letter-spacing:-.012em;color:var(--umbro);margin:4px 0 12px}
+.capitulo>section>h2:first-of-type{margin:0 0 var(--cell-quarter);font-size:32px;line-height:1.1}
+.capitulo>section>h2:first-of-type+*{margin-top:var(--cell-half)}
 .capitulo h3{font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--ferro);margin:32px 0 4px}
 .capitulo h4{margin:0}
-.lead{font-size:18px;line-height:1.58;max-width:62ch;margin:0 0 24px;text-wrap:pretty}
-.k{font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;opacity:.62}
-.cap{font-size:12.5px;line-height:1.4;opacity:.75}
-.vizinhos{display:flex;justify-content:space-between;gap:16px;border-top:2px solid var(--umbro);padding-top:20px;font-weight:500}
+.capitulo .p,.capitulo .desc,.capitulo .lead{font-size:17px;line-height:1.55;max-width:52ch;margin:0 0 var(--cell-half);text-wrap:pretty} /* 52ch em Outfit 17 px rende ~70 caracteres por linha */
+.k{font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase}
+.cap{font-size:12.5px;line-height:1.4}
+.capitulo .cap{font-size:14px;line-height:1.45;color:var(--t2)}
+.capitulo .cap b{color:var(--umbro)}
+.capitulo .k{color:var(--ferro);margin:0 0 6px}
+.capitulo a:hover{color:var(--ferro)}
+.vizinhos{display:flex;justify-content:space-between;gap:16px;border-top:1px solid var(--umbro);padding-top:20px;font-weight:500}
 .vizinhos a{text-decoration:none}.vizinhos a:hover{color:var(--ferro)}
 
 /* pesos de uma família */
@@ -66,8 +85,8 @@ main{margin-left:260px;padding:48px 56px 120px;max-width:1240px;box-sizing:borde
 
 /* tabela de especificação: rótulo em mono, amostra ao lado */
 .spec{display:grid;grid-template-columns:190px minmax(0,1fr);max-width:960px;margin:0}
-.spec dt,.spec dd{margin:0;padding:11px 0;border-bottom:1px solid var(--fio);align-content:end}
-.spec dt{font:300 11px/1.45 var(--font-mono);opacity:.7;padding-right:20px}
+.spec dt,.spec dd{min-width:0;overflow-wrap:anywhere;margin:0;padding:11px 0;border-bottom:1px solid var(--fio);align-content:end}
+.spec dt{font:400 11px/1.45 var(--font-mono);color:var(--t2);padding-right:20px}
 @media (max-width:600px){.spec{grid-template-columns:1fr}.spec dt{border:0;padding-bottom:4px}}
 
 /* exemplos de detalhe */
@@ -84,7 +103,7 @@ main{margin-left:260px;padding:48px 56px 120px;max-width:1240px;box-sizing:borde
 .caixa hr{border:0;height:1px;background:var(--fio);margin:0}
 .et{font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;opacity:.7}
 .ficha{font-family:var(--font-mono);font-variant-ligatures:none;display:grid;grid-template-columns:auto 1fr;gap:2px 16px;margin:0;line-height:1.6}
-.ficha dt{opacity:.6}.ficha dd{margin:0}
+.ficha dt{color:var(--t2)}.ficha dd{margin:0}
 .comp-dupla{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:14px;margin:0 0 14px}
 @media (max-width:760px){.comp-dupla{grid-template-columns:1fr}}
 .numeros{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1px;background:var(--ferro-fundo);border-radius:var(--radius-xl);overflow:hidden;margin:0 0 14px;color:var(--creme)}
@@ -96,39 +115,50 @@ main{margin-left:260px;padding:48px 56px 120px;max-width:1240px;box-sizing:borde
 .duas-colunas .cols p{margin:0 0 1em}
 
 /* peças herdadas dos cartões (guidelines/card.css) */
-.capitulo .k{margin:0 0 8px}
 .capitulo .h{font-size:24px;font-weight:800;letter-spacing:-.012em;line-height:1.12;margin:0 0 10px}
-.capitulo .p{font-size:16px;max-width:36em;margin:0 0 14px;text-wrap:pretty}
 .capitulo .cap b{font-weight:500}
 .row{display:flex;gap:28px;flex-wrap:wrap;align-items:flex-end}
 .fig{display:grid;gap:10px;align-content:start}
-.dado{font:300 11px var(--font-mono);font-variant-ligatures:none}
-/* ponytail: diagramas dos cartões têm grade fixa (feitos para 900px); no celular a seção rola na horizontal. Refazer em grade fluida se o celular importar. */
-@media (max-width:820px){.capitulo>section{overflow-x:auto}.quadro article header{grid-template-columns:1fr}.arq{grid-column:1;grid-row:auto;overflow-wrap:anywhere}}
+.dado{font:400 11px var(--font-mono);font-variant-ligatures:none}
+.capitulo .dado{font-size:12px;color:var(--t2)}
+@media (max-width:820px){.quadro article header{grid-template-columns:1fr}.arq{grid-column:1;grid-row:auto;overflow-wrap:anywhere}}
 
-/* paletas 2.1 e 2.7: no celular, uma cor por linha */
-@media (max-width:600px){.paleta{grid-template-columns:1fr!important}.paleta>div{height:auto!important;min-height:96px}}
-.breve{font:300 12px var(--font-mono);opacity:.62;margin-left:6px}
+.breve{font:400 12px var(--font-mono);color:var(--t2);margin-left:6px}
 
 /* ---- rótulo de parte (sumário e mapa) ---- */
-.rotulo{font:500 11px var(--font-mono);letter-spacing:.12em;text-transform:uppercase;opacity:.62;margin:28px 0 8px}
+.rotulo{font:500 11px var(--font-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--t2);margin:28px 0 8px}
 body>aside .rotulo{margin:20px 0 2px}
 
 /* ---- home: mapa do documento; "citado em" ---- */
-.mapa>ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1px;background:var(--fio);border:1px solid var(--fio);border-radius:var(--radius-xl);overflow:hidden}
-.mapa>ol>li{background:var(--creme);padding:20px 22px}
-.mapa .cap{display:flex;gap:10px;align-items:baseline;font-size:20px;font-weight:800;text-decoration:none;opacity:1}
+.mapa>ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1px;background:var(--creme);padding:1px}
+.mapa>ol>li{background:var(--creme);padding:20px 22px;outline:1px solid var(--fio)}
+.mapa .cap{display:flex;gap:10px;align-items:baseline;font-size:20px;font-weight:800;text-decoration:none;color:var(--umbro)}
 .mapa .cap:hover{color:var(--ferro)}
-.mapa li p{margin:6px 0 10px;font-size:14px;opacity:.75}
+.mapa li p{margin:6px 0 10px;font-size:14px;color:var(--t2)}
 .mapa li ol{list-style:none;margin:0;padding:0;font-size:13px;line-height:1.4}
 .mapa li li a{display:inline-block;padding:5px 0}
 .mapa li li a{text-decoration:none}.mapa li li a:hover{color:var(--ferro)}
-.citado{margin:28px 0 0;padding-top:10px;border-top:1px solid var(--fio);font:300 12px var(--font-mono);opacity:.75}
-.citado a{display:inline-block;padding:5px 0;text-decoration:none;color:var(--ferro)}.citado a:hover{text-decoration:underline}
-/* Bloco "Baixar": fim da seção, depois da explicação. */
-.dl{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:12px 0 20px}
-.dl a{display:grid;gap:4px;padding:16px 18px;border-radius:var(--radius-xl);box-shadow:inset 0 0 0 1px var(--fio);text-decoration:none;color:inherit}
-.dl a:hover{box-shadow:inset 0 0 0 2px var(--ferro)}.dl b{font-weight:500;color:var(--ferro)}
+.citado{margin:var(--cell) 0 0;font:400 13px var(--font-mono);color:var(--t2)}
+.citado a{display:inline-block;padding:5px 0;color:var(--umbro);text-decoration:underline;text-underline-offset:3px}.citado a:hover{color:var(--ferro)}
+/* Bloco "Baixar": fim da seção, depois da explicação; lista com fios, sem cartões. */
+.dl{margin:0;border-top:1px solid var(--umbro)}
+.dl>a{display:grid;grid-template-columns:minmax(0,240px) minmax(0,1fr) auto;column-gap:var(--cell-half);align-items:baseline;padding:var(--cell-half) 0;border-bottom:1px solid var(--fio-b1);text-decoration:none;color:inherit}
+.dl>a:hover{color:var(--ferro)}
+.dl b{font-weight:500;color:inherit}
+.capitulo .dl .p{font-size:16px;color:var(--umbro);max-width:none}
+.dl .mono{overflow-wrap:anywhere;font-size:12px;font-weight:400}
+@media (max-width:600px){.dl>a{grid-template-columns:minmax(0,1fr)}}
+
+/* ---- prancha: exemplos de largura total, fundo liso ---- */
+.prancha{position:relative;margin-top:var(--cell-half);padding:var(--cell);gap:var(--cell-half);align-items:stretch;background:var(--creme);border:1px solid var(--fio-b1)}
+.prancha>.fig{padding:var(--cell-half)}
+@media (max-width:820px){
+  .prancha{padding:var(--cell-quarter);gap:var(--cell-quarter)}
+  .prancha>.fig{padding:var(--cell-quarter)}
+  .capitulo .citado a,.vizinhos a,.mapa li li a,.mapa .cap,.spec a{min-height:44px;display:inline-flex;align-items:center}
+}
+/* diagrama largo rola dentro da prancha (tabindex="0" role="region" aria-label no fragmento), não a página */
+@media (max-width:600px){.prancha.rola{overflow-x:auto}.prancha.rola svg{min-width:560px}}
 
 /* ---- molde de seção (docs/guidelines/molde-de-secao.md) ---- */
 .capitulo p.regra{font-size:19px;font-weight:500;line-height:1.45;max-width:36em;margin:0 0 14px;text-wrap:pretty}
@@ -136,3 +166,207 @@ body>aside .rotulo{margin:20px 0 2px}
 @media (max-width:600px){.faca-nao{grid-template-columns:1fr}}
 .faca-nao>div::before{display:block;margin-bottom:10px;font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;opacity:.62}
 .faca::before{content:"Faça"}.nao::before{content:"Não faça"}
+
+/* ---- logotipo ---- */
+/* anotações dos diagramas: texto secundário e umbro, não areia/ferro */
+#a-ideia-d text[fill="#C9B87A"]{fill:var(--t2)}
+#construcao-das-letras-d [stroke="#A81F0D"]{stroke:var(--umbro)}
+#construcao-das-letras-d .k{text-transform:none} /* "n" minúsculo */
+/* 1.2: a prancha é só o desenho; as legendas ficam ao lado */
+.medidas{display:grid;grid-template-columns:minmax(0,388px) minmax(0,1fr);gap:36px;align-items:end;margin-top:var(--cell-half)}
+.medidas>.prancha{align-self:stretch;margin-top:0}
+.medidas-leg{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+/* 1.3: a 1,5x (célula de 44 vira 66 = 3 meias células), cinco figuras */
+#cantos-e-encontros-d{display:grid;grid-template-columns:repeat(5,minmax(0,1fr))}
+#cantos-e-encontros-d>.fig>div{display:flex;align-items:flex-end;height:136.4px}
+/* 1.4: a 2x (88 = 2 células), duas colunas */
+#construcao-das-letras-d{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+/* largura natural dos SVG: 1.3 = 88 132 132 154 143, 1.4 = 120 72 144 144; SVG centrado no ladrilho */
+@media (min-width:821px){
+  #cantos-e-encontros-d{grid-template-columns:repeat(3,minmax(0,1fr))}
+  #cantos-e-encontros-d>.fig>div{height:auto;min-height:220px}
+  :is(#cantos-e-encontros-d,#construcao-das-letras-d) svg{max-width:none;flex:none;margin-inline:auto;display:block}
+  #cantos-e-encontros-d>.fig:nth-child(1) svg{width:132px}
+  #cantos-e-encontros-d>.fig:nth-child(2) svg,#cantos-e-encontros-d>.fig:nth-child(3) svg{width:198px}
+  #cantos-e-encontros-d>.fig:nth-child(4) svg{width:231px}
+  #cantos-e-encontros-d>.fig:nth-child(5) svg{width:214.5px}
+  #construcao-das-letras-d>.fig:nth-child(1) svg{width:240px}
+  #construcao-das-letras-d>.fig:nth-child(2) svg{width:144px}
+  #construcao-das-letras-d>.fig:nth-child(n+3) svg{width:288px}
+}
+/* 1.5 e 1.6: o diagrama ocupa a prancha */
+#espacamento-e-proporcao-d svg,#logotipo-com-a-grade-d svg{width:100%}
+/* 1.7: logotipos grandes, sem esticar (altura vem da proporção) */
+#variacoes-d{display:grid;grid-template-columns:minmax(0,264px) minmax(0,132px) minmax(0,1fr)}
+#variacoes-d>.fig{grid-template-columns:minmax(0,1fr)}
+#variacoes-d>.fig:first-child{grid-column:1/-1}
+#variacoes-d svg{display:block;height:auto;width:100%}
+#variacoes-d>.fig:first-child svg{max-width:calc(var(--cell) * 16)}
+/* formas derivadas */
+#variacoes-f{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+/* combinações: placas maiores que os 150 px de antes */
+#comb-usar{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr))}
+#comb-evitar{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+#comb-usar svg,#comb-evitar svg{display:block;width:100%;height:auto}
+@media (max-width:820px){.medidas{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:600px){
+  .medidas-leg{grid-template-columns:minmax(0,1fr)}
+  #cantos-e-encontros-d,#variacoes-f,#comb-usar{grid-template-columns:repeat(2,minmax(0,1fr))}
+  #comb-evitar{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+
+/* ---- cores ---- */
+/* 2.1 e 2.7: faixa de amostras (fundo e cor de cada uma ficam inline: são o conteúdo) */
+.paleta{display:grid;border:1px solid var(--fio-b1);border-radius:var(--radius-cell);overflow:hidden}
+.paleta>div{display:flex;flex-direction:column;justify-content:flex-end;gap:4px}
+.paleta>div>b{font-weight:800}
+.paleta .dado{color:inherit}
+.paleta>div>span:last-child{text-wrap:pretty}
+.pal5{grid-template-columns:1.25fr 1fr 1.4fr 1fr .8fr}
+.pal5>div{height:230px;padding:14px}
+.pal5>div>b{font-size:17px}
+.pal5>div>span:last-child{font-size:12px;line-height:1.35}
+.pal7{grid-template-columns:repeat(7,minmax(0,1fr))}
+.pal7>div{height:150px;padding:12px;gap:3px}
+.pal7>div>b{font-size:14px}
+.pal7>div>span:last-child{font-size:12px;line-height:1.3;opacity:1}
+@media (max-width:600px){.paleta{grid-template-columns:minmax(0,1fr)}.paleta>div{height:auto;min-height:96px}}
+/* 2.2: origem de cada cor */
+.origem{display:grid;gap:var(--cell-quarter);margin-top:var(--cell-half)}
+.origem>div{display:grid;grid-template-columns:56px 130px minmax(0,1fr);gap:16px;align-items:center}
+.origem .chip{display:block;height:var(--cell);border-radius:var(--radius-cell);box-shadow:inset 0 0 0 1px var(--fio)}
+.origem b{font-weight:500}
+.origem .cap{max-width:52ch}
+@media (max-width:600px){.origem>div{grid-template-columns:56px minmax(0,1fr);row-gap:var(--cell-quarter)}.origem .cap{grid-column:1/-1}}
+/* 2.3: roda e escada de valor lado a lado; os textos vêm antes, fora da prancha */
+#coerencia-d{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+#s-coerencia .p b{font-weight:500}
+@media (max-width:820px){#coerencia-d{grid-template-columns:minmax(0,1fr)}}
+/* 2.4: a matriz de 9 colunas rola dentro da prancha no celular */
+#estudo-de-contraste-d{display:grid}
+#estudo-de-contraste-m{display:grid;grid-template-columns:96px repeat(8,minmax(0,1fr));gap:3px}
+#estudo-de-contraste-m .dado{color:inherit}
+@media (max-width:600px){#estudo-de-contraste-d>.fig{min-width:640px}}
+/* 2.5, 2.6, 2.8: amostras de par de cores (fundo e cor inline) */
+.par,.par-texto{border-radius:var(--radius-cell);box-shadow:inset 0 0 0 1px var(--fio-b1)}
+.par{display:flex;flex-direction:column;justify-content:space-between;gap:var(--cell-half);padding:14px;min-height:110px}
+.par>span:first-child{font-weight:800;font-size:20px;line-height:1.1}
+.par>span:last-child{font-size:12px;line-height:1.35}
+.par b{font-weight:500}
+.par-texto{display:flex;align-items:center;justify-content:center;height:86px;font-weight:800;font-size:22px}
+#contrastes-a-usar-d>.fig,#principal-com-auxiliar-d>.fig{grid-template-rows:minmax(0,1fr)}
+#contrastes-a-usar-d{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+#contrastes-a-evitar-d{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:820px){#contrastes-a-usar-d{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:600px){#contrastes-a-evitar-d{grid-template-columns:minmax(0,1fr)}}
+/* 2.8: proporção e três composições */
+#principal-com-auxiliar-d{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+#principal-com-auxiliar-d>.fig:first-child{grid-column:1/-1}
+.faixa{display:flex;height:var(--cell-half);border:1px solid var(--fio-b1);box-sizing:content-box;border-radius:var(--radius-cell);overflow:hidden}
+.modelo{display:grid;gap:8px;align-content:start;padding:16px;border-radius:var(--radius-cell)}
+.modelo>b{font-weight:800;font-size:19px}
+.modelo>span:not(.k){font-size:12.5px}
+.modelo .k{margin:0}
+.modelo hr{border:0;height:1px;background:var(--fio);margin:0}
+.modelo .painel{padding:8px 10px;border-radius:var(--radius-cell);font-size:12px}
+.barras{display:flex;gap:4px;align-items:flex-end;height:34px}
+.barras>div{width:18%}
+@media (max-width:600px){#principal-com-auxiliar-d{grid-template-columns:minmax(0,1fr)}}
+
+/* ---- padroes ---- */
+/* amostra: retângulo 4:3 (cor de fundo inline = conteúdo) ou campo animado */
+.amostra{display:block;width:100%;min-width:0;aspect-ratio:4/3;border-radius:var(--radius-cell);overflow:hidden}
+.amostra.baixa{aspect-ratio:auto;height:150px}
+.amostra.larga{aspect-ratio:auto;height:260px}
+#tres-padroes-g,#monocromaticos-g,#duas-cores-g,#tres-cores-g,#opcoes-de-cor-g{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+:is(#tres-padroes-g,#monocromaticos-g,#duas-cores-g,#tres-cores-g,#opcoes-de-cor-g)>.fig{min-width:0;grid-template-columns:minmax(0,1fr)}
+/* 6.1: pontilhado grande à esquerda, os outros dois empilhados */
+#tres-padroes-g{grid-template-columns:minmax(0,2fr) minmax(0,1fr)}
+#tres-padroes-g>.fig:first-child{grid-row:span 2;grid-template-rows:minmax(330px,1fr) auto}
+#tres-padroes-g>.fig:first-child .amostra{aspect-ratio:auto}
+/* 6.2 e 6.3: rótulo e legenda coladas ao diagrama; B e C lado a lado */
+.diag>.fig>:is(.k,.cap){margin:0}
+.diag>.fig>.cap{max-width:52ch}
+#a-regra-do-pontilhado-tom-bc{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (max-width:820px){
+  #tres-padroes-g{grid-template-columns:minmax(0,1fr)}
+  #tres-padroes-g>.fig:first-child{grid-row:auto;grid-template-rows:auto}
+  #tres-padroes-g>.fig:first-child .amostra{aspect-ratio:4/3}
+  #a-regra-do-pontilhado-tom-bc{grid-template-columns:minmax(0,1fr)}
+  /* o diagrama rola dentro da prancha, na largura natural (não encolhe o texto do SVG) */
+  .prancha>.fig>.rola{overflow-x:auto}
+  #a-regra-do-pontilhado-tom-a svg{min-width:600px}
+  #a-regra-do-pontilhado-tom-b svg{min-width:416px}
+  #a-regra-do-pontilhado-tom-c svg{min-width:362px}
+  #a-regra-do-pontilhado-solido-d svg{min-width:562px}
+  #a-regra-do-pontilhado-solido-e svg{min-width:715px}
+}
+@media (max-width:600px){#monocromaticos-g,#duas-cores-g,#tres-cores-g,#opcoes-de-cor-g{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* ---- tipografia ---- */
+/* pesos e detalhes: pranchas de ladrilhos lisos (a base .pesos/.detalhes dá a grade; aqui só tira cartão e raio) */
+.prancha.pesos,.prancha.detalhes{border-radius:0;overflow:visible}
+.prancha.pesos>.fig,.prancha.detalhes>.fig{border-radius:0}
+.prancha.pesos>.ferro{background:var(--ferro);color:var(--creme)}
+.prancha.pesos>.turquesa{background:var(--turquesa);color:var(--turquesa-tinta)}
+.capitulo .pesos .ferro .cap,.capitulo .pesos .turquesa .cap{color:inherit}
+.prancha+.alfabeto{margin-top:var(--cell-half)}
+.spec+.k{margin-top:var(--cell)}
+/* composições: caixas e números como ladrilhos da prancha */
+.prancha.comp{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr)}
+.prancha.comp>.numeros,.prancha.comp>.duas-colunas{grid-column:1/-1}
+.prancha.comp>.caixa,.prancha.comp>.numeros{border-radius:0;box-shadow:none;margin:0}
+@media (max-width:760px){.prancha.comp{grid-template-columns:minmax(0,1fr)}}
+
+/* ---- icones ---- */
+.icl{display:flex;flex-wrap:wrap;gap:14px 18px;align-items:center;color:var(--ferro)}
+.ic{display:inline-block;width:40px;height:40px}.ic svg{width:100%;height:100%;display:block}
+.ic .dt{fill:var(--dt,currentColor);opacity:var(--dto,.2)}
+/* seis pesos: um ladrilho por peso (rótulo + fileira) */
+.prancha.pesos-ic{display:grid}
+.pesos-ic>.fig{grid-template-columns:minmax(0,1fr);gap:10px}
+.pesos-ic .icl{gap:14px}
+.pesos-ic b{font-weight:500;display:block}
+.tam{display:flex;gap:28px;align-items:end;flex-wrap:wrap;color:var(--ferro)}.tam>div{display:grid;gap:6px;justify-items:start}
+/* duotone: cada cartão é um ladrilho com o par de cores inline (amostra); Faça e não faça em largura toda */
+.faca-nao.duo-fn{grid-template-columns:minmax(0,1fr)}
+.prancha.duo{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr))}
+.duo>div{padding:18px;display:grid;gap:12px;align-content:start}
+.duo .icl{color:var(--tr);gap:12px 14px}.duo .ic{width:44px;height:44px}.duo .ic .dt{opacity:1}
+.capitulo .duo .cap{color:var(--rot)}.capitulo .duo .cap b{color:inherit}
+/* tratamentos: ladrilho de ¼ do lado (18 px em 72) */
+.tiles{display:flex;flex-wrap:wrap;gap:14px}.tile{box-sizing:border-box;width:72px;height:72px;border-radius:18px;padding:16px}
+.tile svg{width:100%;height:100%;display:block}
+.prancha .ic svg,.prancha .tile svg,.prancha .tam svg{background:none} /* o creme do .prancha svg não vale para ícone */
+.prancha.tratos>.fig>p{margin:0}.tile .dt{opacity:1;fill:var(--dt)}
+.t-solido{background:var(--ferro);color:var(--creme)}.t-claro{background:var(--damasco);color:var(--ferro)}.t-simples{color:var(--ferro)}
+.t-duo{background:var(--creme);color:var(--ferro);--dt:var(--damasco);box-shadow:inset 0 0 0 1px var(--fio)}
+
+/* ---- componentes ---- */
+/* recortes dos exemplos: um ladrilho por figura, na largura natural (PNG a 2x), sem passar do ladrilho */
+.prancha.imgs{display:grid;grid-template-columns:minmax(0,1fr)}
+.prancha.imgs>.fig{margin:0}
+.prancha.imgs img{display:block;max-width:100%;height:auto}
+
+/* ---- templates (capítulo sem molde) ---- */
+/* Apresentação: seis fundos de capa; só a cor de cada um vem do JS */
+#apresentacao-trama{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));margin-bottom:var(--cell-half)}
+.trama{position:relative;aspect-ratio:16/9;overflow:hidden}
+.trama lina-dither-field{-webkit-mask-image:linear-gradient(#000 55%,transparent 80%);mask-image:linear-gradient(#000 55%,transparent 80%)}
+.trama>div{position:absolute;left:9px;right:9px;bottom:16px}
+.trama i{display:block;height:5px;width:70%;background:currentColor}
+.trama i+i{width:45%;margin-top:3px}
+.trama span{display:flex;gap:4px;margin-top:8px}
+.trama b{width:10px;height:4px;background:currentColor;opacity:.7}
+/* Documentos A4: as quatro páginas e os três exemplos em quadro */
+#documentos-a4-pags{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+#documentos-a4-pags svg{display:block;width:100%;height:auto;background:#fff;border:1px solid var(--fio-b1)} /* papel branco */
+#documentos-a4-exemplos{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+@media (max-width:820px){
+  #apresentacao-trama{grid-template-columns:repeat(3,minmax(0,1fr))}
+  #documentos-a4-pags{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+
+/* link de salto: escondido até receber foco (WCAG 2.4.1) */
+.pular{position:absolute;left:-9999px;top:0;z-index:10;padding:var(--cell-quarter) var(--cell-half);background:var(--creme);color:var(--umbro)}
+.pular:focus{left:var(--cell-half)}

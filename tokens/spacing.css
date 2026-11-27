@@ -4,10 +4,7 @@
    1. Espaçamento de interface: os valores literais em px, sem grade de 4/8.
    2. Espaçamento de célula: a própria grade do logotipo. Uma célula, meias células, quartos de
       célula — os únicos deslocamentos legais para qualquer forma desenhada. --cell é definida por
-      contexto (44px no sítio); tudo derivado dela permanece legal.
-
-   No sítio, a retícula de meia célula (22px) aparece como fundo da página: a grade não é um
-   andaime escondido, é o chão. */
+      contexto (44px no sítio); tudo derivado dela permanece legal. */
 :root {
   --space-1: 3px;
   --space-2: 4px;
