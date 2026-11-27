@@ -15,7 +15,7 @@
 
 ## Resumo
 
-`[█████░░░░░]` 6 de 12 subplanos completos — total de tarefas ainda não conhecido (08–12 não escritos).
+`[██████░░░░]` 7 de 12 subplanos completos — total de tarefas ainda não conhecido (09–12 não escritos).
 
 | Plano | Progresso | Tarefas | Status |
 | --- | --- | --- | --- |
@@ -25,8 +25,8 @@
 | 04 — estrutura | `[██████████]` | 5/5 | Completo (mesclado na main) |
 | 05 — visual em tudo | `[██████████]` | 6/6 | Completo (mesclado na main) |
 | 06 — ferramentas no site | `[██████████]` | 9/9 | Completo, aprovado pelo dono em 2026-11-27 (mesclado na main) |
-| 07 — feedback: acesso anônimo e Apps Script | `[██████████]` | 3/3 | Completo (branch `revisao-site/07-feedback`) |
-| 08 — feedback: página e envio | `[░░░░░░░░░░]` | — | Não escrito |
+| 07 — feedback: acesso anônimo e Apps Script | `[██████████]` | 3/3 | Completo (mesclado na main) |
+| 08 — feedback: página e envio | `[░░░░░░░░░░]` | 0/3 | Escrito |
 | 09 — feedback: entradas na home e no menu | `[░░░░░░░░░░]` | — | Não escrito |
 | 10 — feedback: verificação e aprovação | `[░░░░░░░░░░]` | — | Não escrito |
 | 11 — conteúdo novo | `[░░░░░░░░░░]` | — | Não escrito |
@@ -109,6 +109,14 @@ Herança para o 05: hex das 12 cores seguem em `capitulos/` (2.x, 3.x, 4.x, 8.2)
 - [x] **Tarefa 2** — `feedback/apps-script.gs` com `valida` e `decide` testados em Node. `a73f2d5`; review limpo (só menores); 88/88. Na Tarefa 3, conferir que `'=x` aparece como texto na planilha
 - [x] **Tarefa 3** — `feedback/README.md`; dono publica o script real; envio de teste grava linha. `b44358d`; 4 casos ok, linha e e-mail confirmados pelo dono
 
+## Plano 08 — feedback: página e envio
+
+`[░░░░░░░░░░]` 0% — 0 de 3 tarefas. Plano: [`08-feedback-pagina.md`](08-feedback-pagina.md).
+
+- [ ] **Tarefa 1** — `assets/lina-feedback.js`: `valida`, `corpo`, `paginaDe`, `envia` testados em Node
+- [ ] **Tarefa 2** — `feedback.html` gerada pelo `sistema.py`; chaves `feedback` e `feedback_url`; `liga`; CSS
+- [ ] **Tarefa 3** — navegador (1280/390, estados, teclado) e envio real confirmado pelo dono
+
 ## Estado herdado
 
 - Base: `a76283c` (Capítulo 7 concluído).
@@ -156,3 +164,4 @@ Herança para o 05: hex das 12 cores seguem em `capitulos/` (2.x, 3.x, 4.x, 8.2)
 - 2026-11-27 — Tarefa 2 do 07 concluída (Apps Script). Tarefa 1 espera o dono.
 - 2026-11-27 — Tarefa 1 do 07 concluída: UFC permite acesso anônimo; abordagem B mantida.
 - 2026-11-27 — Tarefa 3 do 07 concluída. Plano 07 completo; URL publicada no record. Próximo: escrever o 08.
+- 2026-11-27 — 07 mesclado na main (`b937e2b`). Plano 08 escrito; chaves `feedback`/`feedback_url` passam do 09 para o 08 (a página precisa delas).
