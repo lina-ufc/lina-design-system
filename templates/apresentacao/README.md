@@ -1,4 +1,4 @@
-# Apresentação LINA — template de slides
+# Apresentação LInA — template de slides
 
 Versão atual e histórico em `CHANGELOG.md`. Um só gerador produz o template PowerPoint e o deck HTML, que mostram o mesmo conteúdo.
 
@@ -55,7 +55,7 @@ Regras:
 ## Slides especiais
 
 **Capa.**
-- Logo LINA de 200 px no canto superior, em y = 72.
+- Logo LInA de 200 px no canto superior, em y = 72.
 - Linha 1: evento e data, apoiados no pé da linha.
 - Linhas 2–3: título em 72 px, até três linhas.
 - Linha 4: apresentador, com os coautores abaixo.
@@ -67,7 +67,7 @@ Regras:
 
 **Capa com vários autores.** `1.2 Capa` com 2 a 9 autores, todos com a mesma hierarquia: igual à capa até o título; na linha 4, colunas de 4 módulos com até três nomes cada, em Outfit Medium 32, como o apresentador. Título com mais de 60 caracteres cai de 72 para 56.
 
-**Capa · imagem (variação).** Imagem nas colunas 1–5, de margem a margem na altura, encostada à esquerda. Logo LINA, evento, título (5 módulos), autores e logos institucionais deslocados para a coluna 6. Autores em Outfit Medium 28 (14 pt), entrelinha 1,0, em duas colunas (3 e 4 módulos).
+**Capa · imagem (variação).** Imagem nas colunas 1–5, de margem a margem na altura, encostada à esquerda. Logo LInA, evento, título (5 módulos), autores e logos institucionais deslocados para a coluna 6. Autores em Outfit Medium 28 (14 pt), entrelinha 1,0, em duas colunas (3 e 4 módulos).
 
 **Sumário.** `1.4 Sumário` com até 4 partes: faixas altas que dividem a altura útil (132 a 972), cada uma com fio no topo, número em JetBrains Mono, nome em Outfit Medium 48 e descrição em Light 28. Com 5 e 6 partes as faixas ficam baixas e a descrição vai até 5; de 7 a 12, título em cima e duas colunas; de 13 a 18, três.
 
@@ -78,7 +78,7 @@ Regras:
 
 **Encerramento.**
 - Tudo centrado no eixo vertical.
-- Logo LINA de 200 px no topo, em y = 72, como na capa.
+- Logo LInA de 200 px no topo, em y = 72, como na capa.
 - "Obrigado" em 171 px: o O preenche a linha 2.
 - Linha 3: apresentador e contato.
 - Logos institucionais centradas, na mesma altura da capa.

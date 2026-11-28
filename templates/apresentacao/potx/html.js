@@ -139,7 +139,7 @@ module.exports = function toHTML({ layouts, slides, out, opcoes = { lang: 'pt-BR
   const extra = (notas ? '<script src="./apresentador.js"></script>\n' : '') + (opcoes.transicoes ? '<script src="./transicao.js"></script>\n' : '');
   // Título da página: opcoes.titulo ou o título do primeiro slide que tiver um (texto ou trechos).
   const tt = slides.map((s) => s.fill && s.fill['Título']).find(Boolean);
-  const titulo = opcoes.titulo || (typeof tt === 'string' ? tt : Array.isArray(tt) ? tt.map((r) => r.text || '').join('') : '') || 'Apresentação LINA';
+  const titulo = opcoes.titulo || (typeof tt === 'string' ? tt : Array.isArray(tt) ? tt.map((r) => r.text || '').join('') : '') || 'Apresentação LInA';
   const html = `<!DOCTYPE html>
 <html lang="${opcoes.lang}">
 <head>
@@ -154,7 +154,7 @@ ${extra}</head>
 <body>
 <x-dc>
 <!-- GERADO por potx/build.js + potx/html.js. Não edite à mão: mude build.js e rode make.sh; o .pptx e este HTML saem juntos. -->
-<!-- @template name="Apresentação LINA" description="Mesmos layouts e exemplos do LINA-Apresentacao.potx. Tecla G mostra a grade modular." -->
+<!-- @template name="Apresentação LInA" description="Mesmos layouts e exemplos do LINA-Apresentacao.potx. Tecla G mostra a grade modular." -->
 <helmet><style>
 body{margin:0}
 section p{margin:0}

@@ -176,3 +176,9 @@ Forma
 - "LINA" virou "LInA" no texto do site, `sistema.py`, `README.md` e `SKILL.md`. Ficam: nomes de arquivo, código, templates (A4, apresentação) e scripts.
 - `node --test` 95/95; `sistema.py` sem erro; renders em `11-render/`.
 - Pendente: alvo de 44px em botões no desktop (hoje `--cell-half`, 44px só no celular); texto LInA dentro dos templates (exige rebuild).
+
+## Pendências fechadas (2026-11-28)
+
+- Alvo de 44px fora do media query: vale também no desktop (botões, campos, sliders, caixas de marcar). No desktop, só os sliders mudam de altura.
+- "LInA" no texto da apresentação e dos documentos A4 (Word, LaTeX, HTML). Nomes de estilo do Word (`LINA Corpo` etc.) e nomes de arquivo ficaram. Rebuild: validações ok, `distorcidas: 0`, 95/95.
+- Sem entrada de versão nos CHANGELOG: o número e a tag ficam com o dono.

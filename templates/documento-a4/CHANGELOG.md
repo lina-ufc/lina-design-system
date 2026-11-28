@@ -1,4 +1,4 @@
-# Documento A4 LINA · histórico de versões
+# Documento A4 LInA · histórico de versões
 
 A versão mais recente é o primeiro título `## x.y.z`. Para publicar uma versão nova: escreva a entrada aqui,
 faça o commit e crie a tag `documentos-vx.y.z` (o GitHub Actions gera os arquivos e a release).

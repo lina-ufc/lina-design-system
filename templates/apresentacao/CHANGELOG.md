@@ -1,4 +1,4 @@
-# Apresentação LINA · histórico de versões
+# Apresentação LInA · histórico de versões
 
 A versão mais recente é o primeiro título `## x.y.z`. Para publicar uma versão nova: escreva a entrada aqui,
 faça o commit e crie a tag `apresentacao-vx.y.z` (o GitHub Actions gera os arquivos e a release).

@@ -1,8 +1,8 @@
-% lina.cls — Documento A4 do LINA Design System (Relatório, Artigo, POP).
+% lina.cls — Documento A4 do LInA Design System (Relatório, Artigo, POP).
 % Opções: relatorio | artigo | pop. Fontes por arquivo (pasta fontes/), logo em logos/.
 % Compila com XeLaTeX (latexmk -xelatex), aqui e no Overleaf.
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{lina}[2026/11/22 LINA Documento A4]
+\ProvidesClass{lina}[2026/11/22 LInA Documento A4]
 
 % ---------- medidas: 1 px do HTML = 0,75 pt ----------
 \newcommand\px[1]{\dimexpr #1pt*3/4\relax}
@@ -92,7 +92,7 @@
 \setcounter{secnumdepth}{0}   % o número vai no texto do título: \section{1 · Apresentação}
 
 % ---------- metadados (mesmos nomes do Word) ----------
-\def\lina@referencia{}\def\lina@versao{}\def\lina@data{}\def\lina@titulocurto{}\def\lina@siglarodape{LINA · UFC}
+\def\lina@referencia{}\def\lina@versao{}\def\lina@data{}\def\lina@titulocurto{}\def\lina@siglarodape{LInA · UFC}
 \newcommand\referencia[1]{\def\lina@referencia{#1}}
 \newcommand\versao[1]{\def\lina@versao{#1}}
 \newcommand\data[1]{\def\lina@data{#1}}
@@ -104,7 +104,7 @@
 
 % ---------- estilos de caractere ----------
 \newcommand\destaque[1]{\textbf{#1}}
-\newcommand\mono[1]{{\ttfamily\fontsize{10pt}{\f@baselineskip}\selectfont #1}}   % LINA Mono Texto: 13 px = 10 pt
+\newcommand\mono[1]{{\ttfamily\fontsize{10pt}{\f@baselineskip}\selectfont #1}}   % LInA Mono Texto: 13 px = 10 pt
 \newcommand\fonte[1]{{\ttfamily\fontsize{8.5pt}{\f@baselineskip}\selectfont\color{umbro!75!white}#1}}
 \newcommand\rotulometa[1]{{\color{umbro!70!white}#1}}
 \newcommand\doi[1]{{\ttfamily\fontsize{8.25pt}{\f@baselineskip}\selectfont #1}}

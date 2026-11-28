@@ -1,6 +1,6 @@
-// Gera o template LINA de apresentação (16:9, 1920 × 1080 px de referência).
+// Gera o template LInA de apresentação (16:9, 1920 × 1080 px de referência).
 // Uso: node build.js  →  out/LINA-Apresentacao.pptx (depois post.py faz rodapé, cantos e .potx).
-// Os layouts seguem as receitas do deck de tese (UniPG) traduzidas para a identidade LINA.
+// Os layouts seguem as receitas do deck de tese (UniPG) traduzidas para a identidade LInA.
 const pptxgen = require('pptxgenjs');
 const sharp = require('sharp');
 const fs = require('fs');
@@ -161,7 +161,7 @@ const comp = {
 
 const pres = new pptxgen();
 pres.layout = 'LAYOUT_WIDE';
-pres.author = 'LINA'; pres.company = 'LINA · IAUD · UFC'; pres.title = 'Apresentação LINA';
+pres.author = 'LInA'; pres.company = 'LInA · IAUD · UFC'; pres.title = 'Apresentação LInA';
 pres.theme = { headFontFace: F.bold, bodyFontFace: F.light };
 
 const LAYOUTS = [], HTML_LAYOUTS = {}, HTML_SLIDES = []; // nomes (pós-processamento); HTML_*: mesma fonte do deck HTML (html.js)
@@ -219,7 +219,7 @@ const defLayout = (name, objects, { bg = { color: 'FFFFFF' }, foot = true, bar }
 // ---------- layouts ----------
 function defineLayouts() {
   const cover = (logoY) => [
-    { image: { path: A('logo-h-creme.png'), altText: 'LINA', x: X(M), y: X(logoY), w: X(200), h: X(68.6) } }];
+    { image: { path: A('logo-h-creme.png'), altText: 'LInA', x: X(M), y: X(logoY), w: X(200), h: X(68.6) } }];
   // Logos institucionais fixas (UFC e IAUD, brancas). O PNG tem respiro interno: x recua 11 px para o brasão cair na margem.
   // x0 = M - 11 alinha o brasão à margem; 646 centra a parte visível do par (604 px) no slide.
   const insts = (y, x0 = M - 11) => [
@@ -237,7 +237,7 @@ function defineLayouts() {
   FAM['1.1 Abertura'] = { build: () => [], opts: CAPA };
 
   // Capa na grade: evento no pé da linha 1, título nas linhas 2–3 (até três linhas de 72), autoria na linha 4, logos institucionais com o pé a 72 da borda inferior.
-  // Logos: a parte visível do brasão UFC termina 99 px abaixo de y; o pé fica a 72 da borda, como o topo da logo LINA.
+  // Logos: a parte visível do brasão UFC termina 99 px abaixo de y; o pé fica a 72 da borda, como o topo da logo LInA.
   // Um autor: apresentador e coautores. De 2 a 9: nomes em Medium 32, até 3 por coluna, colunas de 4 módulos. Logo 1 e 2: parceiros à direita do IAUD.
   FAM['1.2 Capa'] = { faixa: [1, 9], unidade: 'autores', padrao: 1, campo: 'Autor', opts: CAPA,
     n: (f) => { const c = conta(f, 3); return c && Math.max(2, c); },
@@ -260,7 +260,7 @@ function defineLayouts() {
     itens: (it, n) => ({ 'Autores 1': it.slice(0, 3).join('\n'), ...(n > 3 && { 'Autores 2': it.slice(3).join('\n') }) }),
     build: (n) => [
       pic('Imagem', [M, M, col(0, 5)[1], 1080 - 2 * M]),
-      { image: { path: A('logo-h-creme.png'), altText: 'LINA', x: X(IX), y: X(M), w: X(200), h: X(68.6) } },
+      { image: { path: A('logo-h-creme.png'), altText: 'LInA', x: X(IX), y: X(M), w: X(200), h: X(68.6) } },
       ...insts(1080 - M - 99, IX - 11),
       ph('Evento', 'body', [IX, row(1)[0], col(0, 7)[1], RH], { fontFace: F.mono, fontSize: P(22), color: C.creme, valign: 'bottom' }, 'Evento · DD · MM · AAAA'),
       ph('Título', 'title', [IX, row(2)[0], col(0, 5)[1], row(0, 2)[1]], { ...S.title, fontSize: P(72), color: C.creme, fit: 'shrink' }, 'Título do trabalho em até três linhas'),
@@ -331,7 +331,7 @@ function defineLayouts() {
   FAM['2.3 Lista · imagem'] = { faixa: [1, 5], unidade: 'itens', campo: 'Item', numera: true, build: lista('num', true) };
   FAM['2.3 Lista · ícones e imagem'] = { faixa: [1, 5], unidade: 'itens', campo: 'Item', build: lista('ico', true) };
 
-  // Linha do tempo: marco = célula LINA (vazada no master; `desenha` enche a dos itens com feito: true).
+  // Linha do tempo: marco = célula LInA (vazada no master; `desenha` enche a dos itens com feito: true).
   // Horizontal: 1 linha até 6 marcos, 2 acima. Vertical: eixo na coluna estreita, imagem à direita.
   const SWV = col(0, 4)[1], CEL = 28, celula = (x, y) => tile(x, y, CEL, 'FFFFFF', C.ferro);
   const tempoH = (n) => { const rows = n <= 6 ? 1 : 2, per = Math.ceil(n / rows), w = (FW - (per - 1) * G) / per;
@@ -508,12 +508,12 @@ function defineLayouts() {
 
   layout('2.6 Só título', [ ...header() ]);
 
-  // Encerramento centrado: logo LINA e logos institucionais nas mesmas alturas da capa (72 do topo e da base);
+  // Encerramento centrado: logo LInA e logos institucionais nas mesmas alturas da capa (72 do topo e da base);
   // 'Obrigado' preenche a linha 2, apresentador e contato na linha 3.
   // Logos de 2 a 4: UFC e IAUD mais 0 a 2 parceiros, o grupo centrado no slide (largura visível 604 sem parceiro, 626 + 303·k com k).
   const ENC = { ty: -42, size: 171, py: 47, cy: 99 }; // py, cy: abaixo da descendente do g, que entra na linha 3
   const encTopo = () => [
-    { image: { path: A('logo-h-creme.png'), altText: 'LINA', x: X((W - 200) / 2), y: X(M), w: X(200), h: X(68.6) } }, // como na capa, centrada
+    { image: { path: A('logo-h-creme.png'), altText: 'LInA', x: X((W - 200) / 2), y: X(M), w: X(200), h: X(68.6) } }, // como na capa, centrada
     ph('Título', 'title', [M, row(2)[0] + ENC.ty, FW, 200], { ...S.title, fontSize: P(ENC.size), color: C.creme, align: 'center' }, 'Obrigado')];
   FAM['6.1 Encerramento'] = { faixa: [2, 4], unidade: 'logos', padrao: 2, opts: CAPA,
     n: (f) => { const c = Object.keys(f).filter((k) => /^Logo \d+$/.test(k)).length; return c ? c + 2 : undefined; },
@@ -562,7 +562,7 @@ async function examples() {
     itens: PARTES.slice(0, n).map((t) => (n <= 5 ? { Item: t, Descrição: 'Uma linha sobre esta parte' } : t)) });
   s('1.1 Abertura', { notas: 'Deixe a trama rodar enquanto a sala se acomoda.\nComece quando o silêncio chegar.' });
   s('1.2 Capa', { 'Evento': EV, 'Título': TT, 'Apresentador': 'Nome do Apresentador', 'Coautores': 'Coautora Sobrenome · Coautor Sobrenome · Orientadora Sobrenome',
-    notas: 'Bom dia. Eu sou [nome], do LINA.\nHoje vou mostrar o trabalho em três partes: problema, método e resultados.' });
+    notas: 'Bom dia. Eu sou [nome], do LInA.\nHoje vou mostrar o trabalho em três partes: problema, método e resultados.' });
   s('1.2 Capa', { 'Evento': EV, 'Título': TT, itens: AUTORES, 'Logo 1': logo(0) });
   s('1.2 Capa', { 'Evento': EV, 'Título': 'Título longo do trabalho, que precisa de quatro linhas para caber inteiro na capa, com subtítulo após dois-pontos e ainda uma explicação',
     'Apresentador': 'Nome do Apresentador', 'Coautores': 'Coautora Sobrenome · Coautor Sobrenome · Orientadora Sobrenome', 'Logo 1': logo(0), 'Logo 2': logo(1) });
@@ -620,22 +620,22 @@ async function examples() {
   const NR = ([n, t]) => ({ 'Número': n, 'Nota': t });
   s('4.1 Imagem lateral', { 'Rótulo': '01 · Contexto', 'Título': 'Área de estudo', 'Texto': 'Duas ou três frases sobre o recorte e a escala do mapa.', 'Imagem': { img: IMG, alt: 'Mapa provisório da área de estudo' },
     notas: 'Mostre onde fica a área e por que ela serve de caso.\nDiga a escala do mapa antes de falar dos dados.' });
-  s('4.1 Imagem lateral · recuada', { 'Rótulo': '01 · Contexto', 'Título': 'Três números do estudo', 'Imagem': PROV(133), 'Legenda': 'Fonte: LINA, 2026. Legenda logo abaixo da figura.',
+  s('4.1 Imagem lateral · recuada', { 'Rótulo': '01 · Contexto', 'Título': 'Três números do estudo', 'Imagem': PROV(133), 'Legenda': 'Fonte: LInA, 2026. Legenda logo abaixo da figura.',
     itens: [['38%', 'da área construída'], ['4,2 h', 'de campo por fachada'], ['120', 'imagens térmicas']].map(NR) });
   s('4.1 Imagem lateral · esquerda', { 'Rótulo': '01 · Contexto', 'Título': 'Quatro frentes do estudo', 'Imagem': { img: IMG, alt: 'Imagem provisória' },
     itens: lst(ITENS.slice(0, 4)) });
   for (const n of [2, 4, 6]) s('4.2 Texto e grade', { 'Rótulo': '01 · Contexto', 'Título': 'O lugar hoje', 'Texto': 'Duas ou três frases sobre as fotos.', itens: Array.from({ length: n }, () => ({ 'Imagem': { img: IMG, alt: 'Imagem provisória' } })) });
   s('4.3 Imagem e texto', { 'Rótulo': '03 · Método', 'Imagem': PROV(75), 'Título': 'Título curto da imagem', 'Texto': 'Uma ou duas frases sobre o que observar na imagem.' });
   // Vídeo: { video: 'arquivo.mp4', poster: 'quadro.jpg' } no lugar da imagem. Sem mp4 no repositório, o exemplo usa imagem.
-  s('4.4 Figura larga', { 'Rótulo': '03 · Método', 'Título': 'Uma figura larga com título curto', 'Imagem': { img: IMG, alt: 'Imagem provisória' }, 'Fonte': 'Fonte: LINA, 2026.' });
+  s('4.4 Figura larga', { 'Rótulo': '03 · Método', 'Título': 'Uma figura larga com título curto', 'Imagem': { img: IMG, alt: 'Imagem provisória' }, 'Fonte': 'Fonte: LInA, 2026.' });
   s('4.5 Imagens em linha', { 'Rótulo': '03 · Método', 'Título': 'Antes e depois do levantamento', itens: [PROV(150), PROV(150)].map((p, i) => ({ 'Imagem': p, 'Legenda': ['Nuvem de pontos · 2018', 'Modelo · 2026'][i] })) });
   s('4.5 Imagens em linha', { 'Rótulo': '03 · Método', 'Título': 'Quatro proporções, uma altura', itens: [133, 75, 150, 100].map((r, i) => ({ 'Imagem': PROV(r), 'Legenda': `Vista ${i + 1}` })) });
   for (const n of [3, 5]) s('4.6 Mosaico', { 'Rótulo': '03 · Método', 'Título': n === 3 ? 'Uma imagem principal e dois detalhes' : 'Uma imagem principal e quatro detalhes', itens: Array.from({ length: n }, () => ({ 'Imagem': { img: IMG, alt: 'Imagem provisória' } })) });
   s('4.7 Imagem cheia', { 'Imagem': { img: IMG, alt: 'Imagem provisória' } });
-  s('4.7 Imagem cheia · título', { 'Imagem': { img: IMG, alt: 'Imagem provisória' }, 'Título': 'Título sobre a imagem', 'Rótulo': '03 · Método', 'Fonte': 'Fonte: LINA, 2026.' });
+  s('4.7 Imagem cheia · título', { 'Imagem': { img: IMG, alt: 'Imagem provisória' }, 'Título': 'Título sobre a imagem', 'Rótulo': '03 · Método', 'Fonte': 'Fonte: LInA, 2026.' });
   const EQ = ['Ana Lima', 'Carlos Rocha', 'Daniela Moura', 'Eduardo Pinheiro', 'Fernanda Sales', 'Gabriel Nogueira', 'Helena Castro', 'Igor Matos', 'Júlia Araújo', 'Lucas Ferreira', 'Mariana Teles', 'Nicolas Prado', 'Olívia Campos', 'Pedro Alves'];
   for (const n of [6, 14]) s('4.8 Equipe', { 'Rótulo': '06 · Equipe', 'Título': 'Quem fez o trabalho', itens: EQ.slice(0, n).map((nm, i) => ({ 'Retrato': { img: IMG, alt: 'Imagem provisória' }, 'Nome': nm, 'Papel': ['Coordenação', 'Pesquisa', 'Campo', 'Dados'][i % 4] })) });
-  s('5.1 Gráfico', { 'Rótulo': '04 · Resultados', 'Título': 'Duas séries lado a lado', 'Fonte': 'Fonte: LINA, 2026.' }, (sl) => {
+  s('5.1 Gráfico', { 'Rótulo': '04 · Resultados', 'Título': 'Duas séries lado a lado', 'Fonte': 'Fonte: LInA, 2026.' }, (sl) => {
     const anos = ['2020', '2021', '2022', '2023', '2024'];
     sl.addChart(pres.charts.BAR, [{ name: 'Medido', labels: anos, values: [42, 55, 61, 48, 70] }, { name: 'Modelo', labels: anos, values: [30, 38, 52, 60, 66] }],
       { placeholder: 'Gráfico', barDir: 'col', barGrouping: 'clustered', chartColors: [C.ferro, C.turquesa], barGapWidthPct: 40, showValue: true, dataLabelPosition: 'outEnd',
@@ -664,7 +664,7 @@ async function examples() {
   s('5.5 Tabela', { 'Rótulo': '03 · Método', 'Título': 'Materiais', 'Fonte': 'Fonte: literatura. Coluna destacada: a que o slide discute.' }, (sl) =>
     comp.tabela(sl, { cab: ['Material', [m('𝜌'), { text: ' (kg/m³)' }], [m('𝐸'), { text: ' (GPa)' }], [m('𝜈')]], destaque: 2, colW: [2, 1, 1, 1],
       linhas: [['Pedra', '2570', '2,34', '0,1'], ['Enchimento', '1800', '1,20', '0,15'], ['Solo', '1937', '0,01', '0,3']] }));
-  s('5.5 Tabela · texto', { 'Rótulo': '04 · Resultados', 'Título': 'Fotogrametria contra laser', 'Texto': 'O laser erra menos que a fotogrametria em todas as amostras.', 'Fonte': 'Fonte: LINA, 2026.' }, (sl) =>
+  s('5.5 Tabela · texto', { 'Rótulo': '04 · Resultados', 'Título': 'Fotogrametria contra laser', 'Texto': 'O laser erra menos que a fotogrametria em todas as amostras.', 'Fonte': 'Fonte: LInA, 2026.' }, (sl) =>
     comp.tabela(sl, { cab: ['Amostra', 'Método', 'Área (m²)', 'Erro'], destaque: 3, colW: [1, 1, 1, 1], box: [col(4)[0], CT, col(0, 8)[1], CB - CT - 50],
       linhas: [['A1', 'Laser', '120', '0,8%'], ['A2', 'Foto', '96', '1,2%'], ['A3', 'Laser', '210', '0,6%'], ['A4', 'Foto', '75', '1,9%'], ['A5', 'Laser', '160', '0,7%']] }));
   s('6.1 Encerramento', { 'Título': 'Obrigado', 'Apresentador': 'Nome do Apresentador', 'Contato': 'nome@ufc.br · lina.ufc.br', notas: 'Agradeça à equipe e à plateia.\nDeixe o contato na tela e abra para perguntas.' });
@@ -672,7 +672,7 @@ async function examples() {
   s('6.2 Encerramento · autores', { 'Título': 'Obrigado', itens: AUTORES.slice(0, 3) });
   s('6.2 Encerramento · autores', { 'Título': 'Obrigado', itens: EQ.slice(0, 8) });
   s('2.2 Colunas', { 'Rótulo': 'Guia do template · apague este slide antes de apresentar', 'Título': 'Como usar', itens: [
-    { 'Subtítulo': 'Montar', 'Texto': 'Novo slide: Página Inicial › Novo Slide › escolha um layout LINA.\nRodapé: Inserir › Cabeçalho e Rodapé › Rodapé › “Título abreviado” › Aplicar a Todos.\nImagens e ícones: clique no ícone do espaço; a imagem recorta sozinha.' },
+    { 'Subtítulo': 'Montar', 'Texto': 'Novo slide: Página Inicial › Novo Slide › escolha um layout LInA.\nRodapé: Inserir › Cabeçalho e Rodapé › Rodapé › “Título abreviado” › Aplicar a Todos.\nImagens e ícones: clique no ícone do espaço; a imagem recorta sozinha.' },
     { 'Subtítulo': 'Regras', 'Texto': 'Instale a Outfit e a JetBrains Mono (livres, em assets/fonts e Google Fonts). Ao salvar, marque “Incorporar fontes”.\nÍcones Phosphor, peso regular, um tratamento por slide: sólido, simples ou claro.\nSem emoji. Mono só para datas, números, rótulos e legendas.' }] });
   // Páginas de ícones (HTML, PDF e .pptx): ladrilho e ícone num PNG só, um clique copia os dois. Só os ícones que o DS tem em assets/icons/phosphor.
   const RI = 'Ícones · copiar e colar · apague antes de apresentar';
@@ -686,7 +686,7 @@ async function examples() {
     BIB.forEach((n, i) => { const x = M + (i % 8) * (FW / 8), y = CT + 10 + Math.floor(i / 8) * 170;
       sl.addImage({ path: bibPng(TRAT[0][0], n), x: X(x), y: X(y), w: X(96), h: X(96), altText: n });
       txt(sl, n, [x, y + 108, FW / 8 - 12, 30], S.cap); });
-    txt(sl, 'Mais de 1.500 ícones em phosphoricons.com; os do LINA estão em assets/icons/phosphor.', [M, CB - 30, FW, 30], S.cap);
+    txt(sl, 'Mais de 1.500 ícones em phosphoricons.com; os do LInA estão em assets/icons/phosphor.', [M, CB - 30, FW, 30], S.cap);
   });
 }
 

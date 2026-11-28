@@ -53,7 +53,7 @@ const MODELOS = {
     arq: 'Artigo',
     ref: 'Sobrenome et al. · Título abreviado do artigo',
     cabSecao: 0,
-    primeira: 'Cadernos LINA · v. 2 · n. 1 · 2026 · p. 1–18', // cabeçalho próprio da 1ª página
+    primeira: 'Cadernos LInA · v. 2 · n. 1 · 2026 · p. 1–18', // cabeçalho próprio da 1ª página
     rodape: 'DOI 10.0000/cl.2026.0001',
     // o HTML dá 36 px entre cabeçalho e texto; 28 px vêm do "antes" da seção (que também separa blocos no meio da página)
     top: px(134 - 28 - 2), // 2 px a menos: tira o +1,5 pt de deriva medido contra o HTML
@@ -65,7 +65,7 @@ const MODELOS = {
     arq: 'POP',
     ref: 'POP-04 · v. 2.1 · vigência 03/2026',
     cabSecao: 0,
-    rodape: 'LINA · POP-04',
+    rodape: 'LInA · POP-04',
     total: true, // rodapé "n / total"
     top: px(134 - 28 + 7), // 28 px vêm do "antes" da seção; +7 px medidos contra o HTML. A capa perde 11 px no rótulo para ficar onde estava
     rotulo: { px: 13, fio: false, antes: px(38 - 11) },
@@ -269,7 +269,7 @@ async function ativos() {
   return {
     logo: (w) => new ImageRun({
       type: 'svg', data: svg, fallback: { type: 'png', data: png },
-      transformation: { width: w, height: (w * vh) / vw }, altText: { name: 'LINA', description: 'LINA', title: 'LINA' },
+      transformation: { width: w, height: (w * vh) / vw }, altText: { name: 'LInA', description: 'LInA', title: 'LInA' },
     }),
     figura: (h = 300) => new ImageRun({
       type: 'png', data: figs[h], transformation: { width: FW, height: h },
@@ -304,7 +304,7 @@ function relatorio(a) {
   const capa = [
     tabela('LINAMetadados', [px(150), TW - px(150)], [new TableRow({ children: [
       cel(px(150), new Paragraph({ children: [a.logo(150)] })),
-      cel(TW - px(150), new Paragraph({ style: 'LINAMonoDireita', children: linhas(['LINA · UFC', 'Fortaleza, 2026']) })),
+      cel(TW - px(150), new Paragraph({ style: 'LINAMonoDireita', children: linhas(['LInA · UFC', 'Fortaleza, 2026']) })),
     ] })]),
     par('LINARotulo', 'Relatório institucional'),
     par('LINATitulo', 'Relatório anual de atividades 2026'),
@@ -329,7 +329,7 @@ function relatorio(a) {
     ] },
     { type: SectionType.CONTINUOUS, children: [
       new Paragraph({ style: 'LINAFigura', children: [a.figura()] }),
-      par('LINALegenda', r('Figura 1.', 'LINADestaque'), ' Legenda em Outfit 9 pt, uma linha abaixo da figura. ', r('Fonte: LINA, 2026.', 'LINAFonte')),
+      par('LINALegenda', r('Figura 1.', 'LINADestaque'), ' Legenda em Outfit 9 pt, uma linha abaixo da figura. ', r('Fonte: LInA, 2026.', 'LINAFonte')),
       par('LINASubsecao', '1.1 · Indicadores do ano'),
       tabela('LINATabela', [TW - 2 * px(90), px(90), px(90)], [
         new TableRow({ tableHeader: true, children: [
@@ -408,7 +408,7 @@ function artigo(a) {
     ] },
     { type: C1, children: [
       new Paragraph({ style: 'LINAFigura', children: [a.figura(260)] }),
-      par('LINALegenda', r('Figura 2.', 'LINADestaque'), ' Figuras de largura total interrompem as duas colunas e voltam a elas logo abaixo. ', r('Fonte: LINA, 2026.', 'LINAFonte')),
+      par('LINALegenda', r('Figura 2.', 'LINADestaque'), ' Figuras de largura total interrompem as duas colunas e voltam a elas logo abaixo. ', r('Fonte: LInA, 2026.', 'LINAFonte')),
     ] },
     { type: C1, column: COL2, children: [
       par('LINASecao', '3 · Resultados'),
@@ -561,7 +561,7 @@ async function main() {
   fs.mkdirSync(A('out'), { recursive: true });
   for (const t of Object.values(MODELOS)) {
     const cab = (txt) => new Header({ children: [new Paragraph({ style: 'LINACabecalho', children: [a.logo(54), new TextRun({ children: [new Tab(), txt], style: 'LINAMono' })] })] });
-    const rodape = () => new Footer({ children: [new Paragraph({ style: 'LINARodape', children: [new TextRun({ children: [t.rodape || 'LINA · UFC', new Tab(), PageNumber.CURRENT, ...(t.total ? [' / ', PageNumber.TOTAL_PAGES] : [])] })] })] });
+    const rodape = () => new Footer({ children: [new Paragraph({ style: 'LINARodape', children: [new TextRun({ children: [t.rodape || 'LInA · UFC', new Tab(), PageNumber.CURRENT, ...(t.total ? [' / ', PageNumber.TOTAL_PAGES] : [])] })] })] });
     // conteudo() devolve as seções; a de índice t.cabSecao leva cabeçalho e rodapé, as seguintes herdam (a numeração
     // continua). Relatório: a 0 é a capa, sem eles, e conta como página 1. t.primeira: cabeçalho próprio da 1ª página.
     const sections = t.conteudo(a).map(({ children, page, ...props }, i) => ({
@@ -573,7 +573,7 @@ async function main() {
       }),
     }));
     const doc = new Document({
-      creator: 'LINA · UFC', title: `LINA · ${t.arq}`, description: 'Modelo Word do Documento A4 (LINA Design System)',
+      creator: 'LInA · UFC', title: `LInA · ${t.arq}`, description: 'Modelo Word do Documento A4 (LInA Design System)',
       fonts: FONTES, hyphenation: { autoHyphenation: true },
       styles: {
         default: { document: { run: { font: F.light, size: hp(15), color: C.umbro, language: LANG } } },
