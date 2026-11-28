@@ -130,3 +130,42 @@ Seção nova `s-acessibilidade` (`capitulos/principios/3-acessibilidade.html`), 
 - Duas escalas de referência da apresentação no mesmo capítulo (1324 px na trama, 1920 × 1080 na margem): explicar na página?
 - `2-tratamento.html`, Medidas: o exemplo "Use o logotipo sem fundo sobre fotografia" sugere um uso que Logotipo não confirma. Trocar por exemplo neutro?
 - Alvo de 44 px e foco de 2 px ferro viram regra para todo o site?
+
+## Respostas do dono (2026-11-28)
+
+Logotipo
+- Área livre do logo sem fundo: 1 célula em cada lado, exceto o selo só com o L, que fica como está.
+- Tamanho mínimo: tela com célula de 8px (horizontal 70×24, símbolo 16×24); impresso com célula de 2mm (17,5×6mm, 4×6mm). Vale para todas as versões: vazados, selo, assinaturas, arte na placa e sem fundo.
+- Combinações de cores: vale o código (1 célula nas laterais, ½ em cima e embaixo). Corrigir o texto.
+
+Grid e espaço
+- A4 fica sem célula por ora.
+- Margens escritas em px, como estão.
+- A apresentação tem só colunas e linhas; a trama de 12px não é célula. Reescrever Célula.
+- Uma frase explicando as duas escalas da apresentação (1324px na trama, 1920×1080 na margem).
+
+Imagem
+- Seção Fotografia removida: as regras eram rascunho sem origem no LInA.
+
+Voz e texto
+- Documento formal usa voz impessoal, sem "você".
+- Termo neutro sempre; nunca flexão dupla.
+- O LInA pode falar em "nós".
+- Tratamento: trocar o exemplo do logotipo sobre fotografia por um neutro.
+- Datas: por extenso no texto; 2026-03-14 em dado e em nome de arquivo (Hierarquia fica).
+- Milhar e decimal seguem a língua e a formatação do documento (pt: 1.284,60; en: 1,284.60). Sai a regra dos cinco algarismos.
+- Sem espaço antes da unidade e do "%" (44px, 50%), como o site já faz.
+- Nome oficial com dois-pontos. Grafia sempre "LInA" (n minúsculo) em todo texto do site e dos documentos; nomes de arquivo, repositório e código ficam.
+- Nome por extenso na primeira menção só em texto para público externo.
+- Siglas de uso geral dispensam extenso; plural sem "s" ("os PDF").
+- IAUD por extenso com sigla na primeira menção: "Instituto de Arquitetura, Urbanismo e Design (IAUD)".
+- Tom: medidas em `dl.spec`.
+
+Acessibilidade
+- Letra de texto não desce de 11px.
+- Foco visível (contorno ferro de 2px) e alvo de 44px são regra para todo o site; links em linha de texto isentos do alvo.
+- Alt, ícones e "cor nunca é o único sinal" valem para tudo: site, A4, slide, gráfico e impresso.
+- Ferro sobre turquesa (3,1): "como texto, nunca" prevalece sobre o estudo de contraste.
+
+Forma
+- Uniformizar os blocos das seções quando possível, com leitura clara: cortar subdivisões que não ajudam.

@@ -27,7 +27,7 @@ Toda forma do LINA é uma união de células com cantos de ¼ de célula; `asset
 
 ## Padrões, imagens e animação
 
-`padroes.html`: regra do pontilhado, mono, duo e trio. Motores: `assets/lina-texture.js` e `assets/lina-image.js`. Fotografia (em proposta) e filtro: `imagem.html`. Animação (`padroes.html#s-o-campo-animado`): `assets/lina-dither-field.js`. Comandos na seção "Gerar padrões e imagens", abaixo.
+`padroes.html`: regra do pontilhado, mono, duo e trio. Motores: `assets/lina-texture.js` e `assets/lina-image.js`. Filtro: `imagem.html`. Animação (`padroes.html#s-o-campo-animado`): `assets/lina-dither-field.js`. Comandos na seção "Gerar padrões e imagens", abaixo.
 
 ## Tipografia
 

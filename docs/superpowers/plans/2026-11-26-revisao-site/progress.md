@@ -141,7 +141,7 @@ Herança para o 05: hex das 12 cores seguem em `capitulos/` (2.x, 3.x, 4.x, 8.2)
 - [x] **Tarefa 3** — Imagem: fotografia. `2a51295`, `8c23ddf`; review após 1 rodada
 - [x] **Tarefa 4** — capítulo novo Voz e texto; renumeração conferida (Templates 10→11 em memórias). `5114a73`, `855362e`; review após 1 rodada
 - [x] **Tarefa 5** — Princípios: acessibilidade. `ad8d0ae`, `4380aa0`; review após 1 rodada
-- [ ] **Tarefa 6** — verificação, renders, decisões do dono. Passos 1–4 feitos: checagens ok (95/95, tokens 0), `SKILL.md` sem "em breve" (`534fb78`), revisão final com 18 ajustes (`2e0b64c`), renders em `records/11-render/`. Falta o passo 5: dono responde as Perguntas do [record](records/11-conteudo-novo.md).
+- [ ] **Tarefa 6** — verificação, renders, decisões do dono. Passos 1–4 feitos: checagens ok (95/95, tokens 0), `SKILL.md` sem "em breve" (`534fb78`), revisão final com 18 ajustes (`2e0b64c`), renders em `records/11-render/`. Passo 5: dono respondeu (2026-11-28, ver [record](records/11-conteudo-novo.md)); falta aplicar as respostas.
 
 ## Estado herdado
 
