@@ -7,9 +7,10 @@ faça o commit e crie a tag `apresentacao-vx.y.z` (o GitHub Actions gera os arqu
 - **Menor** (1.1.0): layout novo, página de ícones nova, ajuste visual que não quebra slides existentes.
 - **Correção** (1.0.1): erro em texto, alinhamento, arquivo corrompido.
 
-## 2.0.2 · 2026-11-27
+## 2.0.2 · 2026-11-28
 
-Sobreposições no deck HTML, sem mudança de layout.
+Sobreposições no deck HTML e grafia do nome, sem mudança de layout.
+- Nome do laboratório escrito "LInA" nas propriedades do arquivo, no tema, no texto alternativo do logo e no deck HTML.
 - Título longo da capa reduz a fonte até caber, em vez de cobrir o apresentador. No .potx e no .pptx, o título
   da capa ganha o ajuste automático do PowerPoint.
 - Logo de parceiro no encerramento ocupa o espaço do layout, à direita do IAUD, em vez de cair sobre ele.
