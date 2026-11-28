@@ -29,7 +29,7 @@
 | 08 — feedback: página e envio | `[██████████]` | 3/3 | Completo (mesclado na main) |
 | 09 — feedback: entradas na home e no menu | `[██████████]` | 2/2 | Completo (mesclado na main) |
 | 10 — feedback: texto, acessibilidade, aprovação | `[██████████]` | 3/3 | Completo, aprovado pelo dono em 2026-11-28 (branch `revisao-site/10-feedback-final`) |
-| 11 — conteúdo novo | `[██████████]` | 6/6 | Completo; respostas do dono aplicadas (branch `revisao-site/11-conteudo-novo`) |
+| 11 — conteúdo novo | `[██████████]` | 6/6 | Completo (mesclado na main, publicado 2026-11-28) (branch `revisao-site/11-conteudo-novo`) |
 | 12 — arquivar visual-code | `[░░░░░░░░░░]` | — | Não escrito |
 
 ## Plano 01 — motores
