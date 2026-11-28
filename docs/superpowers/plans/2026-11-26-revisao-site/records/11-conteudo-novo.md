@@ -169,3 +169,10 @@ Acessibilidade
 
 Forma
 - Uniformizar os blocos das seções quando possível, com leitura clara: cortar subdivisões que não ajudam.
+
+## Aplicação (2026-11-28)
+
+- Respostas aplicadas em Logotipo 9/12/13, Grid 1/2/3, Voz 1–4 e Acessibilidade; marcadores de proposta retirados dessas seções.
+- "LINA" virou "LInA" no texto do site, `sistema.py`, `README.md` e `SKILL.md`. Ficam: nomes de arquivo, código, templates (A4, apresentação) e scripts.
+- `node --test` 95/95; `sistema.py` sem erro; renders em `11-render/`.
+- Pendente: alvo de 44px em botões no desktop (hoje `--cell-half`, 44px só no celular); texto LInA dentro dos templates (exige rebuild).

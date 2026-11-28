@@ -29,7 +29,7 @@
 | 08 — feedback: página e envio | `[██████████]` | 3/3 | Completo (mesclado na main) |
 | 09 — feedback: entradas na home e no menu | `[██████████]` | 2/2 | Completo (mesclado na main) |
 | 10 — feedback: texto, acessibilidade, aprovação | `[██████████]` | 3/3 | Completo, aprovado pelo dono em 2026-11-28 (branch `revisao-site/10-feedback-final`) |
-| 11 — conteúdo novo | `[████████░░]` | 5/6 | Tarefas 1–5 feitas; aguarda decisões do dono (branch `revisao-site/11-conteudo-novo`) |
+| 11 — conteúdo novo | `[██████████]` | 6/6 | Completo; respostas do dono aplicadas (branch `revisao-site/11-conteudo-novo`) |
 | 12 — arquivar visual-code | `[░░░░░░░░░░]` | — | Não escrito |
 
 ## Plano 01 — motores
@@ -141,7 +141,7 @@ Herança para o 05: hex das 12 cores seguem em `capitulos/` (2.x, 3.x, 4.x, 8.2)
 - [x] **Tarefa 3** — Imagem: fotografia. `2a51295`, `8c23ddf`; review após 1 rodada
 - [x] **Tarefa 4** — capítulo novo Voz e texto; renumeração conferida (Templates 10→11 em memórias). `5114a73`, `855362e`; review após 1 rodada
 - [x] **Tarefa 5** — Princípios: acessibilidade. `ad8d0ae`, `4380aa0`; review após 1 rodada
-- [ ] **Tarefa 6** — verificação, renders, decisões do dono. Passos 1–4 feitos: checagens ok (95/95, tokens 0), `SKILL.md` sem "em breve" (`534fb78`), revisão final com 18 ajustes (`2e0b64c`), renders em `records/11-render/`. Passo 5: dono respondeu (2026-11-28, ver [record](records/11-conteudo-novo.md)); falta aplicar as respostas.
+- [x] **Tarefa 6** — verificação, renders, decisões do dono. Passos 1–4 feitos: checagens ok (95/95, tokens 0), `SKILL.md` sem "em breve" (`534fb78`), revisão final com 18 ajustes (`2e0b64c`), renders em `records/11-render/`. Passo 5: dono respondeu e respostas aplicadas (2026-11-28, ver [record](records/11-conteudo-novo.md)); LInA no site; renders refeitos; 95/95.
 
 ## Estado herdado
 

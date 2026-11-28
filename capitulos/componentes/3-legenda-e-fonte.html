@@ -3,7 +3,7 @@
 <p class="p">Fica alinhado à esquerda e a fonte vai em mono.</p>
 <div class="prancha imgs">
   <figure class="fig"><img src="capitulos/componentes/img/legenda-slide.png" alt="Parte inferior de uma figura provisória, de fundo nata com listras diagonais finas. Logo abaixo, alinhada à esquerda e em mono, a linha &quot;Fonte: autor, ano. Legenda colada à figura.&quot;" width="312" height="56"><figcaption class="cap">Slide</figcaption></figure>
-  <figure class="fig"><img src="capitulos/componentes/img/legenda-a4.png" alt="Parte inferior de uma figura de fundo nata com cantos arredondados. Logo abaixo, alinhada à esquerda, uma linha com &quot;Figura 1.&quot; em negrito, a legenda em texto normal e, no fim, &quot;Fonte: LINA, 2026.&quot; em mono, mais clara que o resto." width="506" height="67"><figcaption class="cap">Documento A4</figcaption></figure>
+  <figure class="fig"><img src="capitulos/componentes/img/legenda-a4.png" alt="Parte inferior de uma figura de fundo nata com cantos arredondados. Logo abaixo, alinhada à esquerda, uma linha com &quot;Figura 1.&quot; em negrito, a legenda em texto normal e, no fim, &quot;Fonte: LInA, 2026.&quot; em mono, mais clara que o resto." width="506" height="67"><figcaption class="cap">Documento A4</figcaption></figure>
 </div>
 <h3>Medidas</h3>
 <ul class="regras">
@@ -18,6 +18,6 @@
 <h3>Como pedir</h3>
 <dl class="spec">
   <dt>Slide</dt><dd>Use o campo Legenda ou Fonte do layout, por exemplo "4.4 Figura larga" ou "4.1 Imagem lateral · recuada". O slide 26 do exemplo mostra a legenda solta. Ao gerar pelo código: <code class="mono">comp.legenda(sl, [x, y, w, h], texto)</code>, com a caixa da figura, e <code class="mono">comp.legendaCores(sl, x, y, [[cor, 'rótulo'], ...])</code> para as cores.</dd>
-  <dt>Word</dt><dd>Parágrafo no estilo <code class="mono">LINA Legenda</code>. O rótulo "Figura n." é digitado no estilo de caractere <code class="mono">LINA Destaque</code> e a fonte vai no estilo de caractere <code class="mono">LINA Fonte</code>.</dd>
+  <dt>Word</dt><dd>Parágrafo no estilo <code class="mono">LInA Legenda</code>. O rótulo "Figura n." é digitado no estilo de caractere <code class="mono">LInA Destaque</code> e a fonte vai no estilo de caractere <code class="mono">LInA Fonte</code>.</dd>
   <dt>LaTeX</dt><dd><code class="mono">\legenda{Texto. \fonte{Fonte: autor, ano.}}</code>. O rótulo "Figura n." e a numeração saem sozinhos.</dd>
 </dl>

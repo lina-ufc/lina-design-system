@@ -1,6 +1,6 @@
 ---
 name: lina-design
-description: Use esta habilidade para gerar peças e interfaces do LINA (Laboratório de Modelagem da Informação — Arte · Arquitetura · Ambiente, IAUD/UFC). Índice do sistema: princípios, logotipo, cores e tokens, grid e espaço, padrões e imagens pontilhadas, animação, tipografia, voz e texto, ícones, componentes (declaração, tabela, nota, cartão…), templates de apresentação e documento A4, recursos para baixar e as ferramentas de linha de comando que os geram. Use this skill to generate well-branded assets for LINA.
+description: Use esta habilidade para gerar peças e interfaces do LInA (Laboratório de Modelagem da Informação: Arte · Arquitetura · Ambiente, IAUD/UFC). Índice do sistema: princípios, logotipo, cores e tokens, grid e espaço, padrões e imagens pontilhadas, animação, tipografia, voz e texto, ícones, componentes (declaração, tabela, nota, cartão…), templates de apresentação e documento A4, recursos para baixar e as ferramentas de linha de comando que os geram. Use this skill to generate well-branded assets for LInA.
 user-invocable: true
 ---
 
@@ -19,7 +19,7 @@ Este arquivo é um índice: diz onde está cada regra, não a repete. Os valores
 
 ## Logotipo e geometria
 
-Toda forma do LINA é uma união de células com cantos de ¼ de célula; `assets/lina-geometry.js` é o traçador que executa a regra. Use-o em vez de desenhar formas à mão. Regra e construção: `logotipo.html`. Arquivos prontos (horizontal, vertical, símbolo, vazados, selo, assinaturas PT/EN): `assets/logos/sand/`, tabela no `README.md` §1. Logos institucionais: `assets/logos-institutions/`. Pacotes para baixar: `downloads/` (`marca.sh`, `institucionais.sh`).
+Toda forma do LInA é uma união de células com cantos de ¼ de célula; `assets/lina-geometry.js` é o traçador que executa a regra. Use-o em vez de desenhar formas à mão. Regra e construção: `logotipo.html`. Arquivos prontos (horizontal, vertical, símbolo, vazados, selo, assinaturas PT/EN): `assets/logos/sand/`, tabela no `README.md` §1. Logos institucionais: `assets/logos-institutions/`. Pacotes para baixar: `downloads/` (`marca.sh`, `institucionais.sh`).
 
 ## Cores e combinações
 

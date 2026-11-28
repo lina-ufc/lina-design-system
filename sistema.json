@@ -51,7 +51,7 @@
    "id": "voz-e-texto",
    "parte": "II",
    "nome": "Voz e texto",
-   "desc": "Tom, tratamento, números e nomes nos textos do LINA.",
+   "desc": "Tom, tratamento, números e nomes nos textos do LInA.",
    "molde": true
   },
   {
@@ -78,7 +78,7 @@
    "id": "icones",
    "parte": "II",
    "nome": "Ícones",
-   "desc": "Phosphor: seis pesos e o duotone nas cores do LINA.",
+   "desc": "Phosphor: seis pesos e o duotone nas cores do LInA.",
    "molde": true
   },
   {
@@ -134,7 +134,7 @@
   {
    "cap": "principios",
    "nome": "Acessibilidade",
-   "sub": "Contraste, letra, texto alternativo, foco e alvo de toque (proposta)",
+   "sub": "Contraste, letra, texto alternativo, foco e alvo de toque",
    "secao": "capitulos/principios/3-acessibilidade.html"
   },
   {
@@ -196,13 +196,13 @@
   {
    "cap": "logotipo",
    "nome": "Área de proteção",
-   "sub": "Meia célula nas versões com fundo e área livre ao redor das sem fundo (proposta)",
+   "sub": "Meia célula nas versões com fundo, uma célula livre nas sem fundo",
    "secao": "capitulos/logotipo/12-area-de-protecao.html"
   },
   {
    "cap": "logotipo",
    "nome": "Tamanho mínimo",
-   "sub": "Menor tamanho do logo em tela e impresso (proposta)",
+   "sub": "Menor tamanho do logo em tela e impresso",
    "secao": "capitulos/logotipo/13-tamanho-minimo.html"
   },
   {
@@ -320,43 +320,43 @@
   {
    "cap": "voz-e-texto",
    "nome": "Tom",
-   "sub": "Direto, frases curtas, no presente, sem exclamação (proposta)",
+   "sub": "Direto, frases curtas, no presente, sem exclamação",
    "secao": "capitulos/voz-e-texto/1-tom.html"
   },
   {
    "cap": "voz-e-texto",
    "nome": "Tratamento",
-   "sub": "Você para o leitor, \"o LINA\" para o laboratório (proposta)",
+   "sub": "Você para o leitor, \"o LInA\" ou \"nós\" para o laboratório",
    "secao": "capitulos/voz-e-texto/2-tratamento.html"
   },
   {
    "cap": "voz-e-texto",
    "nome": "Números e datas",
-   "sub": "Vírgula decimal, dia/mês/ano e espaço antes da unidade (proposta)",
+   "sub": "Números na língua do documento, data por extenso ou ano-mês-dia",
    "secao": "capitulos/voz-e-texto/3-numeros-e-datas.html"
   },
   {
    "cap": "voz-e-texto",
    "nome": "Nomes e siglas",
-   "sub": "Nome por extenso na primeira vez, LINA depois (proposta)",
+   "sub": "LInA com n minúsculo; nome por extenso para quem é de fora",
    "secao": "capitulos/voz-e-texto/4-nomes-e-siglas.html"
   },
   {
    "cap": "grid-e-espaco",
    "nome": "Célula",
-   "sub": "A célula como unidade de tudo e o valor dela em cada meio (proposta)",
+   "sub": "A célula como unidade de tudo e o valor dela em cada meio",
    "secao": "capitulos/grid-e-espaco/1-celula.html"
   },
   {
    "cap": "grid-e-espaco",
    "nome": "Margens",
-   "sub": "Meia célula entre arte e borda e a margem de página de cada meio (proposta)",
+   "sub": "Meia célula entre arte e borda e a margem de página de cada meio",
    "secao": "capitulos/grid-e-espaco/2-margens.html"
   },
   {
    "cap": "grid-e-espaco",
    "nome": "Espaçamento",
-   "sub": "Espaçamento de interface em px e deslocamento de forma em célula (proposta)",
+   "sub": "Espaçamento de interface em px e deslocamento de forma em célula",
    "secao": "capitulos/grid-e-espaco/3-espacamento.html"
   },
   {

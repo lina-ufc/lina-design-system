@@ -1,4 +1,4 @@
-"""Gera o documento do sistema LINA a partir de sistema.json.
+"""Gera o documento do sistema LInA a partir de sistema.json.
 
 - Cada capítulo vira uma página: <id>.html. A ordem dos capítulos dá o número; "partes" os agrupa no sumário e no mapa.
 - index.html é a porta de entrada (capitulos/inicio.html + mapa). Páginas velhas (sistema.json "antigos") viram redirecionamentos.
@@ -75,7 +75,7 @@ def nav(atual):
     arq = None if atual is FB else 'index.html' if atual is None else atual['arquivo'] if atual in FERR else pagina_de(atual)
     if arq and S['feedback_url']:
         itens += f'<li><a class="cap" href="feedback.html?pagina={escape(arq)}"><span></span>Feedback sobre esta página</a></li>'
-    return (f'<a class="pular" href="#conteudo">Pular para o conteúdo</a><aside aria-label="Sumário"><a class="logo" href="index.html"><img src="assets/logos/sand/lina-horizontal-ferro.svg" alt="LINA"></a>'
+    return (f'<a class="pular" href="#conteudo">Pular para o conteúdo</a><aside aria-label="Sumário"><a class="logo" href="index.html"><img src="assets/logos/sand/lina-horizontal-ferro.svg" alt="LInA"></a>'
             f'<p class="tit">Sistema de design</p><details class="sum" open><summary>Sumário</summary><ol>{itens}</ol></details></aside>')
 
 
@@ -219,7 +219,7 @@ for c in CAPS:
     prox = CAPS[i + 1] if i + 1 < len(CAPS) else None
     link = lambda k, seta: (f'<a href="{pagina_de(k)}">{seta} {k["n"]} · {escape(k["nome"])}</a>'
                             if k else '<span></span>')
-    titulo = f'{c["nome"]} · Sistema LINA'
+    titulo = f'{c["nome"]} · Sistema LInA'
     main = (f'<main id="conteudo" class="capitulo"><header><p class="num">{c["n"]}</p><h1>{escape(c["nome"])}</h1>'
             f'<p class="desc">{escape(c["desc"])}</p></header>\n{corpo}'
             f'<nav class="vizinhos">{link(ant, "←")}{link(prox, "→")}</nav></main>')
@@ -229,7 +229,7 @@ for c in CAPS:
 for f in FERR:
     main = (f'<main id="conteudo" class="capitulo"><header><h1>{escape(f["nome"])}</h1><p class="desc">{escape(f["sub"])}</p></header>\n'
             f'<section class="pagina-ferramenta">{(RAIZ / f["fragmento"]).read_text()}</section></main>')
-    (RAIZ / f['arquivo']).write_text(html(f'{f["nome"]} · Sistema LINA', f, main))
+    (RAIZ / f['arquivo']).write_text(html(f'{f["nome"]} · Sistema LInA', f, main))
 
 # ---- feedback: mesma moldura; a URL do Apps Script vai no data-url (vazia = formulário indisponível) ----
 def opcao(valor, texto, arq=None):
@@ -244,7 +244,7 @@ for c in CAPS:
 secoes += '<optgroup label="Ferramentas">' + ''.join(opcao(f['nome'], f['nome'], f['arquivo']) for f in FERR) + '</optgroup>'
 main = (f'<main id="conteudo" class="capitulo"><header><h1>{escape(FB["nome"])}</h1><p class="desc">{escape(FB["sub"])}</p></header>\n'
         f'<section class="pagina-ferramenta" data-url="{escape(S["feedback_url"])}">{(RAIZ / FB["fragmento"]).read_text().replace("<!--secoes-->", secoes)}</section></main>')
-(RAIZ / FB['arquivo']).write_text(html(f'{FB["nome"]} · Sistema LINA', FB, main))
+(RAIZ / FB['arquivo']).write_text(html(f'{FB["nome"]} · Sistema LInA', FB, main))
 
 # ---- home: porta de entrada + mapa; âncora velha (index.html#s-…) sem alvo na home vai para os Princípios ----
 HOME = '''
@@ -254,12 +254,12 @@ ferr_home = '<h3>Ferramentas</h3><ul class="regras">' + ''.join(f'<li><a href="{
 if S['feedback_url']:
     ferr_home += '<h3>Feedback</h3><ul class="regras"><li>Viu um erro, sentiu falta de algo ou tem uma sugestão? <a href="feedback.html">Conte para a equipe</a>.</li></ul>'
 main = f'<main id="conteudo" class="capitulo"><section>{(RAIZ / S["inicio"]).read_text()}{ferr_home}</section>\n{mapa}</main>'
-(RAIZ / 'index.html').write_text(html('Sistema LINA', None, main, HOME))
+(RAIZ / 'index.html').write_text(html('Sistema LInA', None, main, HOME))
 
 # ---- redirecionamentos das páginas velhas ----
 for velha, nova in S['antigos'].items():
     (RAIZ / velha).write_text(f'''<!doctype html>
-<html lang="pt-BR"><head><meta charset="utf-8"><title>Página movida · Sistema LINA</title>
+<html lang="pt-BR"><head><meta charset="utf-8"><title>Página movida · Sistema LInA</title>
 <meta http-equiv="refresh" content="0;url={nova}"><link rel="canonical" href="{nova}">
 <script>location.replace('{nova}' + location.hash);</script>
 </head><body><p>Esta página mudou: <a href="{nova}">{nova}</a>.</p></body></html>
@@ -278,8 +278,8 @@ AGENTES = [
     ('sistema.json', 'Índice do site: capítulos e entradas.'),
     ('README.md', 'Visão geral do repositório e da marca.'),
 ]
-llms = ['# Sistema de design LINA', '',
-        '> Sistema de design do LINA (UFC): logotipo, cores, padrões, tipografia, ícones, componentes e templates, '
+llms = ['# Sistema de design LInA', '',
+        '> Sistema de design do LInA (UFC): logotipo, cores, padrões, tipografia, ícones, componentes e templates, '
         'documentado neste site e pronto para consulta por agentes.']
 n_llms = 0
 for c in CAPS:

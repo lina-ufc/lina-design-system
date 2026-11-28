@@ -1,6 +1,6 @@
-# Sistema de design LINA
+# Sistema de design LInA
 
-**LINA — Laboratório de Modelagem da Informação: Arte · Arquitetura · Ambiente.** IAUD, Universidade Federal do Ceará.
+**LInA — Laboratório de Modelagem da Informação: Arte · Arquitetura · Ambiente.** IAUD, Universidade Federal do Ceará.
 
 Este arquivo resume as regras da marca em seis partes, na ordem em que devem ser lidas. O site (`index.html` e uma página por capítulo, geradas por `sistema.py`) desenha cada uma e traz também Princípios, componentes, templates e recursos para baixar.
 
